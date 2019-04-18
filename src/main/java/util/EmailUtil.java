@@ -8,6 +8,7 @@ public class EmailUtil {
      * @param emailaddress 目标邮箱
      * @param code 验证码
      * @return 成功true，失败false
+     * @author mingjun
      */
     public static boolean sendEmail(String emailaddress,String code){
         try {
@@ -34,6 +35,6 @@ public class EmailUtil {
     }
 
     public static void main(String[] args) {
-        sendEmail("544002828@qq.com","658964");
+        sendEmail("1732626355@qq.com","658964");
     }
 }
