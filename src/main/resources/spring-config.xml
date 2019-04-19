@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 引入db.properties -->
+    <context:property-placeholder location="classpath:db.properties" />
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <!--驱动-->
+        <property name="driverClassName" value="${driver}" />
+        <!--url-->
+        <property name="url" value="${url}" />
+        <!--账号-->
+        <property name="username" value="${username}" />
+        <!--密码-->
+        <property name="password" value="${password}" />
+
+        <!--数据库配置-->
+        <!-- 初始化连接大小 -->
+        <!--<property name="initialSize" value="${initialSize}" />-->
+        <!--&lt;!&ndash; 连接池最大数量 &ndash;&gt;-->
+        <!--&lt;!&ndash;<property name="maxActive" value="${maxActive}" />&ndash;&gt;-->
+        <!--&lt;!&ndash; 连接池最大空闲 &ndash;&gt;-->
+        <!--<property name="maxIdle" value="${maxIdle}" />-->
+        <!--&lt;!&ndash; 连接池最小空闲 &ndash;&gt;-->
+        <!--<property name="minIdle" value="${minIdle}" />-->
+        <!-- 获取连接最大等待时间 -->
+        <!--<property name="maxWait" value="${maxWait}" />-->
+    </bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--配置数据源-->
+        <property name="dataSource" ref="dataSource" />
+        <!-- 扫描model包 使用别名 -->
+        <property name="typeAliasesPackage" value="model"/>
+        <!-- 扫描sql配置文件:mapper需要的xml文件 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+</beans>
