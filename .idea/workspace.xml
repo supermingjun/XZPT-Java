@@ -1,52 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b370b0a9-eabb-47ce-b8d5-ac0228f79e77" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/empty_dir.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="b370b0a9-eabb-47ce-b8d5-ac0228f79e77" name="Default Changelist" comment="添加库，改邮件发送">
+      <change afterPath="$PROJECT_DIR$/src/test/java/controller/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/dao/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/model/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/service/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/util/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/util/EmailUtilTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/vo/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/controller.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/dao.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/代码规范例子.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/审核投递简历.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/投递简历.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/招聘信息管理.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/查看信息学生.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/生成简历.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/用例图.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/登录注册.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/私信求职者.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/管理个人信息.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/管理企业信息.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/类图.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/images/面试技巧.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/团队项目需求答辩.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/基于内容的推荐算法.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/数据库设计说明书.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/第五次作业答辩PPT.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/系统设计&amp;数据库设计评审表.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/系统设计说明书.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/需求分析评审表.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/需求规格说明书.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/需求规格说明书.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/model.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/pom.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/service.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/src/main/java/util/EmailUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/main/webapp/index.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/web.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/xzplatform.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/EmailUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/EmailUtil.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -65,19 +32,41 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+            <state relative-caret-position="269">
+              <caret line="81" column="16" lean-forward="true" selection-start-line="81" selection-start-column="16" selection-end-line="81" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/util/EmailUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="66" column="10" selection-start-line="66" selection-start-column="10" selection-end-line="66" selection-end-column="10" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1800#1801#0" expanded="true" />
+                <element signature="e#1861#1862#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/util/EmailUtil.java">
+        <entry file="file://$PROJECT_DIR$/src/test/java/util/EmailUtilTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+            <state relative-caret-position="140">
+              <caret line="10" column="12" lean-forward="true" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/vo/.gitignore">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -92,6 +81,13 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -99,6 +95,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/util/EmailUtilTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/EmailUtil.java" />
       </list>
     </option>
   </component>
@@ -124,32 +122,77 @@
         <subPane>
           <expand>
             <path>
-              <item name="XZPT_Java" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XZPT_Java" type="462c0819:PsiDirectoryNode" />
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="XZPT_Java" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XZPT_Java" type="462c0819:PsiDirectoryNode" />
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="XZPT_Java" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XZPT_Java" type="462c0819:PsiDirectoryNode" />
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="XZPT_Java" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XZPT_Java" type="462c0819:PsiDirectoryNode" />
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="XZPT_Java" type="b2602c69:ProjectViewProjectNode" />
-              <item name="XZPT_Java" type="462c0819:PsiDirectoryNode" />
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -165,13 +208,19 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555598755871" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Project/Java/Biu" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555604811312" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Murphy\IdeaProjects\XZPT-Java\src\test\java" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -185,7 +234,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.EmailUtilTest">
     <configuration name="EmailUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="util.EmailUtil" />
       <module name="xzplatform" />
@@ -199,8 +248,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="EmailUtilTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="XZPT-Java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="util" />
+      <option name="MAIN_CLASS_NAME" value="util.EmailUtilTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.EmailUtilTest" />
         <item itemvalue="Application.EmailUtil" />
       </list>
     </recent_temporary>
@@ -218,38 +283,72 @@
       <workItem from="1555598551377" duration="284000" />
       <workItem from="1555598861586" duration="10000" />
       <workItem from="1555599199372" duration="314000" />
+      <workItem from="1555601175488" duration="3673000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="EmailUtilTest - 2019.04.19 at 00h 04m 47s.xml">
+      <configuration name="EmailUtilTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EmailUtilTest - 2019.04.19 at 00h 14m 14s.xml">
+      <configuration name="EmailUtilTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EmailUtilTest - 2019.04.19 at 00h 16m 21s.xml">
+      <configuration name="EmailUtilTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EmailUtilTest - 2019.04.19 at 00h 16m 49s.xml">
+      <configuration name="EmailUtilTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EmailUtilTest - 2019.04.19 at 00h 17m 50s.xml">
+      <configuration name="EmailUtilTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EmailUtilTest - 2019.04.19 at 00h 18m 58s.xml">
+      <configuration name="EmailUtilTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EmailUtilTest - 2019.04.19 at 00h 20m 53s.xml">
+      <configuration name="EmailUtilTest" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="608000" />
+    <option name="totallyTimeSpent" value="4281000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Web" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25670242" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25938338" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" weight="0.3297587" />
-      <window_info anchor="bottom" id="Java Enterprise" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Spring" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3297587" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Java Enterprise" order="12" />
+      <window_info active="true" anchor="bottom" id="Messages" order="13" visible="true" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -260,9 +359,47 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Database" order="8" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2600536" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Spring" order="0" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.3286119" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="7" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Database Changes" order="10" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="bottom" id="Java Enterprise" order="13" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.3286119" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Maven" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Database" order="8" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="添加库，改邮件发送" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加库，改邮件发送" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/README.md">
@@ -273,17 +410,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="17" selection-start-column="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/vo/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+        <state relative-caret-position="269">
+          <caret line="81" column="16" lean-forward="true" selection-start-line="81" selection-start-column="16" selection-end-line="81" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/util/EmailUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        <state relative-caret-position="117">
+          <caret line="66" column="10" selection-start-line="66" selection-start-column="10" selection-end-line="66" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1800#1801#0" expanded="true" />
+            <element signature="e#1861#1862#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/util/EmailUtilTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="10" column="12" lean-forward="true" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -304,6 +466,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
+          <last-edited>Spring</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -326,6 +489,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
+          <last-edited>1.8</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -337,10 +501,12 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
+          <last-edited>XZPT-Java</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -348,6 +514,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
+          <last-edited>Maven: com.sun.mail:javax.mail:1.5.2</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
