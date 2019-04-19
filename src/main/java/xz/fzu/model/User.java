@@ -1,10 +1,10 @@
-package model;
+package xz.fzu.model;
 
 /**
  * @author Murphy
  * @date 2019/4/19 13:21
  */
-public class Student {
+public class User {
 
     private String studentId;
     private String passwd;
