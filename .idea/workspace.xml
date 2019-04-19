@@ -7,42 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b370b0a9-eabb-47ce-b8d5-ac0228f79e77" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/dao/IUserDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/model/Company.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/model/Recruitment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/model/Resume.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/model/ResumeDelivery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/service/IUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserDao.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/doc/需求规格说明书.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/需求规格说明书.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/controller/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/dao/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/model/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/service/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/util/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/EmailUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/util/EmailUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vo/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/vo/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/studentMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/spring-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/controller/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/xz/fzu/controller/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dao/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/xz/fzu/dao/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/xz/fzu/model/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/service/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/xz/fzu/service/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/util/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/xz/fzu/util/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/util/EmailUtilTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/xz/fzu/util/EmailUtilTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/vo/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/xz/fzu/vo/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/xz/fzu/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xz/fzu/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring-mvc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/spring-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring-mybatis.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -88,14 +57,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/xz/fzu/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+            <state relative-caret-position="-209">
+              <caret line="4" column="62" selection-start-line="4" selection-start-column="62" selection-end-line="4" selection-end-column="62" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="e#680#681#0" expanded="true" />
                 <element signature="e#727#728#0" expanded="true" />
-                <element signature="e#1353#1354#0" expanded="true" />
-                <element signature="e#1379#1380#0" expanded="true" />
+                <element signature="e#1300#1301#0" expanded="true" />
+                <element signature="e#1331#1332#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -122,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/spring-config.xml">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mybatis.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-636">
-              <caret line="23" column="50" lean-forward="true" selection-start-line="23" selection-start-column="50" selection-end-line="23" selection-end-column="50" />
+            <state relative-caret-position="76">
+              <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
               <folding>
                 <element signature="e#1049#1067#0" expanded="true" />
                 <element signature="e#1548#1566#0" expanded="true" />
@@ -135,11 +103,20 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mvc.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="16" column="28" lean-forward="true" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+            <state relative-caret-position="76">
+              <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -149,18 +126,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="209">
               <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/xz/fzu/util/EmailUtilTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -212,10 +177,12 @@
         <option value="$PROJECT_DIR$/src/test/java/xz/fzu/util/EmailUtilTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/xz/fzu/service/IUserService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/xz/fzu/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/java/xz/fzu/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/spring-config.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/xz/fzu/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/spring-mybatis.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/spring-mvc.xml" />
       </list>
     </option>
   </component>
@@ -297,6 +264,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="fzu" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="XZPT-Java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="fzu" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="XZPT-Java" type="b2602c69:ProjectViewProjectNode" />
@@ -407,7 +383,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555701548358" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555702921164" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -567,7 +543,7 @@
       <workItem from="1555598861586" duration="10000" />
       <workItem from="1555599199372" duration="314000" />
       <workItem from="1555601175488" duration="14351000" />
-      <workItem from="1555689847086" duration="11319000" />
+      <workItem from="1555689847086" duration="12689000" />
     </task>
     <task id="LOCAL-00001" summary="添加库，改邮件发送">
       <created>1555604897576</created>
@@ -583,7 +559,14 @@
       <option name="project" value="LOCAL" />
       <updated>1555652502922</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="添加实体，添加MVC">
+      <created>1555701638495</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1555701638495</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -613,7 +596,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26278000" />
+    <option name="totallyTimeSpent" value="27648000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -628,7 +611,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2627346" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2627346" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -639,7 +622,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.5467422" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3937677" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.3937677" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
@@ -703,7 +686,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="添加库，改邮件发送" />
     <MESSAGE value="添加配置文件，添加Student实体" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加配置文件，添加Student实体" />
+    <MESSAGE value="添加实体，添加MVC" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加实体，添加MVC" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -734,9 +718,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/xz/fzu/controller/UserController.java</url>
-          <line>36</line>
+          <line>50</line>
           <properties />
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/xz/fzu/controller/UserController.java</url>
+          <line>52</line>
+          <properties />
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -762,13 +752,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/util/DatabaseHelper.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mybatis-config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/xz/fzu/model/Recruitment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-643">
@@ -860,6 +843,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/xz/fzu/service/impl/UserServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -872,33 +862,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/xz/fzu/controller/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="22" column="14" lean-forward="true" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+        <state relative-caret-position="-209">
+          <caret line="4" column="62" selection-start-line="4" selection-start-column="62" selection-end-line="4" selection-end-column="62" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#680#681#0" expanded="true" />
             <element signature="e#727#728#0" expanded="true" />
-            <element signature="e#1353#1354#0" expanded="true" />
-            <element signature="e#1379#1380#0" expanded="true" />
+            <element signature="e#1300#1301#0" expanded="true" />
+            <element signature="e#1331#1332#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mybatis.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-636">
-          <caret line="23" column="50" lean-forward="true" selection-start-line="23" selection-start-column="50" selection-end-line="23" selection-end-column="50" />
+        <state relative-caret-position="76">
+          <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
           <folding>
             <element signature="e#1049#1067#0" expanded="true" />
             <element signature="e#1548#1566#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-mvc.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="16" column="28" lean-forward="true" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="28" />
         </state>
       </provider>
     </entry>

@@ -1,9 +1,8 @@
 package xz.fzu.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import xz.fzu.service.IUserService;
 
 import javax.annotation.Resource;
@@ -25,6 +24,13 @@ public class UserController {
         this.iUserService =iUserService;
     }
 
+    /**
+     * @param user
+     * @return java.util.Map
+     * @author Murphy
+     * @date 2019/4/20 3:40
+     * @description 注册方法 //TODO
+     */
     @RequestMapping(value = "/register",method = RequestMethod.POST)@ResponseBody
     public  Map register(@RequestBody User user){
         Map map=new HashMap<>();
@@ -34,8 +40,16 @@ public class UserController {
         map.put("id",user.getStudentId());
         return map;
     }
+
+    /**
+     * @param
+     * @return java.lang.String
+     * @author Murphy
+     * @date 2019/4/20 3:40
+     * @description 测试方法
+     */
     @RequestMapping(value = "/*",method = RequestMethod.POST)@ResponseBody
-    public Map other(){
-        return null;
+    public String other() {
+        return "nimabi";
     }
 }
