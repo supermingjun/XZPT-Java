@@ -76,6 +76,7 @@ public class UserController {
         try {
             if (TokenUtil.verify(token)) ;
             //TODO  更新Token吗？
+            returnMap.put(Constants.resultObject, token);
         } catch (Exception e) {
             returnMap.put(Constants.resultCode, Constants.TOKEN_EXPIRED);
             returnMap.put(Constants.resultMsg, e.getMessage());
