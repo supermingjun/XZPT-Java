@@ -1,127 +1,130 @@
 package xz.fzu.model;
 
 
-public class Recruitment {
+import java.io.Serializable;
 
-  private java.sql.Timestamp publishTime;
-  private String companyId;
-  private String description;
-  private long recruitmentId;
-  private String contact;
-  private String qualifications;
-  private String location;
-  private String deliveryRequest;
-  private String duty;
-  private String salary;
-  private long type;
-  private long validate;
+public class Recruitment implements Serializable {
 
-
-  public java.sql.Timestamp getPublishTime() {
-    return publishTime;
-  }
-
-  public void setPublishTime(java.sql.Timestamp publishTime) {
-    this.publishTime = publishTime;
-  }
+    private static final long serialVersionUID = 1L;
+    private java.sql.Timestamp publishTime;
+    private String companyId;
+    private String description;
+    private long recruitmentId;
+    private String contact;
+    private String qualifications;
+    private String location;
+    private String deliveryRequest;
+    private String duty;
+    private String salary;
+    private long type;
+    private long validate;
 
 
-  public String getCompanyId() {
-    return companyId;
-  }
+    public java.sql.Timestamp getPublishTime() {
+        return publishTime;
+    }
 
-  public void setCompanyId(String companyId) {
-    this.companyId = companyId;
-  }
-
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public void setPublishTime(java.sql.Timestamp publishTime) {
+        this.publishTime = publishTime;
+    }
 
 
-  public long getRecruitmentId() {
-    return recruitmentId;
-  }
+    public String getCompanyId() {
+        return companyId;
+    }
 
-  public void setRecruitmentId(long recruitmentId) {
-    this.recruitmentId = recruitmentId;
-  }
-
-
-  public String getContact() {
-    return contact;
-  }
-
-  public void setContact(String contact) {
-    this.contact = contact;
-  }
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
 
 
-  public String getQualifications() {
-    return qualifications;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public void setQualifications(String qualifications) {
-    this.qualifications = qualifications;
-  }
-
-
-  public String getLocation() {
-    return location;
-  }
-
-  public void setLocation(String location) {
-    this.location = location;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 
-  public String getDeliveryRequest() {
-    return deliveryRequest;
-  }
+    public long getRecruitmentId() {
+        return recruitmentId;
+    }
 
-  public void setDeliveryRequest(String deliveryRequest) {
-    this.deliveryRequest = deliveryRequest;
-  }
-
-
-  public String getDuty() {
-    return duty;
-  }
-
-  public void setDuty(String duty) {
-    this.duty = duty;
-  }
+    public void setRecruitmentId(long recruitmentId) {
+        this.recruitmentId = recruitmentId;
+    }
 
 
-  public String getSalary() {
-    return salary;
-  }
+    public String getContact() {
+        return contact;
+    }
 
-  public void setSalary(String salary) {
-    this.salary = salary;
-  }
-
-
-  public long getType() {
-    return type;
-  }
-
-  public void setType(long type) {
-    this.type = type;
-  }
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
 
 
-  public long getValidate() {
-    return validate;
-  }
+    public String getQualifications() {
+        return qualifications;
+    }
 
-  public void setValidate(long validate) {
-    this.validate = validate;
-  }
+    public void setQualifications(String qualifications) {
+        this.qualifications = qualifications;
+    }
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+
+    public String getDeliveryRequest() {
+        return deliveryRequest;
+    }
+
+    public void setDeliveryRequest(String deliveryRequest) {
+        this.deliveryRequest = deliveryRequest;
+    }
+
+
+    public String getDuty() {
+        return duty;
+    }
+
+    public void setDuty(String duty) {
+        this.duty = duty;
+    }
+
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+
+
+    public long getType() {
+        return type;
+    }
+
+    public void setType(long type) {
+        this.type = type;
+    }
+
+
+    public long getValidate() {
+        return validate;
+    }
+
+    public void setValidate(long validate) {
+        this.validate = validate;
+    }
 
 }

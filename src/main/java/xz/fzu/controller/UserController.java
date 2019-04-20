@@ -46,7 +46,7 @@ public class UserController {
                 throw new RuntimeException("验证码错误");
             }
             iUserService.register(user);
-            returnMap.put(Constants.resultObject, user.getStudentId());
+            returnMap.put(Constants.resultObject, user.getUserId());
         } catch (NullPointerException e) {
             returnMap.put(Constants.resultCode, Constants.validateCodeError);
             returnMap.put(Constants.resultMsg, e.getMessage());

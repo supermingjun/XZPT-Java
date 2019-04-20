@@ -1,18 +1,23 @@
 package xz.fzu.model;
 
+import java.io.Serializable;
+
 /**
  * @author Murphy
  * @date 2019/4/19 13:21
  */
-public class User {
 
-    private String studentId;
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private String userId;
     private String passwd;
     private String telephone;
     private String userName;
     private String headUrl;
     private String email;
-    private int sex;
+    private long sex;
     private String school;
     private String specialty;
     private String occupation;
@@ -20,12 +25,12 @@ public class User {
     private String expectedCity;
 
 
-    public String getStudentId() {
-        return studentId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 
@@ -74,11 +79,11 @@ public class User {
     }
 
 
-    public int getSex() {
+    public long getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(long sex) {
         this.sex = sex;
     }
 
@@ -128,4 +133,5 @@ public class User {
     }
 
 }
+
 
