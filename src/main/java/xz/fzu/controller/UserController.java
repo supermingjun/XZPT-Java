@@ -1,12 +1,12 @@
 package xz.fzu.controller;
 
+import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.model.User;
 import xz.fzu.service.IUserService;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,12 +33,12 @@ public class UserController {
      */
     @RequestMapping(value = "/register",method = RequestMethod.POST)@ResponseBody
     public  Map register(@RequestBody User user){
-        Map map=new HashMap<>();
-        user.setStudentId("123");
-        iUserService.register(user);
-        map.put("status",200);
-        map.put("id",user.getStudentId());
-        return map;
+        try {
+            iUserService.register(user);
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -49,7 +49,7 @@ public class UserController {
      * @description 测试方法
      */
     @RequestMapping(value = "/*",method = RequestMethod.POST)@ResponseBody
-    public String other() {
+    public String other(String args) {
         return "nimabi";
     }
 }

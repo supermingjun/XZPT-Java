@@ -1,11 +1,14 @@
 package xz.fzu.service.impl;
 
+import org.apache.commons.mail.EmailException;
 import org.springframework.stereotype.Service;
 import xz.fzu.dao.IUserDao;
 import xz.fzu.model.User;
 import xz.fzu.service.IUserService;
+import xz.fzu.util.EmailUtil;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 
 /**
  * @author Murphy
@@ -18,7 +21,11 @@ public class UserServiceImpl implements IUserService {
     @Resource
     IUserDao IUserDao;
     @Override
-    public void register(User user) {
+    public void register(User user) throws EmailException {
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        String email = user.getEmail();
+        int value = EmailUtil.getInstance().sendEmail(email);
+        user.setStudentId(uuid);
         IUserDao.register(user);
     }
 }

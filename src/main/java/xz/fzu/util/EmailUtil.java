@@ -11,7 +11,7 @@ public class EmailUtil {
      * @return 返回随机码
      * @author mingjun
      */
-    int sendEmail(String emailaddress) throws EmailException {
+    public int sendEmail(String emailaddress) throws EmailException {
         int code = getRandomCode();
         HtmlEmail email = new HtmlEmail();
         email.setHostName("smtp.yeah.net");//需要修改，126邮箱为smtp.126.com,163邮箱为163.smtp.com，QQ为smtp.qq.com，qq失败率高，不建议使用
