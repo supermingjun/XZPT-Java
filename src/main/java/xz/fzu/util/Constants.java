@@ -9,6 +9,12 @@ public class Constants {
     /* 返回值相关*/
     /* OK */
     public static final Integer OK = 200;
+
+    // Token过期
+    public static final int TOKEN_EXPIRED = 2002;
+
+    //账号不存在或者密码错误。
+    public static final int PASSWD_FAULT = 2008;
     /* 验证码错误*/
     public static final Integer validateCodeError = 2011;
     /* 账号已被注册*/

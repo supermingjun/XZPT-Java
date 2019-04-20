@@ -27,11 +27,16 @@
 
     <!--根据邮箱查找用户-->
     <select id="selectByEmail" parameterType="java.lang.String" resultType="User" resultMap="selectMap">
-        SELECT * FROM user WHERE email ={#email}
+        SELECT * FROM user WHERE email =#{email}
     </select>
 
     <!--根据id查找用户-->
     <select id="selectByUserId" parameterType="java.lang.String" resultType="User" resultMap="selectMap">
-        SELECT * FROM user WHERE student_id ={#studentId}
+        SELECT * FROM user WHERE student_id =#{studentId}
+    </select>
+
+    <!-- 验证用户名和密码 -->
+    <select id="vertifyUser" parameterType="xz.fzu.model.User" resultType="int">
+        SELECT COUNT(*) FROM user WHERE student_id =#{studentId} AND passwd=#{passwd}
     </select>
 </mapper>
