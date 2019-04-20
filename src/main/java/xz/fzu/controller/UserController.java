@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.model.User;
 import xz.fzu.service.IUserService;
+import xz.fzu.service.IValidateCodeService;
+import xz.fzu.util.Constants;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -19,26 +21,40 @@ import java.util.Map;
 public class UserController {
     @Resource
     private IUserService iUserService;
+    @Resource
+    private IValidateCodeService iValidateCodeService;
     @Autowired
-    public UserController(IUserService iUserService){
+    public UserController(IUserService iUserService, IValidateCodeService iValidateCodeService) {
         this.iUserService =iUserService;
+        this.iValidateCodeService = iValidateCodeService;
     }
 
     /**
      * @param user
+     * @param code 验证码
      * @return java.util.Map
      * @author Murphy
      * @date 2019/4/20 3:40
-     * @description 注册方法 //TODO
+     * @description 注册方法 //TODO code需要修改
      */
     @RequestMapping(value = "/register",method = RequestMethod.POST)@ResponseBody
-    public  Map register(@RequestBody User user){
-        Map map=new HashMap<>();
-        user.setStudentId("123");
-        iUserService.register(user);
-        map.put("status",200);
-        map.put("id",user.getStudentId());
-        return map;
+    public Map register(@RequestBody User user, @RequestParam int code) {
+        Map<Object, Object> returnMap = new HashMap<Object, Object>();
+        returnMap.put(Constants.resultCode, Constants.OK);
+        try {
+            if (!iValidateCodeService.validateCode(user.getEmail(), code)) {
+                throw new RuntimeException("验证码错误");
+            }
+            iUserService.register(user);
+            returnMap.put(Constants.resultObject, user.getStudentId());
+        } catch (NullPointerException e) {
+            returnMap.put(Constants.resultCode, Constants.validateCodeError);
+            returnMap.put(Constants.resultMsg, e.getMessage());
+        } catch (Exception e) {
+            returnMap.put(Constants.resultCode, Constants.accountUsed);
+            returnMap.put(Constants.resultMsg, e.getMessage());
+        }
+        return returnMap;
     }
 
     /**
@@ -49,7 +65,7 @@ public class UserController {
      * @description 测试方法
      */
     @RequestMapping(value = "/*",method = RequestMethod.POST)@ResponseBody
-    public String other() {
-        return "nimabi";
+    public String other(String args) {
+        return null;
     }
 }

@@ -1,7 +1,7 @@
 package xz.fzu.dao;
 
-import xz.fzu.model.User;
 import org.springframework.stereotype.Repository;
+import xz.fzu.model.User;
 
 /**
  * @author Murphy
@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface IUserDao {
-    void register(User user);
+    void insertUser(User user);
+
+    int selectByEmail(String email);
 }

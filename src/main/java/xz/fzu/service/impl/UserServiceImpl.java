@@ -6,6 +6,7 @@ import xz.fzu.model.User;
 import xz.fzu.service.IUserService;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 
 /**
  * @author Murphy
@@ -19,6 +20,8 @@ public class UserServiceImpl implements IUserService {
     IUserDao IUserDao;
     @Override
     public void register(User user) {
-        IUserDao.register(user);
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        user.setStudentId(uuid);
+        IUserDao.insertUser(user);
     }
 }
