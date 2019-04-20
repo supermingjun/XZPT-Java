@@ -3,7 +3,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="xz.fzu.dao.IUserDao">
-    <insert id="register" parameterType="xz.fzu.model.User">
+    <insert id="insertUser" parameterType="xz.fzu.model.User">
         INSERT INTO user(student_id,email,passwd) VALUES (#{studentId},#{email},#{passwd})
     </insert>
+    <select id="selectByEmail" parameterType="java.lang.String">
+        SELECT COUNT(*) FROM user WHERE email ={#email}
+    </select>
 </mapper>
