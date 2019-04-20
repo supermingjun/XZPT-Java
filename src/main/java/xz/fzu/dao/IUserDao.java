@@ -11,5 +11,7 @@ import xz.fzu.model.User;
 public interface IUserDao {
     void insertUser(User user);
 
-    int selectByEmail(String email);
+    User selectByEmail(String email);
+
+    User selectByUserId(String email);
 }
