@@ -1,4 +1,4 @@
-package util;
+package xz.fzu.util;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -46,7 +46,7 @@ public class EmailUtil {
 
     /**
      * @param
-     * @return util.EmailUtil
+     * @return xz.fzu.util.EmailUtil
      * @author Murphy
      * @date 2019/4/18 23:59
      * @description 返回单例
