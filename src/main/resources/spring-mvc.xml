@@ -36,36 +36,5 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
         <property name="properties" ref="configProperties"/>
     </bean>
-    <!--&lt;!&ndash;  Shiro start  &ndash;&gt;-->
-    <!--<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">-->
-    <!--<property name="realm" ref="ShiroRealm" />-->
-    <!--</bean>-->
 
-
-    <!-- 项目自定义的Realm -->
-    <!--<bean id="ShiroRealm" class="xz.fzu.security.ShiroRealm" />-->
-
-    <!--&lt;!&ndash; Shiro Filter &ndash;&gt;-->
-    <!--<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">-->
-    <!--<property name="securityManager" ref="securityManager" />-->
-
-    <!--<property name="loginUrl" value="/login" />-->
-
-    <!--<property name="successUrl" value="/admin/index" />-->
-
-    <!--<property name="unauthorizedUrl" value="/login" />-->
-
-    <!--<property name="filterChainDefinitions">-->
-    <!--<value>-->
-    <!--/static/**                  = anon-->
-    <!--/upload/**                  = anon-->
-    <!--/plugins/**                 = anon-->
-    <!--/code                       = anon-->
-    <!--/login                      = anon-->
-    <!--/logincheck                 = anon-->
-    <!--/**                         = authc-->
-    <!--</value>-->
-    <!--</property>-->
-    <!--</bean>-->
-    <!--  Shiro end  -->
 </beans>

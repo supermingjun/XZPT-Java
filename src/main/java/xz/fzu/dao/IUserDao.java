@@ -14,4 +14,6 @@ public interface IUserDao {
     User selectByEmail(String email);
 
     User selectByUserId(String email);
+
+    int vertifyUser(User user);
 }

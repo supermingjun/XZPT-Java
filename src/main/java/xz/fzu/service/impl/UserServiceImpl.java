@@ -36,4 +36,24 @@ IUserDao iUserDao;
     public User selectByEmail(String email) {
         return iUserDao.selectByEmail(email);
     }
+
+    @Override
+    public User selectByUserId(String userId) {
+        return iUserDao.selectByUserId(userId);
+    }
+
+    /**
+     * @param user
+     * @return int
+     * @author Murphy
+     * @date 2019/4/20 21:05
+     * @description 验证用户名和密码
+     */
+    @Override
+    public void vertifyUser(User user) {
+        if (iUserDao.vertifyUser(user) != 1) {
+            throw new RuntimeException("账号或密码错误");
+        }
+        ;
+    }
 }
