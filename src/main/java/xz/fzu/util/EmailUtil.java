@@ -30,7 +30,7 @@ public class EmailUtil {
     }
 
     /* EmailUtil的静态引用 */
-    private static EmailUtil emailUtil;
+    private volatile static EmailUtil emailUtil;
 
     /**
      * @param

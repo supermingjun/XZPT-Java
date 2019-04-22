@@ -22,8 +22,8 @@ public class TokenUtil {
     private static final String USER_ID = "USER_ID";
     private static final String PASSWORD = "PASSWORD";
 
-    // 过期时间为1天
-    private static final long EXPIRE_TIME = 24 * 60 * 60 * 1000;
+    // 过期时间为7天
+    private static final long EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000;
 
     /**
      * @param userId

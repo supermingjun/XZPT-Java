@@ -19,15 +19,16 @@ import java.util.Map;
  */
 //    @RestController注解相当于@ResponseBody ＋ @Controller合在一起的作用。
 @RestController
-@RequestMapping(value = "/user",method = RequestMethod.POST)
+@RequestMapping(value = "/user", method = RequestMethod.POST)
 public class UserController {
     @Resource
     private IUserService iUserService;
     @Resource
     private IValidateCodeService iValidateCodeService;
+
     @Autowired
     public UserController(IUserService iUserService, IValidateCodeService iValidateCodeService) {
-        this.iUserService =iUserService;
+        this.iUserService = iUserService;
         this.iValidateCodeService = iValidateCodeService;
     }
 
@@ -39,9 +40,11 @@ public class UserController {
      * @date 2019/4/20 3:40
      * @description 注册方法 //TODO code需要修改
      */
-    @RequestMapping(value = "/register",method = RequestMethod.POST)@ResponseBody
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
     public Map register(@RequestBody User user, @RequestParam int code) {
-        user.setPasswd(SHA.encrypt(user.getPasswd()));
+
+        entryPasswd(user);
         Map<Object, Object> returnMap = new HashMap<Object, Object>();
         returnMap.put(Constants.resultCode, Constants.OK);
         try {
@@ -51,6 +54,7 @@ public class UserController {
             iUserService.register(user);
             String token = TokenUtil.sign(user.getUserId(), user.getPasswd());
             returnMap.put(Constants.resultObject, token);
+
         } catch (NullPointerException e) {
             returnMap.put(Constants.resultCode, Constants.validateCodeError);
             returnMap.put(Constants.resultMsg, e.getMessage());
@@ -71,12 +75,14 @@ public class UserController {
     @RequestMapping(value = "/vertifytoken", method = RequestMethod.POST)
     @ResponseBody
     public Map loginWithToken(@RequestParam String token) {
+
         Map<Object, Object> returnMap = new HashMap<Object, Object>();
         returnMap.put(Constants.resultCode, Constants.OK);
         try {
-            if (TokenUtil.verify(token)) ;
-            //TODO  更新Token吗？
-            returnMap.put(Constants.resultObject, token);
+            if (TokenUtil.verify(token)) {
+                returnMap.put(Constants.resultObject, token);
+                // TODO 这里需要添加重新签证，但是要重新获取账号密码太浪费资源了。
+            }
         } catch (Exception e) {
             returnMap.put(Constants.resultCode, Constants.TOKEN_EXPIRED);
             returnMap.put(Constants.resultMsg, e.getMessage());
@@ -94,7 +100,8 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public Map login(@RequestBody User user) {
-        user.setPasswd(SHA.encrypt(user.getPasswd()));
+
+        entryPasswd(user);
         Map<Object, Object> returnMap = new HashMap<Object, Object>();
         returnMap.put(Constants.resultCode, Constants.OK);
         try {
@@ -107,6 +114,7 @@ public class UserController {
         }
         return returnMap;
     }
+
     /**
      * @param
      * @return java.lang.String
@@ -114,8 +122,20 @@ public class UserController {
      * @date 2019/4/20 3:40
      * @description 测试方法
      */
-    @RequestMapping(value = "/*",method = RequestMethod.POST)@ResponseBody
+    @RequestMapping(value = "/*", method = RequestMethod.POST)
+    @ResponseBody
     public String other(String args) {
         return null;
+    }
+
+    /**
+     * @param user
+     * @return void
+     * @author Murphy
+     * @date 2019/4/23 0:05
+     * @description 加密用户密码
+     */
+    private void entryPasswd(User user) {
+        user.setPasswd(SHA.encrypt(user.getPasswd()));
     }
 }

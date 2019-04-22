@@ -22,7 +22,8 @@
 
     <!--插入一个用户-->
     <insert id="insertUser" parameterType="xz.fzu.model.User">
-        INSERT INTO user(user_id,email,passwd) VALUES (#{userId},#{email},#{passwd})
+        INSERT INTO user(user_id,passwd, telephone, user_name, head_url,email, sex,school, specialty, occupation, present_city, expected_city)
+          VALUES ( #{userId},#{passwd},{telephone},#{userName},{headUrl},#{email},{sex},#{school},{specialty},#{occupation},#{presentCity},#{expectedCity})
     </insert>
 
     <!--根据邮箱查找用户-->

@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 public class ValidateCodeServiceImpl implements IValidateCodeService {
 
     // 存储验证码
-//    static Map<String, Integer> map = new HashMap<>();
     @Autowired
     private HttpServletRequest httpServletRequest;
     /***
@@ -33,7 +32,6 @@ public class ValidateCodeServiceImpl implements IValidateCodeService {
         int value = emailUtil.sendEmail(email);
         HttpSession session = httpServletRequest.getSession();
         session.setAttribute(email, value);
-//        map.put(email, value);
         return value;
     }
 
@@ -48,7 +46,6 @@ public class ValidateCodeServiceImpl implements IValidateCodeService {
     public boolean validateCode(String email, int code) {
         HttpSession session = httpServletRequest.getSession();
         return code == (Integer) session.getAttribute(email);
-//        return map.get(email).equals(code);
     }
 
 }
