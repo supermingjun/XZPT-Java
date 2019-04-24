@@ -10,6 +10,7 @@ public class Constants {
     /* OK */
     public static final Integer OK = 200;
 
+    public static final int UNKNOWN_ERROR = 1999;
     // Token过期
     public static final int TOKEN_EXPIRED = 2002;
 

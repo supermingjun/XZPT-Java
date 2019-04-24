@@ -28,7 +28,7 @@ public class SHA {
         } catch (Exception e) {
             return passwd;
         }
-        return sha.toString(32);
+        return sha.toString(32).substring(0, 32);
     }
 
     private SHA() {

@@ -9,21 +9,69 @@ import xz.fzu.model.User;
  */
 @Repository
 public interface IUserDao {
-    // 插入用户
+
+    /**
+     * @param user
+     * @return void
+     * @author Murphy
+     * @date 2019/4/24 14:14
+     * @description 插入用户
+     */
     void insertUser(User user);
 
-    // 根据邮箱查找用户
+    /**
+     * @param email
+     * @return xz.fzu.model.User
+     * @author Murphy
+     * @date 2019/4/24 14:16
+     * @description 根据邮箱查找用户
+     */
     User selectByEmail(String email);
 
-    // 根据id查找用户 调用此方法前应先调用token得到userid的方法-
+    /**
+     * @param userId
+     * @return xz.fzu.model.User
+     * @author Murphy
+     * @date 2019/4/24 14:14
+     * @description 根据id查找用户 调用此方法前应先调用token得到userid的方法-
+     */
     User selectByUserId(String userId);
 
-    // 验证用户账号密码
+    /**
+     * @param user
+     * @return int
+     * @author Murphy
+     * @date 2019/4/24 14:14
+     * @description 验证用户账号密码
+     */
     int vertifyUser(User user);
 
-    // 通过token查找用户
+    /**
+     * @param token
+     * @return java.lang.String
+     * @author Murphy
+     * @date 2019/4/24 14:14
+     * @description 通过token查找用户
+     */
     String selectUserIdByToken(String token);
 
-    // 更新token
-    int updateToken(String token, String userId);
+    /**
+     * @param token
+     * @param userId
+     * @return void
+     * @author Murphy
+     * @date 2019/4/24 14:08
+     * @description 更新token
+     */
+    void updateToken(String token, String userId);
+
+    /**
+     * @param userId
+     * @param passwd
+     * @return void
+     * @author Murphy
+     * @date 2019/4/24 14:13
+     * @description 更新密码
+     */
+    void updatePasswd(String userId, String passwd);
 }

@@ -48,7 +48,13 @@
     </select>
 
     <!-- 更新token -->
-    <select id="updateToken" parameterType="java.lang.String" resultType="int">
-        UPDATE user SET token=#{token} WHERE user_id=#{userId}
+    <select id="updateToken">
+        UPDATE user SET token=#{arg0} WHERE user_id=#{arg1}
+    </select>
+
+    <!-- 更新密码 -->
+    <!--parameterType="hashmap 多参数，暂时使用序号"-->
+    <select id="updatePasswd">
+        UPDATE user SET passwd=#{arg1} WHERE user_id=#{arg0}
     </select>
 </mapper>
