@@ -1,12 +1,14 @@
 package xz.fzu.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.io.Serializable;
 
 /**
  * @author Murphy
  * @date 2019/4/19 13:21
  */
-
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,6 +26,16 @@ public class User implements Serializable {
     private String presentCity;
     private String expectedCity;
 
+    /* token 临时存这里吧 //TODO 注意以后把这个从实体类中删除*/
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getUserId() {
         return userId;

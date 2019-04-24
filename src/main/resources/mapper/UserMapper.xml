@@ -18,12 +18,13 @@
         <result property="occupation" column="occupation"/>
         <result property="presentCity" column="present_city"/>
         <result property="expectedCity" column="expected_city"/>
+        <result property="token" column="token"/>
     </resultMap>
 
     <!--插入一个用户-->
     <insert id="insertUser" parameterType="xz.fzu.model.User">
-        INSERT INTO user(user_id,passwd, telephone, user_name, head_url,email, sex,school, specialty, occupation, present_city, expected_city)
-          VALUES ( #{userId},#{passwd},{telephone},#{userName},{headUrl},#{email},{sex},#{school},{specialty},#{occupation},#{presentCity},#{expectedCity})
+        INSERT INTO user(user_id,passwd, telephone, user_name, head_url,email, sex,school, specialty, occupation, present_city, expected_city,token)
+          VALUES ( #{userId},#{passwd},#{telephone},#{userName},#{headUrl},#{email},#{sex},#{school},#{specialty},#{occupation},#{presentCity},#{expectedCity},#{token})
     </insert>
 
     <!--根据邮箱查找用户-->
@@ -31,13 +32,23 @@
         SELECT * FROM user WHERE email =#{email}
     </select>
 
-    <!--根据id查找用户-->
+    <!--根据id查找用户 调用此方法前应先调用token得到userid的方法-->
     <select id="selectByUserId" parameterType="java.lang.String" resultType="User" resultMap="selectMap">
-        SELECT * FROM user WHERE student_id =#{studentId}
+        SELECT *  FROM user WHERE user_id =#{userId}
     </select>
 
     <!-- 验证用户名和密码 -->
     <select id="vertifyUser" parameterType="xz.fzu.model.User" resultType="int">
-        SELECT COUNT(*) FROM user WHERE student_id =#{studentId} AND passwd=#{passwd}
+        SELECT COUNT(*) FROM user WHERE email =#{email} AND passwd=#{passwd}
+    </select>
+
+    <!-- 通过token查找用户 -->
+    <select id="selectUserIdByToken" parameterType="java.lang.String" resultType="String">
+        SELECT user_id FROM user WHERE token =#{token}
+    </select>
+
+    <!-- 更新token -->
+    <select id="updateToken" parameterType="java.lang.String" resultType="int">
+        UPDATE user SET token=#{token} WHERE user_id=#{userId}
     </select>
 </mapper>

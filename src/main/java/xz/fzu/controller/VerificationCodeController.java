@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import xz.fzu.model.User;
-import xz.fzu.service.IValidateCodeService;
+import xz.fzu.service.IVerificationCodeService;
 import xz.fzu.util.Constants;
 
 import javax.annotation.Resource;
@@ -18,15 +18,15 @@ import java.util.Map;
  * @author Murphy
  * @date 2019/4/20 11:06
  */
-@RequestMapping(value = "/getvalidatecode")
+@RequestMapping(value = "/getverificationcode")
 @RestController
-public class ValidateCodeController {
+public class VerificationCodeController {
 
     @Resource
-    IValidateCodeService iValidateCodeService;
+    IVerificationCodeService iValidateCodeService;
 
     @Autowired
-    public ValidateCodeController(IValidateCodeService iValidateCodeService) {
+    public VerificationCodeController(IVerificationCodeService iValidateCodeService) {
         this.iValidateCodeService = iValidateCodeService;
     }
 
@@ -39,7 +39,7 @@ public class ValidateCodeController {
      */
     @RequestMapping(value = "/*")
     @ResponseBody
-    public Map getValidateCode(@RequestBody User user) {
+    public Map getVerificationCode(@RequestBody User user) {
         Map<Object, Object> returnMap = new HashMap<Object, Object>();
         returnMap.put(Constants.resultCode, Constants.OK);
         try {

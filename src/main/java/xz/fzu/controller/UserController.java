@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.model.User;
 import xz.fzu.service.IUserService;
-import xz.fzu.service.IValidateCodeService;
+import xz.fzu.service.IVerificationCodeService;
 import xz.fzu.util.Constants;
 import xz.fzu.util.SHA;
 import xz.fzu.util.TokenUtil;
@@ -24,10 +24,10 @@ public class UserController {
     @Resource
     private IUserService iUserService;
     @Resource
-    private IValidateCodeService iValidateCodeService;
+    private IVerificationCodeService iValidateCodeService;
 
     @Autowired
-    public UserController(IUserService iUserService, IValidateCodeService iValidateCodeService) {
+    public UserController(IUserService iUserService, IVerificationCodeService iValidateCodeService) {
         this.iUserService = iUserService;
         this.iValidateCodeService = iValidateCodeService;
     }
@@ -44,27 +44,39 @@ public class UserController {
     @ResponseBody
     public Map register(@RequestBody User user, @RequestParam int code) {
 
-        entryPasswd(user);
+        user.setPasswd(SHA.encrypt(user.getPasswd()));
         Map<Object, Object> returnMap = new HashMap<Object, Object>();
         returnMap.put(Constants.resultCode, Constants.OK);
         try {
             if (!iValidateCodeService.validateCode(user.getEmail(), code)) {
-                throw new RuntimeException("验证码错误");
+                throw new ValidateErrorException("验证码错误");
             }
-            iUserService.register(user);
-            String token = TokenUtil.sign(user.getUserId(), user.getPasswd());
+            // 此处传引用，自动更新user的id。
+            String token = iUserService.register(user);
             returnMap.put(Constants.resultObject, token);
+        } catch (ValidateErrorException e) {
 
+            resultPutInformation(returnMap, Constants.validateCodeError, e.getMessage());
+        } catch (org.apache.ibatis.exceptions.PersistenceException e) {
+
+            resultPutInformation(returnMap, Constants.databaseConnectError, e.getMessage());
         } catch (NullPointerException e) {
-            returnMap.put(Constants.resultCode, Constants.validateCodeError);
-            returnMap.put(Constants.resultMsg, e.getMessage());
+
+            resultPutInformation(returnMap, Constants.noVerfcationCode, e.getMessage());
         } catch (Exception e) {
-            returnMap.put(Constants.resultCode, Constants.accountUsed);
-            returnMap.put(Constants.resultMsg, e.getMessage());
+
+            resultPutInformation(returnMap, Constants.accountUsed, e.getMessage());
         }
         return returnMap;
     }
 
+    class ValidateErrorException extends RuntimeException {
+        ValidateErrorException(String value) {
+            super(value);
+        }
+    }
+
+    ;
     /**
      * @param token
      * @return java.util.Map
@@ -79,13 +91,13 @@ public class UserController {
         Map<Object, Object> returnMap = new HashMap<Object, Object>();
         returnMap.put(Constants.resultCode, Constants.OK);
         try {
-            if (TokenUtil.verify(token)) {
+            String userId = iUserService.verifyToken(token);
+            if (userId != null) {
                 returnMap.put(Constants.resultObject, token);
                 // TODO 这里需要添加重新签证，但是要重新获取账号密码太浪费资源了。
             }
         } catch (Exception e) {
-            returnMap.put(Constants.resultCode, Constants.TOKEN_EXPIRED);
-            returnMap.put(Constants.resultMsg, e.getMessage());
+            resultPutInformation(returnMap, Constants.TOKEN_EXPIRED, e.getMessage());
         }
         return returnMap;
     }
@@ -101,16 +113,16 @@ public class UserController {
     @ResponseBody
     public Map login(@RequestBody User user) {
 
-        entryPasswd(user);
+        user.setPasswd(SHA.encrypt(user.getPasswd()));
         Map<Object, Object> returnMap = new HashMap<Object, Object>();
         returnMap.put(Constants.resultCode, Constants.OK);
         try {
             iUserService.vertifyUser(user);
-            String token = TokenUtil.sign(user.getUserId(), user.getPasswd());
+            String token = TokenUtil.createToken(user.getUserId(), user.getPasswd());
             returnMap.put(Constants.resultObject, token);
+            //TODO 怎么让原来的token失效
         } catch (Exception e) {
-            returnMap.put(Constants.resultCode, Constants.PASSWD_FAULT);
-            returnMap.put(Constants.resultMsg, e.getMessage());
+            resultPutInformation(returnMap, Constants.PASSWD_FAULT, e.getMessage());
         }
         return returnMap;
     }
@@ -124,8 +136,8 @@ public class UserController {
      */
     @RequestMapping(value = "/*", method = RequestMethod.POST)
     @ResponseBody
-    public String other(String args) {
-        return null;
+    public String other() {
+        return "Nothing! URL error!";
     }
 
     /**
@@ -135,7 +147,38 @@ public class UserController {
      * @date 2019/4/23 0:05
      * @description 加密用户密码
      */
-    private void entryPasswd(User user) {
-        user.setPasswd(SHA.encrypt(user.getPasswd()));
+    private void encryPasswd(User user) {
+    }
+
+    /**
+     * @param token
+     * @return xz.fzu.model.User
+     * @author Murphy
+     * @date 2019/4/24 2:06
+     * @description 根据用户token获得用户
+     */
+    @RequestMapping(value = "/getuserbytoken", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<Object, Object> getUser(@RequestParam String token) {
+        Map<Object, Object> returnMap = new HashMap<Object, Object>();
+        returnMap.put(Constants.resultCode, Constants.OK);
+        try {
+            User user = iUserService.selectUserByToken(token);
+            user.setPasswd(null);
+            user.setToken(null);
+            returnMap.put(Constants.resultObject, user);
+        } catch (Exception e) {
+            resultPutInformation(returnMap, Constants.TOKEN_EXPIRED, e.getMessage());
+        }
+        return returnMap;
+    }
+
+    private void resultPutInformation(Map<Object, Object> map, Integer code, String msg) {
+        if (code != null) {
+            map.put(Constants.resultCode, code);
+        }
+        if (msg != null) {
+            map.put(Constants.resultMsg, msg);
+        }
     }
 }

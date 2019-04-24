@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import xz.fzu.dao.IUserDao;
 import xz.fzu.model.User;
 import xz.fzu.service.IUserService;
+import xz.fzu.util.TokenUtil;
 
 import javax.annotation.Resource;
 import java.util.UUID;
@@ -24,13 +25,16 @@ IUserDao iUserDao;
      * @return void
      * @author Murphy
      * @date 2019/4/23 0:10
-     * @description 注册
+     * @description 注册, 返回token
      */
     @Override
-    public void register(User user) {
+    public String register(User user) {
         String uuid = UUID.randomUUID().toString().replace("-", "");
         user.setUserId(uuid);
+        String token = TokenUtil.createToken(user.getUserId(), user.getPasswd());
+        user.setToken(token);
         iUserDao.insertUser(user);
+        return token;
     }
 
     /**
@@ -63,5 +67,22 @@ IUserDao iUserDao;
             throw new RuntimeException("账号或密码错误");
         }
         ;
+    }
+
+    @Override
+    public String verifyToken(String token) {
+        TokenUtil.verify(token);
+        return iUserDao.selectUserIdByToken(token);
+    }
+
+    @Override
+    public int updateToken(String token, String userId) {
+        return iUserDao.updateToken(token, userId);
+    }
+
+    @Override
+    public User selectUserByToken(String token) {
+        String userId = iUserDao.selectUserIdByToken(token);
+        return iUserDao.selectByUserId(userId);
     }
 }
