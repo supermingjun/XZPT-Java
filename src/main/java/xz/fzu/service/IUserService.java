@@ -20,5 +20,7 @@ public interface IUserService {
 
     User selectUserByToken(String token);
 
-    String updatePasswd(String token, String oldPasswd, String newPasswd) throws PasswordErrorException;
+    String updatePasswd(String token, String oldPasswd, String newPasswd) throws PasswordErrorException, TokenExpiredException;
+
+    void updateInfo(User user, String token) throws TokenExpiredException;
 }

@@ -1,8 +1,11 @@
 package xz.fzu.model;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.io.Serializable;
 
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Company implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -16,6 +19,8 @@ public class Company implements Serializable {
   private String description;
   private long status;
 
+  /* token 临时存这里吧 //TODO 注意以后把这个从实体类中删除*/
+  private String token;
 
   public String getCompanyId() {
     return companyId;

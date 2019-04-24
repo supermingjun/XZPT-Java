@@ -74,4 +74,14 @@ public interface IUserDao {
      * @description 更新密码
      */
     void updatePasswd(String userId, String passwd);
+
+
+    /**
+     * @param user
+     * @return void
+     * @author Murphy
+     * @date 2019/4/24 16:41
+     * @description 更新用户信息
+     */
+    void updateInfo(User user);
 }

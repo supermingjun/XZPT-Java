@@ -19,12 +19,15 @@
         <result property="presentCity" column="present_city"/>
         <result property="expectedCity" column="expected_city"/>
         <result property="token" column="token"/>
+        <result property="work_time" column="workTime"/>
+        <result property="job_classification" column="jobClassification"/>
+        <result property="job_nature" column="jobNature"/>
     </resultMap>
 
     <!--插入一个用户-->
     <insert id="insertUser" parameterType="xz.fzu.model.User">
-        INSERT INTO user(user_id,passwd, telephone, user_name, head_url,email, sex,school, specialty, occupation, present_city, expected_city,token)
-          VALUES ( #{userId},#{passwd},#{telephone},#{userName},#{headUrl},#{email},#{sex},#{school},#{specialty},#{occupation},#{presentCity},#{expectedCity},#{token})
+        INSERT INTO user(user_id,passwd, telephone, user_name, head_url,email, sex,school, specialty, occupation, present_city, expected_city,token,work_time,job_classification,job_nature)
+          VALUES ( #{userId},#{passwd},#{telephone},#{userName},#{headUrl},#{email},#{sex},#{school},#{specialty},#{occupation},#{presentCity},#{expectedCity},#{token},#{workTime},#{jobClassification},#{jobNature})
     </insert>
 
     <!--根据邮箱查找用户-->
@@ -48,13 +51,60 @@
     </select>
 
     <!-- 更新token -->
-    <select id="updateToken">
+    <update id="updateToken">
         UPDATE user SET token=#{arg0} WHERE user_id=#{arg1}
-    </select>
+    </update>
 
     <!-- 更新密码 -->
     <!--parameterType="hashmap 多参数，暂时使用序号"-->
-    <select id="updatePasswd">
+    <update id="updatePasswd">
         UPDATE user SET passwd=#{arg1} WHERE user_id=#{arg0}
-    </select>
+    </update>
+
+    <!-- 更新用户信息 -->
+    <update id="updateInfo" parameterType="xz.fzu.model.User">
+        UPDATE user
+        <set>
+            <if test=" telephone != null and telephone != '' ">
+                telephone = #{telephone},
+            </if>
+            <if test=" userName != null and userName != '' ">
+                user_name = #{userName},
+            </if>
+            <if test=" headUrl != null and headUrl != '' ">
+                head_url = #{headUrl},
+            </if>
+            <if test=" email != null and email != '' ">
+                email = #{email},
+            </if>
+            <if test=" sex != 0 ">
+                sex = #{sex},
+            </if>
+            <if test=" school != null and school != ''">
+                school = #{school},
+            </if>
+            <if test=" specialty != null and specialty != ''">
+                specialty = #{specialty},
+            </if>
+            <if test=" occupation != null and occupation != ''">
+                occupation = #{occupation},
+            </if>
+            <if test=" presentCity != null and presentCity != ''">
+                present_city = #{presentCity},
+            </if>
+            <if test=" expectedCity != null and expectedCity != ''">
+                expected_city = #{expectedCity},
+            </if>
+            <if test=" workTime != 0 ">
+                work_time = #{workTime},
+            </if>
+            <if test=" jobClassification != 0 ">
+                job_classification = #{jobClassification},
+            </if>
+            <if test=" jobNature != 0 ">
+                job_nature = #{jobNature},
+            </if>
+        </set>
+        WHERE user_id=#{userId}
+    </update>
 </mapper>

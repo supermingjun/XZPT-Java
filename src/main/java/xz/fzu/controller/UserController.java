@@ -3,6 +3,7 @@ package xz.fzu.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.exception.NoVerfcationCodeException;
+import xz.fzu.exception.PasswordErrorException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.exception.ValidationExceprion;
 import xz.fzu.model.User;
@@ -154,14 +155,31 @@ public class UserController {
 
     @RequestMapping(value = "/updatepasswd", method = RequestMethod.POST)
     @ResponseBody
-    private Map<Object, Object> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) {
+    public Map<Object, Object> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) {
 
         Map<Object, Object> returnMap = initResultMap();
         try {
             String newToken = iUserService.updatePasswd(token, oldPasswd, newPasswd);
             returnMap.put(Constants.resultObject, newToken);
+        } catch (PasswordErrorException | TokenExpiredException e) {
+            resultPutInformation(returnMap, e.getErrorCode(), e.getMessage());
         } catch (Exception e) {
-            resultPutInformation(returnMap, Constants.PASSWD_FAULT, e.getMessage());
+            resultPutInformation(returnMap, Constants.UNKNOWN_ERROR, e.getMessage());
+        }
+        return returnMap;
+    }
+
+    @RequestMapping(value = "/updateinfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<Object, Object> updateInfo(@RequestBody User user, @RequestParam String token) {
+
+        Map<Object, Object> returnMap = initResultMap();
+        try {
+            iUserService.updateInfo(user, token);
+        } catch (TokenExpiredException e) {
+            resultPutInformation(returnMap, e.getErrorCode(), e.getMessage());
+        } catch (Exception e) {
+            resultPutInformation(returnMap, Constants.UNKNOWN_ERROR, e.getMessage());
         }
         return returnMap;
     }
