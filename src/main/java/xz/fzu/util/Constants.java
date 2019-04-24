@@ -10,18 +10,27 @@ public class Constants {
     /* OK */
     public static final Integer OK = 200;
 
+    public static final int UNKNOWN_ERROR = 1999;
     // Token过期
     public static final int TOKEN_EXPIRED = 2002;
 
-    //账号不存在或者密码错误。
+    // 账号不存在或者密码错误。
     public static final int PASSWD_FAULT = 2008;
-    /* 验证码错误*/
+    // 验证码错误
     public static final Integer validateCodeError = 2011;
-    /* 账号已被注册*/
+    // 账号已被注册
     public static final Integer accountUsed = 2009;
 
-    /* 邮件发送出错*/
+    // 邮件发送出错
     public static final Integer sendEmailError = 2012;
+
+    // 数据库连接错误
+    public static final int databaseConnectError = 2013;
+
+
+    // 未获取验证码错误
+    public static final int noVerfcationCode = 2014;
+
 
 
     public static final String resultMsg = "resultMsg";

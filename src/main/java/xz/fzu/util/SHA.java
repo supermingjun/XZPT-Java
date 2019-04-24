@@ -11,6 +11,13 @@ import java.security.MessageDigest;
 public class SHA {
     private static final String KEY_SHA = "SHA";//TODO
 
+    /**
+     * @param passwd
+     * @return java.lang.String
+     * @author Murphy
+     * @date 2019/4/23 0:02
+     * @description 加密生成uuid
+     */
     public static String encrypt(String passwd) {
         BigInteger sha = null;
         byte[] inputData = passwd.getBytes();
@@ -21,7 +28,7 @@ public class SHA {
         } catch (Exception e) {
             return passwd;
         }
-        return sha.toString(32);
+        return sha.toString(32).substring(0, 32);
     }
 
     private SHA() {
