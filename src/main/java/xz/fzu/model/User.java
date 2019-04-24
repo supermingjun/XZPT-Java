@@ -26,16 +26,13 @@ public class User implements Serializable {
     private String presentCity;
     private String expectedCity;
 
-    /* token 临时存这里吧 //TODO 注意以后把这个从实体类中删除*/
+    /* token 临时存这里吧 //TODO 注意以后把这个从实体类中删除, 注意安卓端没有这个属性，安卓端直接删除即可*/
     private String token;
 
-    public String getToken() {
-        return token;
-    }
+    private long workTime;
+    private long jobClassification;
+    private long jobNature;
 
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     public String getUserId() {
         return userId;
@@ -53,6 +50,7 @@ public class User implements Serializable {
     public void setPasswd(String passwd) {
         this.passwd = passwd;
     }
+
 
     public String getTelephone() {
         return telephone;
@@ -141,6 +139,42 @@ public class User implements Serializable {
 
     public void setExpectedCity(String expectedCity) {
         this.expectedCity = expectedCity;
+    }
+
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+
+    public long getWorkTime() {
+        return workTime;
+    }
+
+    public void setWorkTime(long workTime) {
+        this.workTime = workTime;
+    }
+
+
+    public long getJobClassification() {
+        return jobClassification;
+    }
+
+    public void setJobClassification(long jobClassification) {
+        this.jobClassification = jobClassification;
+    }
+
+
+    public long getJobNature() {
+        return jobNature;
+    }
+
+    public void setJobNature(long jobNature) {
+        this.jobNature = jobNature;
     }
 
 }

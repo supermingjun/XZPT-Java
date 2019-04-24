@@ -110,10 +110,32 @@ public class UserServiceImpl implements IUserService {
         iUserDao.updateToken(token, userId);
     }
 
+    /**
+     * @param token
+     * @return xz.fzu.model.User
+     * @author Murphy
+     * @date 2019/4/24 16:51
+     * @description 通过token查找用户
+     */
     @Override
     public User selectUserByToken(String token) {
         String userId = iUserDao.selectUserIdByToken(token);
         return iUserDao.selectByUserId(userId);
+    }
+
+    /**
+     * @param user
+     * @param token
+     * @return void
+     * @author Murphy
+     * @date 2019/4/24 16:50
+     * @description 更新用户信息
+     */
+    @Override
+    public void updateInfo(User user, String token) throws TokenExpiredException {
+        String userId = verifyToken(token);
+        user.setUserId(userId);
+        iUserDao.updateInfo(user);
     }
 
     /**
