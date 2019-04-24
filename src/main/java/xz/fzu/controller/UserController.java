@@ -3,6 +3,7 @@ package xz.fzu.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.exception.NoVerfcationCodeException;
+import xz.fzu.exception.PasswordErrorException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.exception.ValidationExceprion;
 import xz.fzu.model.User;
@@ -160,8 +161,10 @@ public class UserController {
         try {
             String newToken = iUserService.updatePasswd(token, oldPasswd, newPasswd);
             returnMap.put(Constants.resultObject, newToken);
+        } catch (PasswordErrorException | TokenExpiredException e) {
+            resultPutInformation(returnMap, e.getErrorCode(), e.getMessage());
         } catch (Exception e) {
-            resultPutInformation(returnMap, Constants.PASSWD_FAULT, e.getMessage());
+            resultPutInformation(returnMap, Constants.UNKNOWN_ERROR, e.getMessage());
         }
         return returnMap;
     }

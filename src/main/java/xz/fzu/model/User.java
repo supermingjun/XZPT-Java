@@ -1,7 +1,6 @@
 package xz.fzu.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import xz.fzu.util.SHA;
 
 import java.io.Serializable;
 
@@ -52,11 +51,8 @@ public class User implements Serializable {
     }
 
     public void setPasswd(String passwd) {
-        if (passwd != null) {
-            this.passwd = SHA.encrypt(passwd);
-        }
+        this.passwd = passwd;
     }
-
 
     public String getTelephone() {
         return telephone;

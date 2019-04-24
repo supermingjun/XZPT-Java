@@ -31,8 +31,10 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public String register(User user) {
+
         String uuid = UUID.randomUUID().toString().replace("-", "");
         user.setUserId(uuid);
+        user.setPasswd(SHA.encrypt(user.getPasswd()));
         String token = TokenUtil.createToken(user.getUserId(), user.getPasswd());
         user.setToken(token);
         iUserDao.insertUser(user);
@@ -66,6 +68,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String vertifyUser(User user) {
         // 密码加密处理
+        user.setPasswd(SHA.encrypt(user.getPasswd()));
         if (iUserDao.vertifyUser(user) != 1) {
             throw new RuntimeException("账号或密码错误");
         }
@@ -113,12 +116,23 @@ public class UserServiceImpl implements IUserService {
         return iUserDao.selectByUserId(userId);
     }
 
+    /**
+     * @param token
+     * @param oldPasswd
+     * @param newPasswd
+     * @return java.lang.String
+     * @author Murphy
+     * @date 2019/4/24 15:35
+     * @description 更改密码
+     */
     @Override
-    public String updatePasswd(String token, String oldPasswd, String newPasswd) throws PasswordErrorException {
+    public String updatePasswd(String token, String oldPasswd, String newPasswd) throws PasswordErrorException, TokenExpiredException {
 
         // 对密码进行加密处理
         oldPasswd = SHA.encrypt(oldPasswd);
         newPasswd = SHA.encrypt(newPasswd);
+
+        verifyToken(token);
 
         String userId = iUserDao.selectUserIdByToken(token);
         User user = iUserDao.selectByUserId(userId);
@@ -126,8 +140,8 @@ public class UserServiceImpl implements IUserService {
             throw new PasswordErrorException();
         }
         iUserDao.updatePasswd(userId, newPasswd);
-        String newToken = TokenUtil.createToken(user.getUserId(), user.getPasswd());
-        iUserDao.updateToken(newToken, user.getUserId());
+        String newToken = TokenUtil.createToken(userId, newPasswd);
+        iUserDao.updateToken(newToken, userId);
         return newToken;
     }
 }
