@@ -135,6 +135,7 @@ public class UserServiceImpl implements IUserService {
     public void updateInfo(User user, String token) throws TokenExpiredException {
         String userId = verifyToken(token);
         user.setUserId(userId);
+        user.setPasswd(null);
         iUserDao.updateInfo(user);
     }
 
@@ -165,5 +166,22 @@ public class UserServiceImpl implements IUserService {
         String newToken = TokenUtil.createToken(userId, newPasswd);
         iUserDao.updateToken(newToken, userId);
         return newToken;
+    }
+
+    /**
+     * @param email
+     * @param passwd
+     * @return void
+     * @author Murphy
+     * @date 2019/4/25 17:28
+     * @description 重置用户密码
+     */
+    @Override
+    public void resetPasswd(String email, String passwd) {
+        String userId = iUserDao.selectByEmail(email).getUserId();
+        User user = new User();
+        user.setUserId(userId);
+        user.setPasswd(SHA.encrypt(passwd));
+        iUserDao.updateInfo(user);
     }
 }

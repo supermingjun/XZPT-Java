@@ -93,4 +93,11 @@ public class Company implements Serializable {
     this.status = status;
   }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

@@ -144,15 +144,28 @@ public class UserController {
         return returnMap;
     }
 
+    /**
+     * @param map
+     * @param code
+     * @param msg
+     * @return void
+     * @author Murphy
+     * @date 2019/4/25 17:35
+     * @description map putvalue的包装方法
+     */
     private void resultPutInformation(Map<Object, Object> map, Integer code, String msg) {
-        if (code != null) {
-            map.put(Constants.resultCode, code);
-        }
-        if (msg != null) {
-            map.put(Constants.resultMsg, msg);
-        }
+        CompanyController.putInfo2Map(map, code, msg);
     }
 
+    /**
+     * @param token
+     * @param oldPasswd
+     * @param newPasswd
+     * @return java.util.Map<java.lang.Object, java.lang.Object>
+     * @author Murphy
+     * @date 2019/4/25 17:34
+     * @description 更新密码
+     */
     @RequestMapping(value = "/updatepasswd", method = RequestMethod.POST)
     @ResponseBody
     public Map<Object, Object> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) {
@@ -169,6 +182,14 @@ public class UserController {
         return returnMap;
     }
 
+    /**
+     * @param user
+     * @param token
+     * @return java.util.Map<java.lang.Object, java.lang.Object>
+     * @author Murphy
+     * @date 2019/4/25 17:18
+     * @description 更新信息
+     */
     @RequestMapping(value = "/updateinfo", method = RequestMethod.POST)
     @ResponseBody
     public Map<Object, Object> updateInfo(@RequestBody User user, @RequestParam String token) {
@@ -184,6 +205,36 @@ public class UserController {
         return returnMap;
     }
 
+    /**
+     * @param code
+     * @param passwd
+     * @return java.util.Map<java.lang.Object, java.lang.Object>
+     * @author Murphy
+     * @date 2019/4/25 17:24
+     * @description 重置用户密码
+     */
+    @RequestMapping(value = "/resetpasswd", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<Object, Object> resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) {
+        Map<Object, Object> returnMap = initResultMap();
+        try {
+            iValidateCodeService.validateCode(email, code);
+            iUserService.resetPasswd(email, passwd);
+        } catch (ValidationExceprion | NoVerfcationCodeException e) {
+            resultPutInformation(returnMap, e.getErrorCode(), e.getMessage());
+        } catch (Exception e) {
+            resultPutInformation(returnMap, Constants.UNKNOWN_ERROR, e.getMessage());
+        }
+        return returnMap;
+    }
+
+    /**
+     * @param
+     * @return java.util.Map<java.lang.Object, java.lang.Object>
+     * @author Murphy
+     * @date 2019/4/25 17:35
+     * @description 初始化返回的Map
+     */
     private Map<Object, Object> initResultMap() {
 
         Map<Object, Object> returnMap = new HashMap<Object, Object>();

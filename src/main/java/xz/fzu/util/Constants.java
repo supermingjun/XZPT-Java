@@ -30,6 +30,8 @@ public class Constants {
 
     // 未获取验证码错误
     public static final int noVerfcationCode = 2014;
+    // 未找到用户异常
+    public static final int userNotFoundError = 2015;
 
 
 
