@@ -9,7 +9,7 @@ import xz.fzu.util.Constants;
 // 用户未找到异常
 public class UserNotFoundException extends MyException {
     public UserNotFoundException() {
-        super("未找到该用户异常");
+        super("未找到该用户!");
         setErrorCode(Constants.userNotFoundError);
     }
 }

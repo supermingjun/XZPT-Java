@@ -154,12 +154,7 @@ public class UserController {
      * @description map putvalue的包装方法
      */
     private void resultPutInformation(Map<Object, Object> map, Integer code, String msg) {
-        if (code != null) {
-            map.put(Constants.resultCode, code);
-        }
-        if (msg != null) {
-            map.put(Constants.resultMsg, msg);
-        }
+        CompanyController.putInfo2Map(map, code, msg);
     }
 
     /**
