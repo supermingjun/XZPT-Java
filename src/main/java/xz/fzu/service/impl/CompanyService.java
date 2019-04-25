@@ -65,10 +65,10 @@ public class CompanyService implements ICompanyService {
 
     @Override
     public String login(String email, String passwd) throws PasswordErrorException {
+        passwd = SHA.encrypt(passwd);
         if (iCompanyDao.loginWithPasswd(email, passwd) == 0) {
             throw new PasswordErrorException();
         }
-        passwd = SHA.encrypt(passwd);
         String companId = iCompanyDao.selectIdByEmail(email);
         String token = TokenUtil.createToken(companId, passwd);
         Company company = new Company();
@@ -113,6 +113,8 @@ public class CompanyService implements ICompanyService {
         if (iCompanyDao.verifyToken(token) == 0) {
             throw new TokenExpiredException();
         }
+        oldPasswd = SHA.encrypt(oldPasswd);
+        newPasswd = SHA.encrypt(newPasswd);
         iCompanyDao.updatePasswd(token, oldPasswd, newPasswd);
         String userId = iCompanyDao.selectIdByToken(token);
         return TokenUtil.createToken(userId, newPasswd);
