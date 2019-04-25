@@ -31,7 +31,7 @@ public class EmailUtil {
 
         email.setSubject("福大校招平台注册");//此处填写邮件名，邮件名可任意填写
         //TODO 修改这里的邮件内容
-        email.setMsg("尊敬的用户，您好！您本次注册的验证码是:" + code + "!");//此处填写邮件内容
+        email.setMsg("尊敬的用户，您好！您本次请求的验证码是:" + code + "!");//此处填写邮件内容
         email.send();
         return code;
     }

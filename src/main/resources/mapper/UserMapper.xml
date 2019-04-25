@@ -68,6 +68,9 @@
             <if test=" telephone != null and telephone != '' ">
                 telephone = #{telephone},
             </if>
+            <if test=" passwd != null and passwd != '' ">
+                passwd = #{passwd},
+            </if>
             <if test=" userName != null and userName != '' ">
                 user_name = #{userName},
             </if>
