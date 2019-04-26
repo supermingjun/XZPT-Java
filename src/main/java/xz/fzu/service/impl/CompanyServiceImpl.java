@@ -17,7 +17,7 @@ import java.util.UUID;
  * @date 2019/4/25 19:31
  */
 @Service
-public class CompanyService implements ICompanyService {
+public class CompanyServiceImpl implements ICompanyService {
     @Autowired
     ICompanyDao iCompanyDao;
     @Autowired
@@ -25,6 +25,7 @@ public class CompanyService implements ICompanyService {
 
     @Override
     public void register(Company company, int code) throws ValidationExceprion, NoVerfcationCodeException {
+
         iVerificationCodeService.validateCode(company.getEmail(), code);
         // 设置uuid
         String uuid = UUID.randomUUID().toString().replace("-", "");

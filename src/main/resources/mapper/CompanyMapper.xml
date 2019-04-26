@@ -59,7 +59,7 @@
 
     <insert id="insertInstance" parameterType="xz.fzu.model.Company">
         INSERT INTO company( company_id, telephone, passwd, company_name, head_url, email, description, status)
-        VALUES( #{companyId}, #{telephone, #{passwd}, #{company_name}, #{head_url, #{email}, #{description}, #{status})
+        VALUES( #{companyId}, #{telephone}, #{passwd}, #{companyName}, #{headUrl}, #{email}, #{description}, #{status})
     </insert>
 
     <delete id="deleteCompany" parameterType="java.lang.String">

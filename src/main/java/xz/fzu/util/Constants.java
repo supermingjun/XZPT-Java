@@ -10,7 +10,7 @@ public class Constants {
     /* OK */
     public static final Integer OK = 200;
 
-    public static final int UNKNOWN_ERROR = 1999;
+    public static final int INTERNAL_ERROR = 1999;
     // Token过期
     public static final int TOKEN_EXPIRED = 2002;
 
@@ -32,6 +32,8 @@ public class Constants {
     public static final int noVerfcationCode = 2014;
     // 未找到用户异常
     public static final int userNotFoundError = 2015;
+    // 请求URL错误
+    public static final int URL_NOT_FOUND = 2016;
 
 
 
