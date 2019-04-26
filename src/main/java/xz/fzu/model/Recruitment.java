@@ -1,8 +1,11 @@
 package xz.fzu.model;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.io.Serializable;
 
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Recruitment implements Serializable {
 
     private static final long serialVersionUID = 1L;

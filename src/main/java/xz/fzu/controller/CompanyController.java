@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.exception.*;
 import xz.fzu.model.Company;
+import xz.fzu.model.Recruitment;
 import xz.fzu.service.ICompanyService;
 import xz.fzu.service.IVerificationCodeService;
 import xz.fzu.vo.ResponseData;
@@ -153,5 +154,12 @@ public class CompanyController {
         iVerificationCodeService.validateCode(email, code);
         iCompanyService.resetPasswd(email, passwd);
         return responseData;
+    }
+
+
+    @RequestMapping(value = "/publishjob", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData publishjob(@RequestBody Recruitment recruitment) {
+        return null;
     }
 }

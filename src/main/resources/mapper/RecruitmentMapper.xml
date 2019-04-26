@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xz.fzu.dao.IRecruitment">
+    <resultMap id="resultMapper" type="xz.fzu.model.Recruitment">
+        <result property="publishTime" column="publish_time"/>
+        <result property="companyId" column="company_id"/>
+        <result property="description" column="description"/>
+        <result property="recruitmentId" column="recruitment_id"/>
+        <result property="contact" column="contact"/>
+        <result property="qualifications" column="qualifications"/>
+        <result property="location" column="location"/>
+        <result property="deliveryRequest" column="delivery_request"/>
+        <result property="duty" column="duty"/>
+        <result property="salary" column="salary"/>
+        <result property="type" column="type"/>
+        <result property="validate" column="validate"/>
+    </resultMap>
+    <insert id="insertInstance"
+</mapper>
