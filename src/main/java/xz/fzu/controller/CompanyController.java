@@ -29,8 +29,7 @@ public class CompanyController {
     }
 
     /**
-     * @param email
-     * @param passwd
+     * @param company
      * @return java.util.Map
      * @author Murphy
      * @date 2019/4/25 20:31
@@ -38,8 +37,10 @@ public class CompanyController {
      */
     @RequestMapping("/login")
     @ResponseBody
-    public ResponseData<String> login(@RequestParam String email, @RequestParam String passwd) throws PasswordErrorException {
+    public ResponseData<String> login(@RequestBody Company company) throws PasswordErrorException {
 
+        String email = company.getEmail();
+        String passwd = company.getPasswd();
         ResponseData<String> responseData = new ResponseData<String>();
         String token = iCompanyService.login(email, passwd);
         responseData.setResultObject(token);
@@ -110,7 +111,7 @@ public class CompanyController {
      */
     @RequestMapping(value = "/updatepasswd", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<String> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) throws TokenExpiredException {
+    public ResponseData<String> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) throws TokenExpiredException, PasswordErrorException {
 
         ResponseData<String> responseData = new ResponseData<String>();
         String newToken = iCompanyService.updatePasswd(token, oldPasswd, newPasswd);

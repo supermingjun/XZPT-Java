@@ -34,6 +34,8 @@ public class Constants {
     public static final int userNotFoundError = 2015;
     // 请求URL错误
     public static final int URL_NOT_FOUND = 2016;
+    // Token 错误
+    public static final Integer TOKEN_ERROR = 2017;
 
 
 

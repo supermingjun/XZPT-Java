@@ -93,11 +93,11 @@ public interface ICompanyDao {
      * @param token
      * @param oldPasswd
      * @param newPasswd
-     * @return void
+     * @return int
      * @author Murphy
      * @date 2019/4/25 20:51
      * @description 更新用户密码
      */
-    void updatePasswd(String token, String oldPasswd, String newPasswd);
+    int updatePasswd(String token, String oldPasswd, String newPasswd);
 
 }

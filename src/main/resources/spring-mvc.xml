@@ -15,8 +15,8 @@
 
     <!--开启解析controller-->
     <mvc:annotation-driven/>
-    <!-- 静态资源默认servlet配置 -->
-    <mvc:default-servlet-handler/>
+    <!-- 静态资源默认servlet配置 如果开启了这个404 跳转无法实现 -->
+    <!--<mvc:default-servlet-handler/>-->
     <!-- 配置jsp 显示ViewResolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -29,10 +29,11 @@
         <!--对应resource文件夹-->
         <property name="locations">
             <list>
-                <value>classpath:*.properties</value>
+                <value>classpath:config/*.properties</value>
             </list>
         </property>
     </bean>
+
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
         <property name="properties" ref="configProperties"/>
     </bean>
@@ -43,4 +44,10 @@
         <property name="maxInMemorySize" value="4096"/>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
+
+    <!--扫描所有包下的注解-->
+    <context:component-scan base-package="xz.fzu.service.impl"/>
+    <context:component-scan base-package="xz.fzu.controller"/>
+    <context:component-scan base-package="xz.fzu.handler"/>
+
 </beans>
