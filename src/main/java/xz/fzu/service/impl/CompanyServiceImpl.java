@@ -17,7 +17,7 @@ import java.util.UUID;
  * @date 2019/4/25 19:31
  */
 @Service
-public class CompanyService implements ICompanyService {
+public class CompanyServiceImpl implements ICompanyService {
     @Autowired
     ICompanyDao iCompanyDao;
     @Autowired
@@ -25,6 +25,7 @@ public class CompanyService implements ICompanyService {
 
     @Override
     public void register(Company company, int code) throws ValidationExceprion, NoVerfcationCodeException {
+
         iVerificationCodeService.validateCode(company.getEmail(), code);
         // 设置uuid
         String uuid = UUID.randomUUID().toString().replace("-", "");
@@ -35,8 +36,9 @@ public class CompanyService implements ICompanyService {
     }
 
     @Override
-    public Company getInfo(String email) throws UserNotFoundException {
-        Company company = iCompanyDao.selectCompanyByEmail(email);
+    public Company getInfo(String token) throws UserNotFoundException {
+        String userId = iCompanyDao.selectIdByToken(token);
+        Company company = iCompanyDao.selectCompanyById(userId);
         if (company.getCompanyId() == null) {
             throw new UserNotFoundException();
         }
@@ -109,13 +111,16 @@ public class CompanyService implements ICompanyService {
     }
 
     @Override
-    public String updatePasswd(String token, String oldPasswd, String newPasswd) throws TokenExpiredException {
+    public String updatePasswd(String token, String oldPasswd, String newPasswd) throws TokenExpiredException, PasswordErrorException {
         if (iCompanyDao.verifyToken(token) == 0) {
             throw new TokenExpiredException();
         }
         oldPasswd = SHA.encrypt(oldPasswd);
         newPasswd = SHA.encrypt(newPasswd);
-        iCompanyDao.updatePasswd(token, oldPasswd, newPasswd);
+        int affectRow = iCompanyDao.updatePasswd(token, oldPasswd, newPasswd);
+        if (affectRow == 0) {
+            throw new PasswordErrorException();
+        }
         String userId = iCompanyDao.selectIdByToken(token);
         return TokenUtil.createToken(userId, newPasswd);
     }

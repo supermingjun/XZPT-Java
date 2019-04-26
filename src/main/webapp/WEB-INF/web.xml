@@ -19,7 +19,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-
     <!-- 配置DispatcherServlet -->
     <servlet>
         <servlet-name>SpringMVC</servlet-name>
@@ -29,8 +28,16 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:spring-*.xml</param-value>
         </init-param>
+
+        <!--发现handler找不到异常直接抛出 但是这貌似会造成jsp无法访问 -->
+        <init-param>
+            <param-name>throwExceptionIfNoHandlerFound</param-name>
+            <param-value>true</param-value>
+        </init-param>
+
         <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>
+
     </servlet>
 
     <servlet-mapping>

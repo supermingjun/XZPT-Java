@@ -98,5 +98,5 @@ public interface ICompanyService {
      * @date 2019/4/25 21:00
      * @description 修改密码并返回新的token
      */
-    String updatePasswd(String token, String oldPasswd, String newPasswd) throws TokenExpiredException;
+    String updatePasswd(String token, String oldPasswd, String newPasswd) throws TokenExpiredException, PasswordErrorException;
 }

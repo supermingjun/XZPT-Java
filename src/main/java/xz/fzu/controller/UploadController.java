@@ -45,7 +45,7 @@ public class UploadController {
             returnMap.put(Constants.resultObject, fileName);
         } catch (Exception e) {
             e.printStackTrace();
-            returnMap.put(Constants.resultCode, Constants.UNKNOWN_ERROR);
+            returnMap.put(Constants.resultCode, Constants.INTERNAL_ERROR);
             returnMap.put(Constants.resultMsg, e.getMessage());
         }
         return returnMap;

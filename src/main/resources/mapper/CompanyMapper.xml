@@ -20,17 +20,17 @@
     </select>
     <select id="selectCompanyById" parameterType="java.lang.String" resultType="xz.fzu.model.Company"
             resultMap="CompanyResultMap">
-        SELECT * from company WHERE company_id=${companyId}
+        SELECT * from company WHERE company_id=#{companyId}
     </select>
     <select id="selectCompanyByEmail" parameterType="java.lang.String" resultType="xz.fzu.model.Company"
             resultMap="CompanyResultMap">
-        SELECT * from company WHERE email=${email}
+        SELECT * from company WHERE email=#{email}
     </select>
     <update id="updateInfo" parameterType="xz.fzu.model.Company">
         UPDATE company
         <set>
             <if test=" telephone != null and telephone != '' ">
-                telephone =# {telephone},
+                telephone = #{telephone},
             </if>
             <if test=" passwd != null and passwd != '' ">
                 passwd = #{passwd},
@@ -41,11 +41,11 @@
             <if test=" headUrl !=null and headUrl != '' ">
                 head_url = #{head_url},
             </if>
-            <if test=" email! =null and email != '' ">
+            <if test=" email !=null and email != '' ">
                 email = #{email},
             </if>
             <if test=" description != null and description != ''">
-                description = ${description},
+                description = #{description},
             </if>
             <if test=" status != 0">
                 status = #{status},
@@ -54,12 +54,12 @@
                 token = #{token},
             </if>
         </set>
-        WHERE company_id = ${companyId}
+        WHERE company_id = #{companyId}
     </update>
 
     <insert id="insertInstance" parameterType="xz.fzu.model.Company">
         INSERT INTO company( company_id, telephone, passwd, company_name, head_url, email, description, status)
-        VALUES( #{companyId}, #{telephone, #{passwd}, #{company_name}, #{head_url, #{email}, #{description}, #{status})
+        VALUES( #{companyId}, #{telephone}, #{passwd}, #{companyName}, #{headUrl}, #{email}, #{description}, #{status})
     </insert>
 
     <delete id="deleteCompany" parameterType="java.lang.String">
@@ -72,4 +72,8 @@
     <update id="updatePasswd">
       UPDATE company SET passwd=#{arg2} where token = #{arg0} and passwd = #{arg1}
     </update>
+
+    <select id="loginWithPasswd" resultType="int">
+      SELECT count(*) FROM company where email = #{arg0} and passwd = #{arg1}
+    </select>
 </mapper>

@@ -9,11 +9,9 @@ import xz.fzu.exception.ValidationExceprion;
 import xz.fzu.model.User;
 import xz.fzu.service.IUserService;
 import xz.fzu.service.IVerificationCodeService;
-import xz.fzu.util.Constants;
+import xz.fzu.vo.ResponseData;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Murphy
@@ -44,27 +42,16 @@ public class UserController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public Map register(@RequestBody User user, @RequestParam int code) {
+    public ResponseData register(@RequestBody User user, @RequestParam int code) throws ValidationExceprion, NoVerfcationCodeException {
 
-        Map<Object, Object> returnMap = initResultMap();
-        try {
-            iValidateCodeService.validateCode(user.getEmail(), code);
-            String token = iUserService.register(user);
-            returnMap.put(Constants.resultObject, token);
-        } catch (ValidationExceprion | NoVerfcationCodeException e) {
+        ResponseData<String> responseData = new ResponseData<String>();
+        iValidateCodeService.validateCode(user.getEmail(), code);
+        String token = iUserService.register(user);
+        responseData.setResultObject(token);
 
-            resultPutInformation(returnMap, e.getErrorCode(), e.getMessage());
-        } catch (org.apache.ibatis.exceptions.PersistenceException e) {
-
-            resultPutInformation(returnMap, Constants.databaseConnectError, e.getMessage());
-        } catch (Exception e) {
-
-            resultPutInformation(returnMap, Constants.accountUsed, e.getMessage());
-        }
-        return returnMap;
+        return responseData;
     }
 
-    ;
     /**
      * @param token
      * @return java.util.Map
@@ -74,17 +61,12 @@ public class UserController {
      */
     @RequestMapping(value = "/vertifytoken", method = RequestMethod.POST)
     @ResponseBody
-    public Map loginWithToken(@RequestParam String token) {
+    public ResponseData<String> loginWithToken(@RequestParam String token) throws TokenExpiredException {
 
-        Map<Object, Object> returnMap = initResultMap();
-        try {
-            iUserService.verifyToken(token);
-        } catch (TokenExpiredException e) {
-            resultPutInformation(returnMap, e.getErrorCode(), e.getMessage());
-        } catch (Exception e) {
-            resultPutInformation(returnMap, Constants.UNKNOWN_ERROR, e.getMessage());
-        }
-        return returnMap;
+        ResponseData<String> responseData = new ResponseData<String>();
+        iUserService.verifyToken(token);
+        responseData.setResultObject(token);
+        return responseData;
     }
 
     /**
@@ -96,29 +78,12 @@ public class UserController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Map login(@RequestBody User user) {
+    public ResponseData<String> login(@RequestBody User user) {
 
-        Map<Object, Object> returnMap = initResultMap();
-        try {
-            String token = iUserService.vertifyUser(user);
-            returnMap.put(Constants.resultObject, token);
-        } catch (Exception e) {
-            resultPutInformation(returnMap, Constants.PASSWD_FAULT, e.getMessage());
-        }
-        return returnMap;
-    }
-
-    /**
-     * @param
-     * @return java.lang.String
-     * @author Murphy
-     * @date 2019/4/20 3:40
-     * @description 测试方法
-     */
-    @RequestMapping(value = "/*", method = RequestMethod.POST)
-    @ResponseBody
-    public String other() {
-        return "Nothing! URL errorCode!";
+        ResponseData<String> responseData = new ResponseData<String>();
+        String token = iUserService.vertifyUser(user);
+        responseData.setResultObject(token);
+        return responseData;
     }
 
 
@@ -131,30 +96,14 @@ public class UserController {
      */
     @RequestMapping(value = "/getuserbytoken", method = RequestMethod.POST)
     @ResponseBody
-    public Map<Object, Object> getUser(@RequestParam String token) {
-        Map<Object, Object> returnMap = initResultMap();
-        try {
-            User user = iUserService.selectUserByToken(token);
-            user.setPasswd(null);
-            user.setToken(null);
-            returnMap.put(Constants.resultObject, user);
-        } catch (Exception e) {
-            resultPutInformation(returnMap, Constants.TOKEN_EXPIRED, e.getMessage());
-        }
-        return returnMap;
-    }
+    public ResponseData<User> getUser(@RequestParam String token) {
 
-    /**
-     * @param map
-     * @param code
-     * @param msg
-     * @return void
-     * @author Murphy
-     * @date 2019/4/25 17:35
-     * @description map putvalue的包装方法
-     */
-    private void resultPutInformation(Map<Object, Object> map, Integer code, String msg) {
-        CompanyController.putInfo2Map(map, code, msg);
+        ResponseData<User> responseData = new ResponseData<User>();
+        User user = iUserService.selectUserByToken(token);
+        user.setPasswd(null);
+        user.setToken(null);
+        responseData.setResultObject(user);
+        return responseData;
     }
 
     /**
@@ -168,18 +117,12 @@ public class UserController {
      */
     @RequestMapping(value = "/updatepasswd", method = RequestMethod.POST)
     @ResponseBody
-    public Map<Object, Object> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) {
+    public ResponseData<String> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) throws PasswordErrorException, TokenExpiredException {
 
-        Map<Object, Object> returnMap = initResultMap();
-        try {
-            String newToken = iUserService.updatePasswd(token, oldPasswd, newPasswd);
-            returnMap.put(Constants.resultObject, newToken);
-        } catch (PasswordErrorException | TokenExpiredException e) {
-            resultPutInformation(returnMap, e.getErrorCode(), e.getMessage());
-        } catch (Exception e) {
-            resultPutInformation(returnMap, Constants.UNKNOWN_ERROR, e.getMessage());
-        }
-        return returnMap;
+        ResponseData<String> responseData = new ResponseData<String>();
+        String newToken = iUserService.updatePasswd(token, oldPasswd, newPasswd);
+        responseData.setResultObject(newToken);
+        return responseData;
     }
 
     /**
@@ -192,17 +135,11 @@ public class UserController {
      */
     @RequestMapping(value = "/updateinfo", method = RequestMethod.POST)
     @ResponseBody
-    public Map<Object, Object> updateInfo(@RequestBody User user, @RequestParam String token) {
+    public ResponseData<String> updateInfo(@RequestBody User user, @RequestParam String token) throws TokenExpiredException {
 
-        Map<Object, Object> returnMap = initResultMap();
-        try {
-            iUserService.updateInfo(user, token);
-        } catch (TokenExpiredException e) {
-            resultPutInformation(returnMap, e.getErrorCode(), e.getMessage());
-        } catch (Exception e) {
-            resultPutInformation(returnMap, Constants.UNKNOWN_ERROR, e.getMessage());
-        }
-        return returnMap;
+        ResponseData<String> responseData = new ResponseData<String>();
+        iUserService.updateInfo(user, token);
+        return responseData;
     }
 
     /**
@@ -215,30 +152,11 @@ public class UserController {
      */
     @RequestMapping(value = "/resetpasswd", method = RequestMethod.POST)
     @ResponseBody
-    public Map<Object, Object> resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) {
-        Map<Object, Object> returnMap = initResultMap();
-        try {
-            iValidateCodeService.validateCode(email, code);
-            iUserService.resetPasswd(email, passwd);
-        } catch (ValidationExceprion | NoVerfcationCodeException e) {
-            resultPutInformation(returnMap, e.getErrorCode(), e.getMessage());
-        } catch (Exception e) {
-            resultPutInformation(returnMap, Constants.UNKNOWN_ERROR, e.getMessage());
-        }
-        return returnMap;
-    }
+    public ResponseData<String> resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationExceprion, NoVerfcationCodeException {
 
-    /**
-     * @param
-     * @return java.util.Map<java.lang.Object, java.lang.Object>
-     * @author Murphy
-     * @date 2019/4/25 17:35
-     * @description 初始化返回的Map
-     */
-    private Map<Object, Object> initResultMap() {
-
-        Map<Object, Object> returnMap = new HashMap<Object, Object>();
-        returnMap.put(Constants.resultCode, Constants.OK);
-        return returnMap;
+        ResponseData<String> responseData = new ResponseData<String>();
+        iValidateCodeService.validateCode(email, code);
+        iUserService.resetPasswd(email, passwd);
+        return responseData;
     }
 }
