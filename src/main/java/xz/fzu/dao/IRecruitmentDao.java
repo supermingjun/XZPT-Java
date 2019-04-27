@@ -4,7 +4,7 @@ import xz.fzu.model.Recruitment;
 
 import java.util.List;
 
-public interface IRecruitment {
+public interface IRecruitmentDao {
 
     /**
      * @param recruitment
@@ -22,7 +22,7 @@ public interface IRecruitment {
      * @date 2019/4/27 1:13
      * @description 通过实例id查找数据库实例
      */
-    public Recruitment selectInstaceById(String recruitmentId);
+    public Recruitment selectInstaceById(long recruitmentId);
 
     /**
      * @param companyId
@@ -40,7 +40,7 @@ public interface IRecruitment {
      * @date 2019/4/27 1:15
      * @description 删除招聘信息
      */
-    public void deleteInstace(String recruitmentId);
+    public void deleteInstace(long recruitmentId);
 
     /**
      * @param recruitment
