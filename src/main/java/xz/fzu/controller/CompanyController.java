@@ -6,8 +6,12 @@ import xz.fzu.exception.*;
 import xz.fzu.model.Company;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.ICompanyService;
+import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IVerificationCodeService;
 import xz.fzu.vo.ResponseData;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Murphy
@@ -17,16 +21,21 @@ import xz.fzu.vo.ResponseData;
 @RequestMapping(value = "/company")
 public class CompanyController {
 
-    @Autowired
+    @Resource
     ICompanyService iCompanyService;
 
-    @Autowired
+    @Resource
     IVerificationCodeService iVerificationCodeService;
 
+    @Resource
+    IRecruitmentService iRecruitmentService;
+
     @Autowired
-    public CompanyController(ICompanyService iCompanyService, IVerificationCodeService iVerificationCodeService) {
+    public CompanyController(ICompanyService iCompanyService, IVerificationCodeService iVerificationCodeService, IRecruitmentService iRecruitmentService) {
+
         this.iCompanyService = iCompanyService;
         this.iVerificationCodeService = iVerificationCodeService;
+        this.iRecruitmentService = iRecruitmentService;
     }
 
     /**
@@ -45,6 +54,7 @@ public class CompanyController {
         ResponseData<String> responseData = new ResponseData<String>();
         String token = iCompanyService.login(email, passwd);
         responseData.setResultObject(token);
+
         return responseData;
     }
 
@@ -60,7 +70,8 @@ public class CompanyController {
     public ResponseData loginWithToken(@RequestParam String token) throws TokenExpiredException {
 
         ResponseData responseData = new ResponseData();
-        iCompanyService.loginWithToken(token);
+        iCompanyService.verifyToken(token);
+
         return responseData;
     }
 
@@ -78,6 +89,7 @@ public class CompanyController {
 
         ResponseData responseData = new ResponseData();
         iCompanyService.register(company, code);
+
         return responseData;
     }
 
@@ -98,6 +110,7 @@ public class CompanyController {
         company.setPasswd(null);
         company.setToken(null);
         responseData.setResultObject(company);
+
         return responseData;
     }
 
@@ -117,6 +130,7 @@ public class CompanyController {
         ResponseData<String> responseData = new ResponseData<String>();
         String newToken = iCompanyService.updatePasswd(token, oldPasswd, newPasswd);
         responseData.setResultObject(newToken);
+
         return responseData;
     }
 
@@ -135,6 +149,7 @@ public class CompanyController {
 
         ResponseData responseData = new ResponseData();
         iCompanyService.updateInfoByToken(company, token);
+
         return responseData;
     }
 
@@ -150,16 +165,112 @@ public class CompanyController {
     @RequestMapping(value = "/resetpasswd", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationExceprion, NoVerfcationCodeException, TokenExpiredException {
+
         ResponseData responseData = new ResponseData();
         iVerificationCodeService.validateCode(email, code);
         iCompanyService.resetPasswd(email, passwd);
+
+        return responseData;
+    }
+
+    /**
+     * @param recruitment
+     * @param token
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:06
+     * @description 发布招聘信息
+     */
+    @RequestMapping(value = "/releaserecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException {
+
+        ResponseData responseData = new ResponseData();
+        iCompanyService.verifyToken(token);
+        iRecruitmentService.insertRecruitment(recruitment);
+
+        return responseData;
+    }
+
+    /**
+     * @param token
+     * @param recruitmentId
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:15
+     * @description 按id获得指定的招聘信息
+     */
+    @RequestMapping(value = "/getrecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData getRecruitment(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
+
+        ResponseData<Recruitment> responseData = new ResponseData<Recruitment>();
+        iCompanyService.verifyToken(token);
+        Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
+        responseData.setResultObject(recruitment);
+
         return responseData;
     }
 
 
-    @RequestMapping(value = "/publishjob", method = RequestMethod.POST)
+    /**
+     * @param token
+     * @param token
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:15
+     * @description 按id获得指定的所有招聘信息
+     */
+    @RequestMapping(value = "/getlistrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData publishjob(@RequestBody Recruitment recruitment) {
-        return null;
+    public ResponseData<List<Recruitment>> getRecruitment(@RequestParam String token) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+
+        ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
+        iCompanyService.verifyToken(token);
+        Company company = iCompanyService.getInstaceByToken(token);
+        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId());
+        responseData.setResultObject(recruitmentList);
+
+        return responseData;
+    }
+
+
+    /**
+     * @param token
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:15
+     * @description 修改指定的招聘信息
+     */
+    @RequestMapping(value = "/updaterecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData updateRecruitment(@RequestParam String token, @RequestBody Recruitment recruitment) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException, EvilIntentions {
+
+        ResponseData responseData = new ResponseData<>();
+        iCompanyService.verifyToken(token);
+        Company company = iCompanyService.getInstaceByToken(token);
+        iRecruitmentService.updateRecruitment(recruitment, company.getCompanyId());
+
+        return responseData;
+    }
+
+
+    /**
+     * @param token
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:15
+     * @description 删除指定的招聘信息
+     */
+    @RequestMapping(value = "/deleterecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData deleteRecruitment(@RequestParam String token, @RequestBody long recruitmentId) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException, EvilIntentions {
+
+        ResponseData responseData = new ResponseData<>();
+        iCompanyService.verifyToken(token);
+        Company company = iCompanyService.getInstaceByToken(token);
+        iRecruitmentService.deleteRecruitment(recruitmentId, company.getCompanyId());
+
+        return responseData;
     }
 }

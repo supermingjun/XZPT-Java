@@ -1,5 +1,6 @@
 package xz.fzu.service;
 
+import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.Recruitment;
 
@@ -41,16 +42,16 @@ public interface IRecruitmentService {
      * @date 2019/4/27 10:50
      * @description 删除招聘信息
      */
-    public void deleteRecruitment(long recruitmentId);
+    public void deleteRecruitment(long recruitmentId, String companyId) throws EvilIntentions;
 
 
     /**
      * @param recruitment
+     * @param companyId
      * @return void
      * @author Murphy
      * @date 2019/4/27 10:51
      * @description 更新招聘信息
      */
-    public void updateRecruitment(Recruitment recruitment);
-
+    public void updateRecruitment(Recruitment recruitment, String companyId) throws EvilIntentions;
 }

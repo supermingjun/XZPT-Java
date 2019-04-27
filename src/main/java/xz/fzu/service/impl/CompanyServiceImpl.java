@@ -81,7 +81,7 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public String loginWithToken(String token) throws TokenExpiredException {
+    public String verifyToken(String token) throws TokenExpiredException {
         if (iCompanyDao.verifyToken(token) == 0) {
             throw new TokenExpiredException();
         }

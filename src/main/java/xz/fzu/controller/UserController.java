@@ -2,16 +2,16 @@ package xz.fzu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import xz.fzu.exception.NoVerfcationCodeException;
-import xz.fzu.exception.PasswordErrorException;
-import xz.fzu.exception.TokenExpiredException;
-import xz.fzu.exception.ValidationExceprion;
+import xz.fzu.exception.*;
+import xz.fzu.model.Recruitment;
 import xz.fzu.model.User;
+import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IUserService;
 import xz.fzu.service.IVerificationCodeService;
 import xz.fzu.vo.ResponseData;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Murphy
@@ -25,6 +25,8 @@ public class UserController {
     private IUserService iUserService;
     @Resource
     private IVerificationCodeService iValidateCodeService;
+    @Resource
+    private IRecruitmentService iRecruitmentService;
 
     @Autowired
     public UserController(IUserService iUserService, IVerificationCodeService iValidateCodeService) {
@@ -157,6 +159,48 @@ public class UserController {
         ResponseData<String> responseData = new ResponseData<String>();
         iValidateCodeService.validateCode(email, code);
         iUserService.resetPasswd(email, passwd);
+        return responseData;
+    }
+
+
+    /**
+     * @param token
+     * @param recruitmentId
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:15
+     * @description 按id获得指定的招聘信息
+     */
+    @RequestMapping(value = "/getrecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData getRecruitment(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
+
+        ResponseData<Recruitment> responseData = new ResponseData<Recruitment>();
+        iUserService.verifyToken(token);
+        Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
+        responseData.setResultObject(recruitment);
+
+        return responseData;
+    }
+
+
+    /**
+     * @param token
+     * @param token
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:15
+     * @description 按id获得指定公司所有招聘信息
+     */
+    @RequestMapping(value = "/getlistrecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData<List<Recruitment>> getRecruitment(@RequestParam String token, @RequestParam String companyId) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+
+        ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
+        iUserService.verifyToken(token);
+        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(companyId);
+        responseData.setResultObject(recruitmentList);
+
         return responseData;
     }
 }

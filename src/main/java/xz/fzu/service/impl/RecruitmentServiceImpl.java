@@ -2,6 +2,7 @@ package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
 import xz.fzu.dao.IRecruitmentDao;
+import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.IRecruitmentService;
@@ -43,12 +44,20 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     }
 
     @Override
-    public void deleteRecruitment(long recruitmentId) {
+    public void deleteRecruitment(long recruitmentId, String companyId) throws EvilIntentions {
+        Recruitment tempRecruitment = iRecruitmentDao.selectInstaceById(recruitmentId);
+        if (!tempRecruitment.getCompanyId().equals(companyId)) {
+            throw new EvilIntentions();
+        }
         iRecruitmentDao.deleteInstace(recruitmentId);
     }
 
     @Override
-    public void updateRecruitment(Recruitment recruitment) {
+    public void updateRecruitment(Recruitment recruitment, String companyId) throws EvilIntentions {
+        Recruitment tempRecruitment = iRecruitmentDao.selectInstaceById(recruitment.getRecruitmentId());
+        if (!tempRecruitment.getCompanyId().equals(companyId)) {
+            throw new EvilIntentions();
+        }
         iRecruitmentDao.updateInstace(recruitment);
     }
 }

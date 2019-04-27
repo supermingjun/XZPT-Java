@@ -59,7 +59,7 @@ public interface ICompanyService {
      * @date 2019/4/25 19:55
      * @description 使用token登录
      */
-    String loginWithToken(String token) throws TokenExpiredException;
+    String verifyToken(String token) throws TokenExpiredException;
 
     /**
      * @param email
