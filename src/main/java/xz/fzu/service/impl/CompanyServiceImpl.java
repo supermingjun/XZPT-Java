@@ -26,7 +26,7 @@ public class CompanyServiceImpl implements ICompanyService {
     @Override
     public void register(Company company, int code) throws ValidationExceprion, NoVerfcationCodeException {
 
-        iVerificationCodeService.validateCode(company.getEmail(), code);
+        iVerificationCodeService.verifyCode(company.getEmail(), code);
         // 设置uuid
         String uuid = UUID.randomUUID().toString().replace("-", "");
         company.setCompanyId(uuid);
@@ -36,7 +36,7 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public Company getInfo(String token) throws UserNotFoundException {
+    public Company getInfoByToken(String token) throws UserNotFoundException {
         String userId = iCompanyDao.selectIdByToken(token);
         Company company = iCompanyDao.selectCompanyById(userId);
         if (company.getCompanyId() == null) {
@@ -47,7 +47,7 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public Company getInfo(String companyId, int a) throws UserNotFoundException {
+    public Company getInfoByCompanyId(String companyId, int a) throws UserNotFoundException {
         Company company = iCompanyDao.selectCompanyById(companyId);
         if (company.getCompanyId() == null) {
             throw new UserNotFoundException();
@@ -58,6 +58,7 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public void updateInfoByToken(Company company, String token) throws TokenExpiredException {
+
         TokenUtil.verify(token);
         if (iCompanyDao.verifyToken(token) == 0) {
             throw new TokenExpiredException();
@@ -77,6 +78,7 @@ public class CompanyServiceImpl implements ICompanyService {
         company.setCompanyId(companId);
         company.setToken(token);
         updateToken(company);
+
         return token;
     }
 
@@ -107,7 +109,7 @@ public class CompanyServiceImpl implements ICompanyService {
         if (companyId == null) {
             throw new TokenExpiredException();
         }
-        return getInfo(companyId, 1);
+        return getInfoByCompanyId(companyId, 1);
     }
 
     @Override

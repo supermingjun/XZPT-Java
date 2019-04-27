@@ -83,5 +83,5 @@ public interface IUserDao {
      * @date 2019/4/24 16:41
      * @description 更新用户信息
      */
-    void updateInfo(User user);
+    void updateInstanceInfo(User user);
 }

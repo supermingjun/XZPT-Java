@@ -103,10 +103,10 @@ public class CompanyController {
      */
     @RequestMapping(value = "/getcompanybytoken", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<Company> getUser(@RequestParam String token) throws UserNotFoundException {
+    public ResponseData<Company> getUser(@RequestParam String token) throws UserNotFoundException, TokenExpiredException {
 
         ResponseData<Company> responseData = new ResponseData<Company>();
-        Company company = iCompanyService.getInfo(token);
+        Company company = iCompanyService.getInstaceByToken(token);
         company.setPasswd(null);
         company.setToken(null);
         responseData.setResultObject(company);
@@ -167,7 +167,7 @@ public class CompanyController {
     public ResponseData resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationExceprion, NoVerfcationCodeException, TokenExpiredException {
 
         ResponseData responseData = new ResponseData();
-        iVerificationCodeService.validateCode(email, code);
+        iVerificationCodeService.verifyCode(email, code);
         iCompanyService.resetPasswd(email, passwd);
 
         return responseData;

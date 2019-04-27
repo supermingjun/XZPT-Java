@@ -16,7 +16,7 @@
     <!--开启解析controller-->
     <mvc:annotation-driven/>
     <!-- 静态资源默认servlet配置 如果开启了这个404 跳转无法实现 -->
-    <!--<mvc:default-servlet-handler/>-->
+    <mvc:default-servlet-handler/>
     <!-- 配置jsp 显示ViewResolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>

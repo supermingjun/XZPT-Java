@@ -19,9 +19,9 @@ public interface ICompanyService {
      * @return xz.fzu.model.Company
      * @author Murphy
      * @date 2019/4/25 19:24
-     * @description 根据企业邮箱查看企业
+     * @description 根据企业token查看企业
      */
-    Company getInfo(String email) throws UserNotFoundException;
+    Company getInfoByToken(String token) throws UserNotFoundException;
 
     /**
      * @param CompanyId
@@ -31,7 +31,7 @@ public interface ICompanyService {
      * @date 2019/4/25 19:25
      * @description 根据企业id查看企业信息
      */
-    Company getInfo(String CompanyId, int a) throws UserNotFoundException;
+    Company getInfoByCompanyId(String CompanyId, int a) throws UserNotFoundException;
 
     /**
      * @param company

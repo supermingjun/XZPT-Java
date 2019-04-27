@@ -24,14 +24,14 @@ public class UserController {
     @Resource
     private IUserService iUserService;
     @Resource
-    private IVerificationCodeService iValidateCodeService;
+    private IVerificationCodeService iVerificationCodeService;
     @Resource
     private IRecruitmentService iRecruitmentService;
 
     @Autowired
     public UserController(IUserService iUserService, IVerificationCodeService iValidateCodeService) {
         this.iUserService = iUserService;
-        this.iValidateCodeService = iValidateCodeService;
+        this.iVerificationCodeService = iValidateCodeService;
     }
 
     /**
@@ -47,7 +47,7 @@ public class UserController {
     public ResponseData register(@RequestBody User user, @RequestParam int code) throws ValidationExceprion, NoVerfcationCodeException {
 
         ResponseData<String> responseData = new ResponseData<String>();
-        iValidateCodeService.validateCode(user.getEmail(), code);
+        iVerificationCodeService.verifyCode(user.getEmail(), code);
         String token = iUserService.register(user);
         responseData.setResultObject(token);
 
@@ -83,7 +83,7 @@ public class UserController {
     public ResponseData<String> login(@RequestBody User user) {
 
         ResponseData<String> responseData = new ResponseData<String>();
-        String token = iUserService.vertifyUser(user);
+        String token = iUserService.verifyUser(user);
         responseData.setResultObject(token);
         return responseData;
     }
@@ -98,12 +98,10 @@ public class UserController {
      */
     @RequestMapping(value = "/getuserbytoken", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<User> getUser(@RequestParam String token) {
+    public ResponseData<User> getUser(@RequestParam String token) throws TokenExpiredException {
 
         ResponseData<User> responseData = new ResponseData<User>();
         User user = iUserService.selectUserByToken(token);
-        user.setPasswd(null);
-        user.setToken(null);
         responseData.setResultObject(user);
         return responseData;
     }
@@ -157,7 +155,7 @@ public class UserController {
     public ResponseData<String> resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationExceprion, NoVerfcationCodeException {
 
         ResponseData<String> responseData = new ResponseData<String>();
-        iValidateCodeService.validateCode(email, code);
+        iVerificationCodeService.verifyCode(email, code);
         iUserService.resetPasswd(email, passwd);
         return responseData;
     }
