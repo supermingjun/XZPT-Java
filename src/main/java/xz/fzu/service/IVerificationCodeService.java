@@ -7,5 +7,5 @@ import xz.fzu.exception.ValidationExceprion;
 public interface IVerificationCodeService {
     int sendValidateCode(String email) throws EmailException;
 
-    boolean validateCode(String email, int code) throws ValidationExceprion, NoVerfcationCodeException;
+    boolean verifyCode(String email, int code) throws ValidationExceprion, NoVerfcationCodeException;
 }

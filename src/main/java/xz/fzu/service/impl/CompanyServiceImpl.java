@@ -1,6 +1,5 @@
 package xz.fzu.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xz.fzu.dao.ICompanyDao;
 import xz.fzu.exception.*;
@@ -10,6 +9,7 @@ import xz.fzu.service.IVerificationCodeService;
 import xz.fzu.util.SHA;
 import xz.fzu.util.TokenUtil;
 
+import javax.annotation.Resource;
 import java.util.UUID;
 
 /**
@@ -18,15 +18,15 @@ import java.util.UUID;
  */
 @Service
 public class CompanyServiceImpl implements ICompanyService {
-    @Autowired
+    @Resource
     ICompanyDao iCompanyDao;
-    @Autowired
+    @Resource
     IVerificationCodeService iVerificationCodeService;
 
     @Override
     public void register(Company company, int code) throws ValidationExceprion, NoVerfcationCodeException {
 
-        iVerificationCodeService.validateCode(company.getEmail(), code);
+        iVerificationCodeService.verifyCode(company.getEmail(), code);
         // 设置uuid
         String uuid = UUID.randomUUID().toString().replace("-", "");
         company.setCompanyId(uuid);
@@ -36,28 +36,20 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public Company getInfo(String token) throws UserNotFoundException {
-        String userId = iCompanyDao.selectIdByToken(token);
-        Company company = iCompanyDao.selectCompanyById(userId);
-        if (company.getCompanyId() == null) {
-            throw new UserNotFoundException();
-        }
-        company.setPasswd(null);
-        return company;
-    }
+    public Company getInfoByCompanyId(String companyId) throws UserNotFoundException {
 
-    @Override
-    public Company getInfo(String companyId, int a) throws UserNotFoundException {
         Company company = iCompanyDao.selectCompanyById(companyId);
         if (company.getCompanyId() == null) {
             throw new UserNotFoundException();
         }
         company.setPasswd(null);
+
         return company;
     }
 
     @Override
     public void updateInfoByToken(Company company, String token) throws TokenExpiredException {
+
         TokenUtil.verify(token);
         if (iCompanyDao.verifyToken(token) == 0) {
             throw new TokenExpiredException();
@@ -77,14 +69,17 @@ public class CompanyServiceImpl implements ICompanyService {
         company.setCompanyId(companId);
         company.setToken(token);
         updateToken(company);
+
         return token;
     }
 
     @Override
-    public String loginWithToken(String token) throws TokenExpiredException {
+    public String verifyToken(String token) throws TokenExpiredException {
+
         if (iCompanyDao.verifyToken(token) == 0) {
             throw new TokenExpiredException();
         }
+
         return token;
     }
 
@@ -102,16 +97,19 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public Company getInstaceByToken(String token) throws TokenExpiredException, UserNotFoundException {
+    public Company getInfoByToken(String token) throws TokenExpiredException, UserNotFoundException {
+
         String companyId = iCompanyDao.selectIdByToken(token);
         if (companyId == null) {
             throw new TokenExpiredException();
         }
-        return getInfo(companyId);
+
+        return getInfoByCompanyId(companyId);
     }
 
     @Override
     public String updatePasswd(String token, String oldPasswd, String newPasswd) throws TokenExpiredException, PasswordErrorException {
+
         if (iCompanyDao.verifyToken(token) == 0) {
             throw new TokenExpiredException();
         }
@@ -121,7 +119,8 @@ public class CompanyServiceImpl implements ICompanyService {
         if (affectRow == 0) {
             throw new PasswordErrorException();
         }
-        String userId = iCompanyDao.selectIdByToken(token);
-        return TokenUtil.createToken(userId, newPasswd);
+        String companyId = iCompanyDao.selectIdByToken(token);
+
+        return TokenUtil.createToken(companyId, newPasswd);
     }
 }

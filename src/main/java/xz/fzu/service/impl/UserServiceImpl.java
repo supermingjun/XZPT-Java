@@ -38,6 +38,7 @@ public class UserServiceImpl implements IUserService {
         String token = TokenUtil.createToken(user.getUserId(), user.getPasswd());
         user.setToken(token);
         iUserDao.insertUser(user);
+
         return token;
     }
 
@@ -66,7 +67,8 @@ public class UserServiceImpl implements IUserService {
      * @description 验证用户名和密码, 并且返回token
      */
     @Override
-    public String vertifyUser(User user) {
+    public String verifyUser(User user) {
+
         // 密码加密处理
         user.setPasswd(SHA.encrypt(user.getPasswd()));
         if (iUserDao.vertifyUser(user) != 1) {
@@ -77,6 +79,7 @@ public class UserServiceImpl implements IUserService {
         String token = TokenUtil.createToken(user.getUserId(), user.getPasswd());
         // 更新Token
         updateToken(token, user.getUserId());
+
         return token;
     }
 
@@ -89,11 +92,13 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public String verifyToken(String token) throws TokenExpiredException {
+
         TokenUtil.verify(token);
         String userId = iUserDao.selectUserIdByToken(token);
         if (userId == null) {
             throw new TokenExpiredException();
         }
+
         return userId;
     }
 
@@ -118,9 +123,14 @@ public class UserServiceImpl implements IUserService {
      * @description 通过token查找用户
      */
     @Override
-    public User selectUserByToken(String token) {
-        String userId = iUserDao.selectUserIdByToken(token);
-        return iUserDao.selectByUserId(userId);
+    public User selectUserByToken(String token) throws TokenExpiredException {
+
+        String userId = verifyToken(token);
+        User user = iUserDao.selectByUserId(userId);
+        user.setPasswd(null);
+        user.setToken(null);
+
+        return user;
     }
 
     /**
@@ -129,14 +139,16 @@ public class UserServiceImpl implements IUserService {
      * @return void
      * @author Murphy
      * @date 2019/4/24 16:50
-     * @description 更新用户信息
+     * @description 更新用户信息（禁止更新密码）
      */
     @Override
     public void updateInfo(User user, String token) throws TokenExpiredException {
+
         String userId = verifyToken(token);
         user.setUserId(userId);
         user.setPasswd(null);
-        iUserDao.updateInfo(user);
+
+        iUserDao.updateInstanceInfo(user);
     }
 
     /**
@@ -155,9 +167,8 @@ public class UserServiceImpl implements IUserService {
         oldPasswd = SHA.encrypt(oldPasswd);
         newPasswd = SHA.encrypt(newPasswd);
 
-        verifyToken(token);
+        String userId = verifyToken(token);
 
-        String userId = iUserDao.selectUserIdByToken(token);
         User user = iUserDao.selectByUserId(userId);
         if (!oldPasswd.equals(user.getPasswd())) {
             throw new PasswordErrorException();
@@ -165,6 +176,7 @@ public class UserServiceImpl implements IUserService {
         iUserDao.updatePasswd(userId, newPasswd);
         String newToken = TokenUtil.createToken(userId, newPasswd);
         iUserDao.updateToken(newToken, userId);
+
         return newToken;
     }
 
@@ -178,10 +190,12 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public void resetPasswd(String email, String passwd) {
+
         String userId = iUserDao.selectByEmail(email).getUserId();
         User user = new User();
         user.setUserId(userId);
         user.setPasswd(SHA.encrypt(passwd));
-        iUserDao.updateInfo(user);
+
+        iUserDao.updateInstanceInfo(user);
     }
 }

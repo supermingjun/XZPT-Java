@@ -4,9 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.exception.*;
 import xz.fzu.model.Company;
+import xz.fzu.model.Recruitment;
 import xz.fzu.service.ICompanyService;
+import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IVerificationCodeService;
 import xz.fzu.vo.ResponseData;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Murphy
@@ -16,16 +21,21 @@ import xz.fzu.vo.ResponseData;
 @RequestMapping(value = "/company")
 public class CompanyController {
 
-    @Autowired
+    @Resource
     ICompanyService iCompanyService;
 
-    @Autowired
+    @Resource
     IVerificationCodeService iVerificationCodeService;
 
+    @Resource
+    IRecruitmentService iRecruitmentService;
+
     @Autowired
-    public CompanyController(ICompanyService iCompanyService, IVerificationCodeService iVerificationCodeService) {
+    public CompanyController(ICompanyService iCompanyService, IVerificationCodeService iVerificationCodeService, IRecruitmentService iRecruitmentService) {
+
         this.iCompanyService = iCompanyService;
         this.iVerificationCodeService = iVerificationCodeService;
+        this.iRecruitmentService = iRecruitmentService;
     }
 
     /**
@@ -41,9 +51,10 @@ public class CompanyController {
 
         String email = company.getEmail();
         String passwd = company.getPasswd();
-        ResponseData<String> responseData = new ResponseData<String>();
+        ResponseData<String> responseData = new ResponseData<>();
         String token = iCompanyService.login(email, passwd);
         responseData.setResultObject(token);
+
         return responseData;
     }
 
@@ -59,7 +70,8 @@ public class CompanyController {
     public ResponseData loginWithToken(@RequestParam String token) throws TokenExpiredException {
 
         ResponseData responseData = new ResponseData();
-        iCompanyService.loginWithToken(token);
+        iCompanyService.verifyToken(token);
+
         return responseData;
     }
 
@@ -77,6 +89,7 @@ public class CompanyController {
 
         ResponseData responseData = new ResponseData();
         iCompanyService.register(company, code);
+
         return responseData;
     }
 
@@ -90,13 +103,14 @@ public class CompanyController {
      */
     @RequestMapping(value = "/getcompanybytoken", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<Company> getUser(@RequestParam String token) throws UserNotFoundException {
+    public ResponseData<Company> getUser(@RequestParam String token) throws UserNotFoundException, TokenExpiredException {
 
-        ResponseData<Company> responseData = new ResponseData<Company>();
-        Company company = iCompanyService.getInfo(token);
+        ResponseData<Company> responseData = new ResponseData<>();
+        Company company = iCompanyService.getInfoByToken(token);
         company.setPasswd(null);
         company.setToken(null);
         responseData.setResultObject(company);
+
         return responseData;
     }
 
@@ -113,9 +127,10 @@ public class CompanyController {
     @ResponseBody
     public ResponseData<String> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) throws TokenExpiredException, PasswordErrorException {
 
-        ResponseData<String> responseData = new ResponseData<String>();
+        ResponseData<String> responseData = new ResponseData<>();
         String newToken = iCompanyService.updatePasswd(token, oldPasswd, newPasswd);
         responseData.setResultObject(newToken);
+
         return responseData;
     }
 
@@ -134,6 +149,7 @@ public class CompanyController {
 
         ResponseData responseData = new ResponseData();
         iCompanyService.updateInfoByToken(company, token);
+
         return responseData;
     }
 
@@ -149,9 +165,111 @@ public class CompanyController {
     @RequestMapping(value = "/resetpasswd", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationExceprion, NoVerfcationCodeException, TokenExpiredException {
+
         ResponseData responseData = new ResponseData();
-        iVerificationCodeService.validateCode(email, code);
+        iVerificationCodeService.verifyCode(email, code);
         iCompanyService.resetPasswd(email, passwd);
+
+        return responseData;
+    }
+
+    /**
+     * @param recruitment
+     * @param token
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:06
+     * @description 发布招聘信息
+     */
+    @RequestMapping(value = "/releaserecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException {
+
+        ResponseData responseData = new ResponseData();
+        iCompanyService.verifyToken(token);
+        iRecruitmentService.insertRecruitment(recruitment);
+
+        return responseData;
+    }
+
+    /**
+     * @param token
+     * @param recruitmentId
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:15
+     * @description 按id获得指定的招聘信息
+     */
+    @RequestMapping(value = "/getrecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData getRecruitment(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
+
+        ResponseData<Recruitment> responseData = new ResponseData<>();
+        iCompanyService.verifyToken(token);
+        Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
+        responseData.setResultObject(recruitment);
+
+        return responseData;
+    }
+
+
+    /**
+     * @param token
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:15
+     * @description 按id获得指定的所有招聘信息
+     */
+    @RequestMapping(value = "/getlistrecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData<List<Recruitment>> getRecruitment(@RequestParam String token) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+
+        ResponseData<List<Recruitment>> responseData = new ResponseData<>();
+        iCompanyService.verifyToken(token);
+        Company company = iCompanyService.getInfoByToken(token);
+        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId());
+        responseData.setResultObject(recruitmentList);
+
+        return responseData;
+    }
+
+
+    /**
+     * @param token
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:15
+     * @description 修改指定的招聘信息
+     */
+    @RequestMapping(value = "/updaterecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData updateRecruitment(@RequestParam String token, @RequestBody Recruitment recruitment) throws TokenExpiredException, UserNotFoundException, EvilIntentions {
+
+        ResponseData responseData = new ResponseData<>();
+        iCompanyService.verifyToken(token);
+        Company company = iCompanyService.getInfoByToken(token);
+        iRecruitmentService.updateRecruitment(recruitment, company.getCompanyId());
+
+        return responseData;
+    }
+
+
+    /**
+     * @param token
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/27 11:15
+     * @description 删除指定的招聘信息
+     */
+    @RequestMapping(value = "/deleterecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData deleteRecruitment(@RequestParam String token, @RequestParam long recruitmentId) throws TokenExpiredException, UserNotFoundException, EvilIntentions {
+
+        ResponseData responseData = new ResponseData<>();
+        iCompanyService.verifyToken(token);
+        Company company = iCompanyService.getInfoByToken(token);
+        iRecruitmentService.deleteRecruitment(recruitmentId, company.getCompanyId());
+
         return responseData;
     }
 }

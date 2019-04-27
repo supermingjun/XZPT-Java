@@ -12,13 +12,13 @@ public interface IUserService {
 
     User selectByUserId(String userId);
 
-    String vertifyUser(User user);
+    String verifyUser(User user);
 
     String verifyToken(String token) throws TokenExpiredException;
 
     void updateToken(String token, String userId);
 
-    User selectUserByToken(String token);
+    User selectUserByToken(String token) throws TokenExpiredException;
 
     String updatePasswd(String token, String oldPasswd, String newPasswd) throws PasswordErrorException, TokenExpiredException;
 

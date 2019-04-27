@@ -36,6 +36,10 @@ public class Constants {
     public static final int URL_NOT_FOUND = 2016;
     // Token 错误
     public static final Integer TOKEN_ERROR = 2017;
+    // 找不到实例
+    public static final int intanceNotExist = 2018;
+    // 恶意操作
+    public static final int evilIntentions = 2019;
 
 
 
