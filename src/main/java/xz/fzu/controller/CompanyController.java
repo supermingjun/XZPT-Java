@@ -264,7 +264,7 @@ public class CompanyController {
      */
     @RequestMapping(value = "/deleterecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData deleteRecruitment(@RequestParam String token, @RequestBody long recruitmentId) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException, EvilIntentions {
+    public ResponseData deleteRecruitment(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException, EvilIntentions {
 
         ResponseData responseData = new ResponseData<>();
         iCompanyService.verifyToken(token);

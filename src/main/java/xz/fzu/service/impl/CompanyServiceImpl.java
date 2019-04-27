@@ -107,7 +107,7 @@ public class CompanyServiceImpl implements ICompanyService {
         if (companyId == null) {
             throw new TokenExpiredException();
         }
-        return getInfo(companyId);
+        return getInfo(companyId, 1);
     }
 
     @Override

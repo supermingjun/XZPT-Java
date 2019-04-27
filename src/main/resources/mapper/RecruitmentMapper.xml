@@ -42,7 +42,7 @@
                 description = #{description},
             </if>
             <if test=" contact !=null and contact != '' ">
-                contac t= #{contact},
+                contact= #{contact},
             </if>
             <if test=" qualifications !=null and qualifications != '' ">
                 qualifications = #{qualifications},
@@ -62,7 +62,7 @@
             <if test=" type !=null and type != '' ">
                 type = #{type},
             </if>
-            <if test=" validate !=null and v != '' ">
+            <if test=" validate !=null and validate != '' ">
                 validate = #{validate},
             </if>
         </set>

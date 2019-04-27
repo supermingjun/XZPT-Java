@@ -46,7 +46,7 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     @Override
     public void deleteRecruitment(long recruitmentId, String companyId) throws EvilIntentions {
         Recruitment tempRecruitment = iRecruitmentDao.selectInstaceById(recruitmentId);
-        if (!tempRecruitment.getCompanyId().equals(companyId)) {
+        if (tempRecruitment == null || !tempRecruitment.getCompanyId().equals(companyId)) {
             throw new EvilIntentions();
         }
         iRecruitmentDao.deleteInstace(recruitmentId);
