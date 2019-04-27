@@ -15,23 +15,13 @@ public interface ICompanyService {
     void register(Company company, int code) throws ValidationExceprion, NoVerfcationCodeException;//TODO 是否需要code
 
     /**
-     * @param email
-     * @return xz.fzu.model.Company
-     * @author Murphy
-     * @date 2019/4/25 19:24
-     * @description 根据企业token查看企业
-     */
-    Company getInfoByToken(String token) throws UserNotFoundException;
-
-    /**
      * @param CompanyId
-     * @param a
      * @return xz.fzu.model.Company
      * @author Murphy
      * @date 2019/4/25 19:25
      * @description 根据企业id查看企业信息
      */
-    Company getInfoByCompanyId(String CompanyId, int a) throws UserNotFoundException;
+    Company getInfoByCompanyId(String CompanyId) throws UserNotFoundException;
 
     /**
      * @param company
@@ -87,7 +77,7 @@ public interface ICompanyService {
      * @date 2019/4/25 20:44
      * @description 通过token获得企业实例
      */
-    Company getInstaceByToken(String token) throws TokenExpiredException, UserNotFoundException;
+    Company getInfoByToken(String token) throws TokenExpiredException, UserNotFoundException;
 
     /**
      * @param token

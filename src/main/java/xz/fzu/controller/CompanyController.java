@@ -51,7 +51,7 @@ public class CompanyController {
 
         String email = company.getEmail();
         String passwd = company.getPasswd();
-        ResponseData<String> responseData = new ResponseData<String>();
+        ResponseData<String> responseData = new ResponseData<>();
         String token = iCompanyService.login(email, passwd);
         responseData.setResultObject(token);
 
@@ -105,8 +105,8 @@ public class CompanyController {
     @ResponseBody
     public ResponseData<Company> getUser(@RequestParam String token) throws UserNotFoundException, TokenExpiredException {
 
-        ResponseData<Company> responseData = new ResponseData<Company>();
-        Company company = iCompanyService.getInstaceByToken(token);
+        ResponseData<Company> responseData = new ResponseData<>();
+        Company company = iCompanyService.getInfoByToken(token);
         company.setPasswd(null);
         company.setToken(null);
         responseData.setResultObject(company);
@@ -127,7 +127,7 @@ public class CompanyController {
     @ResponseBody
     public ResponseData<String> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) throws TokenExpiredException, PasswordErrorException {
 
-        ResponseData<String> responseData = new ResponseData<String>();
+        ResponseData<String> responseData = new ResponseData<>();
         String newToken = iCompanyService.updatePasswd(token, oldPasswd, newPasswd);
         responseData.setResultObject(newToken);
 
@@ -204,7 +204,7 @@ public class CompanyController {
     @ResponseBody
     public ResponseData getRecruitment(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
 
-        ResponseData<Recruitment> responseData = new ResponseData<Recruitment>();
+        ResponseData<Recruitment> responseData = new ResponseData<>();
         iCompanyService.verifyToken(token);
         Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
         responseData.setResultObject(recruitment);
@@ -215,7 +215,6 @@ public class CompanyController {
 
     /**
      * @param token
-     * @param token
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/27 11:15
@@ -225,9 +224,9 @@ public class CompanyController {
     @ResponseBody
     public ResponseData<List<Recruitment>> getRecruitment(@RequestParam String token) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
 
-        ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
+        ResponseData<List<Recruitment>> responseData = new ResponseData<>();
         iCompanyService.verifyToken(token);
-        Company company = iCompanyService.getInstaceByToken(token);
+        Company company = iCompanyService.getInfoByToken(token);
         List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId());
         responseData.setResultObject(recruitmentList);
 
@@ -244,11 +243,11 @@ public class CompanyController {
      */
     @RequestMapping(value = "/updaterecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData updateRecruitment(@RequestParam String token, @RequestBody Recruitment recruitment) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException, EvilIntentions {
+    public ResponseData updateRecruitment(@RequestParam String token, @RequestBody Recruitment recruitment) throws TokenExpiredException, UserNotFoundException, EvilIntentions {
 
         ResponseData responseData = new ResponseData<>();
         iCompanyService.verifyToken(token);
-        Company company = iCompanyService.getInstaceByToken(token);
+        Company company = iCompanyService.getInfoByToken(token);
         iRecruitmentService.updateRecruitment(recruitment, company.getCompanyId());
 
         return responseData;
@@ -264,11 +263,11 @@ public class CompanyController {
      */
     @RequestMapping(value = "/deleterecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData deleteRecruitment(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException, EvilIntentions {
+    public ResponseData deleteRecruitment(@RequestParam String token, @RequestParam long recruitmentId) throws TokenExpiredException, UserNotFoundException, EvilIntentions {
 
         ResponseData responseData = new ResponseData<>();
         iCompanyService.verifyToken(token);
-        Company company = iCompanyService.getInstaceByToken(token);
+        Company company = iCompanyService.getInfoByToken(token);
         iRecruitmentService.deleteRecruitment(recruitmentId, company.getCompanyId());
 
         return responseData;
