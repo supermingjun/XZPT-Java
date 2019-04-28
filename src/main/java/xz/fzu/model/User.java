@@ -1,182 +1,203 @@
 package xz.fzu.model;
 
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.Serializable;
 
-/**
- * @author Murphy
- * @date 2019/4/19 13:21
- */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    private String userId;
-    private String passwd;
-    private String telephone;
-    private String userName;
-    private String headUrl;
-    private String email;
-    private long sex;
-    private String school;
-    private String specialty;
-    private String occupation;
-    private String presentCity;
-    private String expectedCity;
-
-    /* token 临时存这里吧 //TODO 注意以后把这个从实体类中删除, 注意安卓端没有这个属性，安卓端直接删除即可*/
-    private String token;
-
-    private long workTime;
-    private long jobClassification;
-    private long jobNature;
-
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+  private static final long serialVersionUID = 1;
+  private String userId;
+  private String telephone;
+  private String passwd;
+  private String userName;
+  private String headUrl;
+  private String email;
+  private long sex;
+  private String school;
+  private String specialty;
+  private java.sql.Date startTime;
+  private java.sql.Date endTime;
+  private long workTime;
+  private long jobType;
+  private String presentCity;
+  private String expectedCity;
+  private long industryLabel;
+  private String stationLabel;
+  private String expectSalary;
+  private String token;
 
 
-    public String getPasswd() {
-        return passwd;
-    }
+  public String getUserId() {
+    return userId;
+  }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
-    }
-
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
 
 
-    public String getUserName() {
-        return userName;
-    }
+  public String getTelephone() {
+    return telephone;
+  }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-
-    public String getHeadUrl() {
-        return headUrl;
-    }
-
-    public void setHeadUrl(String headUrl) {
-        this.headUrl = headUrl;
-    }
+  public void setTelephone(String telephone) {
+    this.telephone = telephone;
+  }
 
 
-    public String getEmail() {
-        return email;
-    }
+  public String getPasswd() {
+    return passwd;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    public long getSex() {
-        return sex;
-    }
-
-    public void setSex(long sex) {
-        this.sex = sex;
-    }
+  public void setPasswd(String passwd) {
+    this.passwd = passwd;
+  }
 
 
-    public String getSchool() {
-        return school;
-    }
+  public String getUserName() {
+    return userName;
+  }
 
-    public void setSchool(String school) {
-        this.school = school;
-    }
-
-
-    public String getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
-    }
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
 
-    public String getOccupation() {
-        return occupation;
-    }
+  public String getHeadUrl() {
+    return headUrl;
+  }
 
-    public void setOccupation(String occupation) {
-        this.occupation = occupation;
-    }
-
-
-    public String getPresentCity() {
-        return presentCity;
-    }
-
-    public void setPresentCity(String presentCity) {
-        this.presentCity = presentCity;
-    }
+  public void setHeadUrl(String headUrl) {
+    this.headUrl = headUrl;
+  }
 
 
-    public String getExpectedCity() {
-        return expectedCity;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setExpectedCity(String expectedCity) {
-        this.expectedCity = expectedCity;
-    }
-
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
 
-    public long getWorkTime() {
-        return workTime;
-    }
+  public long getSex() {
+    return sex;
+  }
 
-    public void setWorkTime(long workTime) {
-        this.workTime = workTime;
-    }
-
-
-    public long getJobClassification() {
-        return jobClassification;
-    }
-
-    public void setJobClassification(long jobClassification) {
-        this.jobClassification = jobClassification;
-    }
+  public void setSex(long sex) {
+    this.sex = sex;
+  }
 
 
-    public long getJobNature() {
-        return jobNature;
-    }
+  public String getSchool() {
+    return school;
+  }
 
-    public void setJobNature(long jobNature) {
-        this.jobNature = jobNature;
-    }
+  public void setSchool(String school) {
+    this.school = school;
+  }
+
+
+  public String getSpecialty() {
+    return specialty;
+  }
+
+  public void setSpecialty(String specialty) {
+    this.specialty = specialty;
+  }
+
+
+  public java.sql.Date getStartTime() {
+    return startTime;
+  }
+
+  public void setStartTime(java.sql.Date startTime) {
+    this.startTime = startTime;
+  }
+
+
+  public java.sql.Date getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(java.sql.Date endTime) {
+    this.endTime = endTime;
+  }
+
+
+  public long getWorkTime() {
+    return workTime;
+  }
+
+  public void setWorkTime(long workTime) {
+    this.workTime = workTime;
+  }
+
+
+  public long getJobType() {
+    return jobType;
+  }
+
+  public void setJobType(long jobType) {
+    this.jobType = jobType;
+  }
+
+
+  public String getPresentCity() {
+    return presentCity;
+  }
+
+  public void setPresentCity(String presentCity) {
+    this.presentCity = presentCity;
+  }
+
+
+  public String getExpectedCity() {
+    return expectedCity;
+  }
+
+  public void setExpectedCity(String expectedCity) {
+    this.expectedCity = expectedCity;
+  }
+
+
+  public long getIndustryLabel() {
+    return industryLabel;
+  }
+
+  public void setIndustryLabel(long industryLabel) {
+    this.industryLabel = industryLabel;
+  }
+
+
+  public String getStationLabel() {
+    return stationLabel;
+  }
+
+  public void setStationLabel(String stationLabel) {
+    this.stationLabel = stationLabel;
+  }
+
+
+  public String getExpectSalary() {
+    return expectSalary;
+  }
+
+  public void setExpectSalary(String expectSalary) {
+    this.expectSalary = expectSalary;
+  }
+
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
+  }
 
 }
-
-
