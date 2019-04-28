@@ -67,12 +67,12 @@ public class UserServiceImpl implements IUserService {
      * @description 验证用户名和密码, 并且返回token
      */
     @Override
-    public String verifyUser(User user) {
+    public String verifyUser(User user) throws PasswordErrorException {
 
         // 密码加密处理
         user.setPasswd(SHA.encrypt(user.getPasswd()));
         if (iUserDao.vertifyUser(user) != 1) {
-            throw new RuntimeException("账号或密码错误");
+            throw new PasswordErrorException();
         }
         // 因为传入的user只有email和passwd
         user = selectByEmail(user.getEmail());
@@ -148,7 +148,7 @@ public class UserServiceImpl implements IUserService {
         user.setUserId(userId);
         user.setPasswd(null);
 
-        iUserDao.updateInstanceInfo(user);
+        iUserDao.updateInfo(user);
     }
 
     /**
@@ -196,6 +196,6 @@ public class UserServiceImpl implements IUserService {
         user.setUserId(userId);
         user.setPasswd(SHA.encrypt(passwd));
 
-        iUserDao.updateInstanceInfo(user);
+        iUserDao.updateInfo(user);
     }
 }

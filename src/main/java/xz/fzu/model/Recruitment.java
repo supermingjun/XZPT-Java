@@ -1,6 +1,5 @@
 package xz.fzu.model;
 
-
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.Serializable;
@@ -8,126 +7,157 @@ import java.io.Serializable;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Recruitment implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private java.sql.Timestamp publishTime;
-    private String companyId;
-    private String description;
-    private long recruitmentId;
-    private String contact;
-    private String qualifications;
-    private String location;
-    private String deliveryRequest;
-    private String duty;
-    private String salary;
-    private long type;
-    private long validate;
+  private static final long serialVersionUID = 1;
+
+  private long recruitmentId;
+  private java.sql.Timestamp publishTime;
+  private long validate;
+  private String companyId;
+  private String jobName;
+  private String description;
+  private String contact;
+  private String location;
+  private String deliveryRequest;
+  private String salary;
+  private String degree;
+  private long workTime;
+  private long industryLabel;
+  private String stationLabel;
+  private long jobType;
 
 
-    public java.sql.Timestamp getPublishTime() {
-        return publishTime;
-    }
+  public long getRecruitmentId() {
+    return recruitmentId;
+  }
 
-    public void setPublishTime(java.sql.Timestamp publishTime) {
-        this.publishTime = publishTime;
-    }
-
-
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
-    }
+  public void setRecruitmentId(long recruitmentId) {
+    this.recruitmentId = recruitmentId;
+  }
 
 
-    public String getDescription() {
-        return description;
-    }
+  public java.sql.Timestamp getPublishTime() {
+    return publishTime;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-    public long getRecruitmentId() {
-        return recruitmentId;
-    }
-
-    public void setRecruitmentId(long recruitmentId) {
-        this.recruitmentId = recruitmentId;
-    }
+  public void setPublishTime(java.sql.Timestamp publishTime) {
+    this.publishTime = publishTime;
+  }
 
 
-    public String getContact() {
-        return contact;
-    }
+  public long getValidate() {
+    return validate;
+  }
 
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-
-    public String getQualifications() {
-        return qualifications;
-    }
-
-    public void setQualifications(String qualifications) {
-        this.qualifications = qualifications;
-    }
+  public void setValidate(long validate) {
+    this.validate = validate;
+  }
 
 
-    public String getLocation() {
-        return location;
-    }
+  public String getCompanyId() {
+    return companyId;
+  }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-
-    public String getDeliveryRequest() {
-        return deliveryRequest;
-    }
-
-    public void setDeliveryRequest(String deliveryRequest) {
-        this.deliveryRequest = deliveryRequest;
-    }
+  public void setCompanyId(String companyId) {
+    this.companyId = companyId;
+  }
 
 
-    public String getDuty() {
-        return duty;
-    }
+  public String getJobName() {
+    return jobName;
+  }
 
-    public void setDuty(String duty) {
-        this.duty = duty;
-    }
-
-
-    public String getSalary() {
-        return salary;
-    }
-
-    public void setSalary(String salary) {
-        this.salary = salary;
-    }
+  public void setJobName(String jobName) {
+    this.jobName = jobName;
+  }
 
 
-    public long getType() {
-        return type;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setType(long type) {
-        this.type = type;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
 
-    public long getValidate() {
-        return validate;
-    }
+  public String getContact() {
+    return contact;
+  }
 
-    public void setValidate(long validate) {
-        this.validate = validate;
-    }
+  public void setContact(String contact) {
+    this.contact = contact;
+  }
+
+
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
+
+  public String getDeliveryRequest() {
+    return deliveryRequest;
+  }
+
+  public void setDeliveryRequest(String deliveryRequest) {
+    this.deliveryRequest = deliveryRequest;
+  }
+
+
+  public String getSalary() {
+    return salary;
+  }
+
+  public void setSalary(String salary) {
+    this.salary = salary;
+  }
+
+
+  public String getDegree() {
+    return degree;
+  }
+
+  public void setDegree(String degree) {
+    this.degree = degree;
+  }
+
+
+  public long getWorkTime() {
+    return workTime;
+  }
+
+  public void setWorkTime(long workTime) {
+    this.workTime = workTime;
+  }
+
+
+  public long getIndustryLabel() {
+    return industryLabel;
+  }
+
+  public void setIndustryLabel(long industryLabel) {
+    this.industryLabel = industryLabel;
+  }
+
+
+  public String getStationLabel() {
+    return stationLabel;
+  }
+
+  public void setStationLabel(String stationLabel) {
+    this.stationLabel = stationLabel;
+  }
+
+
+  public long getJobType() {
+    return jobType;
+  }
+
+  public void setJobType(long jobType) {
+    this.jobType = jobType;
+  }
 
 }

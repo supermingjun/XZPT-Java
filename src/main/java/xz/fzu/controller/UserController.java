@@ -80,7 +80,7 @@ public class UserController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<String> login(@RequestBody User user) {
+    public ResponseData<String> login(@RequestBody User user) throws PasswordErrorException {
 
         ResponseData<String> responseData = new ResponseData<String>();
         String token = iUserService.verifyUser(user);

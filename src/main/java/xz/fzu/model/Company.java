@@ -8,7 +8,7 @@ import java.io.Serializable;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Company implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1;
 
   private String companyId;
   private String telephone;
@@ -18,9 +18,8 @@ public class Company implements Serializable {
   private String email;
   private String description;
   private long status;
-
-  /* token 临时存这里吧 //TODO 注意以后把这个从实体类中删除*/
   private String token;
+
 
   public String getCompanyId() {
     return companyId;
@@ -93,6 +92,7 @@ public class Company implements Serializable {
     this.status = status;
   }
 
+
     public String getToken() {
         return token;
     }
@@ -100,4 +100,5 @@ public class Company implements Serializable {
     public void setToken(String token) {
         this.token = token;
     }
+
 }

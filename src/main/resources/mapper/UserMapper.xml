@@ -7,27 +7,30 @@
     <!--返回值的map-->
     <resultMap id="selectMap" type="User">
         <result property="userId" column="user_id"/>
-        <result property="passwd" column="passwd"/>
         <result property="telephone" column="telephone"/>
+        <result property="passwd" column="passwd"/>
         <result property="userName" column="user_name"/>
         <result property="headUrl" column="head_url"/>
         <result property="email" column="email"/>
         <result property="sex" column="sex"/>
         <result property="school" column="school"/>
         <result property="specialty" column="specialty"/>
-        <result property="occupation" column="occupation"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="workTime" column="work_time"/>
+        <result property="jobType" column="job_type"/>
         <result property="presentCity" column="present_city"/>
         <result property="expectedCity" column="expected_city"/>
+        <result property="industryLabel" column="industry_label"/>
+        <result property="stationLabel" column="station_label"/>
+        <result property="expectSalary" column="expect_salary"/>
         <result property="token" column="token"/>
-        <result property="work_time" column="workTime"/>
-        <result property="job_classification" column="jobClassification"/>
-        <result property="job_nature" column="jobNature"/>
     </resultMap>
 
     <!--插入一个用户-->
     <insert id="insertUser" parameterType="xz.fzu.model.User">
-        INSERT INTO user(user_id,passwd, telephone, user_name, head_url,email, sex,school, specialty, occupation, present_city, expected_city,token,work_time,job_classification,job_nature)
-          VALUES ( #{userId},#{passwd},#{telephone},#{userName},#{headUrl},#{email},#{sex},#{school},#{specialty},#{occupation},#{presentCity},#{expectedCity},#{token},#{workTime},#{jobClassification},#{jobNature})
+        INSERT INTO user(user_id,passwd, telephone, user_name, head_url,email, sex,school, specialty,start_time, end_time,work_time,job_type, present_city, expected_city,token,industry_label,station_label,expect_salary)
+          VALUES ( #{userId},#{passwd},#{telephone},#{userName},#{headUrl},#{email},#{sex},#{school},#{specialty},#{startTime},#{endTime},#{workTime},#{jobType},#{presentCity},#{expectedCity},#{token},#{industryLabel},#{stationLabel},#{expectSalary})
     </insert>
 
     <!--根据邮箱查找用户-->
@@ -89,8 +92,17 @@
             <if test=" specialty != null and specialty != ''">
                 specialty = #{specialty},
             </if>
-            <if test=" occupation != null and occupation != ''">
-                occupation = #{occupation},
+            <if test=" startTime != null and startTime != ''">
+                start_time = #{startTime},
+            </if>
+            <if test=" endTime != null and endTime != ''">
+                end_time = #{endTime},
+            </if>
+            <if test=" workTime != 0 ">
+                work_time = #{workTime},
+            </if>
+            <if test=" jobType != 0 ">
+                job_type = #{jobType},
             </if>
             <if test=" presentCity != null and presentCity != ''">
                 present_city = #{presentCity},
@@ -98,14 +110,17 @@
             <if test=" expectedCity != null and expectedCity != ''">
                 expected_city = #{expectedCity},
             </if>
-            <if test=" workTime != 0 ">
-                work_time = #{workTime},
+            <if test=" industryLabel != 0 ">
+                industry_label = #{industryLabel},
             </if>
-            <if test=" jobClassification != 0 ">
-                job_classification = #{jobClassification},
+            <if test=" stationLabel != null and stationLabel != '' ">
+                station_label = #{stationLabel},
             </if>
-            <if test=" jobNature != 0 ">
-                job_nature = #{jobNature},
+            <if test=" expectSalary != null and expectSalary != '' ">
+                expect_salary = #{expectSalary},
+            </if>
+            <if test=" token != null and token != '' ">
+                token = #{token},
             </if>
         </set>
         WHERE user_id=#{userId}

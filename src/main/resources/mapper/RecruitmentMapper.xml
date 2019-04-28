@@ -3,31 +3,34 @@
 
 <mapper namespace="xz.fzu.dao.IRecruitmentDao">
     <resultMap id="resultMapper" type="xz.fzu.model.Recruitment">
-        <result property="publishTime" column="publish_time"/>
-        <result property="companyId" column="company_id"/>
-        <result property="description" column="description"/>
         <result property="recruitmentId" column="recruitment_id"/>
+        <result property="publishTime" column="publish_time"/>
+        <result property="validate" column="validate"/>
+        <result property="companyId" column="company_id"/>
+        <result property="jobName" column="job_name"/>
+        <result property="description" column="description"/>
         <result property="contact" column="contact"/>
-        <result property="qualifications" column="qualifications"/>
         <result property="location" column="location"/>
         <result property="deliveryRequest" column="delivery_request"/>
-        <result property="duty" column="duty"/>
         <result property="salary" column="salary"/>
-        <result property="type" column="type"/>
-        <result property="validate" column="validate"/>
+        <result property="degree" column="degree"/>
+        <result property="workTime" column="work_time"/>
+        <result property="industryLabel" column="industry_label"/>
+        <result property="stationLabel" column="station_label"/>
+        <result property="jobType" column="job_type"/>
     </resultMap>
     <insert id="insertInstance">
-        INSERT INTO recruitment(publish_time,company_id,description,contact,qualifications,location,delivery_request,duty,salary,type,validate)
-        VALUES (#{publishTime},#{companyId},#{description},#{contact},#{qualifications},#{location},#{deliveryRequest},#{duty},#{salary},#{type},#{validate})
+        INSERT INTO recruitment(publish_time,validate,company_id,job_name,description,contact,location,delivery_request,degree,work_time,industry_label,station_label,salary,job_type)
+        VALUES (#{publishTime},#{validate},#{companyId},#{jobName},#{description},#{contact},#{location},#{deliveryRequest},#{degree},#{workTime},#{industryLabel},#{stationLabel},#{salary},#{jobType})
     </insert>
     <select id="selectInstaceById" resultType="xz.fzu.model.Recruitment" resultMap="resultMapper" parameterType="long">
-        SELECT * FROM recruitment WHERE recruitment_id=#{recruitmentId}
+        SELECT * FROM recruitment WHERE recruitment_id = #{recruitmentId}
     </select>
     <select id="selectListInstaceByCompanyId" resultType="xz.fzu.model.Recruitment" parameterType="java.lang.String">
-        SELECT * FROM recruitment WHERE company_id=#{companyId}
+        SELECT * FROM recruitment WHERE company_id = #{companyId}
     </select>
     <delete id="deleteInstace" parameterType="long">
-         DELETE FROM recruitment WHERE recruitment_id=#{recruitmentId}
+         DELETE FROM recruitment WHERE recruitment_id = #{recruitmentId}
     </delete>
     <update id="updateInstace" parameterType="xz.fzu.model.Recruitment">
         UPDATE recruitment
@@ -35,17 +38,20 @@
             <if test=" publishTime !=null and publishTime != '' ">
                 publishTime = #{publishTime},
             </if>
+            <if test=" validate !=null and validate != '' ">
+                validate = #{validate},
+            </if>
             <if test=" companyId !=null and companyId != '' ">
                 company_id = #{companyId},
+            </if>
+            <if test=" jobName !=null and jobName != '' ">
+                job_name = #{jobName},
             </if>
             <if test=" description !=null and description != '' ">
                 description = #{description},
             </if>
             <if test=" contact !=null and contact != '' ">
-                contact= #{contact},
-            </if>
-            <if test=" qualifications !=null and qualifications != '' ">
-                qualifications = #{qualifications},
+                contact = #{contact},
             </if>
             <if test=" location !=null and location != '' ">
                 location = #{location},
@@ -53,17 +59,23 @@
             <if test=" deliveryRequest !=null and deliveryRequest != '' ">
                 delivery_request = #{deliveryRequest},
             </if>
-            <if test=" duty !=null and duty != '' ">
-                duty = #{duty},
+            <if test=" degree !=null and degree != '' ">
+                degree = #{degree},
+            </if>
+            <if test=" workTime != 0 ">
+                work_time = #{workTime},
+            </if>
+            <if test=" industryLabel != 0 ">
+                industry_label = #{industryLabel},
+            </if>
+            <if test=" stationLabel !=null and stationLabel != '' ">
+                station_label = #{stationLabel},
             </if>
             <if test=" salary !=null and salary != '' ">
                 salary = #{salary},
             </if>
-            <if test=" type !=null and type != '' ">
-                type = #{type},
-            </if>
-            <if test=" validate !=null and validate != '' ">
-                validate = #{validate},
+            <if test=" jobType  != 0 ">
+                job_type = #{jobType},
             </if>
         </set>
         WHERE recruitment_id=#{recruitmentId}
