@@ -12,7 +12,7 @@ public interface IUserService {
 
     User selectByUserId(String userId);
 
-    String verifyUser(User user);
+    String verifyUser(User user) throws PasswordErrorException;
 
     String verifyToken(String token) throws TokenExpiredException;
 
