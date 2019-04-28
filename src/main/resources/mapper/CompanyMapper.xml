@@ -11,6 +11,7 @@
         <result property="email" column="email"/>
         <result property="description" column="description"/>
         <result property="status" column="status"/>
+        <result property="token" column="token"/>
     </resultMap>
     <select id="selectIdByEmail" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT company_id from company where email = #{email}
