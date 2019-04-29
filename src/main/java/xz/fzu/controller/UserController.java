@@ -202,9 +202,9 @@ public class UserController {
         return responseData;
     }
 
-    @RequestMapping(value = "/getlistrecruitmentbykeyword", method = RequestMethod.POST)
+    @RequestMapping(value = "/searchrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<List<Recruitment>> getListRecruitmentByKeyWord(@RequestParam String token, @RequestParam String keyWord) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+    public ResponseData<List<Recruitment>> searchRecruitment(@RequestParam String token, @RequestParam String keyWord) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
 
         ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
         iUserService.verifyToken(token);
