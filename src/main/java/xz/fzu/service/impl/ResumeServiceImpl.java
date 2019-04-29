@@ -3,10 +3,11 @@ package xz.fzu.service.impl;
 import org.springframework.stereotype.Service;
 import xz.fzu.dao.IResumeDao;
 import xz.fzu.exception.EvilIntentions;
+import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.Resume;
 import xz.fzu.service.IResumeService;
-import xz.fzu.service.IUserService;
+import xz.fzu.vo.PageData;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,43 +23,41 @@ public class ResumeServiceImpl implements IResumeService {
     IResumeDao iResumeDao;
 
     @Override
-    public void insertResume(String token, Resume resume) throws TokenExpiredException, EvilIntentions {
+    public void insertResume(String userId, Resume resume) throws TokenExpiredException, EvilIntentions {
 
-        String userId = getUserId(token);
         resume.setUserId(userId);
         iResumeDao.insertInstance(resume);
     }
 
     @Override
-    public void updateResume(String token, Resume resume) throws EvilIntentions, TokenExpiredException {
+    public void updateResume(String userId, Resume resume) throws EvilIntentions, TokenExpiredException {
 
-        String userId = getUserId(token);
         resume.setUserId(userId);
         iResumeDao.updateInstance(resume);
     }
 
     @Override
-    public List<Resume> getListResume(String userId) {
+    public List<Resume> getListResume(String userId, PageData requestPage) throws InstanceNotExistException {
 
-        iResumeDao.selectListByUserId(userId);
-        return null;
+        List<Resume> resumeList = iResumeDao.selectListByUserId(userId, (requestPage.getCurrentPage() - 1) * requestPage.getPageSize(), requestPage.getPageSize());
+        if (resumeList == null) {
+            throw new InstanceNotExistException();
+        }
+        return resumeList;
     }
 
     @Override
-    public int deleteResume(int resumeId) {
-        return 0;
+    public int deleteResume(int resumeId) throws InstanceNotExistException {
+        int rowAffect = iResumeDao.deleteInstance(resumeId);
+        if (rowAffect == 0) {
+            throw new InstanceNotExistException();
+        }
+        return 1;
     }
 
     @Override
     public Resume getResume(int resumeId) {
-        return null;
-    }
-
-    @Resource
-    IUserService iUserService;
-
-    private String getUserId(String token) throws TokenExpiredException {
-        String userId = iUserService.verifyToken(token);
-        return userId;
+        Resume resume = iResumeDao.selectInstanceByResumeId(resumeId); //TODO 安全认证
+        return resume;
     }
 }

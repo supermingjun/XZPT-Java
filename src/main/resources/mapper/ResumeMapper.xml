@@ -105,8 +105,8 @@
         SELECT * FROM user WHERE resume_id = #{resumeId}
     </select>
 
-    <select id="selectListByUserId" parameterType="java.lang.String" resultType="xz.fzu.model.Resume"
+    <select id="selectListByUserId" resultType="xz.fzu.model.Resume"
             resultMap="myResultMap">
-        SELECT * FROM user WHERE user_id = #{userId}
+        SELECT * FROM user WHERE user_id = #{arg0} LIMIT #{arg1},#{arg2}
     </select>
 </mapper>

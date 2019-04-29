@@ -22,7 +22,7 @@ public interface IResumeDao {
      * @date 2019/4/27 22:34
      * @description 根据简历Id删除实例
      */
-    public int deleteInstance(String resumeId);
+    public int deleteInstance(int resumeId);
 
     /**
      * @param resume
@@ -40,14 +40,16 @@ public interface IResumeDao {
      * @date 2019/4/27 22:52
      * @description 查实例，应当先检查用户有无权限
      */
-    public Resume selectInstanceByResumeId(String resumeId);
+    public Resume selectInstanceByResumeId(int resumeId);
 
     /**
      * @param userId
+     * @param pageIndex
+     * @param pageSize
      * @return java.util.List<xz.fzu.model.Resume>
      * @author Murphy
      * @date 2019/4/27 22:53
      * @description 查看用户的所有实例
      */
-    public List<Resume> selectListByUserId(String userId);
+    public List<Resume> selectListByUserId(String userId, int pageIndex, int pageSize);
 }

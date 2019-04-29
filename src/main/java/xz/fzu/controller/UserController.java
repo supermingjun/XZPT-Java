@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.exception.*;
 import xz.fzu.model.Recruitment;
+import xz.fzu.model.Resume;
 import xz.fzu.model.User;
 import xz.fzu.service.IRecruitmentService;
+import xz.fzu.service.IResumeService;
 import xz.fzu.service.IUserService;
 import xz.fzu.service.IVerificationCodeService;
 import xz.fzu.vo.PageData;
@@ -29,6 +31,8 @@ public class UserController {
     @Resource
     private IRecruitmentService iRecruitmentService;
 
+    @Resource
+    IResumeService iResumeService;
     @Autowired
     public UserController(IUserService iUserService, IVerificationCodeService iValidateCodeService) {
         this.iUserService = iUserService;
@@ -223,6 +227,78 @@ public class UserController {
 
         return responseData;
     }
+
+
+    /**
+     * @param token
+     * @param pageData
+     * @return xz.fzu.vo.ResponseData<xz.fzu.vo.PageData>
+     * @author Murphy
+     * @date 2019/4/30 1:10
+     * @description 查看本人所有的简历
+     */
+    @RequestMapping(value = "/getlistresume", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData<PageData> getListResume(@RequestParam String token, @RequestBody PageData<Resume> pageData) throws InstanceNotExistException, TokenExpiredException {
+
+        ResponseData<PageData> responseData = new ResponseData<>();
+        String userId = iUserService.verifyToken(token);
+        List<Resume> recruitmentList = iResumeService.getListResume(userId, pageData);
+        pageData.setContentList(recruitmentList);
+        responseData.setResultObject(pageData);
+
+        return responseData;
+    }
+
+    /**
+     * @param token
+     * @param resume
+     * @return xz.fzu.vo.ResponseData<xz.fzu.model.Resume>
+     * @author Murphy
+     * @date 2019/4/30 1:13
+     * @description 更新简历
+     */
+    @RequestMapping(value = "/updateresume", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData<Resume> updateResume(@RequestParam String token, @RequestBody Resume resume) throws InstanceNotExistException, TokenExpiredException, EvilIntentions {
+
+        ResponseData<Resume> responseData = new ResponseData<>();
+        String userId = iUserService.verifyToken(token);
+        iResumeService.updateResume(userId, resume);
+
+        return responseData;
+    }
+
+    @RequestMapping(value = "/insertresume", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData insertResume(@RequestParam String token, @RequestBody Resume resume) throws InstanceNotExistException, TokenExpiredException, EvilIntentions {
+
+        ResponseData responseData = new ResponseData<>();
+        String userId = iUserService.verifyToken(token);
+        iResumeService.insertResume(userId, resume);
+
+        return responseData;
+    }
+
+    /**
+     * @param token
+     * @param resumeId
+     * @return xz.fzu.vo.ResponseData<xz.fzu.model.Resume>
+     * @author Murphy
+     * @date 2019/4/30 1:14
+     * @description 删除简历
+     */
+    @RequestMapping(value = "/deleteresume", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData<Resume> deleteResume(@RequestParam String token, @RequestParam int resumeId) throws InstanceNotExistException, TokenExpiredException, EvilIntentions {
+
+        ResponseData<Resume> responseData = new ResponseData<>();
+        String userId = iUserService.verifyToken(token); // TODO 安全认证
+        iResumeService.deleteResume(resumeId);
+
+        return responseData;
+    }
+
 
     /**
      * @param token

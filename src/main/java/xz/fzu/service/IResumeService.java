@@ -1,8 +1,10 @@
 package xz.fzu.service;
 
 import xz.fzu.exception.EvilIntentions;
+import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.Resume;
+import xz.fzu.vo.PageData;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ public interface IResumeService {
      * @date 2019/4/30 0:14
      * @description 插入一个实例
      */
-    public void insertResume(String token, Resume resume) throws TokenExpiredException, EvilIntentions;
+    public void insertResume(String userId, Resume resume) throws TokenExpiredException, EvilIntentions;
 
     /**
      * @param resume
@@ -24,7 +26,7 @@ public interface IResumeService {
      * @date 2019/4/30 0:14
      * @description 更新简历
      */
-    public void updateResume(String token, Resume resume) throws EvilIntentions, TokenExpiredException;
+    public void updateResume(String userId, Resume resume) throws EvilIntentions, TokenExpiredException;
 
     /**
      * @param userId
@@ -33,8 +35,8 @@ public interface IResumeService {
      * @date 2019/4/30 0:15
      * @description 查找当前用户所有的简历
      */
-    public List<Resume> getListResume(String userId);
 
+    List<Resume> getListResume(String userId, PageData requestPage) throws InstanceNotExistException;
 
     /**
      * @param resumeId
@@ -43,7 +45,7 @@ public interface IResumeService {
      * @date 2019/4/30 0:16
      * @description 删除简历
      */
-    public int deleteResume(int resumeId);
+    public int deleteResume(int resumeId) throws InstanceNotExistException;
 
     /**
      * @param resumeId
@@ -53,13 +55,4 @@ public interface IResumeService {
      * @description 获得指定简历实例
      */
     public Resume getResume(int resumeId);
-
-    /**
-     * @param token
-     * @return java.lang.String
-     * @author Murphy
-     * @date 2019/4/30 0:35
-     * @description 根据token获得用户id
-     */
-    public String getUserId(String token) throws TokenExpiredException;
 }
