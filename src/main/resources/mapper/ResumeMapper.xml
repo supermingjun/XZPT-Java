@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xz.fzu.dao.IResumeDao">
+    <resultMap id="myResultMap" type="xz.fzu.model.Resume">
+        <result column="resumeId" property="resume_id"/>
+        <result column="userId" property="user_id"/>
+        <result column="telephone" property="telephone"/>
+        <result column="userName" property="user_name"/>
+        <result column="headUrl" property="head_url"/>
+        <result column="email" property="email"/>
+        <result column="sex" property="sex"/>
+        <result column="presentCity" property="present_city"/>
+        <result column="expectedCity" property="expected_city"/>
+        <result column="school" property="school"/>
+        <result column="speciality" property="speciality"/>
+        <result column="startTime" property="start_time"/>
+        <result column="endTime" property="end_time"/>
+        <result column="highestEducation" property="highest_education"/>
+        <result column="certificate" property="certificate"/>
+        <result column="projectExperience" property="project_experience"/>
+        <result column="practicalExperience" property="practical_experience"/>
+        <result column="resumeStatus" property="resume_status"/>
+        <result column="age" property="age"/>
+    </resultMap>
+    <insert id="insertInstance" parameterType="xz.fzu.model.Resume">
+        INSERT INTO resume(user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age)
+        VALUES (#{userId},#{telephone},#{userName},#{headUrl},#{email},#{sex},#{presentCity},#{expectedCity},#{school},#{speciality},#{startTime},#{endTime},#{highestEducation},#{certificate},#{project#xperience},#{practicalExperience},#{resumeStatus},#{age})
+    </insert>
+    <delete id="deleteInstance" parameterType="int">
+        DELETE  FROM resume WHERE resume_id=#{resumeId}
+     </delete>
+
+    <!-- 更新用户信息 -->
+    <update id="updateInstance" parameterType="xz.fzu.model.Resume">
+        UPDATE user
+        <set>
+            <if test=" userId != null and userId != '' ">
+                user_id = #{userId},
+            </if>
+            <if test=" telephone != null and telephone != '' ">
+                telephone = #{telephone},
+            </if>
+            <if test=" userName != null and userName != '' ">
+                user_name = #{userName},
+            </if>
+            <if test=" headUrl != null and headUrl != '' ">
+                head_url = #{headUrl},
+            </if>
+            <if test=" email != null and email != '' ">
+                email = #{email},
+            </if>
+            <if test=" sex != 0 ">
+                sex = #{sex},
+            </if>
+            <if test=" presentCity != null and presentCity != ''">
+                present_city = #{presentCity},
+            </if>
+            <if test=" expectedCity != null and expectedCity != ''">
+                expected_city = #{expectedCity},
+            </if>
+            <if test=" school != null and school != ''">
+                school = #{school},
+            </if>
+            <if test=" speciality != null and speciality != ''">
+                speciality = #{speciality},
+            </if>
+            <if test=" startTime != null and startTime != ''">
+                start_time = #{startTime},
+            </if>
+            <if test=" endTime != null and endTime != ''">
+                end_time = #{endTime},
+            </if>
+            <if test=" highestEducation != 0 ">
+                highest_education = #{highestEducation},
+            </if>
+            <if test=" certificate != 0 ">
+                certificate = #{certificate},
+            </if>
+            <if test=" jobType != 0 ">
+                job_type = #{jobType},
+            </if>
+            <if test=" presentCity != null and presentCity != ''">
+                present_city = #{presentCity},
+            </if>
+            <if test=" expectedCity != null and expectedCity != ''">
+                expected_city = #{expectedCity},
+            </if>
+            <if test=" projectExperience != null and projectExperience != ''">
+                project_experience = #{projectExperience},
+            </if>
+            <if test=" resumeStatus != 0 ">
+                resume_status = #{resumeStatus},
+            </if>
+            <if test=" age != 0 ">
+                age = #{age},
+            </if>
+        </set>
+        WHERE resume_id = #{resumeId}
+    </update>
+
+
+    <select id="selectInstanceByResumeId" parameterType="java.lang.String" resultType="xz.fzu.model.Resume"
+            resultMap="myResultMap">
+        SELECT * FROM user WHERE resume_id = #{resumeId}
+    </select>
+
+    <select id="selectListByUserId" parameterType="java.lang.String" resultType="xz.fzu.model.Resume"
+            resultMap="myResultMap">
+        SELECT * FROM user WHERE user_id = #{userId}
+    </select>
+</mapper>

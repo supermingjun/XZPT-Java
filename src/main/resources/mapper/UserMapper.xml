@@ -30,8 +30,8 @@
 
     <!--插入一个用户-->
     <insert id="insertUser" parameterType="xz.fzu.model.User">
-        INSERT INTO user(user_id,passwd, telephone, user_name, head_url,email, sex,school, specialty,start_time, end_time,work_time,job_type, present_city, expected_city,token,industry_label,station_label,expect_salary,age)
-          VALUES ( #{userId},#{passwd},#{telephone},#{userName},#{headUrl},#{email},#{sex},#{school},#{specialty},#{startTime},#{endTime},#{workTime},#{jobType},#{presentCity},#{expectedCity},#{token},#{industryLabel},#{stationLabel},#{expectSalary},#{age})
+        INSERT INTO user(user_id,passwd, telephone, user_name, head_url,email, sex,school, specialty,start_time, end_time,work_time,job_type, present_city, expected_city,token,industry_label,station_label,expect_salary,age,highest_education)
+          VALUES ( #{userId},#{passwd},#{telephone},#{userName},#{headUrl},#{email},#{sex},#{school},#{specialty},#{startTime},#{endTime},#{workTime},#{jobType},#{presentCity},#{expectedCity},#{token},#{industryLabel},#{stationLabel},#{expectSalary},#{age},#{highestEducation})
     </insert>
 
     <!--根据邮箱查找用户-->
@@ -125,6 +125,9 @@
             </if>
             <if test=" age != 0 ">
                 age = #{age},
+            </if>
+            <if test=" highestEducation != 0 ">
+                highest_education = #{highestEducation},
             </if>
         </set>
         WHERE user_id = #{userId}
