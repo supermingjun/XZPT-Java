@@ -3,6 +3,7 @@ package xz.fzu.service;
 import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.Recruitment;
+import xz.fzu.vo.PageData;
 
 import java.util.List;
 
@@ -38,12 +39,13 @@ public interface IRecruitmentService {
 
     /**
      * @param keyWord
+     * @param requestPage
      * @return java.util.List<xz.fzu.model.Recruitment>
      * @author Murphy
      * @date 2019/4/28 23:52
      * @description 根据keyword获得招聘List
      */
-    public List<Recruitment> getListRecruitmentByKeyWord(String keyWord) throws InstanceNotExistException;
+    public List<Recruitment> getListRecruitmentByKeyWord(String keyWord, PageData requestPage) throws InstanceNotExistException;
 
     /**
      * @param recruitmentId

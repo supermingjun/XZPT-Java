@@ -8,6 +8,7 @@ import xz.fzu.model.User;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IUserService;
 import xz.fzu.service.IVerificationCodeService;
+import xz.fzu.vo.PageData;
 import xz.fzu.vo.ResponseData;
 
 import javax.annotation.Resource;
@@ -44,7 +45,7 @@ public class UserController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData register(@RequestBody User user, @RequestParam int code) throws ValidationExceprion, NoVerfcationCodeException {
+    public ResponseData register(@RequestBody User user, @RequestParam int code) throws ValidationExceprion, NoVerfcationCodeException, AccountUsedException {
 
         ResponseData<String> responseData = new ResponseData<String>();
         iVerificationCodeService.verifyCode(user.getEmail(), code);
@@ -212,13 +213,27 @@ public class UserController {
      */
     @RequestMapping(value = "/searchrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<List<Recruitment>> searchRecruitment(@RequestParam String token, @RequestParam String keyWord) throws InstanceNotExistException, TokenExpiredException {
+    public ResponseData<PageData> searchRecruitment(@RequestParam String token, @RequestParam String keyWord, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException, TokenExpiredException {
 
-        ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
+        ResponseData<PageData> responseData = new ResponseData<>();
         iUserService.verifyToken(token);
-        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByKeyWord(keyWord);
-        responseData.setResultObject(recruitmentList);
+        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByKeyWord(keyWord, pageData);
+        pageData.setContentList(recruitmentList);
+        responseData.setResultObject(pageData);
 
         return responseData;
+    }
+
+    /**
+     * @param token
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/29 21:53
+     * @description 推荐接口
+     */
+    @RequestMapping(value = "/getrecommend", method = RequestMethod.POST)
+    public ResponseData getRecommend(String token) {
+
+        return null;
     }
 }

@@ -35,12 +35,13 @@ public interface IRecruitmentDao {
 
     /**
      * @param keyWord
+     * @param requestPage
      * @return java.util.List<xz.fzu.model.Recruitment>
      * @author Murphy
      * @date 2019/4/28 23:54
      * @description 通过keyWord查找招聘信息
      */
-    public List<Recruitment> selectInstanceByKeyWord(String keyWord);
+    public List<Recruitment> selectInstanceByKeyWord(String keyWord, int requestPage, int pageSize);
     /**
      * @param recruitmentId
      * @return void
