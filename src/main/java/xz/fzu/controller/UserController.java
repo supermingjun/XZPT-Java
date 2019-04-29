@@ -171,7 +171,7 @@ public class UserController {
      */
     @RequestMapping(value = "/getrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData getRecruitment(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
+    public ResponseData getListRecruitmentByCompanyId(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
 
         ResponseData<Recruitment> responseData = new ResponseData<Recruitment>();
         iUserService.verifyToken(token);
@@ -190,13 +190,25 @@ public class UserController {
      * @date 2019/4/27 11:15
      * @description 按id获得指定公司所有招聘信息
      */
-    @RequestMapping(value = "/getlistrecruitment", method = RequestMethod.POST)
+    @RequestMapping(value = "/getlistrecruitmentbycompanyid", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<List<Recruitment>> getRecruitment(@RequestParam String token, @RequestParam String companyId) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+    public ResponseData<List<Recruitment>> getListRecruitmentByCompanyId(@RequestParam String token, @RequestParam String companyId) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
 
         ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
         iUserService.verifyToken(token);
         List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(companyId);
+        responseData.setResultObject(recruitmentList);
+
+        return responseData;
+    }
+
+    @RequestMapping(value = "/searchrecruitment", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData<List<Recruitment>> searchRecruitment(@RequestParam String token, @RequestParam String keyWord) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+
+        ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
+        iUserService.verifyToken(token);
+        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByKeyWord(keyWord);
         responseData.setResultObject(recruitmentList);
 
         return responseData;

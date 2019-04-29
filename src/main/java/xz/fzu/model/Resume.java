@@ -28,6 +28,7 @@ public class Resume implements Serializable {
   private String projectExperience;
   private String practicalExperience;
   private long resumeStatus;
+    private long age;
 
 
   public long getResumeId() {
@@ -190,5 +191,14 @@ public class Resume implements Serializable {
   public void setResumeStatus(long resumeStatus) {
     this.resumeStatus = resumeStatus;
   }
+
+
+    public long getAge() {
+        return age;
+    }
+
+    public void setAge(long age) {
+        this.age = age;
+    }
 
 }

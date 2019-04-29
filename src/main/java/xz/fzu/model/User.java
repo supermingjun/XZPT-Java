@@ -28,6 +28,7 @@ public class User implements Serializable {
   private String stationLabel;
   private String expectSalary;
   private String token;
+    private long age;
 
 
   public String getUserId() {
@@ -199,5 +200,14 @@ public class User implements Serializable {
   public void setToken(String token) {
     this.token = token;
   }
+
+
+    public long getAge() {
+        return age;
+    }
+
+    public void setAge(long age) {
+        this.age = age;
+    }
 
 }
