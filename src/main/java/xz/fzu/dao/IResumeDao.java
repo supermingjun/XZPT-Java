@@ -13,7 +13,7 @@ public interface IResumeDao {
      * @date 2019/4/27 22:33
      * @description 插入一条实例
      */
-    public Resume insertInstance(Resume resume);
+    public void insertInstance(Resume resume);
 
     /**
      * @param resumeId

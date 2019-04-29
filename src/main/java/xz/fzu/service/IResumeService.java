@@ -1,5 +1,7 @@
 package xz.fzu.service;
 
+import xz.fzu.exception.EvilIntentions;
+import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.Resume;
 
 import java.util.List;
@@ -13,7 +15,7 @@ public interface IResumeService {
      * @date 2019/4/30 0:14
      * @description 插入一个实例
      */
-    public void insertResume(Resume resume);
+    public void insertResume(String token, Resume resume) throws TokenExpiredException, EvilIntentions;
 
     /**
      * @param resume
@@ -22,7 +24,7 @@ public interface IResumeService {
      * @date 2019/4/30 0:14
      * @description 更新简历
      */
-    public void updateResume(Resume resume);
+    public void updateResume(String token, Resume resume) throws EvilIntentions, TokenExpiredException;
 
     /**
      * @param userId
@@ -51,4 +53,13 @@ public interface IResumeService {
      * @description 获得指定简历实例
      */
     public Resume getResume(int resumeId);
+
+    /**
+     * @param token
+     * @return java.lang.String
+     * @author Murphy
+     * @date 2019/4/30 0:35
+     * @description 根据token获得用户id
+     */
+    public String getUserId(String token) throws TokenExpiredException;
 }

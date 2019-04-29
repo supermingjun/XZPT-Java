@@ -2,8 +2,11 @@ package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
 import xz.fzu.dao.IResumeDao;
+import xz.fzu.exception.EvilIntentions;
+import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.Resume;
 import xz.fzu.service.IResumeService;
+import xz.fzu.service.IUserService;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,17 +22,25 @@ public class ResumeServiceImpl implements IResumeService {
     IResumeDao iResumeDao;
 
     @Override
-    public void insertResume(Resume resume) {
+    public void insertResume(String token, Resume resume) throws TokenExpiredException, EvilIntentions {
 
+        String userId = getUserId(token);
+        resume.setUserId(userId);
+        iResumeDao.insertInstance(resume);
     }
 
     @Override
-    public void updateResume(Resume resume) {
+    public void updateResume(String token, Resume resume) throws EvilIntentions, TokenExpiredException {
 
+        String userId = getUserId(token);
+        resume.setUserId(userId);
+        iResumeDao.updateInstance(resume);
     }
 
     @Override
     public List<Resume> getListResume(String userId) {
+
+        iResumeDao.selectListByUserId(userId);
         return null;
     }
 
@@ -41,5 +52,13 @@ public class ResumeServiceImpl implements IResumeService {
     @Override
     public Resume getResume(int resumeId) {
         return null;
+    }
+
+    @Resource
+    IUserService iUserService;
+
+    private String getUserId(String token) throws TokenExpiredException {
+        String userId = iUserService.verifyToken(token);
+        return userId;
     }
 }
