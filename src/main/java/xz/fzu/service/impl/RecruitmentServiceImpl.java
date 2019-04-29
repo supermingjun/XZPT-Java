@@ -60,4 +60,13 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
         }
         iRecruitmentDao.updateInstace(recruitment);
     }
+
+    @Override
+    public List<Recruitment> getListRecruitmentByKeyWord(String keyWord) throws InstanceNotExistException {
+        List<Recruitment> recruitmentList = iRecruitmentDao.selectInstanceByKeyWord(keyWord);
+        if (recruitmentList == null) {
+            throw new InstanceNotExistException();
+        }
+        return recruitmentList;
+    }
 }

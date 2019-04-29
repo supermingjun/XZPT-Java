@@ -34,6 +34,14 @@ public interface IRecruitmentDao {
     public List<Recruitment> selectListInstaceByCompanyId(String companyId);
 
     /**
+     * @param keyWord
+     * @return java.util.List<xz.fzu.model.Recruitment>
+     * @author Murphy
+     * @date 2019/4/28 23:54
+     * @description 通过keyWord查找招聘信息
+     */
+    public List<Recruitment> selectInstanceByKeyWord(String keyWord);
+    /**
      * @param recruitmentId
      * @return void
      * @author Murphy

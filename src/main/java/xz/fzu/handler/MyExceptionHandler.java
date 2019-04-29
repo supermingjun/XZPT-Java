@@ -40,6 +40,8 @@ public class MyExceptionHandler {
             responseObject.setResultCode(Constants.INTERNAL_ERROR);
         }
         responseObject.setResultMsg(e.getClass() + ":" + e.getMessage());
+        printStack(e);
+
         return responseObject;
     }
 
@@ -57,6 +59,8 @@ public class MyExceptionHandler {
         ResponseData responseObject = new ResponseData();
         responseObject.setResultCode(Constants.TOKEN_ERROR);
         responseObject.setResultMsg(e.getMessage());
+        printStack(e);
+
         return responseObject;
     }
 
@@ -74,6 +78,8 @@ public class MyExceptionHandler {
         ResponseData responseObject = new ResponseData();
         responseObject.setResultCode(Constants.URL_NOT_FOUND);
         responseObject.setResultMsg("找不到Handler，请检查URL");
+        printStack(e);
+
         return responseObject;
     }
 
@@ -90,6 +96,12 @@ public class MyExceptionHandler {
 
         ResponseData<String> responseObject = new ResponseData<String>();
         responseObject.putData(e.getErrorCode(), e.getMessage(), null);
+        printStack(e);
+
         return responseObject;
+    }
+
+    public void printStack(Exception e) {
+        e.printStackTrace();
     }
 }

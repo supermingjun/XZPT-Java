@@ -35,6 +35,16 @@ public interface IRecruitmentService {
      */
     public List<Recruitment> getListRecruitmentByCompanyId(String companyId) throws InstanceNotExistException;
 
+
+    /**
+     * @param keyWord
+     * @return java.util.List<xz.fzu.model.Recruitment>
+     * @author Murphy
+     * @date 2019/4/28 23:52
+     * @description 根据keyword获得招聘List
+     */
+    public List<Recruitment> getListRecruitmentByKeyWord(String keyWord) throws InstanceNotExistException;
+
     /**
      * @param recruitmentId
      * @return void
@@ -54,4 +64,6 @@ public interface IRecruitmentService {
      * @description 更新招聘信息
      */
     public void updateRecruitment(Recruitment recruitment, String companyId) throws EvilIntentions;
+
+
 }
