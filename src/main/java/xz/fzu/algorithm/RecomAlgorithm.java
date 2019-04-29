@@ -42,6 +42,11 @@ package xz.fzu.algorithm;
  * 2   兼职
  * 3   全职
  */
+
+import xz.fzu.model.FiltrationResult;
+import xz.fzu.model.RecruitmentProfile;
+import xz.fzu.model.UserProfile;
+
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +57,7 @@ public class RecomAlgorithm {
 	 * @param upf
 	 * @param rps
 	 */
-	public  FiltrationResult recomAlgorithm(UserProfile upf,List<RecruitmentProfile> rps,int n) {
+	public FiltrationResult recomAlgorithm(UserProfile upf, List<RecruitmentProfile> rps, int n) {
 		
 		AlgorithImplement algorithImplement = new AlgorithImplement();
 		List<RecruitmentProfile> preScreeningResults = algorithImplement.directFiltration(upf,rps);

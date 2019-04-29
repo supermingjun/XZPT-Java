@@ -1,16 +1,19 @@
-package xz.fzu.needobject;
+package xz.fzu.model;
+
+import xz.fzu.algorithm.EnterpriseSimilarityResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ¸ÃÀàÓÃÀ´´æ´¢Ëã·¨É¸Ñ¡µÄ½á¹û
+ * è¯¥ç±»ç”¨æ¥å­˜å‚¨ç®—æ³•ç­›é€‰çš„ç»“æœ
  * @author LITM
  *
  */
 public class FiltrationResult {
 	
 	private String userId;
+	// ä¼ä¸šç›¸ä¼¼æ€§ç»“æœ
 	private List<EnterpriseSimilarityResult> enterpriseSimilarityResults = new ArrayList<EnterpriseSimilarityResult>();
 	public String getUserId() {
 		

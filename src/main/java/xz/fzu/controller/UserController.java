@@ -202,9 +202,17 @@ public class UserController {
         return responseData;
     }
 
+    /**
+     * @param token
+     * @param keyWord
+     * @return xz.fzu.vo.ResponseData<java.util.List < xz.fzu.model.Recruitment>>
+     * @author Murphy
+     * @date 2019/4/29 21:34
+     * @description 搜索招聘信息
+     */
     @RequestMapping(value = "/searchrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<List<Recruitment>> searchRecruitment(@RequestParam String token, @RequestParam String keyWord) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+    public ResponseData<List<Recruitment>> searchRecruitment(@RequestParam String token, @RequestParam String keyWord) throws InstanceNotExistException, TokenExpiredException {
 
         ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
         iUserService.verifyToken(token);

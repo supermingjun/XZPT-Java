@@ -1,12 +1,12 @@
 package xz.fzu.algorithm;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.*;
+import xz.fzu.model.FiltrationResult;
+import xz.fzu.model.RecruitmentProfile;
+import xz.fzu.model.UserProfile;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 该类为具体的算法实现
@@ -38,7 +38,7 @@ public class AlgorithImplement {
 	 * @param rps
 	 * @return
 	 */
-	public List<RecruitmentProfile> directFiltration(UserProfile upf,List<RecruitmentProfile> rps) {
+	public List<RecruitmentProfile> directFiltration(UserProfile upf, List<RecruitmentProfile> rps) {
 		
 		Iterator<RecruitmentProfile> iterator = rps.iterator();
 		while (iterator.hasNext()) {
@@ -176,7 +176,7 @@ public class AlgorithImplement {
 	 * @param uWeight
 	 * @param weightedResults
 	 */
-	public FiltrationResult computationalSimilarity(String userId,Map<String,double[]> weightedResults) {
+	public FiltrationResult computationalSimilarity(String userId, Map<String, double[]> weightedResults) {
 		
 		FiltrationResult fr =new FiltrationResult();
 		List<EnterpriseSimilarityResult> esrs = new ArrayList<EnterpriseSimilarityResult>();
