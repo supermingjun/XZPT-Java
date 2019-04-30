@@ -6,6 +6,7 @@ import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.IRecruitmentService;
+import xz.fzu.vo.PageData;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -62,8 +63,8 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     }
 
     @Override
-    public List<Recruitment> getListRecruitmentByKeyWord(String keyWord) throws InstanceNotExistException {
-        List<Recruitment> recruitmentList = iRecruitmentDao.selectInstanceByKeyWord(keyWord);
+    public List<Recruitment> getListRecruitmentByKeyWord(String keyWord, PageData requestPage) throws InstanceNotExistException {
+        List<Recruitment> recruitmentList = iRecruitmentDao.selectInstanceByKeyWord(keyWord, (requestPage.getCurrentPage() - 1) * requestPage.getPageSize(), requestPage.getPageSize());
         if (recruitmentList == null) {
             throw new InstanceNotExistException();
         }

@@ -6,15 +6,17 @@ package xz.fzu.algorithm;
  *
  */
 public class EnterpriseSimilarityResult implements Comparable<EnterpriseSimilarityResult>{
-	
+
 	private String userId;
 	private Integer recruitmentId;
 	private double SimilarityResult;
+
 	public Integer getRecruitmentId() {
 		return recruitmentId;
 	}
+
 	public void setRecruitmentId(Integer str) {
-		
+
 		this.recruitmentId = str;
 	}
 	public double getSimilarityResult() {
@@ -30,9 +32,11 @@ public class EnterpriseSimilarityResult implements Comparable<EnterpriseSimilari
 		
 		return o.getSimilarityResult()>this.getSimilarityResult()?0:-1;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

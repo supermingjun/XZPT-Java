@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
   private static final long serialVersionUID = 1;
+
   private String userId;
   private String telephone;
   private String passwd;
@@ -18,6 +19,7 @@ public class User implements Serializable {
   private long sex;
   private String school;
   private String specialty;
+  private long highestEducation;
   private java.sql.Date startTime;
   private java.sql.Date endTime;
   private long workTime;
@@ -112,6 +114,15 @@ public class User implements Serializable {
   }
 
 
+  public long getHighestEducation() {
+    return highestEducation;
+  }
+
+  public void setHighestEducation(long highestEducation) {
+    this.highestEducation = highestEducation;
+  }
+
+
   public java.sql.Date getStartTime() {
     return startTime;
   }
@@ -203,11 +214,11 @@ public class User implements Serializable {
 
 
     public long getAge() {
-        return age;
+      return age;
     }
 
     public void setAge(long age) {
-        this.age = age;
+      this.age = age;
     }
 
 }

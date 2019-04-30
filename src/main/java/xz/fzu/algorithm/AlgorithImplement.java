@@ -1,12 +1,11 @@
 package xz.fzu.algorithm;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.*;
+import xz.fzu.model.RecruitmentProfile;
+import xz.fzu.model.UserProfile;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 该类为具体的算法实现
@@ -38,7 +37,7 @@ public class AlgorithImplement {
 	 * @param rps
 	 * @return
 	 */
-	public List<RecruitmentProfile> directFiltration(UserProfile upf,List<RecruitmentProfile> rps) {
+    public List<RecruitmentProfile> directFiltration(UserProfile upf, List<RecruitmentProfile> rps) {
 		
 		Iterator<RecruitmentProfile> iterator = rps.iterator();
 		while (iterator.hasNext()) {
@@ -112,17 +111,16 @@ public class AlgorithImplement {
 	 * @param rp
 	 * @return
 	 */
-	public double degreeQuan(UserProfile upf,RecruitmentProfile rp) {
+    public double degreeQuan(UserProfile upf, RecruitmentProfile rp) {
 		
 		int uDegree = upf.getHighestEducation();
 		String rDegreeRequire = rp.getDegree();
-		int rdegreeRequire = 1;
-		try {
-			rdegreeRequire = typeOfDegree.get(rDegreeRequire);
-		}
-		catch(NullPointerException e) {
-			rdegreeRequire = 1;
-		}
+        int rdegreeRequire = 1;
+        try {
+            rdegreeRequire = typeOfDegree.get(rDegreeRequire);
+        } catch (NullPointerException e) {
+            rdegreeRequire = 1;
+        }
 		if (uDegree==rdegreeRequire) {
 			return degreeQuanValue[3];
 		}
@@ -156,13 +154,12 @@ public class AlgorithImplement {
 	 * 对招聘信息关键字段进行量化加权
 	 * 目前只用学历和薪水进行量化加权
 	 * @param upf
-	 * @param trps
 	 * @return
 	 */
-	
-	public Map<Integer,double[]> quantization(UserProfile upf,List<RecruitmentProfile> preScreeningResults) {
-		
-		Map<Integer,double[]> weightResults = new HashMap<Integer,double[]>();
+
+    public Map<Integer, double[]> quantization(UserProfile upf, List<RecruitmentProfile> preScreeningResults) {
+
+        Map<Integer, double[]> weightResults = new HashMap<Integer, double[]>();
 		Iterator<RecruitmentProfile> iterator = preScreeningResults.iterator();
 		while(iterator.hasNext()) {
 			RecruitmentProfile rp = iterator.next();
@@ -179,20 +176,19 @@ public class AlgorithImplement {
 	
 	/**
 	 * 对招聘信息进行相似度计算
-	 * @param uWeight
 	 * @param weightedResults
 	 */
-	public List<EnterpriseSimilarityResult> computationalSimilarity(String userId,Map<Integer,double[]> weightedResults) {
+    public List<EnterpriseSimilarityResult> computationalSimilarity(String userId, Map<Integer, double[]> weightedResults) {
 		
 		List<EnterpriseSimilarityResult> esrs = new ArrayList<EnterpriseSimilarityResult>();
 		double result = 0;
 		double r1 = 0;
 		double r2 = 0;
 		double r3 = 0;
-		Iterator<Map.Entry<Integer,double[]>> iterator = weightedResults.entrySet().iterator();
+        Iterator<Map.Entry<Integer, double[]>> iterator = weightedResults.entrySet().iterator();
 		while (iterator.hasNext()) {
-			Map.Entry<Integer, double[]> entry = iterator.next();
-			Integer str = entry.getKey();
+            Map.Entry<Integer, double[]> entry = iterator.next();
+            Integer str = entry.getKey();
 			double[] dou = entry.getValue();
 			for (int i=0;i<dou.length;i++) {
 				r1+=dou[i]*uWeight[i];
@@ -201,28 +197,27 @@ public class AlgorithImplement {
 			}
 			result = Double.parseDouble(String.format("%.6f", r1/Math.sqrt(r2*r3)));
 			EnterpriseSimilarityResult esr = new EnterpriseSimilarityResult();
-			esr.setUserId(userId);
+            esr.setUserId(userId);
 			esr.setRecruitmentId(str);
 			esr.setSimilarityResult(result);
 			esrs.add(esr);
 		}
-		
-		
-		return esrs;
+
+
+        return esrs;
  	}
 	/**
 	 * 获取相似度最高的Top-N
-	 * @param fr
 	 * @param n
 	 */
-	public List<EnterpriseSimilarityResult> getTopN(List<EnterpriseSimilarityResult> esrs,int n) {
-		
-		List<EnterpriseSimilarityResult> tesrs = esrs;
-		Collections.sort(esrs); 
+    public List<EnterpriseSimilarityResult> getTopN(List<EnterpriseSimilarityResult> esrs, int n) {
+
+        List<EnterpriseSimilarityResult> tesrs = esrs;
+        Collections.sort(esrs);
 		if (n<esrs.size()) {
-			tesrs =  esrs.subList(0, n-1);
+            tesrs = esrs.subList(0, n - 1);
 		}
-		
-		return tesrs;
+
+        return tesrs;
 	}
 }

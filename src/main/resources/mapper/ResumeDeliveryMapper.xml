@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xz.fzu.dao.IResumeDeliveryDao">
+    <resultMap id="myResultMap" type="xz.fzu.model.ResumeDelivery">
+        <result property="resumeDeliveryId" column="resume_delivery_id"/>
+        <result property="recruitmentId" column="recruitment_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="resumeId" column="resume_id"/>
+        <result property="deliveryStatus" column="delivery_status"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+    <insert id="insertInstance" parameterType="xz.fzu.model.ResumeDelivery">
+        INSERT  INTO resume_delivery(recruitment_id,user_id,resume_id,delivery_status,remark)
+        VALUES( #{recruitmentId},#{userId},#{resumeId},#{deliveryStatus},#{remark})
+    </insert>
+    <select id="getInstance" parameterType="int" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
+        SELECT * FROM resume_delivery WHERE resume_delivery_id = #{resumeDeliveryId}
+    </select>
+    <select id="userGetListInstance" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
+         SELECT * FROM resume_delivery WHERE user_id = #{arg0} LIMIT #{arg1},#{arg2}
+    </select>
+    <select id="resumeGetListInstance" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
+         SELECT * FROM resume_delivery WHERE resume_id = #{arg0} LIMIT #{arg1},#{arg2}
+    </select>
+    <select id="companyGetListInstance" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
+         SELECT * FROM resume_delivery WHERE recruitment_id = #{arg0} LIMIT #{arg1},#{arg2}
+    </select>
+    <delete id="deleteInstance" parameterType="java.lang.String">
+        DELETE FROM resume_delivery WHERE resume_delivery_id = #{resumeDeliveryId}
+    </delete>
+    <update id="updateInstance" parameterType="xz.fzu.model.ResumeDelivery">
+        UPDATE resume_delivery
+        <set>
+            <if test=" recruitmentId !=0 ">
+                recruitment_id = #{recruitmentId},
+            </if>
+            <if test=" userId != null and userId != ' ' ">
+                user_id = #{userId},
+            </if>
+            <if test=" resumeId !=0 ">
+                resume_id = #{resumeId},
+            </if>
+            <if test=" deliveryStatus !=0 ">
+                delivery_status = #{deliveryStatus},
+            </if>
+            <if test=" remark != null and remark != '' ">
+                remark = #{remark},
+            </if>
+        </set>
+        WHERE resume_delivery_id=#{resumeDeliveryId}
+    </update>
+</mapper>

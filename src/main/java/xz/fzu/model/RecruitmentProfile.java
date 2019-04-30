@@ -1,4 +1,4 @@
-package xz.fzu.algorithm;
+package xz.fzu.model;
 
 /**
  * 该类用来保存招聘信息画像
@@ -14,26 +14,15 @@ public class RecruitmentProfile {
 	private String salary;
 	private String degree;
 	private String stationLabel;
-	
-	public RecruitmentProfile(int recruitmentId, int industryLabel, String location, int workTime, int jobType,
-			String salary, String degree, String stationLabel) {
-		super();
-		this.recruitmentId = recruitmentId;
-		this.industryLabel = industryLabel;
-		this.location = location;
-		this.workTime = workTime;
-		this.jobType = jobType;
-		this.salary = salary;
-		this.degree = degree;
-		this.stationLabel = stationLabel;
-	}
-	
+
 	public int getRecruitmentId() {
 		return recruitmentId;
 	}
+
 	public void setRecruitmentId(int recruitmentId) {
 		this.recruitmentId = recruitmentId;
 	}
+
 	public int getIndustryLabel() {
 		return industryLabel;
 	}
