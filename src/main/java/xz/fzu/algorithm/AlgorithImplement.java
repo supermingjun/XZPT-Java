@@ -1,5 +1,8 @@
 package xz.fzu.algorithm;
 
+import xz.fzu.model.RecruitmentProfile;
+import xz.fzu.model.UserProfile;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -108,7 +111,7 @@ public class AlgorithImplement {
 	 * @param rp
 	 * @return
 	 */
-	public double degreeQuan(UserProfile upf,RecruitmentProfile rp) {
+    public double degreeQuan(UserProfile upf, RecruitmentProfile rp) {
 		
 		int uDegree = upf.getHighestEducation();
 		String rDegreeRequire = rp.getDegree();
@@ -151,7 +154,6 @@ public class AlgorithImplement {
 	 * 对招聘信息关键字段进行量化加权
 	 * 目前只用学历和薪水进行量化加权
 	 * @param upf
-	 * @param trps
 	 * @return
 	 */
 
@@ -207,7 +209,6 @@ public class AlgorithImplement {
  	}
 	/**
 	 * 获取相似度最高的Top-N
-	 * @param fr
 	 * @param n
 	 */
     public List<EnterpriseSimilarityResult> getTopN(List<EnterpriseSimilarityResult> esrs, int n) {
