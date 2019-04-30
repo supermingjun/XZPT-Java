@@ -1,5 +1,6 @@
 package xz.fzu.dao;
 
+import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.ResumeDelivery;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
  * @author Murphy
  * @date 2019/4/30 15:25
  */
-public interface IResumeDelivery {
+public interface IResumeDeliveryDao {
 
     /**
      * @param resumeDelivery
@@ -26,7 +27,7 @@ public interface IResumeDelivery {
      * @date 2019/4/30 15:31
      * @description 根据投递记录id获得投递记录
      */
-    public ResumeDelivery getInstace(int resumeDeliveryId);
+    public ResumeDelivery getInstance(int resumeDeliveryId) throws InstanceNotExistException;
 
     /**
      * @param userId
@@ -35,16 +36,16 @@ public interface IResumeDelivery {
      * @date 2019/4/30 15:32
      * @description 用户获得投递记录
      */
-    public List<ResumeDelivery> userGetListInstace(String userId);
+    public List<ResumeDelivery> userGetListInstance(String userId, int pageIndex, int pageSize);
 
     /**
-     * @param userId
-     * @return java.util.List<xz.fzu.model.ResumeDelivery>
+     * @param resumeId
+     * @return jResumeDelivery
      * @author Murphy
      * @date 2019/4/30 15:32
      * @description 根据简历获得投递记录
      */
-    public List<ResumeDelivery> resumeGetListInstace(String userId);
+    public ResumeDelivery resumeGetListInstance(int resumeId);
 
     /**
      * @param recruitmentId
@@ -53,7 +54,7 @@ public interface IResumeDelivery {
      * @date 2019/4/30 15:32
      * @description 企业获得投递记录
      */
-    public List<ResumeDelivery> companyGetListInstace(String recruitmentId);
+    public List<ResumeDelivery> companyGetListInstance(String recruitmentId, int pageIndex, int pageSize);
 
     /**
      * @param resumeDeliveryId
@@ -62,7 +63,7 @@ public interface IResumeDelivery {
      * @date 2019/4/30 15:32
      * @description 根据投递记录id删除记录
      */
-    public int deleteInstace(int resumeDeliveryId);
+    public int deleteInstance(int resumeDeliveryId);
 
     /**
      * @param resumeDelivery
@@ -71,6 +72,6 @@ public interface IResumeDelivery {
      * @date 2019/4/30 15:33
      * @description 更新投递记录
      */
-    public void updateInstace(ResumeDelivery resumeDelivery);
+    public void updateInstance(ResumeDelivery resumeDelivery);
 
 }

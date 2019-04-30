@@ -328,16 +328,4 @@ public class UserController {
     }
 
 
-    /**
-     * @param token
-     * @return xz.fzu.vo.ResponseData
-     * @author Murphy
-     * @date 2019/4/29 21:53
-     * @description 推荐接口
-     */
-    @RequestMapping(value = "/getrecommend", method = RequestMethod.POST)
-    public ResponseData getRecommend(String token) {
-
-        return null;
-    }
 }
