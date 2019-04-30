@@ -64,8 +64,8 @@ public class AlgorithImplement {
 	public int[] regExSalary(String salary) {
 		
 		int[] salaryRange = new int[2];
-		String regex1 = "^\\d*(?=k)";
-		String regex2 = "(?<=~)\\d*";
+		String regex1 = "^\\d*(?=[k|K])";
+		String regex2 = "(?<=-)\\d*";
 		Pattern p1 = Pattern.compile(regex1);
 		Pattern p2 = Pattern.compile(regex2);
 		Matcher m1 = p1.matcher(salary);
@@ -85,7 +85,7 @@ public class AlgorithImplement {
 	public double salaryQuan(int[] salaryRange) {
 		
 		if (salaryRange[0]>=20) {
-			return salaryRange[6];
+			return salaryQuanValue[6];
 		}
 		if (salaryRange[0]>=15) {
 			return salaryQuanValue[5];
