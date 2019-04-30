@@ -6,7 +6,7 @@ package xz.fzu.algorithm;
  *
  */
 public class RecruitmentProfile {
-	private String recruitmentId;
+	private int recruitmentId;
 	private int industryLabel;
 	private String location;
 	private int workTime;
@@ -15,7 +15,7 @@ public class RecruitmentProfile {
 	private String degree;
 	private String stationLabel;
 	
-	public RecruitmentProfile(String recruitmentId, int industryLabel, String location, int workTime, int jobType,
+	public RecruitmentProfile(int recruitmentId, int industryLabel, String location, int workTime, int jobType,
 			String salary, String degree, String stationLabel) {
 		super();
 		this.recruitmentId = recruitmentId;
@@ -28,10 +28,10 @@ public class RecruitmentProfile {
 		this.stationLabel = stationLabel;
 	}
 	
-	public String getRecruitmentId() {
+	public int getRecruitmentId() {
 		return recruitmentId;
 	}
-	public void setRecruitmentId(String recruitmentId) {
+	public void setRecruitmentId(int recruitmentId) {
 		this.recruitmentId = recruitmentId;
 	}
 	public int getIndustryLabel() {

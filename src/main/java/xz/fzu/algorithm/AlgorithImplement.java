@@ -116,7 +116,13 @@ public class AlgorithImplement {
 		
 		int uDegree = upf.getHighestEducation();
 		String rDegreeRequire = rp.getDegree();
-		int rdegreeRequire = typeOfDegree.get(rDegreeRequire);
+		int rdegreeRequire = 1;
+		try {
+			rdegreeRequire = typeOfDegree.get(rDegreeRequire);
+		}
+		catch(NullPointerException e) {
+			rdegreeRequire = 1;
+		}
 		if (uDegree==rdegreeRequire) {
 			return degreeQuanValue[3];
 		}
@@ -154,9 +160,9 @@ public class AlgorithImplement {
 	 * @return
 	 */
 	
-	public Map<String,double[]> quantization(UserProfile upf,List<RecruitmentProfile> preScreeningResults) {
+	public Map<Integer,double[]> quantization(UserProfile upf,List<RecruitmentProfile> preScreeningResults) {
 		
-		Map<String,double[]> weightResults = new HashMap<String,double[]>();
+		Map<Integer,double[]> weightResults = new HashMap<Integer,double[]>();
 		Iterator<RecruitmentProfile> iterator = preScreeningResults.iterator();
 		while(iterator.hasNext()) {
 			RecruitmentProfile rp = iterator.next();
@@ -176,19 +182,17 @@ public class AlgorithImplement {
 	 * @param uWeight
 	 * @param weightedResults
 	 */
-	public FiltrationResult computationalSimilarity(String userId,Map<String,double[]> weightedResults) {
+	public List<EnterpriseSimilarityResult> computationalSimilarity(String userId,Map<Integer,double[]> weightedResults) {
 		
-		FiltrationResult fr =new FiltrationResult();
 		List<EnterpriseSimilarityResult> esrs = new ArrayList<EnterpriseSimilarityResult>();
-		fr.setUserId(userId);
 		double result = 0;
 		double r1 = 0;
 		double r2 = 0;
 		double r3 = 0;
-		Iterator<Map.Entry<String,double[]>> iterator = weightedResults.entrySet().iterator();
+		Iterator<Map.Entry<Integer,double[]>> iterator = weightedResults.entrySet().iterator();
 		while (iterator.hasNext()) {
-			Map.Entry<String, double[]> entry = iterator.next();
-			String str = entry.getKey();
+			Map.Entry<Integer, double[]> entry = iterator.next();
+			Integer str = entry.getKey();
 			double[] dou = entry.getValue();
 			for (int i=0;i<dou.length;i++) {
 				r1+=dou[i]*uWeight[i];
@@ -197,27 +201,28 @@ public class AlgorithImplement {
 			}
 			result = Double.parseDouble(String.format("%.6f", r1/Math.sqrt(r2*r3)));
 			EnterpriseSimilarityResult esr = new EnterpriseSimilarityResult();
+			esr.setUserId(userId);
 			esr.setRecruitmentId(str);
 			esr.setSimilarityResult(result);
 			esrs.add(esr);
 		}
-		fr.setEnterpriseSimilarityResults(esrs);
 		
-		return fr;
+		
+		return esrs;
  	}
 	/**
 	 * 获取相似度最高的Top-N
 	 * @param fr
 	 * @param n
 	 */
-	public FiltrationResult getTopN(FiltrationResult fr,int n) {
+	public List<EnterpriseSimilarityResult> getTopN(List<EnterpriseSimilarityResult> esrs,int n) {
 		
-		List<EnterpriseSimilarityResult> esrs = fr.getEnterpriseSimilarityResults();
-		Collections.sort(esrs);
+		List<EnterpriseSimilarityResult> tesrs = esrs;
+		Collections.sort(esrs); 
 		if (n<esrs.size()) {
-			fr.setEnterpriseSimilarityResults( esrs.subList(0, n-1));
+			tesrs =  esrs.subList(0, n-1);
 		}
 		
-		return fr;
+		return tesrs;
 	}
 }

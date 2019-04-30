@@ -7,14 +7,15 @@ package xz.fzu.algorithm;
  */
 public class EnterpriseSimilarityResult implements Comparable<EnterpriseSimilarityResult>{
 	
-	private String recruitmentId;
+	private String userId;
+	private Integer recruitmentId;
 	private double SimilarityResult;
-	public String getRecruitmentId() {
+	public Integer getRecruitmentId() {
 		return recruitmentId;
 	}
-	public void setRecruitmentId(String recruitmentId) {
+	public void setRecruitmentId(Integer str) {
 		
-		this.recruitmentId = recruitmentId;
+		this.recruitmentId = str;
 	}
 	public double getSimilarityResult() {
 		
@@ -28,6 +29,12 @@ public class EnterpriseSimilarityResult implements Comparable<EnterpriseSimilari
 	public int compareTo(EnterpriseSimilarityResult o) {
 		
 		return o.getSimilarityResult()>this.getSimilarityResult()?0:-1;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 }
