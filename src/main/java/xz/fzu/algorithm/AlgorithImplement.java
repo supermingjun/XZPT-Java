@@ -176,7 +176,6 @@ public class AlgorithImplement {
 	
 	/**
 	 * 对招聘信息进行相似度计算
-	 * @param uWeight
 	 * @param weightedResults
 	 */
     public List<EnterpriseSimilarityResult> computationalSimilarity(String userId, Map<Integer, double[]> weightedResults) {
