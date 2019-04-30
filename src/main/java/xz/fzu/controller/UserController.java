@@ -252,6 +252,26 @@ public class UserController {
 
     /**
      * @param token
+     * @param resumeId
+     * @return xz.fzu.vo.ResponseData<xz.fzu.model.Resume>
+     * @author Murphy
+     * @date 2019/4/30 14:27
+     * @description 根据简历id获得简历
+     */
+    @RequestMapping(value = "/getresume", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData<Resume> getResume(@RequestParam String token, @RequestParam int resumeId) throws InstanceNotExistException, TokenExpiredException {
+
+        ResponseData<Resume> responseData = new ResponseData<>();
+        String userId = iUserService.verifyToken(token);
+        Resume resume = iResumeService.getResume(userId, resumeId);
+        responseData.setResultObject(resume);
+
+        return responseData;
+    }
+
+    /**
+     * @param token
      * @param resume
      * @return xz.fzu.vo.ResponseData<xz.fzu.model.Resume>
      * @author Murphy
@@ -269,6 +289,14 @@ public class UserController {
         return responseData;
     }
 
+    /**
+     * @param token
+     * @param resume
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/4/30 14:31
+     * @description 插入一条简历
+     */
     @RequestMapping(value = "/insertresume", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData insertResume(@RequestParam String token, @RequestBody Resume resume) throws InstanceNotExistException, TokenExpiredException, EvilIntentions {

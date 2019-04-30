@@ -54,5 +54,5 @@ public interface IResumeService {
      * @date 2019/4/30 0:17
      * @description 获得指定简历实例
      */
-    public Resume getResume(int resumeId);
+    public Resume getResume(String userId, int resumeId) throws InstanceNotExistException;
 }
