@@ -6,7 +6,7 @@ package xz.fzu.model;
  *
  */
 public class RecruitmentProfile {
-	private String recruitmentId;
+	private int recruitmentId;
 	private int industryLabel;
 	private String location;
 	private int workTime;
@@ -15,12 +15,14 @@ public class RecruitmentProfile {
 	private String degree;
 	private String stationLabel;
 
-	public String getRecruitmentId() {
+	public int getRecruitmentId() {
 		return recruitmentId;
 	}
-	public void setRecruitmentId(String recruitmentId) {
+
+	public void setRecruitmentId(int recruitmentId) {
 		this.recruitmentId = recruitmentId;
 	}
+
 	public int getIndustryLabel() {
 		return industryLabel;
 	}
