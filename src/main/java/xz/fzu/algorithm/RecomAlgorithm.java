@@ -1,7 +1,9 @@
 package xz.fzu.algorithm;
 
-import xz.fzu.model.RecruitmentProfile;
-import xz.fzu.model.UserProfile;
+import java.util.ArrayList;
+
+//import xz.fzu.model.RecruitmentProfile;
+//import xz.fzu.model.UserProfile;
 
 import java.util.List;
 import java.util.Map;
@@ -110,30 +112,30 @@ public class RecomAlgorithm {
 
             return esrs;
         }
-//	public static void main(String[] args) {
-//		
-//		RecomAlgorithm ra = new RecomAlgorithm();
-//		UserProfile upf = new UserProfile("975835798",1,"全职",1,1,"",3,"");
-//		List<RecruitmentProfile> rps = new ArrayList<RecruitmentProfile>();
-//		RecruitmentProfile rp1 = new RecruitmentProfile(975835790,2,"全职",1,1,"9k~20k","学历不限","");
-//		RecruitmentProfile rp2 = new RecruitmentProfile(975835791,1,"全职",1,1,"3k~5k","大专及以上","");
-//		RecruitmentProfile rp3 = new RecruitmentProfile(975835792,1,"全职",1,1,"6k~7k","本科及以上","");
-//		RecruitmentProfile rp4 = new RecruitmentProfile(975835793,1,"全职",1,1,"4k~6k","","");
-//		RecruitmentProfile rp5 = new RecruitmentProfile(975835794,1,"全职",1,1,"3k~4k","本科及以上","");
-//		RecruitmentProfile rp6 = new RecruitmentProfile(975835795,1,"全职",1,2,"5k~7k","本科及以上","");
-//		RecruitmentProfile rp7 = new RecruitmentProfile(975835796,1,"全职",1,1,"5k~7k","本科及以上","");
-//		RecruitmentProfile rp8 = new RecruitmentProfile(975835797,1,"全职",1,2,"6k~9k","本科及以上","");
-//		rps.add(rp1);
-//		rps.add(rp2);
-//		rps.add(rp3);
-//		rps.add(rp4);
-//		rps.add(rp5);
-//		rps.add(rp6);
-//		rps.add(rp7);
-//		rps.add(rp8);
-//		List<EnterpriseSimilarityResult> list = ra.recomAlgorithm(upf, rps, 5);
-//		for(EnterpriseSimilarityResult er : list) {
-//			System.out.println(er.getUserId()+" "+er.getRecruitmentId()+" "+er.getSimilarityResult());
-//		}
-//	}
+	/*public static void main(String[] args) {
+		
+		RecomAlgorithm ra = new RecomAlgorithm();
+		UserProfile upf = new UserProfile("975835798",1,"北京",0,1,"",3,"");
+		List<RecruitmentProfile> rps = new ArrayList<RecruitmentProfile>();
+		RecruitmentProfile rp1 = new RecruitmentProfile(975835790,2," 北京 ",1,1,"","","");
+		RecruitmentProfile rp2 = new RecruitmentProfile(975835791,1,"  北京 ",1,1,"","","");
+		RecruitmentProfile rp3 = new RecruitmentProfile(975835792,1," 北京 ",1,1,"","","");
+		RecruitmentProfile rp4 = new RecruitmentProfile(975835793,1," 北京 ",1,1,"","","");
+		RecruitmentProfile rp5 = new RecruitmentProfile(975835794,1,"北京 ",1,1,"","","");
+		RecruitmentProfile rp6 = new RecruitmentProfile(975835795,1,"北京 ",1,2,"","","");
+		RecruitmentProfile rp7 = new RecruitmentProfile(975835796,1,"北京 ",1,1,"","","");
+		RecruitmentProfile rp8 = new RecruitmentProfile(975835797,1,"北京 ",1,2,"","","");
+		rps.add(rp1);
+		rps.add(rp2);
+		rps.add(rp3);
+		rps.add(rp4);
+		rps.add(rp5);
+		rps.add(rp6);
+		rps.add(rp7);
+		rps.add(rp8);
+		List<EnterpriseSimilarityResult> list = ra.recomAlgorithm(upf, rps, 5);
+		for(EnterpriseSimilarityResult er : list) {
+			System.out.println(er.getUserId()+" "+er.getRecruitmentId()+" "+er.getSimilarityResult());
+		}
+	}*/
 }
