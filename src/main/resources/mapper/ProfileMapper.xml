@@ -32,6 +32,6 @@
     </select>
 
     <select id="selectUserId" resultType="java.lang.String">
-        SELECT userId FROM user_profile
+        SELECT user_id FROM user_profile
     </select>
 </mapper>
