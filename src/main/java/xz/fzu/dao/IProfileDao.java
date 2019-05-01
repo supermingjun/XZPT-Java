@@ -28,4 +28,14 @@ public interface IProfileDao {
      * @description 获得
      */
     public List<RecruitmentProfile> getRecruitmentProfile();
+
+
+    /**
+     * @param
+     * @return java.util.List<java.lang.String>
+     * @author Murphy
+     * @date 2019/5/1 12:54
+     * @description 查找所有用户id
+     */
+    public List<String> selectUserId();
 }
