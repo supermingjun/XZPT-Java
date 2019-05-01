@@ -23,7 +23,7 @@ public interface IRecruitmentService {
      * @return xz.fzu.model.Recruitment
      * @author Murphy
      * @date 2019/4/27 10:49
-     * @description 查看招聘信息
+     * @description 查看具体的招聘信息
      */
     public Recruitment getRecruitmentById(long recruitmentId) throws InstanceNotExistException;
 

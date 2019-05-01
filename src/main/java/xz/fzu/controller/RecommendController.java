@@ -22,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/user", method = RequestMethod.POST)
-public class RecommendAController {
+public class RecommendController {
 
     @Resource
     RecomAlgorithm recomAlgorithm;
@@ -32,14 +32,15 @@ public class RecommendAController {
     IUserService iUserService;
 
     @Autowired
-    public RecommendAController(RecomAlgorithm recomAlgorithm) {
+    public RecommendController(RecomAlgorithm recomAlgorithm) {
         this.recomAlgorithm = recomAlgorithm;
         new Thread() {
             @Override
             public void run() {
                 for (String string : iProfileService.selectUserId()) {
 
-                    recomAlgorithm.recomAlgorithm(iProfileService.getUserProfile(string), iProfileService.getRecruitmentProfile(), 10);
+                    List<RecommendResult> recommendResults = recomAlgorithm.recomAlgorithm(iProfileService.getUserProfile(string), iProfileService.getRecruitmentProfile(), 10);
+                    iRecommendService.insertInstance(recommendResults);
                 }
             }
         };
@@ -55,11 +56,11 @@ public class RecommendAController {
      * @description 推荐接口
      */
     @RequestMapping(value = "/getrecommend", method = RequestMethod.POST)
-    public ResponseData getRecommend(@RequestParam String token) throws TokenExpiredException {
+    public ResponseData<List<xz.fzu.model.RecommendResult>> getRecommend(@RequestParam String token) throws TokenExpiredException {
 
-        ResponseData responseData = new ResponseData();
+        ResponseData<List<xz.fzu.model.RecommendResult>> responseData = new ResponseData<>();
         String userId = iUserService.verifyToken(token);
-        List<RecommendResult> recruitmentProfiles = iRecommendService.getListResult(userId);
+        List<xz.fzu.model.RecommendResult> recruitmentProfiles = iRecommendService.getListResult(userId);
         responseData.setResultObject(recruitmentProfiles);
 
         return responseData;
