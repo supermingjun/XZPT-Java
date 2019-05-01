@@ -30,4 +30,10 @@ public class ProfileServiceImpl implements IProfileService {
         List<RecruitmentProfile> list = iProfileDao.getRecruitmentProfile();
         return list;
     }
+
+    @Override
+    public List<String> selectUserId() {
+        List<String> strings = iProfileDao.selectUserId();
+        return strings;
+    }
 }

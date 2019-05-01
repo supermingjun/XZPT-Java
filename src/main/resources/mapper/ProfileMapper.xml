@@ -31,4 +31,7 @@
         SELECT * FROM recruitment_profile
     </select>
 
+    <select id="selectUserId" resultType="java.lang.String">
+        SELECT userId FROM user_profile
+    </select>
 </mapper>

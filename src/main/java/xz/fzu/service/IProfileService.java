@@ -28,4 +28,13 @@ public interface IProfileService {
      * @description 获得招聘会实例
      */
     public List<RecruitmentProfile> getRecruitmentProfile();
+
+    /**
+     * @param
+     * @return java.util.List<java.lang.String>
+     * @author Murphy
+     * @date 2019/5/1 12:59
+     * @description
+     */
+    public List<String> selectUserId();
 }

@@ -1,13 +1,15 @@
 package xz.fzu.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import xz.fzu.algorithm.EnterpriseSimilarityResult;
 import xz.fzu.algorithm.RecomAlgorithm;
 import xz.fzu.exception.TokenExpiredException;
+import xz.fzu.model.RecommendResult;
 import xz.fzu.service.IProfileService;
+import xz.fzu.service.IRecommendService;
 import xz.fzu.service.IUserService;
 import xz.fzu.vo.ResponseData;
 
@@ -20,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/user", method = RequestMethod.POST)
-public class RecommendAlgorithmController {
+public class RecommendAController {
 
     @Resource
     RecomAlgorithm recomAlgorithm;
@@ -29,11 +31,22 @@ public class RecommendAlgorithmController {
     @Resource
     IUserService iUserService;
 
-//    @Autowired
-//    public RecommendAlgorithmController(RecomAlgorithm recomAlgorithm) {
-//        this.recomAlgorithm=recomAlgorithm;
-//    }
+    @Autowired
+    public RecommendAController(RecomAlgorithm recomAlgorithm) {
+        this.recomAlgorithm = recomAlgorithm;
+        new Thread() {
+            @Override
+            public void run() {
+                for (String string : iProfileService.selectUserId()) {
 
+                    recomAlgorithm.recomAlgorithm(iProfileService.getUserProfile(string), iProfileService.getRecruitmentProfile(), 10);
+                }
+            }
+        };
+    }
+
+    @Resource
+    IRecommendService iRecommendService;
     /**
      * @param token
      * @return xz.fzu.vo.ResponseData
@@ -46,8 +59,8 @@ public class RecommendAlgorithmController {
 
         ResponseData responseData = new ResponseData();
         String userId = iUserService.verifyToken(token);
-        List<EnterpriseSimilarityResult> list = recomAlgorithm.recomAlgorithm(iProfileService.getUserProfile(userId), iProfileService.getRecruitmentProfile(), 10);
-        responseData.setResultObject(list);
+        List<RecommendResult> recruitmentProfiles = iRecommendService.getListResult(userId);
+        responseData.setResultObject(recruitmentProfiles);
 
         return responseData;
     }
