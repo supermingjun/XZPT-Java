@@ -80,7 +80,7 @@
         </set>
         WHERE recruitment_id=#{recruitmentId}
     </update>
-    <select id="selectInstanceByKeyWord" parameterType="java.lang.String" resultType="xz.fzu.model.Recruitment">
-        SELECT * FROM recruitment WHERE job_name LIKE #{keyWord} OR description LIKE #{keyWord} OR description LIKE #{keyWord};
+    <select id="selectInstanceByKeyWord" resultType="xz.fzu.model.Recruitment" resultMap="resultMapper">
+        SELECT * FROM recruitment WHERE job_name LIKE #{arg0} OR description LIKE #{arg0} OR description LIKE #{arg0} LIMIT #{arg1},#{arg2}
     </select>
 </mapper>

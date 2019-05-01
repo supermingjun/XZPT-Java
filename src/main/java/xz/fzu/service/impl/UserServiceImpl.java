@@ -2,6 +2,7 @@ package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
 import xz.fzu.dao.IUserDao;
+import xz.fzu.exception.AccountUsedException;
 import xz.fzu.exception.PasswordErrorException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.User;
@@ -30,8 +31,11 @@ public class UserServiceImpl implements IUserService {
      * @description 注册, 返回token
      */
     @Override
-    public String register(User user) {
+    public String register(User user) throws AccountUsedException {
 
+        if (selectByEmail(user.getEmail()) != null) {
+            throw new AccountUsedException();
+        }
         String uuid = UUID.randomUUID().toString().replace("-", "");
         user.setUserId(uuid);
         user.setPasswd(SHA.encrypt(user.getPasswd()));

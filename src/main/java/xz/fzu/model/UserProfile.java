@@ -1,4 +1,4 @@
-package xz.fzu.algorithm;
+package xz.fzu.model;
 /**
  * 该类为用户画像
  * @author LITM
@@ -13,19 +13,6 @@ public class UserProfile {
 	private String expectSalary;
 	private int highestEducation;
 	private String stationLabel;
-	
-	public UserProfile(String userId, int industryLabel, String expectedCity, int workTime, int jobType,
-			String expectSalary, int highestEducation, String stationLabel) {
-		
-		this.userId = userId;
-		this.industryLabel = industryLabel;
-		this.expectedCity = expectedCity;
-		this.workTime = workTime;
-		this.jobType = jobType;
-		this.expectSalary = expectSalary;
-		this.highestEducation = highestEducation;
-		this.stationLabel = stationLabel;
-	}
 
 	public String getUserId() {
 		return userId;

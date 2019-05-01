@@ -1,12 +1,13 @@
 package xz.fzu.service;
 
+import xz.fzu.exception.AccountUsedException;
 import xz.fzu.exception.PasswordErrorException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.User;
 
 
 public interface IUserService {
-    String register(User user);
+    String register(User user) throws AccountUsedException;
 
     User selectByEmail(String email);
 
