@@ -1,7 +1,7 @@
 package xz.fzu.algorithm;
 
-import xz.fzu.model.RecruitmentProfile;
-import xz.fzu.model.UserProfile;
+//import xz.fzu.model.RecruitmentProfile;
+//import xz.fzu.model.UserProfile;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -22,7 +22,7 @@ public class AlgorithImplement {
 	private double[] degreeQuanValue = {0.3,0.5,0.8,1.0};
 	private double[] salaryQuanValue = {0.1,0.15,0.25,0.35,0.5,0.7,1.0};
 	private double[] uWeight = {0.5,0.3,0.2};//根据用户对学历和薪水的重视程度分别设其权重为0.4,0.6
-	private double[] workTimeQuanValue = {0.1,0.3,0.5,1.0};
+	private double[] workTimeQuanValue = {0.1,0.3,0.5,0.8,1.0};
  	//将学历映射成int方便后面比较
 	private Map<String,Integer> typeOfDegree = new HashMap<String,Integer>(){
 		private static final long serialVersionUID = 1L;
@@ -46,7 +46,7 @@ public class AlgorithImplement {
 			if(upf.getIndustryLabel()!=rp.getIndustryLabel()) {
 				iterator.remove();
 			}
-			else if(!upf.getExpectedCity().equals(rp.getLocation())) {
+			else if(!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {//去掉字符串首尾的空白后进行比较
 				iterator.remove();
 			}
 			else if(upf.getJobType()!=rp.getJobType()) {
@@ -65,15 +65,20 @@ public class AlgorithImplement {
 		
 		int[] salaryRange = new int[2];
 		String regex1 = "^\\d*(?=[k|K])";
-		String regex2 = "(?<=-)\\d*";
+		String regex2 = "(?<=[-|~])\\d*";
 		Pattern p1 = Pattern.compile(regex1);
 		Pattern p2 = Pattern.compile(regex2);
 		Matcher m1 = p1.matcher(salary);
 		Matcher m2 = p2.matcher(salary);
 		m1.find();
 		m2.find();
-		salaryRange[0] = Integer.parseInt(m1.group());
-		salaryRange[1] = Integer.parseInt(m2.group());
+		try {
+			salaryRange[0] = Integer.parseInt(m1.group());
+			salaryRange[1] = Integer.parseInt(m2.group());
+		}
+		catch(Exception e) {
+		
+		}
 		return salaryRange;
 		
 	}
@@ -139,8 +144,11 @@ public class AlgorithImplement {
 		
 		int uWorkTime = upf.getWorkTime();
 		int rWorkTime = rp.getWorkTime();
-		if(uWorkTime == rWorkTime) {
+		if(uWorkTime == 0) {
 			return workTimeQuanValue[3];
+		}
+		else if(uWorkTime == rWorkTime) {
+			return workTimeQuanValue[4];
 		}
 		else if(uWorkTime > rWorkTime) {
 			return workTimeQuanValue[2];
@@ -202,7 +210,6 @@ public class AlgorithImplement {
 			esr.setSimilarityResult(result);
 			esrs.add(esr);
 		}
-
 
         return esrs;
  	}
