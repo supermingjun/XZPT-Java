@@ -5,10 +5,8 @@ import xz.fzu.model.Recruitment;
 import java.util.List;
 
 /**
+ * 招聘信息结果相关的dao
  * @author Murphy
- * @title: IRecruitmentDao
- * @projectName XZPT-Java
- * @description: 招聘信息结果相关的dao
  */
 public interface IRecruitmentDao {
 
@@ -19,7 +17,7 @@ public interface IRecruitmentDao {
      * @author Murphy
      * @date 2019/4/27 1:13
      */
-    public void insertInstance(Recruitment recruitment);
+    void insertInstance(Recruitment recruitment);
 
     /**
      * 通过实例id查找招聘信息实例
@@ -28,7 +26,7 @@ public interface IRecruitmentDao {
      * @author Murphy
      * @date 2019/4/27 1:13
      */
-    public Recruitment selectInstaceById(long recruitmentId);
+    Recruitment selectInstaceById(long recruitmentId);
 
     /**
      * 根据公司id查找所有的招聘信息
@@ -39,7 +37,7 @@ public interface IRecruitmentDao {
      * @author Murphy
      * @date 2019/4/27 1:13
      */
-    public List<Recruitment> selectListInstanceByCompanyId(String companyId, int requestPage, int pageSize);
+    List<Recruitment> selectListInstanceByCompanyId(String companyId, int requestPage, int pageSize);
 
     /**
      * 通过keyWord查找招聘信息
@@ -50,7 +48,7 @@ public interface IRecruitmentDao {
      * @author Murphy
      * @date 2019/4/28 23:54
      */
-    public List<Recruitment> selectInstanceByKeyWord(String keyWord, int requestPage, int pageSize);
+    List<Recruitment> selectInstanceByKeyWord(String keyWord, int requestPage, int pageSize);
 
     /**
      * 删除招聘信息
@@ -59,7 +57,7 @@ public interface IRecruitmentDao {
      * @author Murphy
      * @date 2019/4/27 1:15
      */
-    public void deleteInstace(long recruitmentId);
+    void deleteInstace(long recruitmentId);
 
     /**
      *  更新招聘信息
@@ -68,5 +66,5 @@ public interface IRecruitmentDao {
      * @author Murphy
      * @date 2019/4/27 1:15
      */
-    public void updateInstace(Recruitment recruitment);
+    void updateInstace(Recruitment recruitment);
 }

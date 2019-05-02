@@ -9,10 +9,8 @@ import xz.fzu.vo.PageData;
 import java.util.List;
 
 /**
+ * 简历相关的Service接口
  * @author Murphy
- * @title: IResumeService
- * @projectName XZPT-Java
- * @description: 简历相关的Service接口
  */
 public interface IResumeService {
 
@@ -26,7 +24,7 @@ public interface IResumeService {
      * @throws TokenExpiredException token过期
      * @throws EvilIntentions 恶意操作
      */
-    public void insertResume(String userId, Resume resume) throws TokenExpiredException, EvilIntentions;
+    void insertResume(String userId, Resume resume) throws TokenExpiredException, EvilIntentions;
 
     /**
      * 更新简历
@@ -38,7 +36,7 @@ public interface IResumeService {
      * @throws TokenExpiredException token过期
      * @throws EvilIntentions 恶意操作
      */
-    public void updateResume(String userId, Resume resume) throws EvilIntentions, TokenExpiredException;
+    void updateResume(String userId, Resume resume) throws EvilIntentions, TokenExpiredException;
 
     /**
      * 查找当前用户所有的简历
@@ -60,7 +58,7 @@ public interface IResumeService {
      * @date 2019/4/30 0:16
      * @throws InstanceNotExistException 未找到实例异常
      */
-    public int deleteResume(int resumeId) throws InstanceNotExistException;
+    int deleteResume(int resumeId) throws InstanceNotExistException;
 
     /**
      * 获得指定简历实例
@@ -71,7 +69,7 @@ public interface IResumeService {
      * @date 2019/4/30 0:17
      * @throws InstanceNotExistException 未找到实例异常
      */
-    public Resume getResume(String userId, int resumeId) throws InstanceNotExistException;
+    Resume getResume(String userId, int resumeId) throws InstanceNotExistException;
 
     /**
      * copy简历，并返回主键
@@ -80,5 +78,5 @@ public interface IResumeService {
      * @author Murphy
      * @date 2019/5/2 14:34
      */
-    public int copyResume(int resumeId);
+    int copyResume(int resumeId);
 }

@@ -16,10 +16,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * 简历投递相关的控制器
  * @author Murphy
- * @title: ResumeDeliveryController
- * @projectName XZPT-Java
- * @description: 简历投递相关的控制器
  * @date 2019/5/2 14:05
  */
 @RestController
@@ -35,6 +33,16 @@ public class ResumeDeliveryController {
     @Resource
     IResumeService iResumeService;
 
+    /**
+     * 投递简历
+     *
+     * @param token         token
+     * @param resumeId      简历id
+     * @param recruitmentId 招聘信息id
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/5/2 21:41
+     */
     @RequestMapping(value = "/user/deliveryresume", method = RequestMethod.POST)
     public ResponseData deliveryResume(@RequestParam String token, @RequestParam int resumeId, @RequestParam int recruitmentId) throws TokenExpiredException {
 
@@ -50,8 +58,8 @@ public class ResumeDeliveryController {
     ICompanyService iCompanyService;
 
     /**
-     * @param token
-     * @param pageData
+     * @param token token
+     * @param pageData 页信息
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/5/2 14:47
@@ -69,8 +77,8 @@ public class ResumeDeliveryController {
     }
 
     /**
-     * @param token
-     * @param resumeDelivery
+     * @param token token
+     * @param resumeDelivery 简历投递记录
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/5/2 18:28
@@ -88,8 +96,8 @@ public class ResumeDeliveryController {
     }
 
     /**
-     * @param token
-     * @param resumeDeliveryId
+     * @param token token
+     * @param resumeDeliveryId 简历投递记录的id
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/5/2 18:28
@@ -106,8 +114,8 @@ public class ResumeDeliveryController {
     // Company
 
     /**
-     * @param token
-     * @param resumeId
+     * @param token token
+     * @param resumeId 简历id
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/5/2 18:28
@@ -125,8 +133,8 @@ public class ResumeDeliveryController {
     }
 
     /**
-     * @param token
-     * @param pageData
+     * @param token token
+     * @param pageData 页信息
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/5/2 14:47
@@ -145,8 +153,8 @@ public class ResumeDeliveryController {
     }
 
     /**
-     * @param token
-     * @param resumeDelivery
+     * @param token token
+     * @param resumeDelivery 简历投递记录
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/5/2 18:19
@@ -164,8 +172,8 @@ public class ResumeDeliveryController {
 
 
     /**
-     * @param token
-     * @param resumeDeliveryId
+     * @param token token
+     * @param resumeDeliveryId 简历投递记录id
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/5/2 18:28
@@ -180,7 +188,7 @@ public class ResumeDeliveryController {
 
 
     /**
-     * @param resumeDeliveryId
+     * @param resumeDeliveryId 简历投递记录id
      * @return xz.fzu.vo.ResponseData<xz.fzu.model.ResumeDelivery>
      * @author Murphy
      * @date 2019/5/2 18:37

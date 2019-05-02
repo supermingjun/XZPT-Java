@@ -6,10 +6,8 @@ import xz.fzu.model.ResumeDelivery;
 import java.util.List;
 
 /**
+ * 简历投递相关的dao
  * @author Murphy
- * @title: IResumeDao
- * @projectName XZPT-Java
- * @description: 简历投递相关的dao
  * @date 2019/4/30 15:25
  */
 public interface IResumeDeliveryDao {
@@ -21,7 +19,7 @@ public interface IResumeDeliveryDao {
      * @author Murphy
      * @date 2019/4/30 15:26
      */
-    public void insertInstance(ResumeDelivery resumeDelivery);
+    void insertInstance(ResumeDelivery resumeDelivery);
 
     /**
      * 根据投递记录id获得投递记录
@@ -31,7 +29,7 @@ public interface IResumeDeliveryDao {
      * @date 2019/4/30 15:31
      * @throws InstanceNotExistException 实例未找到异常
      */
-    public ResumeDelivery getInstance(int resumeDeliveryId) throws InstanceNotExistException;
+    ResumeDelivery getInstance(int resumeDeliveryId) throws InstanceNotExistException;
 
     /**
      * 用户获得投递记录
@@ -42,7 +40,7 @@ public interface IResumeDeliveryDao {
      * @author Murphy
      * @date 2019/4/30 15:32
      */
-    public List<ResumeDelivery> userGetListInstance(String userId, int pageIndex, int pageSize);
+    List<ResumeDelivery> userGetListInstance(String userId, int pageIndex, int pageSize);
 
     /**
      * 根据简历获得投递记录
@@ -51,7 +49,7 @@ public interface IResumeDeliveryDao {
      * @author Murphy
      * @date 2019/4/30 15:32
      */
-    public ResumeDelivery resumeGetListInstance(int resumeId);
+    ResumeDelivery resumeGetListInstance(int resumeId);
 
     /**
      * 企业获得投递记录
@@ -62,7 +60,7 @@ public interface IResumeDeliveryDao {
      * @author Murphy
      * @date 2019/4/30 15:32
      */
-    public List<ResumeDelivery> companyGetListInstance(String recruitmentId, int pageIndex, int pageSize);
+    List<ResumeDelivery> companyGetListInstance(String recruitmentId, int pageIndex, int pageSize);
 
     /**
      * 根据投递记录id删除记录
@@ -71,7 +69,7 @@ public interface IResumeDeliveryDao {
      * @author Murphy
      * @date 2019/4/30 15:32
      */
-    public int deleteInstance(int resumeDeliveryId);
+    int deleteInstance(int resumeDeliveryId);
 
     /**
      * 更新投递记录
@@ -80,6 +78,6 @@ public interface IResumeDeliveryDao {
      * @author Murphy
      * @date 2019/4/30 15:33
      */
-    public void updateInstance(ResumeDelivery resumeDelivery);
+    void updateInstance(ResumeDelivery resumeDelivery);
 
 }

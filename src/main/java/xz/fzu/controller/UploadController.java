@@ -14,15 +14,22 @@ import java.util.UUID;
 
 
 /**
+ * 文件上传相关的控制器
  * @author Murphy
- * @title: UploadController
- * @projectName XZPT-Java
- * @description: 文件上传相关的控制器
  * @date 2019/4/24 19:01
  */
 @RestController
 @RequestMapping(value = "/upload/", method = RequestMethod.POST)
 public class UploadController {
+
+    /**
+     * 上传文件接口
+     *
+     * @param file 文件
+     * @return xz.fzu.vo.ResponseData<java.lang.String>
+     * @author Murphy
+     * @date 2019/5/2 21:43
+     */
     @RequestMapping("/*")
     public ResponseData<String> fileUpload2(@RequestParam("file") CommonsMultipartFile file) throws IOException {
 
@@ -36,7 +43,6 @@ public class UploadController {
         }
         String fileName = UUID.randomUUID() + "." + format;
         String path = "../webapps/img/" + UUID.randomUUID() + "." + fileName;
-        ;
 
         File newFile = new File(path);
 

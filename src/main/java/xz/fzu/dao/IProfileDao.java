@@ -6,10 +6,8 @@ import xz.fzu.model.UserProfile;
 import java.util.List;
 
 /**
+ * 配置信息相关的dao
  * @author Murphy
- * @title: IProfileDao
- * @projectName XZPT-Java
- * @description: 配置信息相关的dao
  * @date 2019/4/30 21:36
  * */
 public interface IProfileDao {
@@ -21,7 +19,7 @@ public interface IProfileDao {
      * @author Murphy
      * @date 2019/4/30 21:58
      */
-    public UserProfile getUserProfile(String userId);
+    UserProfile getUserProfile(String userId);
 
     /**
      * 获得招聘信息的profile
@@ -30,7 +28,7 @@ public interface IProfileDao {
      * @date 2019/4/30 21:59
      * @description
      */
-    public List<RecruitmentProfile> getRecruitmentProfile();
+    List<RecruitmentProfile> getRecruitmentProfile();
 
 
     /**
@@ -39,5 +37,5 @@ public interface IProfileDao {
      * @author Murphy
      * @date 2019/5/1 12:54
      */
-    public List<String> selectUserId();
+    List<String> selectUserId();
 }

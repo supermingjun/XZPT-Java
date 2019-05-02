@@ -6,13 +6,13 @@ package xz.fzu.exception;
  */
 public abstract class AbstractException extends Exception {
 
-    public int errorCode;
+    private int errorCode;
 
     public int getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(int errorCode) {
+    void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
     }
 

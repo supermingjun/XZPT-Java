@@ -8,10 +8,8 @@ import xz.fzu.vo.PageData;
 import java.util.List;
 
 /**
+ * 简历相关的Service接口
  * @author Murphy
- * @title: IRecruitmentService
- * @projectName XZPT-Java
- * @description: 招聘信息相关的Service接口
  */
 public interface IRecruitmentService {
 
@@ -22,7 +20,7 @@ public interface IRecruitmentService {
      * @author Murphy
      * @date 2019/4/27 10:48
      */
-    public void insertRecruitment(Recruitment recruitment);
+    void insertRecruitment(Recruitment recruitment);
 
     /**
      * 根据id获得招聘信息
@@ -32,7 +30,7 @@ public interface IRecruitmentService {
      * @date 2019/4/27 10:49
      * @throws InstanceNotExistException 实例不存在
      */
-    public Recruitment getRecruitmentById(long recruitmentId) throws InstanceNotExistException;
+    Recruitment getRecruitmentById(long recruitmentId) throws InstanceNotExistException;
 
     /**
      * 查看公司旗下所有招聘信息
@@ -55,7 +53,7 @@ public interface IRecruitmentService {
      * @date 2019/4/28 23:52
      * @throws InstanceNotExistException 实例不存在
      */
-    public List<Recruitment> getListRecruitmentByKeyWord(String keyWord, PageData requestPage) throws InstanceNotExistException;
+    List<Recruitment> getListRecruitmentByKeyWord(String keyWord, PageData requestPage) throws InstanceNotExistException;
 
 
     /**
@@ -67,7 +65,7 @@ public interface IRecruitmentService {
      * @date 2019/4/27 10:50
      * @throws EvilIntentions 恶意操作异常
      */
-    public void deleteRecruitment(long recruitmentId, String companyId) throws EvilIntentions;
+    void deleteRecruitment(long recruitmentId, String companyId) throws EvilIntentions;
 
 
     /**
@@ -79,7 +77,7 @@ public interface IRecruitmentService {
      * @date 2019/4/27 10:51
      * @throws EvilIntentions 恶意操作异常
      */
-    public void updateRecruitment(Recruitment recruitment, String companyId) throws EvilIntentions;
+    void updateRecruitment(Recruitment recruitment, String companyId) throws EvilIntentions;
 
 
 }

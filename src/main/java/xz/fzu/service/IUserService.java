@@ -6,10 +6,8 @@ import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.User;
 
 /**
+ *  用户相关的Service接口
  * @author Murphy
- * @title: IUserService
- * @projectName XZPT-Java
- * @description: 用户相关的Service接口
  */
 public interface IUserService {
     /**
@@ -109,8 +107,8 @@ public interface IUserService {
      * 重置密码
      * @author Murphy
      * @date 2019/5/2 21:02
-     * @param email
-     * @param passwd
+     * @param email 邮件地址
+     * @param passwd 密码
      * @return void
      */
     void resetPasswd(String email, String passwd);

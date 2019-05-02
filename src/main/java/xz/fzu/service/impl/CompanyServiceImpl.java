@@ -24,7 +24,7 @@ public class CompanyServiceImpl implements ICompanyService {
     IVerificationCodeService iVerificationCodeService;
 
     @Override
-    public void register(Company company, int code) throws ValidationException, NoVerfcationCodeException {
+    public void register(Company company, int code) throws ValidationException, NoVerificationCodeException {
 
         iVerificationCodeService.verifyCode(company.getEmail(), code);
         // 设置uuid

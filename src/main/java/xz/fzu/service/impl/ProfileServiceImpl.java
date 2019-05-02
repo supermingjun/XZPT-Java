@@ -21,19 +21,16 @@ public class ProfileServiceImpl implements IProfileService {
 
     @Override
     public UserProfile getUserProfile(String userId) {
-        UserProfile userProfile = iProfileDao.getUserProfile(userId);
-        return userProfile;
+        return iProfileDao.getUserProfile(userId);
     }
 
     @Override
     public List<RecruitmentProfile> getRecruitmentProfile() {
-        List<RecruitmentProfile> list = iProfileDao.getRecruitmentProfile();
-        return list;
+        return iProfileDao.getRecruitmentProfile();
     }
 
     @Override
     public List<String> selectUserId() {
-        List<String> strings = iProfileDao.selectUserId();
-        return strings;
+        return iProfileDao.selectUserId();
     }
 }

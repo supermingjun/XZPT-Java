@@ -22,10 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 推荐算法相关的控制器
  * @author Murphy
- * @title: RecommendController
- * @projectName XZPT-Java
- * @description: 推荐算法相关的控制器
  * @date 2019/4/30 19:29
  */
 @RestController
@@ -67,7 +65,7 @@ public class RecommendController {
     @Resource
     IRecommendService iRecommendService;
     /**
-     * @param token
+     * @param token token
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/29 21:53

@@ -17,10 +17,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * 招聘信息相关的控制器
  * @author Murphy
- * @title: RecruitmentController
- * @projectName XZPT-Java
- * @description: 招聘信息相关的控制器
  * @date 2019/5/2 13:56
  */
 @RestController
@@ -37,8 +35,8 @@ public class RecruitmentController {
     IUserService iUserService;
 
     /**
-     * @param recruitment
-     * @param token
+     * @param recruitment 招聘细腻实例
+     * @param token token
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/27 11:06
@@ -58,8 +56,8 @@ public class RecruitmentController {
     }
 
     /**
-     * @param token
-     * @param recruitmentId
+     * @param token token
+     * @param recruitmentId 招聘信息的id
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/27 11:15
@@ -75,7 +73,7 @@ public class RecruitmentController {
     }
 
     /**
-     * @param token
+     * @param token token
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/27 11:15
@@ -89,14 +87,13 @@ public class RecruitmentController {
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
         pageData.setContentList(iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId(), pageData));
-        ;
         responseData.setResultObject(pageData);
 
         return responseData;
     }
 
     /**
-     * @param token
+     * @param token token
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/27 11:15
@@ -118,7 +115,7 @@ public class RecruitmentController {
     //User
 
     /**
-     * @param token
+     * @param token token
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/27 11:15
@@ -137,8 +134,8 @@ public class RecruitmentController {
     }
 
     /**
-     * @param token
-     * @param recruitmentId
+     * @param token token
+     * @param recruitmentId 招聘信息的id
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/27 11:15
@@ -155,8 +152,9 @@ public class RecruitmentController {
 
 
     /**
-     * @param token
-     * @param token
+     * @param token token
+     * @param companyId 企业id
+     * @param pageData 页码信息相关
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/27 11:15
@@ -164,9 +162,9 @@ public class RecruitmentController {
      */
     @RequestMapping(value = "/user/getlistrecruitmentbycompanyid", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<List<Recruitment>> getRecruitmentById(@RequestParam String token, @RequestParam String companyId, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+    public ResponseData<List<Recruitment>> getRecruitmentById(@RequestParam String token, @RequestParam String companyId, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException, TokenExpiredException {
 
-        ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
+        ResponseData<List<Recruitment>> responseData = new ResponseData<>();
         iUserService.verifyToken(token);
         List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(companyId, pageData);
         responseData.setResultObject(recruitmentList);
@@ -175,8 +173,8 @@ public class RecruitmentController {
     }
 
     /**
-     * @param token
-     * @param keyWord
+     * @param token token
+     * @param keyWord 关键词
      * @return xz.fzu.vo.ResponseData<java.util.List < xz.fzu.model.Recruitment>>
      * @author Murphy
      * @date 2019/4/29 21:34
@@ -199,13 +197,13 @@ public class RecruitmentController {
     //Same
 
     /**
-     * @param recruitmentId
+     * @param recruitmentId 招聘信息id
      * @return xz.fzu.vo.ResponseData<xz.fzu.model.Recruitment>
      * @author Murphy
      * @date 2019/5/2 14:01
      * @description 根据招聘信息id获得招聘信息
      */
-    public ResponseData<Recruitment> getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
+    private ResponseData<Recruitment> getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
 
         ResponseData<Recruitment> responseData = new ResponseData<>();
         Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);

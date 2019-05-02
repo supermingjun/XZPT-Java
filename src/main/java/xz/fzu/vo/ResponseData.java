@@ -38,9 +38,9 @@ public class ResponseData<T> {
     }
 
     /**
-     * @param resultCode
-     * @param resultMsg
-     * @param t
+     * @param resultCode 返回错误码
+     * @param resultMsg 返回消息
+     * @param t 类型参数t
      * @return void
      * @author Murphy
      * @date 2019/4/26 21:17

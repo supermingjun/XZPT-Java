@@ -5,17 +5,15 @@ import xz.fzu.model.Company;
 
 
 /**
+ * 企业相关的dao
  * @author Murphy
- * @title: VerificationCodeController
- * @projectName XZPT-Java
- * @description: 企业相关的dao
  */
 @Repository
 public interface ICompanyDao {
 
     /**
      * 通过email查找company的id
-     * @param email
+     * @param email 邮件地址
      * @return java.lang.String
      * @author Murphy
      * @date 2019/4/25 18:14
@@ -24,7 +22,7 @@ public interface ICompanyDao {
 
     /**
      * 通过token查看企业的id
-     * @param token
+     * @param token token
      * @return java.lang.String
      * @author Murphy
      * @date 2019/4/25 19:26
@@ -33,7 +31,7 @@ public interface ICompanyDao {
 
     /**
      * 查找company实例
-     * @param companyId
+     * @param companyId 企业id
      * @return xz.fzu.model.Company
      * @author Murphy
      * @date 2019/4/25 18:15
@@ -42,7 +40,7 @@ public interface ICompanyDao {
 
     /**
      * 通过email查找company实例
-     * @param email
+     * @param email 邮件地址
      * @return xz.fzu.model.Company
      * @author Murphy
      * @date 2019/4/25 18:15
@@ -51,7 +49,7 @@ public interface ICompanyDao {
 
     /**
      * 修改公司信息，应当传入公司id，以及在修改完状态后应当更新审核状态
-     * @param company
+     * @param company 企业实例
      * @return void
      * @author Murphy
      * @date 2019/4/25 18:17
@@ -60,7 +58,7 @@ public interface ICompanyDao {
 
     /**
      * 插入公司实例
-     * @param company
+     * @param company 企业实例
      * @return void
      * @author Murphy
      * @date 2019/4/25 18:18
@@ -69,7 +67,7 @@ public interface ICompanyDao {
 
     /**
      * 删除公司实例
-     * @param companyId
+     * @param companyId 企业id
      * @return void
      * @author Murphy
      * @date 2019/4/25 18:19
@@ -78,7 +76,7 @@ public interface ICompanyDao {
 
     /**
      * 验证token的正确性
-     * @param token
+     * @param token token
      * @return int
      * @author Murphy
      * @date 2019/4/25 19:47
@@ -88,8 +86,8 @@ public interface ICompanyDao {
 
     /**
      * 通过账户密码登录
-     * @param email
-     * @param passwd
+     * @param email 邮箱地址
+     * @param passwd 密码
      * @return int
      * @author Murphy
      * @date 2019/4/25 19:50
@@ -98,9 +96,9 @@ public interface ICompanyDao {
 
     /**
      * 更新用户密码
-     * @param token
-     * @param oldPasswd
-     * @param newPasswd
+     * @param token token
+     * @param oldPasswd 旧密码
+     * @param newPasswd 新密码
      * @return int
      * @author Murphy
      * @date 2019/4/25 20:51

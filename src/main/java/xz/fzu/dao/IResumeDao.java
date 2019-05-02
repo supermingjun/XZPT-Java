@@ -5,10 +5,8 @@ import xz.fzu.model.Resume;
 import java.util.List;
 
 /**
+ * 简历相关的dao
  * @author Murphy
- * @title: IResumeDao
- * @projectName XZPT-Java
- * @description: 简历相关的dao
  */
 public interface IResumeDao {
 
@@ -19,7 +17,7 @@ public interface IResumeDao {
      * @author Murphy
      * @date 2019/4/27 22:33
      */
-    public void insertInstance(Resume resume);
+    void insertInstance(Resume resume);
 
     /**
      * 根据简历Id删除实例
@@ -28,7 +26,7 @@ public interface IResumeDao {
      * @author Murphy
      * @date 2019/4/27 22:34
      */
-    public int deleteInstance(int resumeId);
+    int deleteInstance(int resumeId);
 
     /**
      * 更新实例
@@ -37,7 +35,7 @@ public interface IResumeDao {
      * @author Murphy
      * @date 2019/4/27 22:50
      */
-    public void updateInstance(Resume resume);
+    void updateInstance(Resume resume);
 
     /**
      * 查实例，应当先检查用户有无权限
@@ -46,18 +44,18 @@ public interface IResumeDao {
      * @author Murphy
      * @date 2019/4/27 22:52
      */
-    public Resume selectInstanceByResumeId(int resumeId);
+    Resume selectInstanceByResumeId(int resumeId);
 
     /**
      * 查看用户的所有实例
      * @param userId 用户的id
      * @param pageIndex 页面索引
-     * @param pageSize
+     * @param pageSize 页大小
      * @return java.util.List<xz.fzu.model.Resume>
      * @author Murphy
      * @date 2019/4/27 22:53
      */
-    public List<Resume> selectListByUserId(String userId, int pageIndex, int pageSize);
+    List<Resume> selectListByUserId(String userId, int pageIndex, int pageSize);
 
     /**
      * 复制一个实例并返回主键值
@@ -66,5 +64,5 @@ public interface IResumeDao {
      * @author Murphy
      * @date 2019/5/2 14:30
      */
-    public int copyInstance(int resumeId);
+    int copyInstance(int resumeId);
 }

@@ -19,9 +19,9 @@ public interface ICompanyService {
      * @author Murphy
      * @date 2019/4/25 19:23
      * @throws ValidationException 验证错误异常
-     * @throws NoVerfcationCodeException 没有获取验证码异常
+     * @throws NoVerificationCodeException 没有获取验证码异常
      */
-    void register(Company company, int code) throws ValidationException, NoVerfcationCodeException;//TODO 是否需要code
+    void register(Company company, int code) throws ValidationException, NoVerificationCodeException;//TODO 是否需要code
 
     /**
      * 根据企业id查看企业信息
@@ -57,7 +57,7 @@ public interface ICompanyService {
 
     /**
      * 使用token登录
-     * @param token
+     * @param token token
      * @return java.lang.String
      * @author Murphy
      * @date 2019/4/25 19:55

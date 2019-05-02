@@ -4,10 +4,8 @@ import org.springframework.stereotype.Repository;
 import xz.fzu.model.User;
 
 /**
+ * 用户相关的dao
  * @author Murphy
- * @title: IUserDao
- * @projectName XZPT-Java
- * @description: 用户相关的dao
  * @date 2019/4/19 22:59
  */
 @Repository

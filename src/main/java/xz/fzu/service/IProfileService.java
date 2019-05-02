@@ -18,7 +18,7 @@ public interface IProfileService {
      * @author Murphy
      * @date 2019/4/30 22:14
      */
-    public UserProfile getUserProfile(String userId);
+    UserProfile getUserProfile(String userId);
 
     /**
      * 获得招聘会实例
@@ -26,7 +26,7 @@ public interface IProfileService {
      * @author Murphy
      * @date 2019/4/30 22:14
      */
-    public List<RecruitmentProfile> getRecruitmentProfile();
+    List<RecruitmentProfile> getRecruitmentProfile();
 
     /**
      * 查找所有用户的id
@@ -34,5 +34,5 @@ public interface IProfileService {
      * @author Murphy
      * @date 2019/5/1 12:59
      */
-    public List<String> selectUserId();
+    List<String> selectUserId();
 }

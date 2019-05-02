@@ -24,7 +24,7 @@ public class UserServiceImpl implements IUserService {
     IUserDao iUserDao;
 
     /**
-     * @param user
+     * @param user 用户实例
      * @return void
      * @author Murphy
      * @date 2019/4/23 0:10
@@ -47,7 +47,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param email
+     * @param email 邮件地址
      * @return xz.fzu.model.User
      * @author Murphy
      * @date 2019/4/20 15:14
@@ -64,7 +64,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param user
+     * @param user 用户实例
      * @return int
      * @author Murphy
      * @date 2019/4/20 21:05
@@ -88,7 +88,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param token
+     * @param token token
      * @return java.lang.String
      * @author Murphy
      * @date 2019/4/24 14:04
@@ -107,9 +107,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param token
-     * @param userId
-     * @return int
+     * @param token token
+     * @param userId 用户id
      * @author Murphy
      * @date 2019/4/24 14:04
      * @description 更新token
@@ -120,7 +119,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param token
+     * @param token token
      * @return xz.fzu.model.User
      * @author Murphy
      * @date 2019/4/24 16:51
@@ -138,8 +137,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param user
-     * @param token
+     * @param user 用户实例
+     * @param token token
      * @return void
      * @author Murphy
      * @date 2019/4/24 16:50
@@ -156,9 +155,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param token
-     * @param oldPasswd
-     * @param newPasswd
+     * @param token token
+     * @param oldPasswd 旧密码
+     * @param newPasswd 新密码
      * @return java.lang.String
      * @author Murphy
      * @date 2019/4/24 15:35
@@ -185,8 +184,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param email
-     * @param passwd
+     * @param email 邮件地址
+     * @param passwd 密码
      * @return void
      * @author Murphy
      * @date 2019/4/25 17:28

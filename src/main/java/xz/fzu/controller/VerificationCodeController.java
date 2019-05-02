@@ -13,10 +13,8 @@ import xz.fzu.vo.ResponseData;
 import javax.annotation.Resource;
 
 /**
+ * 验证码相关的控制器
  * @author Murphy
- * @title: VerificationCodeController
- * @projectName XZPT-Java
- * @description: 验证码相关的控制器
  * @date 2019/4/20 11:06
  */
 @RequestMapping(value = "/getverificationcode")
@@ -32,7 +30,7 @@ public class VerificationCodeController {
     }
 
     /**
-     * @param
+     * @param user 用户实例
      * @return void
      * @author Murphy
      * @date 2019/4/20 11:08

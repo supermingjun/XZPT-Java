@@ -24,7 +24,7 @@ public class RecommendResult implements Comparable<RecommendResult> {
         this.recruitmentId = str;
     }
 
-    public double getSimilarityResult() {
+    private double getSimilarityResult() {
 
         return similarityResult;
     }

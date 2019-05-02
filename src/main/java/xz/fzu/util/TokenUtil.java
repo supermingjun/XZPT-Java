@@ -27,8 +27,8 @@ public class TokenUtil {
     private static final long EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000;
 
     /**
-     * @param userId
-     * @param passwd
+     * @param userId 用户id
+     * @param passwd 密码
      * @return java.lang.String
      * @author Murphy
      * @date 2019/4/20 20:34
@@ -55,7 +55,7 @@ public class TokenUtil {
 
 
     /**
-     * @param token
+     * @param token token
      * @return boolean
      * @author Murphy
      * @date 2019/4/20 20:37

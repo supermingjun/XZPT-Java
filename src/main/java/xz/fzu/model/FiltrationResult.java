@@ -14,10 +14,10 @@ import java.util.List;
 public class FiltrationResult {
 	
 	private String userId;
-    /**
-     * 企业相似性结果
-     */
-    private List<RecommendResult> enterpriseSimilarityResults = new ArrayList<RecommendResult>();
+	/**
+	 * 企业相似性结果
+	 */
+	private List<RecommendResult> enterpriseSimilarityResults = new ArrayList<>();
 	public String getUserId() {
 		
 		return userId;

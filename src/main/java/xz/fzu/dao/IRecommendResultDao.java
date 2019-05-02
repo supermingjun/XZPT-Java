@@ -5,10 +5,8 @@ import xz.fzu.model.RecommendResult;
 import java.util.List;
 
 /**
+ * 推荐结果相关的dao
  * @author Murphy
- * @title: IRecommendResultDao
- * @projectName XZPT-Java
- * @description: 推荐结果相关的dao
  */
 public interface IRecommendResultDao {
 
@@ -19,7 +17,7 @@ public interface IRecommendResultDao {
      * @author Murphy
      * @date 2019/5/1 0:37
      */
-    public void insertInstance(RecommendResult recommendResult);
+    void insertInstance(RecommendResult recommendResult);
 
     /**
      * 获得许多条记录
@@ -28,7 +26,7 @@ public interface IRecommendResultDao {
      * @author Murphy
      * @date 2019/5/1 0:38
      */
-    public List<RecommendResult> getListResult(String userId);
+    List<RecommendResult> getListResult(String userId);
 
     /**
      * 删除所有的记录
@@ -36,5 +34,5 @@ public interface IRecommendResultDao {
      * @author Murphy
      * @date 2019/5/1 12:41
      */
-    public void deleteAll();
+    void deleteAll();
 }

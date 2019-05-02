@@ -4,10 +4,8 @@ import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 
 /**
+ * 发送邮件相关的工具
  * @author Murphy
- * @title: EmailUtil
- * @projectName XZPT-Java
- * @description: 发送邮件相关的工具
  */
 public class EmailUtil {
 
@@ -46,8 +44,6 @@ public class EmailUtil {
     }
 
     /**
-     * @param
-     * @return
      * @author Murphy
      * @date 2019/4/19 0:01
      * @description 匿名构造函数
@@ -58,7 +54,6 @@ public class EmailUtil {
 
 
     /**
-     * @param
      * @return xz.fzu.util.EmailUtil
      * @author Murphy
      * @date 2019/4/18 23:59
@@ -78,7 +73,6 @@ public class EmailUtil {
     /**
      * @author Murphy
      * @date 2019/4/19 0:14
-     * @param
      * @return int
      * @description 产生随机的6位数验证码
      */

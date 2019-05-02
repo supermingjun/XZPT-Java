@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 public class MyExceptionHandler {
 
     /**
-     * @param httpServletResponse
-     * @param e
+     * @param httpServletResponse httpServletResponse
+     * @param e 异常实例
      * @return xz.fzu.vo.ResponseData<java.lang.String>
      * @author Murphy
      * @date 2019/4/26 22:12
@@ -30,7 +30,7 @@ public class MyExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ResponseData<String> defaultHandler(HttpServletResponse httpServletResponse, Exception e) {
-        ResponseData<String> responseObject = new ResponseData<String>();
+        ResponseData<String> responseObject = new ResponseData<>();
         responseObject.setResultCode(Constants.INTERNAL_ERROR);
         responseObject.setResultObject("如果你看到这条消息，说明我还未处理此异常，" +
                 "请先保存ResultMsg中的内容，并请向我反馈！谢谢！");
@@ -47,7 +47,7 @@ public class MyExceptionHandler {
     }
 
     /**
-     * @param e
+     * @param e 异常实例
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/26 22:12
@@ -66,7 +66,7 @@ public class MyExceptionHandler {
     }
 
     /**
-     * @param e
+     * @param e 异常实例
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/26 22:12
@@ -85,7 +85,7 @@ public class MyExceptionHandler {
     }
 
     /**
-     * @param e
+     * @param e 异常实例
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/26 22:11
@@ -95,7 +95,7 @@ public class MyExceptionHandler {
     @ResponseBody
     public ResponseData myExceptionHandle(AbstractException e) {
 
-        ResponseData<String> responseObject = new ResponseData<String>();
+        ResponseData<String> responseObject = new ResponseData<>();
         responseObject.putData(e.getErrorCode(), e.getMessage(), null);
         printStack(e);
 
@@ -103,7 +103,7 @@ public class MyExceptionHandler {
     }
 
     /**
-     * @param e
+     * @param e 异常实例
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/5/2 19:44
@@ -113,14 +113,14 @@ public class MyExceptionHandler {
     @ResponseBody
     public ResponseData emailExceptionHandle(EmailException e) {
 
-        ResponseData<String> responseObject = new ResponseData<String>();
+        ResponseData<String> responseObject = new ResponseData<>();
         responseObject.putData(Constants.SEND_EMAIL_ERROR, e.getMessage(), null);
         printStack(e);
 
         return responseObject;
     }
 
-    public void printStack(Exception e) {
+    private void printStack(Exception e) {
         e.printStackTrace();
     }
 }

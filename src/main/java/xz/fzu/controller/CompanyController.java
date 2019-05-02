@@ -12,10 +12,8 @@ import xz.fzu.vo.ResponseData;
 import javax.annotation.Resource;
 
 /**
+ * 企业相关的控制器
  * @author Murphy
- * @title: CompanyController
- * @projectName XZPT-Java
- * @description: 企业相关的控制器
  * @date 2019/4/25 20:13
  */
 @RestController
@@ -40,7 +38,7 @@ public class CompanyController {
     }
 
     /**
-     * @param company
+     * @param company 企业实例
      * @return java.util.Map
      * @author Murphy
      * @date 2019/4/25 20:31
@@ -60,7 +58,7 @@ public class CompanyController {
     }
 
     /**
-     * @param token
+     * @param token token
      * @return java.util.Map
      * @author Murphy
      * @date 2019/4/20 20:53
@@ -77,8 +75,8 @@ public class CompanyController {
     }
 
     /**
-     * @param company
-     * @param code
+     * @param company 企业实例
+     * @param code 验证码
      * @return java.util.Map
      * @author Murphy
      * @date 2019/4/25 20:37
@@ -86,7 +84,7 @@ public class CompanyController {
      */
     @RequestMapping("/register")
     @ResponseBody
-    public ResponseData register(@RequestBody Company company, @RequestParam int code) throws ValidationException, NoVerfcationCodeException {
+    public ResponseData register(@RequestBody Company company, @RequestParam int code) throws ValidationException, NoVerificationCodeException {
 
         ResponseData responseData = new ResponseData();
         iCompanyService.register(company, code);
@@ -96,7 +94,7 @@ public class CompanyController {
 
 
     /**
-     * @param token
+     * @param token toke
      * @return xz.fzu.model.User
      * @author Murphy
      * @date 2019/4/24 2:06
@@ -116,9 +114,9 @@ public class CompanyController {
     }
 
     /**
-     * @param token
-     * @param oldPasswd
-     * @param newPasswd
+     * @param token token
+     * @param oldPasswd 旧密码
+     * @param newPasswd 新密码
      * @return java.util.Map<java.lang.Object, java.lang.Object>
      * @author Murphy
      * @date 2019/4/25 17:34
@@ -137,8 +135,8 @@ public class CompanyController {
 
 
     /**
-     * @param company
-     * @param token
+     * @param company 企业实例
+     * @param token token
      * @return java.util.Map<java.lang.Object, java.lang.Object>
      * @author Murphy
      * @date 2019/4/25 17:18
@@ -156,8 +154,8 @@ public class CompanyController {
 
 
     /**
-     * @param code
-     * @param passwd
+     * @param code 验证码
+     * @param passwd 密码
      * @return java.util.Map<java.lang.Object, java.lang.Object>
      * @author Murphy
      * @date 2019/4/25 17:24
@@ -165,7 +163,7 @@ public class CompanyController {
      */
     @RequestMapping(value = "/resetpasswd", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationException, NoVerfcationCodeException, TokenExpiredException {
+    public ResponseData resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationException, NoVerificationCodeException, TokenExpiredException {
 
         ResponseData responseData = new ResponseData();
         iVerificationCodeService.verifyCode(email, code);

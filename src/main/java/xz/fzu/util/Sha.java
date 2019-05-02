@@ -12,14 +12,15 @@ public class Sha {
     private static final String KEY_SHA = "Sha";
     //TODO 更换key
     /**
-     * @param passwd
+     * @param passwd 密码
      * @return java.lang.String
      * @author Murphy
      * @date 2019/4/23 0:02
      * @description 加密生成uuid
      */
     public static String encrypt(String passwd) {
-        BigInteger sha = null;
+
+        BigInteger sha;
         byte[] inputData = passwd.getBytes();
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(KEY_SHA);
