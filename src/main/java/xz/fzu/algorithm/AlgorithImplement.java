@@ -20,12 +20,18 @@ public class AlgorithImplement {
 	 * @param UserProfile,List<RecruimentProfile>
 	 * @return List<RecruimentProfile>
 	 */
-	private double[] degreeQuanValue = {0.3,0.5,0.8,1.0};
-	private double[] salaryQuanValue = {0.1,0.15,0.25,0.35,0.5,0.7,1.0};
-	private double[] uWeight = {0.5,0.3,0.2};//根据用户对学历和薪水的重视程度分别设其权重为0.4,0.6
-	private double[] workTimeQuanValue = {0.1,0.3,0.5,0.8,1.0};
-	private int[] defaultSalaryRange = {0, 0};
- 	//将学历映射成int方便后面比较
+    private static final int[] SALARY_SEGMENTATION = {3, 5, 7, 10, 15, 20};
+    private static final double[] DEGREE_QUALITY_VALUE = {0.3, 0.5, 0.8, 1.0};
+    private static final double[] SALARY_QUALITY_VALUE = {0.1, 0.15, 0.25, 0.35, 0.5, 0.7, 1.0};
+    /**
+     * 根据用户对学历和薪水的重视程度分别设其权重为0.4,0.6
+     */
+    private static final double[] USER_WEIGHT = {0.5, 0.3, 0.2};
+    private static final double[] WORK_TIME_QUALITY_VALUE = {0.1, 0.3, 0.5, 0.8, 1.0};
+    private static final int[] DEFAULT_SALARY_RANGE = {0, 0};
+    /**
+     * 将学历映射成int方便后面比较
+     */
 	private Map<String,Integer> typeOfDegree = new HashMap<String,Integer>(){
 		private static final long serialVersionUID = 1L;
 
@@ -46,8 +52,9 @@ public class AlgorithImplement {
 			
 			RecruitmentProfile rp = iterator.next();
 			if(upf.getIndustryLabel()!=rp.getIndustryLabel()) {
-				iterator.remove();
-			} else if (upf.getExpectedCity() != null) {//去掉字符串首尾的空白后进行比较
+                iterator.remove();
+                //去掉字符串首尾的空白后进行比较
+            } else if (upf.getExpectedCity() != null) {
 				if (!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {
 					iterator.remove();
 				}
@@ -66,7 +73,7 @@ public class AlgorithImplement {
 	 */
 	public int[] regExSalary(String salary) {
         if (salary == null) {
-            return defaultSalaryRange;
+            return DEFAULT_SALARY_RANGE;
         }
 		int[] salaryRange = new int[2];
 		String regex1 = "^\\d*(?=[k|K])";
@@ -93,25 +100,22 @@ public class AlgorithImplement {
 	 * @return
 	 */
 	public double salaryQuan(int[] salaryRange) {
-		
-		if (salaryRange[0]>=20) {
-			return salaryQuanValue[6];
-		}
-		if (salaryRange[0]>=15) {
-			return salaryQuanValue[5];
-		}
-		else if (salaryRange[0]>=10) {
-			return salaryQuanValue[4];
-		}
-		else if (salaryRange[0]>=7) {
-			return salaryQuanValue[3];
-		}
-		else if (salaryRange[0]>=5) {
-			return salaryQuanValue[2];
-		} else if (salaryRange[0] >= 3) {
-			return salaryQuanValue[1];
+
+        if (salaryRange[0] >= SALARY_SEGMENTATION[5]) {
+            return SALARY_QUALITY_VALUE[6];
+        }
+        if (salaryRange[0] >= SALARY_SEGMENTATION[4]) {
+            return SALARY_QUALITY_VALUE[5];
+        } else if (salaryRange[0] >= SALARY_SEGMENTATION[3]) {
+            return SALARY_QUALITY_VALUE[4];
+        } else if (salaryRange[0] >= SALARY_SEGMENTATION[2]) {
+            return SALARY_QUALITY_VALUE[3];
+        } else if (salaryRange[0] >= SALARY_SEGMENTATION[1]) {
+            return SALARY_QUALITY_VALUE[2];
+        } else if (salaryRange[0] >= SALARY_SEGMENTATION[0]) {
+            return SALARY_QUALITY_VALUE[1];
         } else {
-            return salaryQuanValue[0];
+            return SALARY_QUALITY_VALUE[0];
         }
 		
 	}
@@ -131,17 +135,16 @@ public class AlgorithImplement {
         } catch (NullPointerException e) {
             rdegreeRequire = 1;
         }
-		if (uDegree==rdegreeRequire) {
-			return degreeQuanValue[3];
+		if (uDegree == rdegreeRequire) {
+            return DEGREE_QUALITY_VALUE[3];
 		}
-		else if (1==rdegreeRequire) {
-			return degreeQuanValue[2];
+		else if (1 == rdegreeRequire) {
+            return DEGREE_QUALITY_VALUE[2];
 		}
-		else if (uDegree>rdegreeRequire){
-			return degreeQuanValue[1];
-		}
-		else {
-			return degreeQuanValue[0];
+		else if (uDegree > rdegreeRequire) {
+            return DEGREE_QUALITY_VALUE[1];
+        } else {
+            return DEGREE_QUALITY_VALUE[0];
 		}
 		
 	}
@@ -149,19 +152,19 @@ public class AlgorithImplement {
 		
 		int uWorkTime = upf.getWorkTime();
 		int rWorkTime = rp.getWorkTime();
-		if(uWorkTime == 0) {
-			return workTimeQuanValue[3];
+        if (uWorkTime == 0) {
+            return WORK_TIME_QUALITY_VALUE[3];
 		}
 		else if(uWorkTime == rWorkTime) {
-			return workTimeQuanValue[4];
+            return WORK_TIME_QUALITY_VALUE[4];
 		}
 		else if(uWorkTime > rWorkTime) {
-			return workTimeQuanValue[2];
+            return WORK_TIME_QUALITY_VALUE[2];
 		}
 		else if(uWorkTime < rWorkTime) {
-			return workTimeQuanValue[0];
-		} else {
-			return workTimeQuanValue[1];
+            return WORK_TIME_QUALITY_VALUE[0];
+        } else {
+            return WORK_TIME_QUALITY_VALUE[1];
 		}
 	}
 	/**
@@ -173,15 +176,18 @@ public class AlgorithImplement {
 
     public Map<Integer, double[]> quantization(UserProfile upf, List<RecruitmentProfile> preScreeningResults) {
 
-        Map<Integer, double[]> weightResults = new HashMap<Integer, double[]>();
+        Map<Integer, double[]> weightResults = new HashMap<>(512);
 		Iterator<RecruitmentProfile> iterator = preScreeningResults.iterator();
 		while(iterator.hasNext()) {
 			RecruitmentProfile rp = iterator.next();
 			double[] quanValue = new double[3];
 			int[] sarlaryRange = regExSalary(rp.getSalary());
-			quanValue[0] = degreeQuan(upf,rp)*uWeight[0];//学历量化加权
-			quanValue[1] = salaryQuan(sarlaryRange)*uWeight[2];//薪水量化加权
-			quanValue[2] = workTimeQuan(upf, rp)*uWeight[1];//工作时间量化
+            //学历量化加权
+            quanValue[0] = degreeQuan(upf, rp) * USER_WEIGHT[0];
+            //薪水量化加权
+            quanValue[1] = salaryQuan(sarlaryRange) * USER_WEIGHT[2];
+            //工作时间量化
+            quanValue[2] = workTimeQuan(upf, rp)* USER_WEIGHT[1];
 			weightResults.put(rp.getRecruitmentId(), quanValue);
 		}
 		
@@ -204,10 +210,10 @@ public class AlgorithImplement {
             Map.Entry<Integer, double[]> entry = iterator.next();
             Integer str = entry.getKey();
 			double[] dou = entry.getValue();
-			for (int i=0;i<dou.length;i++) {
-				r1+=dou[i]*uWeight[i];
-				r2+=dou[i]*dou[i];
-				r3+=uWeight[i]*uWeight[i];
+			for (int i = 0; i < dou.length; i++) {
+                r1 +=dou[i]* USER_WEIGHT[i];
+                r2 += dou[i] * dou[i];
+                r3 += USER_WEIGHT[i]* USER_WEIGHT[i];
 			}
 			result = Double.parseDouble(String.format("%.6f", r1/Math.sqrt(r2*r3)));
 			RecommendResult esr = new RecommendResult();

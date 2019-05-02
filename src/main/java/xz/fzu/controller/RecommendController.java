@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import xz.fzu.algorithm.RecomAlgorithm;
+import xz.fzu.algorithm.RecommendAlgorithm;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.RecommendResult;
@@ -31,7 +31,7 @@ import java.util.List;
 public class RecommendController {
 
     @Resource
-    RecomAlgorithm recomAlgorithm;
+    RecommendAlgorithm recomAlgorithm;
     @Resource
     IProfileService iProfileService;
     @Resource
@@ -40,7 +40,7 @@ public class RecommendController {
     @Resource
     IRecruitmentService iRecruitmentService;
     @Autowired
-    public RecommendController(RecomAlgorithm recomAlgorithm, IProfileService iProfileService, IRecommendService iRecommendService) {
+    public RecommendController(RecommendAlgorithm recomAlgorithm, IProfileService iProfileService, IRecommendService iRecommendService) {
         this.iProfileService = iProfileService;
         this.iRecommendService = iRecommendService;
         this.recomAlgorithm = recomAlgorithm;
