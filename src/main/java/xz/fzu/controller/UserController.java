@@ -294,7 +294,7 @@ public class UserController {
      * @date 2019/4/30 14:31
      * @description 插入一条简历
      */
-    @RequestMapping(value = "/insertresume", method = RequestMethod.POST)
+    @RequestMapping(value = "/createresume", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData insertResume(@RequestParam String token, @RequestBody Resume resume) throws InstanceNotExistException, TokenExpiredException, EvilIntentions {
 
