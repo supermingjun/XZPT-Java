@@ -160,8 +160,9 @@ public class AlgorithImplement {
 		}
 		else if(uWorkTime < rWorkTime) {
 			return workTimeQuanValue[0];
+		} else {
+			return workTimeQuanValue[1];
 		}
-		else return workTimeQuanValue[1];
 	}
 	/**
 	 * 对招聘信息关键字段进行量化加权
