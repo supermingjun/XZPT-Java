@@ -23,6 +23,9 @@ import java.util.List;
 
 /**
  * @author Murphy
+ * @title: RecommendController
+ * @projectName XZPT-Java
+ * @description: 推荐算法相关的控制器
  * @date 2019/4/30 19:29
  */
 @RestController

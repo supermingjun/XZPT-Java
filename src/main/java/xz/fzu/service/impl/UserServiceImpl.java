@@ -7,7 +7,7 @@ import xz.fzu.exception.PasswordErrorException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.User;
 import xz.fzu.service.IUserService;
-import xz.fzu.util.SHA;
+import xz.fzu.util.Sha;
 import xz.fzu.util.TokenUtil;
 
 import javax.annotation.Resource;
@@ -38,7 +38,7 @@ public class UserServiceImpl implements IUserService {
         }
         String uuid = UUID.randomUUID().toString().replace("-", "");
         user.setUserId(uuid);
-        user.setPasswd(SHA.encrypt(user.getPasswd()));
+        user.setPasswd(Sha.encrypt(user.getPasswd()));
         String token = TokenUtil.createToken(user.getUserId(), user.getPasswd());
         user.setToken(token);
         iUserDao.insertUser(user);
@@ -74,7 +74,7 @@ public class UserServiceImpl implements IUserService {
     public String verifyUser(User user) throws PasswordErrorException {
 
         // 密码加密处理
-        user.setPasswd(SHA.encrypt(user.getPasswd()));
+        user.setPasswd(Sha.encrypt(user.getPasswd()));
         if (iUserDao.vertifyUser(user) != 1) {
             throw new PasswordErrorException();
         }
@@ -168,8 +168,8 @@ public class UserServiceImpl implements IUserService {
     public String updatePasswd(String token, String oldPasswd, String newPasswd) throws PasswordErrorException, TokenExpiredException {
 
         // 对密码进行加密处理
-        oldPasswd = SHA.encrypt(oldPasswd);
-        newPasswd = SHA.encrypt(newPasswd);
+        oldPasswd = Sha.encrypt(oldPasswd);
+        newPasswd = Sha.encrypt(newPasswd);
 
         String userId = verifyToken(token);
 
@@ -198,7 +198,7 @@ public class UserServiceImpl implements IUserService {
         String userId = iUserDao.selectByEmail(email).getUserId();
         User user = new User();
         user.setUserId(userId);
-        user.setPasswd(SHA.encrypt(passwd));
+        user.setPasswd(Sha.encrypt(passwd));
 
         iUserDao.updateInfo(user);
     }

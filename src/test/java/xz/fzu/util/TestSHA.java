@@ -14,7 +14,7 @@ public class TestSHA {
         try {
             String inputStr = "简单加密";
             System.out.println("=======加密前的数据:" + inputStr);
-            System.out.println("=======加密后的数据:" + SHA.encrypt(inputStr));
+            System.out.println("=======加密后的数据:" + Sha.encrypt(inputStr));
         } catch (Exception e) {
             e.printStackTrace();
         }

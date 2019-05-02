@@ -26,7 +26,7 @@
     <select id="selectInstaceById" resultType="xz.fzu.model.Recruitment" resultMap="resultMapper" parameterType="long">
         SELECT * FROM recruitment WHERE recruitment_id = #{recruitmentId}
     </select>
-    <select id="selectListInstanceByCompanyId" resultType="xz.fzu.model.Recruitment" parameterType="java.lang.String">
+    <select id="selectListInstanceByCompanyId" resultType="xz.fzu.model.Recruitment">
         SELECT * FROM recruitment WHERE company_id = #{arg0} LIMIT #{arg1},#{arg2}
     </select>
     <delete id="deleteInstace" parameterType="long">

@@ -5,7 +5,7 @@ package xz.fzu.exception;
  * @date 2019/4/24 15:13
  */
 public abstract class AbstractException extends Exception {
-    //    protected static final int errorCode;
+
     public int errorCode;
 
     public int getErrorCode() {

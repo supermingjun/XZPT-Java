@@ -1,5 +1,7 @@
 package xz.fzu.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +10,13 @@ import java.util.List;
  * @author LITM
  *
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FiltrationResult {
 	
 	private String userId;
-	// 企业相似性结果
+    /**
+     * 企业相似性结果
+     */
     private List<RecommendResult> enterpriseSimilarityResults = new ArrayList<RecommendResult>();
 	public String getUserId() {
 		

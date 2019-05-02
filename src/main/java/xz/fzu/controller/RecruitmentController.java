@@ -18,6 +18,9 @@ import java.util.List;
 
 /**
  * @author Murphy
+ * @title: RecruitmentController
+ * @projectName XZPT-Java
+ * @description: 招聘信息相关的控制器
  * @date 2019/5/2 13:56
  */
 @RestController

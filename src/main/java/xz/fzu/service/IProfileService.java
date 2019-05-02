@@ -12,29 +12,27 @@ import java.util.List;
 public interface IProfileService {
 
     /**
-     * @param userId
+     * 获得User的视图
+     * @param userId 用户id
      * @return xz.fzu.model.UserProfile
      * @author Murphy
      * @date 2019/4/30 22:14
-     * @description 获得User的视图
      */
     public UserProfile getUserProfile(String userId);
 
     /**
-     * @param
+     * 获得招聘会实例
      * @return java.util.List<xz.fzu.model.RecruitmentProfile>
      * @author Murphy
      * @date 2019/4/30 22:14
-     * @description 获得招聘会实例
      */
     public List<RecruitmentProfile> getRecruitmentProfile();
 
     /**
-     * @param
+     * 查找所有用户的id
      * @return java.util.List<java.lang.String>
      * @author Murphy
      * @date 2019/5/1 12:59
-     * @description
      */
     public List<String> selectUserId();
 }

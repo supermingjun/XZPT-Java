@@ -17,6 +17,9 @@ import java.util.List;
 
 /**
  * @author Murphy
+ * @title: ResumeDeliveryController
+ * @projectName XZPT-Java
+ * @description: 简历投递相关的控制器
  * @date 2019/5/2 14:05
  */
 @RestController

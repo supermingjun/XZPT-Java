@@ -20,7 +20,9 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     @Resource
     IResumeDeliveryDao iResumeDeliveryDao;
 
-    // TODO 安全认证，暂时没有
+    /**
+     * TODO 安全认证，暂时没有
+     */
     @Override
     public void deliveryResume(String userId, int resumeId, int recruitmentId) {
 

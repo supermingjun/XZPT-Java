@@ -14,9 +14,11 @@ import javax.annotation.Resource;
 
 /**
  * @author Murphy
+ * @title: UserController
+ * @projectName XZPT-Java
+ * @description: 用户相关的控制器
  * @date 2019/4/19 23:19
  */
-//    @RestController注解相当于@ResponseBody ＋ @Controller合在一起的作用。
 @RestController
 @RequestMapping(value = "/user", method = RequestMethod.POST)
 public class UserController {
@@ -43,7 +45,7 @@ public class UserController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData register(@RequestBody User user, @RequestParam int code) throws ValidationExceprion, NoVerfcationCodeException, AccountUsedException {
+    public ResponseData register(@RequestBody User user, @RequestParam int code) throws ValidationException, NoVerfcationCodeException, AccountUsedException {
 
         ResponseData<String> responseData = new ResponseData<String>();
         iVerificationCodeService.verifyCode(user.getEmail(), code);
@@ -151,7 +153,7 @@ public class UserController {
      */
     @RequestMapping(value = "/resetpasswd", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<String> resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationExceprion, NoVerfcationCodeException {
+    public ResponseData<String> resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationException, NoVerfcationCodeException {
 
         ResponseData<String> responseData = new ResponseData<String>();
         iVerificationCodeService.verifyCode(email, code);

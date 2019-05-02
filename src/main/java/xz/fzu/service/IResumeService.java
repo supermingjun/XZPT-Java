@@ -8,60 +8,77 @@ import xz.fzu.vo.PageData;
 
 import java.util.List;
 
+/**
+ * @author Murphy
+ * @title: IResumeService
+ * @projectName XZPT-Java
+ * @description: 简历相关的Service接口
+ */
 public interface IResumeService {
 
     /**
-     * @param resume
+     * 插入一个实例
+     * @param userId 用户id
+     * @param resume 简历实例
      * @return void
      * @author Murphy
      * @date 2019/4/30 0:14
-     * @description 插入一个实例
+     * @throws TokenExpiredException token过期
+     * @throws EvilIntentions 恶意操作
      */
     public void insertResume(String userId, Resume resume) throws TokenExpiredException, EvilIntentions;
 
     /**
-     * @param resume
+     * 更新简历
+     * @param userId 用户id
+     * @param resume 简历实例
      * @return xz.fzu.model.Resume
      * @author Murphy
      * @date 2019/4/30 0:14
-     * @description 更新简历
+     * @throws TokenExpiredException token过期
+     * @throws EvilIntentions 恶意操作
      */
     public void updateResume(String userId, Resume resume) throws EvilIntentions, TokenExpiredException;
 
     /**
-     * @param userId
+     * 查找当前用户所有的简历
+     * @param userId 用户id
+     * @param requestPage 请求页
      * @return java.util.List<xz.fzu.model.Resume>
      * @author Murphy
      * @date 2019/4/30 0:15
-     * @description 查找当前用户所有的简历
+     * @throws InstanceNotExistException 未找到实例
      */
 
     List<Resume> getListResume(String userId, PageData requestPage) throws InstanceNotExistException;
 
     /**
-     * @param resumeId
+     * 删除简历
+     * @param resumeId 简历id
      * @return int
      * @author Murphy
      * @date 2019/4/30 0:16
-     * @description 删除简历
+     * @throws InstanceNotExistException 未找到实例异常
      */
     public int deleteResume(int resumeId) throws InstanceNotExistException;
 
     /**
-     * @param resumeId
+     * 获得指定简历实例
+     * @param userId 用户的id
+     * @param resumeId 简历id
      * @return xz.fzu.model.Resume
      * @author Murphy
      * @date 2019/4/30 0:17
-     * @description 获得指定简历实例
+     * @throws InstanceNotExistException 未找到实例异常
      */
     public Resume getResume(String userId, int resumeId) throws InstanceNotExistException;
 
     /**
-     * @param resumeId
+     * copy简历，并返回主键
+     * @param resumeId 简历ID
      * @return int
      * @author Murphy
      * @date 2019/5/2 14:34
-     * @description copy简历，并返回主键
      */
     public int copyResume(int resumeId);
 }

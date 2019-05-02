@@ -1,6 +1,7 @@
 package xz.fzu.handler;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
+import org.apache.commons.mail.EmailException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -96,6 +97,24 @@ public class MyExceptionHandler {
 
         ResponseData<String> responseObject = new ResponseData<String>();
         responseObject.putData(e.getErrorCode(), e.getMessage(), null);
+        printStack(e);
+
+        return responseObject;
+    }
+
+    /**
+     * @param e
+     * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/5/2 19:44
+     * @description 邮件发送错误
+     */
+    @ExceptionHandler(value = EmailException.class)
+    @ResponseBody
+    public ResponseData emailExceptionHandle(EmailException e) {
+
+        ResponseData<String> responseObject = new ResponseData<String>();
+        responseObject.putData(Constants.SEND_EMAIL_ERROR, e.getMessage(), null);
         printStack(e);
 
         return responseObject;

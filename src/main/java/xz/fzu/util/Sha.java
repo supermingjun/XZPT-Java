@@ -8,9 +8,9 @@ import java.security.MessageDigest;
  * @author Murphy
  * @date 2019/4/20 21:13
  */
-public class SHA {
-    private static final String KEY_SHA = "SHA";//TODO
-
+public class Sha {
+    private static final String KEY_SHA = "Sha";
+    //TODO 更换key
     /**
      * @param passwd
      * @return java.lang.String
@@ -32,6 +32,6 @@ public class SHA {
         return str.length() >= 32 ? str.substring(0, 32) : str;
     }
 
-    private SHA() {
+    private Sha() {
     }
 }

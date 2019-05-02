@@ -61,7 +61,8 @@ public class ResumeServiceImpl implements IResumeService {
     @Override
     public Resume getResume(String userId, int resumeId) throws InstanceNotExistException {
 
-        Resume resume = iResumeDao.selectInstanceByResumeId(resumeId); //TODO 安全认证
+        //TODO 安全认证
+        Resume resume = iResumeDao.selectInstanceByResumeId(resumeId);
         if (resume == null) {
             throw new InstanceNotExistException();
         }

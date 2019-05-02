@@ -13,6 +13,9 @@ import javax.annotation.Resource;
 
 /**
  * @author Murphy
+ * @title: CompanyController
+ * @projectName XZPT-Java
+ * @description: 企业相关的控制器
  * @date 2019/4/25 20:13
  */
 @RestController
@@ -83,7 +86,7 @@ public class CompanyController {
      */
     @RequestMapping("/register")
     @ResponseBody
-    public ResponseData register(@RequestBody Company company, @RequestParam int code) throws ValidationExceprion, NoVerfcationCodeException {
+    public ResponseData register(@RequestBody Company company, @RequestParam int code) throws ValidationException, NoVerfcationCodeException {
 
         ResponseData responseData = new ResponseData();
         iCompanyService.register(company, code);
@@ -162,7 +165,7 @@ public class CompanyController {
      */
     @RequestMapping(value = "/resetpasswd", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationExceprion, NoVerfcationCodeException, TokenExpiredException {
+    public ResponseData resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationException, NoVerfcationCodeException, TokenExpiredException {
 
         ResponseData responseData = new ResponseData();
         iVerificationCodeService.verifyCode(email, code);

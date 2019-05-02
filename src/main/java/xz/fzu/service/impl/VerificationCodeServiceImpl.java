@@ -3,7 +3,7 @@ package xz.fzu.service.impl;
 import org.apache.commons.mail.EmailException;
 import org.springframework.stereotype.Service;
 import xz.fzu.exception.NoVerfcationCodeException;
-import xz.fzu.exception.ValidationExceprion;
+import xz.fzu.exception.ValidationException;
 import xz.fzu.service.IVerificationCodeService;
 import xz.fzu.util.EmailUtil;
 
@@ -18,7 +18,9 @@ import java.util.Map;
 @Service
 public class VerificationCodeServiceImpl implements IVerificationCodeService {
 
-    // 存储验证码
+    /**
+     * 存储验证码
+     */
     private static Map<String, Integer> map = new HashMap<>();
     /***
      * @author Murphy
@@ -44,12 +46,12 @@ public class VerificationCodeServiceImpl implements IVerificationCodeService {
      * @description 验证验证码的方法
      */
     @Override
-    public boolean verifyCode(String email, int code) throws ValidationExceprion, NoVerfcationCodeException {
+    public boolean verifyCode(String email, int code) throws ValidationException, NoVerfcationCodeException {
         Integer value = map.get(email);
         if (value == null) {
             throw new NoVerfcationCodeException();
         } else if (value != code) {
-            throw new ValidationExceprion();
+            throw new ValidationException();
         }
         map.remove(email);
         return true;

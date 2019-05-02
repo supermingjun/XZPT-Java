@@ -3,7 +3,18 @@ package xz.fzu.util;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 
+/**
+ * @author Murphy
+ * @title: EmailUtil
+ * @projectName XZPT-Java
+ * @description: 发送邮件相关的工具
+ */
 public class EmailUtil {
+
+    /**
+     * EmailUtil的静态引用
+     */
+    private volatile static EmailUtil emailUtil;
 
     /**
      * 向指定邮箱发送验证码
@@ -26,16 +37,13 @@ public class EmailUtil {
         email.addCc("litmkf@163.com");
         email.setSSLOnConnect(true);
         email.setAuthentication("litmkf@163.com", "zxcvbnm123456");
-
-        email.setSubject("福大校招平台注册");//此处填写邮件名，邮件名可任意填写
+        //此处填写邮件名，邮件名可任意填写
+        email.setSubject("福大校招平台注册");
         //TODO 修改这里的邮件内容
-        email.setMsg("尊敬的用户，您好！您本次请求的验证码是:" + code + "!");//此处填写邮件内容
+        email.setMsg("尊敬的用户，您好！您本次请求的验证码是:" + code + "!");
         email.send();
         return code;
     }
-
-    /* EmailUtil的静态引用 */
-    private volatile static EmailUtil emailUtil;
 
     /**
      * @param

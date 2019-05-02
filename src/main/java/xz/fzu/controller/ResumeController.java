@@ -15,6 +15,9 @@ import java.util.List;
 
 /**
  * @author Murphy
+ * @title: ResumeController
+ * @projectName XZPT-Java
+ * @description: 简历相关的控制器
  * @date 2019/5/2 13:47
  */
 @RestController
@@ -119,7 +122,8 @@ public class ResumeController {
     public ResponseData<Resume> deleteResume(@RequestParam String token, @RequestParam int resumeId) throws InstanceNotExistException, TokenExpiredException, EvilIntentions {
 
         ResponseData<Resume> responseData = new ResponseData<>();
-        String userId = iUserService.verifyToken(token); // TODO 安全认证
+        // TODO 安全认证
+        String userId = iUserService.verifyToken(token);
         iResumeService.deleteResume(resumeId);
 
         return responseData;

@@ -5,22 +5,26 @@ import xz.fzu.model.User;
 
 /**
  * @author Murphy
+ * @title: IUserDao
+ * @projectName XZPT-Java
+ * @description: 用户相关的dao
  * @date 2019/4/19 22:59
  */
 @Repository
 public interface IUserDao {
 
     /**
-     * @param user
+     * 插入用户
+     * @param user 用户实例
      * @return void
      * @author Murphy
      * @date 2019/4/24 14:14
-     * @description 插入用户
      */
     void insertUser(User user);
 
     /**
-     * @param email
+     * 从邮箱查找用户的实例
+     * @param email 邮件地址
      * @return xz.fzu.model.User
      * @author Murphy
      * @date 2019/4/24 14:16
@@ -29,59 +33,59 @@ public interface IUserDao {
     User selectByEmail(String email);
 
     /**
-     * @param userId
+     * 根据id查找用户 调用此方法前应先调用token得到userid的方法
+     * @param userId 用户id
      * @return xz.fzu.model.User
      * @author Murphy
      * @date 2019/4/24 14:14
-     * @description 根据id查找用户 调用此方法前应先调用token得到userid的方法-
      */
     User selectByUserId(String userId);
 
     /**
-     * @param user
+     * 验证用户账号密码
+     * @param user 用户实例
      * @return int
      * @author Murphy
      * @date 2019/4/24 14:14
-     * @description 验证用户账号密码
      */
     int vertifyUser(User user);
 
     /**
-     * @param token
+     * 通过token查找用户
+     * @param token token
      * @return java.lang.String
      * @author Murphy
      * @date 2019/4/24 14:14
-     * @description 通过token查找用户
      */
     String selectUserIdByToken(String token);
 
     /**
-     * @param token
-     * @param userId
+     * 更新token
+     * @param token token
+     * @param userId 用户id
      * @return void
      * @author Murphy
      * @date 2019/4/24 14:08
-     * @description 更新token
      */
     void updateToken(String token, String userId);
 
     /**
-     * @param userId
-     * @param passwd
+     * 更新密码
+     * @param userId 用户id
+     * @param passwd 密码
      * @return void
      * @author Murphy
      * @date 2019/4/24 14:13
-     * @description 更新密码
      */
     void updatePasswd(String userId, String passwd);
 
 
     /**
-     * @param user
+     * 更新用户信息
+     * @param user 用户实例
      * @return void
      * @author Murphy
      * @date 2019/4/24 16:41
-     * @description 更新用户信息
      */
     void updateInfo(User user);
 }

@@ -4,32 +4,37 @@ import xz.fzu.model.RecommendResult;
 
 import java.util.List;
 
+/**
+ * @author Murphy
+ * @title: IRecommendService
+ * @projectName XZPT-Java
+ * @description: 推荐信息相关的Service接口
+ */
 public interface IRecommendService {
 
     /**
-     * @param recommendResults
+     * 插入一个实例
+     * @param recommendResults 推荐结果
      * @return void
      * @author Murphy
      * @date 2019/5/1 12:42
-     * @description 插入一个实例
      */
     public void insertInstance(List<RecommendResult> recommendResults);
 
     /**
-     * @param userId
+     * 获得实例的集合
+     * @param userId 用户id
      * @return java.util.List<xz.fzu.model.RecommendResult>
      * @author Murphy
      * @date 2019/5/1 12:42
-     * @description 获得实例的集合
      */
     public List<RecommendResult> getListResult(String userId);
 
     /**
-     * @param
+     * 删除所有的实例
      * @return void
      * @author Murphy
      * @date 2019/5/1 12:42
-     * @description 删除所有的实例
      */
     public void deleteAll();
 }
