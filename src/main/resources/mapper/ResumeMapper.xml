@@ -104,4 +104,7 @@
     <select id="selectListByUserId" resultType="xz.fzu.model.Resume" resultMap="myResultMap">
         SELECT * FROM resume WHERE user_id = #{arg0} LIMIT #{arg1},#{arg2}
     </select>
+    <insert id="copyInstance" keyProperty="resume_id" useGeneratedKeys="true" parameterType="int">
+        INSERT INTO resume SELECT * FROM resume WHERE resume_id = #{resumeId}
+    </insert>
 </mapper>

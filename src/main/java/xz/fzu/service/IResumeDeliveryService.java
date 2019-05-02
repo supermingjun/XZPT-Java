@@ -9,13 +9,15 @@ import java.util.List;
 public interface IResumeDeliveryService {
 
     /**
-     * @param resumeDelivery
+     * @param userId
+     * @param resumeId
+     * @param recruitmentId
      * @return void
      * @author Murphy
      * @date 2019/4/30 16:24
      * @description 投递一个简历
      */
-    public void deliveryResume(ResumeDelivery resumeDelivery);
+    public void deliveryResume(String userId, int resumeId, int recruitmentId);
 
     /**
      * @param

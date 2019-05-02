@@ -31,7 +31,7 @@ public interface IRecruitmentDao {
      * @date 2019/4/27 1:13
      * @description 根据公司id查找所有的招聘信息
      */
-    public List<Recruitment> selectListInstaceByCompanyId(String companyId);
+    public List<Recruitment> selectListInstanceByCompanyId(String companyId, int requestPage, int pageSize);
 
     /**
      * @param keyWord

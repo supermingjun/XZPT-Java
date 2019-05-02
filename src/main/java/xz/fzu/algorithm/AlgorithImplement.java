@@ -1,7 +1,8 @@
 package xz.fzu.algorithm;
 
-//import xz.fzu.model.RecruitmentProfile;
-//import xz.fzu.model.UserProfile;
+import xz.fzu.model.RecommendResult;
+import xz.fzu.model.RecruitmentProfile;
+import xz.fzu.model.UserProfile;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -23,6 +24,7 @@ public class AlgorithImplement {
 	private double[] salaryQuanValue = {0.1,0.15,0.25,0.35,0.5,0.7,1.0};
 	private double[] uWeight = {0.5,0.3,0.2};//根据用户对学历和薪水的重视程度分别设其权重为0.4,0.6
 	private double[] workTimeQuanValue = {0.1,0.3,0.5,0.8,1.0};
+	private int[] defaultSalaryRange = {0, 0};
  	//将学历映射成int方便后面比较
 	private Map<String,Integer> typeOfDegree = new HashMap<String,Integer>(){
 		private static final long serialVersionUID = 1L;
@@ -45,9 +47,10 @@ public class AlgorithImplement {
 			RecruitmentProfile rp = iterator.next();
 			if(upf.getIndustryLabel()!=rp.getIndustryLabel()) {
 				iterator.remove();
-			}
-			else if(!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {//去掉字符串首尾的空白后进行比较
-				iterator.remove();
+			} else if (upf.getExpectedCity() != null) {//去掉字符串首尾的空白后进行比较
+				if (!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {
+					iterator.remove();
+				}
 			}
 			else if(upf.getJobType()!=rp.getJobType()) {
 				iterator.remove();
@@ -62,7 +65,9 @@ public class AlgorithImplement {
 	 * @return
 	 */
 	public int[] regExSalary(String salary) {
-		
+        if (salary == null) {
+            return defaultSalaryRange;
+        }
 		int[] salaryRange = new int[2];
 		String regex1 = "^\\d*(?=[k|K])";
 		String regex2 = "(?<=[-|~])\\d*";
@@ -103,11 +108,11 @@ public class AlgorithImplement {
 		}
 		else if (salaryRange[0]>=5) {
 			return salaryQuanValue[2];
-		}
-		else if (salaryRange[0]>=3)
+		} else if (salaryRange[0] >= 3) {
 			return salaryQuanValue[1];
-		else 
-			return salaryQuanValue[0];
+        } else {
+            return salaryQuanValue[0];
+        }
 		
 	}
 	/**
@@ -155,8 +160,9 @@ public class AlgorithImplement {
 		}
 		else if(uWorkTime < rWorkTime) {
 			return workTimeQuanValue[0];
+		} else {
+			return workTimeQuanValue[1];
 		}
-		else return workTimeQuanValue[1];
 	}
 	/**
 	 * 对招聘信息关键字段进行量化加权
@@ -186,9 +192,9 @@ public class AlgorithImplement {
 	 * 对招聘信息进行相似度计算
 	 * @param weightedResults
 	 */
-    public List<EnterpriseSimilarityResult> computationalSimilarity(String userId, Map<Integer, double[]> weightedResults) {
-		
-		List<EnterpriseSimilarityResult> esrs = new ArrayList<EnterpriseSimilarityResult>();
+	public List<RecommendResult> computationalSimilarity(String userId, Map<Integer, double[]> weightedResults) {
+
+		List<RecommendResult> esrs = new ArrayList<RecommendResult>();
 		double result = 0;
 		double r1 = 0;
 		double r2 = 0;
@@ -204,7 +210,7 @@ public class AlgorithImplement {
 				r3+=uWeight[i]*uWeight[i];
 			}
 			result = Double.parseDouble(String.format("%.6f", r1/Math.sqrt(r2*r3)));
-			EnterpriseSimilarityResult esr = new EnterpriseSimilarityResult();
+			RecommendResult esr = new RecommendResult();
             esr.setUserId(userId);
 			esr.setRecruitmentId(str);
 			esr.setSimilarityResult(result);
@@ -217,12 +223,12 @@ public class AlgorithImplement {
 	 * 获取相似度最高的Top-N
 	 * @param n
 	 */
-    public List<EnterpriseSimilarityResult> getTopN(List<EnterpriseSimilarityResult> esrs, int n) {
+	public List<RecommendResult> getTopN(List<RecommendResult> esrs, int n) {
 
-        List<EnterpriseSimilarityResult> tesrs = esrs;
+		List<RecommendResult> tesrs = esrs;
         Collections.sort(esrs);
 		if (n<esrs.size()) {
-            tesrs = esrs.subList(0, n - 1);
+			tesrs = esrs.subList(0, n);
 		}
 
         return tesrs;

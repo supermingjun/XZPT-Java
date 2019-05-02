@@ -21,9 +21,7 @@ public class EmailUtil {
         // 收件地址
         email.addTo(emailaddress);
         // 给自己抄送一份
-//        email.addCc("supermingjun@yeah.net");
 
-//        email.setFrom("supermingjun@yeah.net", "福大校招平台官方验证中心");
         email.setFrom("litmkf@163.com", "福大校招平台官方验证中心");
         email.addCc("litmkf@163.com");
         email.setSSLOnConnect(true);
