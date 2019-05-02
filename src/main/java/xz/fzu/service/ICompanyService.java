@@ -5,10 +5,8 @@ import xz.fzu.exception.*;
 import xz.fzu.model.Company;
 
 /**
+ * 企业相关的Service接口
  * @author Murphy
- * @title: ICompanyService
- * @projectName XZPT-Java
- * @description: 企业相关的Service接口
  */
 public interface ICompanyService {
     /**

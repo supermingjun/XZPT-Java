@@ -30,6 +30,8 @@ public class Recruitment implements Serializable {
   private String stationLabel;
   private long jobType;
 
+  private String companyName;
+
 
   public long getRecruitmentId() {
     return recruitmentId;
@@ -165,4 +167,12 @@ public class Recruitment implements Serializable {
     this.jobType = jobType;
   }
 
+
+  public String getCompanyName() {
+    return companyName;
+  }
+
+  public void setCompanyName(String companyName) {
+    this.companyName = companyName;
+  }
 }

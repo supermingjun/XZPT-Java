@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.exception.UserNotFoundException;
+import xz.fzu.model.Resume;
 import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.ICompanyService;
 import xz.fzu.service.IResumeDeliveryService;
@@ -199,6 +200,17 @@ public class ResumeDeliveryController {
         ResponseData<ResumeDelivery> responseData = new ResponseData<>();
         ResumeDelivery resumeDelivery = iResumeDeliveryService.getResumeDeliveryRecordById(resumeDeliveryId);
         responseData.setResultObject(resumeDelivery);
+
+        return responseData;
+    }
+
+    @RequestMapping(value = "/company/getresumebyid", method = RequestMethod.POST)
+    public ResponseData companyGetResumeByResumeId(@RequestParam String token, @RequestParam int resumeId) throws TokenExpiredException, InstanceNotExistException {
+
+        ResponseData<Resume> responseData = new ResponseData<>();
+        iCompanyService.verifyToken(token);
+        Resume resume = iResumeService.getResume(null, resumeId);
+        responseData.setResultObject(resume);
 
         return responseData;
     }
