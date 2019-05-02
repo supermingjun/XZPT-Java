@@ -52,4 +52,13 @@ public interface IResumeDao {
      * @description 查看用户的所有实例
      */
     public List<Resume> selectListByUserId(String userId, int pageIndex, int pageSize);
+
+    /**
+     * @param resumeId
+     * @return int
+     * @author Murphy
+     * @date 2019/5/2 14:30
+     * @description 复制一个实例并返回主键值
+     */
+    public int copyInstance(int resumeId);
 }
