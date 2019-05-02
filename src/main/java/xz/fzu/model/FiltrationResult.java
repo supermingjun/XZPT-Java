@@ -1,7 +1,5 @@
 package xz.fzu.model;
 
-import xz.fzu.algorithm.EnterpriseSimilarityResult;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +12,7 @@ public class FiltrationResult {
 	
 	private String userId;
 	// 企业相似性结果
-	private List<EnterpriseSimilarityResult> enterpriseSimilarityResults = new ArrayList<EnterpriseSimilarityResult>();
+    private List<RecommendResult> enterpriseSimilarityResults = new ArrayList<RecommendResult>();
 	public String getUserId() {
 		
 		return userId;
@@ -23,11 +21,13 @@ public class FiltrationResult {
 		
 		this.userId = userId;
 	}
-	public List<EnterpriseSimilarityResult> getEnterpriseSimilarityResults() {
+
+    public List<RecommendResult> getEnterpriseSimilarityResults() {
 		
 		return enterpriseSimilarityResults;
 	}
-	public void setEnterpriseSimilarityResults(List<EnterpriseSimilarityResult> enterpriseSimilarityResults) {
+
+    public void setEnterpriseSimilarityResults(List<RecommendResult> enterpriseSimilarityResults) {
 		
 		this.enterpriseSimilarityResults = enterpriseSimilarityResults;
 	}

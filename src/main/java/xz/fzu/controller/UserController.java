@@ -6,10 +6,7 @@ import xz.fzu.exception.*;
 import xz.fzu.model.Recruitment;
 import xz.fzu.model.Resume;
 import xz.fzu.model.User;
-import xz.fzu.service.IRecruitmentService;
-import xz.fzu.service.IResumeService;
-import xz.fzu.service.IUserService;
-import xz.fzu.service.IVerificationCodeService;
+import xz.fzu.service.*;
 import xz.fzu.vo.PageData;
 import xz.fzu.vo.ResponseData;
 
@@ -176,7 +173,7 @@ public class UserController {
      */
     @RequestMapping(value = "/getrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData getListRecruitmentByCompanyId(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
+    public ResponseData getListRecruitmentById(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
 
         ResponseData<Recruitment> responseData = new ResponseData<Recruitment>();
         iUserService.verifyToken(token);
@@ -197,7 +194,7 @@ public class UserController {
      */
     @RequestMapping(value = "/getlistrecruitmentbycompanyid", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<List<Recruitment>> getListRecruitmentByCompanyId(@RequestParam String token, @RequestParam String companyId) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+    public ResponseData<List<Recruitment>> getListRecruitmentById(@RequestParam String token, @RequestParam String companyId) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
 
         ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
         iUserService.verifyToken(token);
@@ -297,7 +294,7 @@ public class UserController {
      * @date 2019/4/30 14:31
      * @description 插入一条简历
      */
-    @RequestMapping(value = "/insertresume", method = RequestMethod.POST)
+    @RequestMapping(value = "/createresume", method = RequestMethod.POST)
     @ResponseBody
     public ResponseData insertResume(@RequestParam String token, @RequestBody Resume resume) throws InstanceNotExistException, TokenExpiredException, EvilIntentions {
 
@@ -326,6 +323,9 @@ public class UserController {
 
         return responseData;
     }
+
+    @Resource
+    IResumeDeliveryService iResumeDeliveryService;
 
 
 }

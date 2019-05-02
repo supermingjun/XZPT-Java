@@ -1,9 +1,8 @@
 package xz.fzu.algorithm;
 
-import java.util.ArrayList;
-
-//import xz.fzu.model.RecruitmentProfile;
-//import xz.fzu.model.UserProfile;
+import xz.fzu.model.RecommendResult;
+import xz.fzu.model.RecruitmentProfile;
+import xz.fzu.model.UserProfile;
 
 import java.util.List;
 import java.util.Map;
@@ -102,12 +101,12 @@ public class RecomAlgorithm {
      * @param upf
      * @param rps
      */
-    public List<EnterpriseSimilarityResult> recomAlgorithm(UserProfile upf, List<RecruitmentProfile> rps, int n) {
+    public List<RecommendResult> recomAlgorithm(UserProfile upf, List<RecruitmentProfile> rps, int n) {
 
         AlgorithImplement algorithImplement = new AlgorithImplement();
         List<RecruitmentProfile> preScreeningResults = algorithImplement.directFiltration(upf, rps);
         Map<Integer, double[]> weightResults = algorithImplement.quantization(upf, preScreeningResults);
-        List<EnterpriseSimilarityResult> esrs = algorithImplement.computationalSimilarity(upf.getUserId(), weightResults);
+        List<RecommendResult> esrs = algorithImplement.computationalSimilarity(upf.getUserId(), weightResults);
         esrs = algorithImplement.getTopN(esrs, n);
 
             return esrs;
@@ -133,8 +132,8 @@ public class RecomAlgorithm {
 		rps.add(rp6);
 		rps.add(rp7);
 		rps.add(rp8);
-		List<EnterpriseSimilarityResult> list = ra.recomAlgorithm(upf, rps, 5);
-		for(EnterpriseSimilarityResult er : list) {
+		List<RecommendResult> list = ra.recomAlgorithm(upf, rps, 5);
+		for(RecommendResult er : list) {
 			System.out.println(er.getUserId()+" "+er.getRecruitmentId()+" "+er.getSimilarityResult());
 		}
 	}*/

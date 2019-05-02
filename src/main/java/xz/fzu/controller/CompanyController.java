@@ -186,7 +186,8 @@ public class CompanyController {
     public ResponseData releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException {
 
         ResponseData responseData = new ResponseData();
-        iCompanyService.verifyToken(token);
+        String companyId = iCompanyService.verifyToken(token);
+        recruitment.setCompanyId(companyId);
         iRecruitmentService.insertRecruitment(recruitment);
 
         return responseData;

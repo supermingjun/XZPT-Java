@@ -1,26 +1,41 @@
 package xz.fzu.model;
 
+/**
+ * 该类用来保存企业id以及相似性结果
+ *
+ * @author LITM
+ */
+public class RecommendResult implements Comparable<RecommendResult> {
 
-import java.io.Serializable;
-
-public class RecommendResult implements Serializable {
-
-    private static final long serialVersionUID = 1;
-
-    private long resultId;
+    private String resultId;
     private String userId;
-    private long recruitmentId;
-    private double similarityResult;
+    private Integer recruitmentId;
+    private double SimilarityResult;
 
-
-    public long getResultId() {
-        return resultId;
+    public Integer getRecruitmentId() {
+        return recruitmentId;
     }
 
-    public void setResultId(long resultId) {
-        this.resultId = resultId;
+    public void setRecruitmentId(Integer str) {
+
+        this.recruitmentId = str;
     }
 
+    public double getSimilarityResult() {
+
+        return SimilarityResult;
+    }
+
+    public void setSimilarityResult(double similarityResult) {
+
+        SimilarityResult = similarityResult;
+    }
+
+    @Override
+    public int compareTo(RecommendResult o) {
+
+        return o.getSimilarityResult() > this.getSimilarityResult() ? 0 : -1;
+    }
 
     public String getUserId() {
         return userId;
@@ -30,22 +45,11 @@ public class RecommendResult implements Serializable {
         this.userId = userId;
     }
 
-
-    public long getRecruitmentId() {
-        return recruitmentId;
+    public String getResultId() {
+        return resultId;
     }
 
-    public void setRecruitmentId(long recruitmentId) {
-        this.recruitmentId = recruitmentId;
+    public void setResultId(String resultId) {
+        this.resultId = resultId;
     }
-
-
-    public double getSimilarityResult() {
-        return similarityResult;
-    }
-
-    public void setSimilarityResult(double similarityResult) {
-        this.similarityResult = similarityResult;
-    }
-
 }
