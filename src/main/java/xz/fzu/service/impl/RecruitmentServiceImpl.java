@@ -7,8 +7,10 @@ import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.vo.PageData;
+import xz.fzu.vo.RecruitmentVO;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,22 +29,24 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     }
 
     @Override
-    public Recruitment getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
+    public RecruitmentVO getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
         Recruitment recruitment = iRecruitmentDao.selectInstaceById(recruitmentId);
         if (recruitment == null) {
             throw new InstanceNotExistException();
         }
-        return recruitment;
+        RecruitmentVO recruitmentVO = new RecruitmentVO(recruitment);
+        return recruitmentVO;
     }
 
     @Override
-    public List<Recruitment> getListRecruitmentByCompanyId(String companyId, PageData pageData) throws InstanceNotExistException {
+    public List<RecruitmentVO> getListRecruitmentByCompanyId(String companyId, PageData pageData) throws InstanceNotExistException {
         List<Recruitment> recruitmentList = iRecruitmentDao.selectListInstanceByCompanyId(companyId,
                 (pageData.getCurrentPage() - 1) * pageData.getPageSize(), pageData.getPageSize());
-        if (recruitmentList == null) {
+        if (recruitmentList.size() == 0) {
             throw new InstanceNotExistException();
         }
-        return recruitmentList;
+
+        return listCast(recruitmentList);
     }
 
     @Override
@@ -64,11 +68,21 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     }
 
     @Override
-    public List<Recruitment> getListRecruitmentByKeyWord(String keyWord, PageData requestPage) throws InstanceNotExistException {
+    public List<RecruitmentVO> getListRecruitmentByKeyWord(String keyWord, PageData requestPage) throws InstanceNotExistException {
         List<Recruitment> recruitmentList = iRecruitmentDao.selectInstanceByKeyWord(keyWord, (requestPage.getCurrentPage() - 1) * requestPage.getPageSize(), requestPage.getPageSize());
         if (recruitmentList == null) {
             throw new InstanceNotExistException();
         }
-        return recruitmentList;
+
+        return listCast(recruitmentList);
+    }
+
+    private List<RecruitmentVO> listCast(List<Recruitment> recruitments) {
+        List<RecruitmentVO> res = new ArrayList<>();
+        for (Recruitment recruitment : recruitments) {
+            res.add(new RecruitmentVO(recruitment));
+        }
+
+        return res;
     }
 }

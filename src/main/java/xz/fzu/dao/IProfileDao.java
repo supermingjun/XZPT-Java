@@ -1,5 +1,6 @@
 package xz.fzu.dao;
 
+import org.springframework.stereotype.Repository;
 import xz.fzu.model.RecruitmentProfile;
 import xz.fzu.model.UserProfile;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author Murphy
  * @date 2019/4/30 21:36
  * */
+@Repository
 public interface IProfileDao {
 
     /**

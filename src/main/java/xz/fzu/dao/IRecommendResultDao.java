@@ -1,5 +1,6 @@
 package xz.fzu.dao;
 
+import org.springframework.stereotype.Repository;
 import xz.fzu.model.RecommendResult;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
  * 推荐结果相关的dao
  * @author Murphy
  */
+@Repository
 public interface IRecommendResultDao {
 
     /**

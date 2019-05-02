@@ -1,5 +1,6 @@
 package xz.fzu.dao;
 
+import org.springframework.stereotype.Repository;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.ResumeDelivery;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author Murphy
  * @date 2019/4/30 15:25
  */
+@Repository
 public interface IResumeDeliveryDao {
 
     /**

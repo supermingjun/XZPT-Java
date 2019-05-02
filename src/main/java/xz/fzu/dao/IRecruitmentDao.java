@@ -1,5 +1,6 @@
 package xz.fzu.dao;
 
+import org.springframework.stereotype.Repository;
 import xz.fzu.model.Recruitment;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
  * 招聘信息结果相关的dao
  * @author Murphy
  */
+@Repository
 public interface IRecruitmentDao {
 
     /**
@@ -22,7 +24,7 @@ public interface IRecruitmentDao {
     /**
      * 通过实例id查找招聘信息实例
      * @param recruitmentId 招聘信息的id
-     * @return xz.fzu.model.Recruitment
+     * @return xz.fzu.model.RecruitmentVO
      * @author Murphy
      * @date 2019/4/27 1:13
      */
@@ -33,7 +35,7 @@ public interface IRecruitmentDao {
      * @param companyId 招聘信息的id
      * @param requestPage 请求页
      * @param pageSize 请求页大小
-     * @return java.util.List<xz.fzu.model.Recruitment>
+     * @return java.util.List<xz.fzu.model.RecruitmentVO>
      * @author Murphy
      * @date 2019/4/27 1:13
      */
@@ -44,7 +46,7 @@ public interface IRecruitmentDao {
      * @param keyWord 关键词
      * @param requestPage 页码
      * @param pageSize 页大小
-     * @return java.util.List<xz.fzu.model.Recruitment>
+     * @return java.util.List<xz.fzu.model.RecruitmentVO>
      * @author Murphy
      * @date 2019/4/28 23:54
      */
