@@ -173,7 +173,7 @@ public class UserController {
      */
     @RequestMapping(value = "/getrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData getListRecruitmentById(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
+    public ResponseData getRecruitmentById(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
 
         ResponseData<Recruitment> responseData = new ResponseData<Recruitment>();
         iUserService.verifyToken(token);
@@ -194,11 +194,11 @@ public class UserController {
      */
     @RequestMapping(value = "/getlistrecruitmentbycompanyid", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<List<Recruitment>> getListRecruitmentById(@RequestParam String token, @RequestParam String companyId) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+    public ResponseData<List<Recruitment>> getRecruitmentById(@RequestParam String token, @RequestParam String companyId, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
 
         ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
         iUserService.verifyToken(token);
-        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(companyId);
+        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(companyId, pageData);
         responseData.setResultObject(recruitmentList);
 
         return responseData;

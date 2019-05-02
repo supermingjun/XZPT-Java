@@ -8,10 +8,10 @@ import xz.fzu.model.Recruitment;
 import xz.fzu.service.ICompanyService;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IVerificationCodeService;
+import xz.fzu.vo.PageData;
 import xz.fzu.vo.ResponseData;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author Murphy
@@ -183,11 +183,12 @@ public class CompanyController {
      */
     @RequestMapping(value = "/releaserecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException {
+    public ResponseData releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException {
 
         ResponseData responseData = new ResponseData();
-        String companyId = iCompanyService.verifyToken(token);
-        recruitment.setCompanyId(companyId);
+        iCompanyService.verifyToken(token);
+        Company company = iCompanyService.getInfoByToken(token);
+        recruitment.setCompanyId(company.getCompanyId());
         iRecruitmentService.insertRecruitment(recruitment);
 
         return responseData;
@@ -223,13 +224,14 @@ public class CompanyController {
      */
     @RequestMapping(value = "/getlistrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<List<Recruitment>> getRecruitment(@RequestParam String token) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+    public ResponseData<PageData> getRecruitment(@RequestParam String token, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
 
-        ResponseData<List<Recruitment>> responseData = new ResponseData<>();
+        ResponseData<PageData> responseData = new ResponseData<>();
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
-        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId());
-        responseData.setResultObject(recruitmentList);
+        pageData.setContentList(iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId(), pageData));
+        ;
+        responseData.setResultObject(pageData);
 
         return responseData;
     }
