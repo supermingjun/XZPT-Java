@@ -41,12 +41,12 @@ public class VerificationCodeController {
     @ResponseBody
     public Map getVerificationCode(@RequestBody User user) {
         Map<Object, Object> returnMap = new HashMap<Object, Object>();
-        returnMap.put(Constants.resultCode, Constants.OK);
+        returnMap.put(Constants.RESULT_CODE, Constants.OK);
         try {
             String email = user.getEmail();
             iValidateCodeService.sendValidateCode(email);
         } catch (EmailException e) {
-            returnMap.put(Constants.resultCode, Constants.sendEmailError);
+            returnMap.put(Constants.RESULT_CODE, Constants.SEND_EMAIL_ERROR);
         }
         return returnMap;
     }

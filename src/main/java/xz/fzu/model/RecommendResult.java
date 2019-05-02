@@ -10,7 +10,7 @@ public class RecommendResult implements Comparable<RecommendResult> {
     private String resultId;
     private String userId;
     private Integer recruitmentId;
-    private double SimilarityResult;
+    private double similarityResult;
 
     public Integer getRecruitmentId() {
         return recruitmentId;
@@ -23,12 +23,12 @@ public class RecommendResult implements Comparable<RecommendResult> {
 
     public double getSimilarityResult() {
 
-        return SimilarityResult;
+        return similarityResult;
     }
 
     public void setSimilarityResult(double similarityResult) {
 
-        SimilarityResult = similarityResult;
+        this.similarityResult = similarityResult;
     }
 
     @Override

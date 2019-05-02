@@ -4,7 +4,7 @@ package xz.fzu.exception;
  * @author Murphy
  * @date 2019/4/24 15:13
  */
-public abstract class MyException extends Exception {
+public abstract class AbstractException extends Exception {
     //    protected static final int errorCode;
     public int errorCode;
 
@@ -16,7 +16,7 @@ public abstract class MyException extends Exception {
         this.errorCode = errorCode;
     }
 
-    public MyException(String value) {
+    public AbstractException(String value) {
         super(value);
     }
 }

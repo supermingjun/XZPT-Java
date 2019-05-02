@@ -110,7 +110,7 @@ public class ResumeDeliveryController {
      * @date 2019/5/2 18:28
      * @description 用户根据投递id获得投递信息
      */
-    @RequestMapping(value = "/user/getdeliveryrecordbyid", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/getdeliveryrecordbyresumeid", method = RequestMethod.POST)
     public ResponseData<ResumeDelivery> userGetDeliveryRecordByResumeId(@RequestParam String token, @RequestParam int resumeId) throws TokenExpiredException, InstanceNotExistException {
 
         ResponseData<ResumeDelivery> responseData = new ResponseData<>();
@@ -168,7 +168,7 @@ public class ResumeDeliveryController {
      * @date 2019/5/2 18:28
      * @description 企业根据投递id获得投递信息
      */
-    @RequestMapping(value = "/user/getdeliveryrecordbyid", method = RequestMethod.POST)
+    @RequestMapping(value = "/company/getdeliveryrecordbyid", method = RequestMethod.POST)
     public ResponseData companyGetDeliveryRecordById(@RequestParam String token, @RequestParam int resumeDeliveryId) throws TokenExpiredException, InstanceNotExistException {
 
         iCompanyService.verifyToken(token);

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import xz.fzu.exception.MyException;
+import xz.fzu.exception.AbstractException;
 import xz.fzu.util.Constants;
 import xz.fzu.vo.ResponseData;
 
@@ -90,9 +90,9 @@ public class MyExceptionHandler {
      * @date 2019/4/26 22:11
      * @description 处理MyException
      */
-    @ExceptionHandler(value = MyException.class)
+    @ExceptionHandler(value = AbstractException.class)
     @ResponseBody
-    public ResponseData myExceptionHandle(MyException e) {
+    public ResponseData myExceptionHandle(AbstractException e) {
 
         ResponseData<String> responseObject = new ResponseData<String>();
         responseObject.putData(e.getErrorCode(), e.getMessage(), null);

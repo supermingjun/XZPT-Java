@@ -65,7 +65,9 @@ public class AlgorithImplement {
 	 * @return
 	 */
 	public int[] regExSalary(String salary) {
-		if (salary == null) return defaultSalaryRange;
+        if (salary == null) {
+            return defaultSalaryRange;
+        }
 		int[] salaryRange = new int[2];
 		String regex1 = "^\\d*(?=[k|K])";
 		String regex2 = "(?<=[-|~])\\d*";
@@ -106,11 +108,11 @@ public class AlgorithImplement {
 		}
 		else if (salaryRange[0]>=5) {
 			return salaryQuanValue[2];
-		}
-		else if (salaryRange[0]>=3)
+		} else if (salaryRange[0] >= 3) {
 			return salaryQuanValue[1];
-		else 
-			return salaryQuanValue[0];
+        } else {
+            return salaryQuanValue[0];
+        }
 		
 	}
 	/**

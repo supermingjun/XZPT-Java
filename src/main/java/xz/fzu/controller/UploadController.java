@@ -42,11 +42,11 @@ public class UploadController {
 
             //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
             file.transferTo(newFile);
-            returnMap.put(Constants.resultObject, fileName);
+            returnMap.put(Constants.RESULT_OBJECT, fileName);
         } catch (Exception e) {
             e.printStackTrace();
-            returnMap.put(Constants.resultCode, Constants.INTERNAL_ERROR);
-            returnMap.put(Constants.resultMsg, e.getMessage());
+            returnMap.put(Constants.RESULT_CODE, Constants.INTERNAL_ERROR);
+            returnMap.put(Constants.RESULT_MSG, e.getMessage());
         }
         return returnMap;
     }
@@ -54,7 +54,7 @@ public class UploadController {
     private Map<Object, Object> initResultMap() {
 
         Map<Object, Object> returnMap = new HashMap<Object, Object>();
-        returnMap.put(Constants.resultCode, Constants.OK);
+        returnMap.put(Constants.RESULT_CODE, Constants.OK);
         return returnMap;
     }
 }

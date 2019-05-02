@@ -21,7 +21,7 @@ public interface ICompanyService {
      * @date 2019/4/25 19:25
      * @description 根据企业id查看企业信息
      */
-    Company getInfoByCompanyId(String CompanyId) throws UserNotFoundException;
+    Company getInfoByCompanyId(String companyId) throws UserNotFoundException;
 
     /**
      * @param company
