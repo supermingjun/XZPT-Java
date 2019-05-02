@@ -36,8 +36,9 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     }
 
     @Override
-    public List<Recruitment> getListRecruitmentByCompanyId(String companyId) throws InstanceNotExistException {
-        List<Recruitment> recruitmentList = iRecruitmentDao.selectListInstaceByCompanyId(companyId);
+    public List<Recruitment> getListRecruitmentByCompanyId(String companyId, PageData pageData) throws InstanceNotExistException {
+        List<Recruitment> recruitmentList = iRecruitmentDao.selectListInstanceByCompanyId(companyId,
+                (pageData.getCurrentPage() - 1) * pageData.getPageSize(), pageData.getPageSize());
         if (recruitmentList == null) {
             throw new InstanceNotExistException();
         }

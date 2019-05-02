@@ -34,7 +34,7 @@ public interface IRecruitmentService {
      * @date 2019/4/27 10:49
      * @description 查看公司旗下所有招聘信息
      */
-    public List<Recruitment> getListRecruitmentByCompanyId(String companyId) throws InstanceNotExistException;
+    List<Recruitment> getListRecruitmentByCompanyId(String companyId, PageData pageData) throws InstanceNotExistException;
 
 
     /**
@@ -46,6 +46,7 @@ public interface IRecruitmentService {
      * @description 根据keyword获得招聘List
      */
     public List<Recruitment> getListRecruitmentByKeyWord(String keyWord, PageData requestPage) throws InstanceNotExistException;
+
 
     /**
      * @param recruitmentId

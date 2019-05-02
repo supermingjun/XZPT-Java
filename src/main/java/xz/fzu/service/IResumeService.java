@@ -55,4 +55,13 @@ public interface IResumeService {
      * @description 获得指定简历实例
      */
     public Resume getResume(String userId, int resumeId) throws InstanceNotExistException;
+
+    /**
+     * @param resumeId
+     * @return int
+     * @author Murphy
+     * @date 2019/5/2 14:34
+     * @description copy简历，并返回主键
+     */
+    public int copyResume(int resumeId);
 }

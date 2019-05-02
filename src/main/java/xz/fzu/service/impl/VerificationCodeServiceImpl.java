@@ -43,6 +43,7 @@ public class VerificationCodeServiceImpl implements IVerificationCodeService {
      * @return boolean
      * @description 验证验证码的方法
      */
+    @Override
     public boolean verifyCode(String email, int code) throws ValidationExceprion, NoVerfcationCodeException {
         Integer value = map.get(email);
         if (value == null) {

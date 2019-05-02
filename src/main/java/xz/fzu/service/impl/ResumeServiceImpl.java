@@ -43,24 +43,36 @@ public class ResumeServiceImpl implements IResumeService {
         if (resumeList == null) {
             throw new InstanceNotExistException();
         }
+
         return resumeList;
     }
 
     @Override
     public int deleteResume(int resumeId) throws InstanceNotExistException {
+
         int rowAffect = iResumeDao.deleteInstance(resumeId);
         if (rowAffect == 0) {
             throw new InstanceNotExistException();
         }
+
         return 1;
     }
 
     @Override
     public Resume getResume(String userId, int resumeId) throws InstanceNotExistException {
+
         Resume resume = iResumeDao.selectInstanceByResumeId(resumeId); //TODO 安全认证
         if (resume == null) {
             throw new InstanceNotExistException();
         }
+
         return resume;
+    }
+
+    @Override
+    public int copyResume(int resumeId) {
+
+        int key = iResumeDao.copyInstance(resumeId);
+        return key;
     }
 }
