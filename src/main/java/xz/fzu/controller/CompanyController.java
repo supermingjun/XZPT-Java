@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.exception.*;
 import xz.fzu.model.Company;
-import xz.fzu.model.Recruitment;
 import xz.fzu.service.ICompanyService;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IVerificationCodeService;
-import xz.fzu.vo.PageData;
 import xz.fzu.vo.ResponseData;
 
 import javax.annotation.Resource;
@@ -173,106 +171,4 @@ public class CompanyController {
         return responseData;
     }
 
-    /**
-     * @param recruitment
-     * @param token
-     * @return xz.fzu.vo.ResponseData
-     * @author Murphy
-     * @date 2019/4/27 11:06
-     * @description 发布招聘信息
-     */
-    @RequestMapping(value = "/releaserecruitment", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseData releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException {
-
-        ResponseData responseData = new ResponseData();
-        iCompanyService.verifyToken(token);
-        Company company = iCompanyService.getInfoByToken(token);
-        recruitment.setCompanyId(company.getCompanyId());
-        iRecruitmentService.insertRecruitment(recruitment);
-
-        return responseData;
-    }
-
-    /**
-     * @param token
-     * @param recruitmentId
-     * @return xz.fzu.vo.ResponseData
-     * @author Murphy
-     * @date 2019/4/27 11:15
-     * @description 按id获得指定的招聘信息
-     */
-    @RequestMapping(value = "/getrecruitment", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseData getRecruitment(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
-
-        ResponseData<Recruitment> responseData = new ResponseData<>();
-        iCompanyService.verifyToken(token);
-        Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
-        responseData.setResultObject(recruitment);
-
-        return responseData;
-    }
-
-
-    /**
-     * @param token
-     * @return xz.fzu.vo.ResponseData
-     * @author Murphy
-     * @date 2019/4/27 11:15
-     * @description 按id获得指定的所有招聘信息
-     */
-    @RequestMapping(value = "/getlistrecruitment", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseData<PageData> getRecruitment(@RequestParam String token, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
-
-        ResponseData<PageData> responseData = new ResponseData<>();
-        iCompanyService.verifyToken(token);
-        Company company = iCompanyService.getInfoByToken(token);
-        pageData.setContentList(iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId(), pageData));
-        ;
-        responseData.setResultObject(pageData);
-
-        return responseData;
-    }
-
-
-    /**
-     * @param token
-     * @return xz.fzu.vo.ResponseData
-     * @author Murphy
-     * @date 2019/4/27 11:15
-     * @description 修改指定的招聘信息
-     */
-    @RequestMapping(value = "/updaterecruitment", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseData updateRecruitment(@RequestParam String token, @RequestBody Recruitment recruitment) throws TokenExpiredException, UserNotFoundException, EvilIntentions {
-
-        ResponseData responseData = new ResponseData<>();
-        iCompanyService.verifyToken(token);
-        Company company = iCompanyService.getInfoByToken(token);
-        iRecruitmentService.updateRecruitment(recruitment, company.getCompanyId());
-
-        return responseData;
-    }
-
-
-    /**
-     * @param token
-     * @return xz.fzu.vo.ResponseData
-     * @author Murphy
-     * @date 2019/4/27 11:15
-     * @description 删除指定的招聘信息
-     */
-    @RequestMapping(value = "/deleterecruitment", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseData deleteRecruitment(@RequestParam String token, @RequestParam long recruitmentId) throws TokenExpiredException, UserNotFoundException, EvilIntentions {
-
-        ResponseData responseData = new ResponseData<>();
-        iCompanyService.verifyToken(token);
-        Company company = iCompanyService.getInfoByToken(token);
-        iRecruitmentService.deleteRecruitment(recruitmentId, company.getCompanyId());
-
-        return responseData;
-    }
 }
