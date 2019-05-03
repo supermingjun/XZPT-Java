@@ -69,8 +69,8 @@ public class ResumeServiceImpl implements IResumeService {
     }
 
     @Override
-    public int copyResume(int resumeId) {
+    public void copyResume(int resumeId) {
 
-        return iResumeDao.copyInstance(resumeId);
+        iResumeDao.copyInstance(resumeId);
     }
 }

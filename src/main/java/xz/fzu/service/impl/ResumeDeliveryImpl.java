@@ -51,7 +51,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
 
         List<ResumeDelivery> list = iResumeDeliveryDao.companyGetListInstance(comapnyId,
                 (pageData.getCurrentPage() - 1) * pageData.getPageSize(), pageData.getPageSize());
-        if (list == null) {
+        if (list.size() == 0) {
             throw new InstanceNotExistException();
         }
 

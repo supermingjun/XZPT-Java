@@ -1,6 +1,7 @@
 package xz.fzu.controller;
 
 import org.springframework.web.bind.annotation.*;
+import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.exception.UserNotFoundException;
@@ -45,12 +46,16 @@ public class ResumeDeliveryController {
      * @date 2019/5/2 21:41
      */
     @RequestMapping(value = "/user/deliveryresume", method = RequestMethod.POST)
-    public ResponseData deliveryResume(@RequestParam String token, @RequestParam int resumeId, @RequestParam int recruitmentId) throws TokenExpiredException {
+    public ResponseData deliveryResume(@RequestParam String token, @RequestParam int resumeId, @RequestParam int recruitmentId) throws TokenExpiredException, EvilIntentions {
 
         ResponseData responseData = new ResponseData();
         String userId = iUserService.verifyToken(token);
-        int copyId = iResumeService.copyResume(resumeId);
-        iResumeDeliveryService.deliveryResume(userId, copyId, recruitmentId);
+        iResumeService.copyResume(resumeId);
+        Resume resume = new Resume();
+        resume.setResumeId(resumeId);
+        resume.setResumeStatus(1);
+        iResumeService.updateResume(userId, resume);
+        iResumeDeliveryService.deliveryResume(userId, resumeId, recruitmentId);
 
         return responseData;
     }
@@ -144,11 +149,12 @@ public class ResumeDeliveryController {
     @RequestMapping(value = "/company/getlistdeliveryrecord", method = RequestMethod.POST)
     public ResponseData companyGetDeliveryRecord(@RequestParam String token, @RequestBody PageData<ResumeDelivery> pageData) throws TokenExpiredException, InstanceNotExistException, UserNotFoundException {
 
-        ResponseData responseData = new ResponseData();
+        ResponseData<PageData> responseData = new ResponseData<>();
         iCompanyService.verifyToken(token);
         String companyId = iCompanyService.getInfoByToken(token).getCompanyId();
         List<ResumeDelivery> list = iResumeDeliveryService.companyGetResumeDeliveryRecord(companyId, pageData);
         pageData.setContentList(list);
+        responseData.setResultObject(pageData);
 
         return responseData;
     }

@@ -66,5 +66,5 @@ public interface IResumeDao {
      * @author Murphy
      * @date 2019/5/2 14:30
      */
-    int copyInstance(int resumeId);
+    void copyInstance(int resumeId);
 }
