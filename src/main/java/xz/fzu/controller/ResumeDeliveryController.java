@@ -149,9 +149,16 @@ public class ResumeDeliveryController {
      * @description 公司更新简历投递记录
      */
     @RequestMapping(value = "/company/updatedeliveryrecord", method = RequestMethod.POST)
-    public ResponseData comapnyUpdateDeliveryRecord(@RequestParam String token, @RequestBody ResumeDelivery resumeDelivery) throws TokenExpiredException {
+    public ResponseData comapnyUpdateDeliveryRecord(@RequestParam String token, @RequestBody ResumeDelivery resumeDelivery) throws TokenExpiredException, InstanceNotExistException, EvilIntentions {
 
         ResponseData responseData = new ResponseData();
+
+        // 更新简历投递中的记录
+        long resumeId = iResumeDeliveryService.getResumeDeliveryRecordById((int) resumeDelivery.getResumeDeliveryId()).getResumeId();
+        Resume resume = iResumeService.getResume(null, (int) resumeId);
+        resume.setResumeStatus(resumeDelivery.getDeliveryStatus());
+        iResumeService.updateResume(resume.getUserId(), resume);
+
         iCompanyService.verifyToken(token);
         iResumeDeliveryService.updateResumeDeliveryRecord(resumeDelivery);
 
