@@ -26,6 +26,7 @@
         <result property="expectSalary" column="expect_salary"/>
         <result property="token" column="token"/>
         <result property="age" column="age"/>
+        <result property="highestEducation" column="highest_education"/>
     </resultMap>
 
     <!--插入一个用户-->
