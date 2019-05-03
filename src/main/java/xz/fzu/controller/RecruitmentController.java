@@ -187,11 +187,12 @@ public class RecruitmentController {
      */
     @RequestMapping(value = "/user/searchrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<PageData> searchRecruitment(@RequestParam String token, @RequestParam String keyWord, @RequestBody PageData<RecruitmentVO> pageData) throws InstanceNotExistException, TokenExpiredException {
+    public ResponseData<PageData> searchRecruitment(@RequestParam String token, @RequestParam String keyWord, @RequestBody PageData<RecruitmentVO> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
 
         ResponseData<PageData> responseData = new ResponseData<>();
         iUserService.verifyToken(token);
         List<RecruitmentVO> recruitmentList = iRecruitmentService.getListRecruitmentByKeyWord(keyWord, pageData);
+        listSetCompanyName(recruitmentList);
         pageData.setContentList(recruitmentList);
         responseData.setResultObject(pageData);
 
@@ -208,7 +209,7 @@ public class RecruitmentController {
      * @date 2019/5/2 14:01
      * @description 根据招聘信息id获得招聘信息
      */
-    private ResponseData<RecruitmentVO> getRecruitmentById(long recruitmentId) throws InstanceNotExistException, UserNotFoundException {
+    private ResponseData<RecruitmentVO> getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
 
         ResponseData<RecruitmentVO> responseData = new ResponseData<>();
         RecruitmentVO recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
@@ -227,11 +228,10 @@ public class RecruitmentController {
      * @author Murphy
      * @date 2019/5/3 0:37
      */
-    private void listSetCompanyName(List<RecruitmentVO> list) throws UserNotFoundException {
+    private void listSetCompanyName(List<RecruitmentVO> list) {
 
         for (int i = 0; i < list.size(); i++) {
-            String companyName = iCompanyService.getInfoByCompanyId(list.get(i).getCompanyId()).getCompanyName();
-            list.get(i).setCompanyName(companyName);
+            setCompanyName(list.get(i));
         }
     }
 
@@ -243,9 +243,14 @@ public class RecruitmentController {
      * @author Murphy
      * @date 2019/5/3 0:37
      */
-    private void setCompanyName(RecruitmentVO recruitmentVO) throws UserNotFoundException {
+    private void setCompanyName(RecruitmentVO recruitmentVO) {
 
-        String companyName = iCompanyService.getInfoByCompanyId(recruitmentVO.getCompanyId()).getCompanyName();
+        String companyName = "公司不存在";
+        try {
+            companyName = iCompanyService.getInfoByCompanyId(recruitmentVO.getCompanyId()).getCompanyName();
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
         recruitmentVO.setCompanyName(companyName);
     }
 }
