@@ -1,10 +1,13 @@
 package xz.fzu.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * 该类用来保存企业id以及相似性结果
  *
  * @author LITM
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RecommendResult implements Comparable<RecommendResult> {
 
     private String resultId;
@@ -21,7 +24,7 @@ public class RecommendResult implements Comparable<RecommendResult> {
         this.recruitmentId = str;
     }
 
-    public double getSimilarityResult() {
+    private double getSimilarityResult() {
 
         return similarityResult;
     }

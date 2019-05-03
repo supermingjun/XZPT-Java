@@ -24,7 +24,7 @@
          SELECT * FROM resume_delivery WHERE resume_id = #{arg0} LIMIT #{arg1},#{arg2}
     </select>
     <select id="companyGetListInstance" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
-         SELECT * FROM resume_delivery WHERE recruitment_id = #{arg0} LIMIT #{arg1},#{arg2}
+         SELECT * FROM resume_delivery WHERE recruitment_id IN (SELECT recruitment_id FROM recruitment WHERE company_id = #{arg0} ) LIMIT #{arg1},#{arg2}
     </select>
     <delete id="deleteInstance" parameterType="java.lang.String">
         DELETE FROM resume_delivery WHERE resume_delivery_id = #{resumeDeliveryId}
@@ -32,22 +32,22 @@
     <update id="updateInstance" parameterType="xz.fzu.model.ResumeDelivery">
         UPDATE resume_delivery
         <set>
-            <if test=" recruitmentId !=0 ">
+            <if test=" recruitmentId != 0 ">
                 recruitment_id = #{recruitmentId},
             </if>
             <if test=" userId != null and userId != ' ' ">
                 user_id = #{userId},
             </if>
-            <if test=" resumeId !=0 ">
+            <if test=" resumeId != 0 ">
                 resume_id = #{resumeId},
             </if>
-            <if test=" deliveryStatus !=0 ">
+            <if test=" deliveryStatus != 0 ">
                 delivery_status = #{deliveryStatus},
             </if>
             <if test=" remark != null and remark != '' ">
                 remark = #{remark},
             </if>
         </set>
-        WHERE resume_delivery_id=#{resumeDeliveryId}
+        WHERE resume_delivery_id = #{resumeDeliveryId}
     </update>
 </mapper>

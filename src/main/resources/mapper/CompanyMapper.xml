@@ -45,10 +45,10 @@
             <if test=" email !=null and email != '' ">
                 email = #{email},
             </if>
-            <if test=" description != null and description != ''">
+            <if test=" description != null and description != '' ">
                 description = #{description},
             </if>
-            <if test=" status != 0">
+            <if test=" status != 0 ">
                 status = #{status},
             </if>
             <if test=" token != null and token !='' ">

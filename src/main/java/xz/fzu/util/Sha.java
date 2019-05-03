@@ -8,18 +8,19 @@ import java.security.MessageDigest;
  * @author Murphy
  * @date 2019/4/20 21:13
  */
-public class SHA {
-    private static final String KEY_SHA = "SHA";//TODO
-
+public class Sha {
+    private static final String KEY_SHA = "Sha";
+    //TODO 更换key
     /**
-     * @param passwd
+     * @param passwd 密码
      * @return java.lang.String
      * @author Murphy
      * @date 2019/4/23 0:02
      * @description 加密生成uuid
      */
     public static String encrypt(String passwd) {
-        BigInteger sha = null;
+
+        BigInteger sha;
         byte[] inputData = passwd.getBytes();
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(KEY_SHA);
@@ -32,6 +33,6 @@ public class SHA {
         return str.length() >= 32 ? str.substring(0, 32) : str;
     }
 
-    private SHA() {
+    private Sha() {
     }
 }

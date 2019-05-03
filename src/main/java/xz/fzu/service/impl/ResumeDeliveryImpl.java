@@ -20,7 +20,9 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     @Resource
     IResumeDeliveryDao iResumeDeliveryDao;
 
-    // TODO 安全认证，暂时没有
+    /**
+     * TODO 安全认证，暂时没有
+     */
     @Override
     public void deliveryResume(String userId, int resumeId, int recruitmentId) {
 
@@ -49,7 +51,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
 
         List<ResumeDelivery> list = iResumeDeliveryDao.companyGetListInstance(comapnyId,
                 (pageData.getCurrentPage() - 1) * pageData.getPageSize(), pageData.getPageSize());
-        if (list == null) {
+        if (list.size() == 0) {
             throw new InstanceNotExistException();
         }
 
@@ -91,7 +93,10 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     @Override
     public void updateResumeDeliveryRecord(ResumeDelivery resumeDelivery) {
 
-        iResumeDeliveryDao.updateInstance(resumeDelivery);
+        if (iResumeDeliveryDao.updateInstance(resumeDelivery) == 0) {
+            throw new RuntimeException("数据没有更新" + resumeDelivery.getDeliveryStatus() + "，Id是" + resumeDelivery.getResumeDeliveryId() + "。");
+        }
+        ;
 
     }
 }
