@@ -53,22 +53,22 @@
             <if test=" sex != 0 ">
                 sex = #{sex},
             </if>
-            <if test=" presentCity != null and presentCity != ''">
+            <if test=" presentCity != null and presentCity != '' ">
                 present_city = #{presentCity},
             </if>
-            <if test=" expectedCity != null and expectedCity != ''">
+            <if test=" expectedCity != null and expectedCity != '' ">
                 expected_city = #{expectedCity},
             </if>
-            <if test=" school != null and school != ''">
+            <if test=" school != null and school != '' ">
                 school = #{school},
             </if>
-            <if test=" speciality != null and speciality != ''">
+            <if test=" speciality != null and speciality != '' ">
                 speciality = #{speciality},
             </if>
-            <if test=" startTime != null and startTime != ''">
+            <if test=" startTime != null and startTime != '' ">
                 start_time = #{startTime},
             </if>
-            <if test=" endTime != null and endTime != ''">
+            <if test=" endTime != null and endTime != '' ">
                 end_time = #{endTime},
             </if>
             <if test=" highestEducation != 0 ">
@@ -77,13 +77,13 @@
             <if test=" certificate != 0 ">
                 certificate = #{certificate},
             </if>
-            <if test=" presentCity != null and presentCity != ''">
+            <if test=" presentCity != null and presentCity != '' ">
                 present_city = #{presentCity},
             </if>
-            <if test=" expectedCity != null and expectedCity != ''">
+            <if test=" expectedCity != null and expectedCity != '' ">
                 expected_city = #{expectedCity},
             </if>
-            <if test=" projectExperience != null and projectExperience != ''">
+            <if test=" projectExperience != null and projectExperience != '' ">
                 project_experience = #{projectExperience},
             </if>
             <if test=" resumeStatus != 0 ">

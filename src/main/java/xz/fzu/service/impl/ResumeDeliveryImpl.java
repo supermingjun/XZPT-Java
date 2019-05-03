@@ -93,7 +93,10 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     @Override
     public void updateResumeDeliveryRecord(ResumeDelivery resumeDelivery) {
 
-        iResumeDeliveryDao.updateInstance(resumeDelivery);
+        if (iResumeDeliveryDao.updateInstance(resumeDelivery) == 0) {
+            throw new RuntimeException("数据没有更新" + resumeDelivery.getDeliveryStatus() + "，Id是" + resumeDelivery.getResumeDeliveryId() + "。");
+        }
+        ;
 
     }
 }

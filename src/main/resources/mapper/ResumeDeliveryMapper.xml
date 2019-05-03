@@ -32,22 +32,22 @@
     <update id="updateInstance" parameterType="xz.fzu.model.ResumeDelivery">
         UPDATE resume_delivery
         <set>
-            <if test=" recruitmentId !=0 ">
+            <if test=" recruitmentId != 0 ">
                 recruitment_id = #{recruitmentId},
             </if>
             <if test=" userId != null and userId != ' ' ">
                 user_id = #{userId},
             </if>
-            <if test=" resumeId !=0 ">
+            <if test=" resumeId != 0 ">
                 resume_id = #{resumeId},
             </if>
-            <if test=" deliveryStatus !=0 ">
+            <if test=" deliveryStatus != 0 ">
                 delivery_status = #{deliveryStatus},
             </if>
             <if test=" remark != null and remark != '' ">
                 remark = #{remark},
             </if>
         </set>
-        WHERE resume_delivery_id=#{resumeDeliveryId}
+        WHERE resume_delivery_id = #{resumeDeliveryId}
     </update>
 </mapper>

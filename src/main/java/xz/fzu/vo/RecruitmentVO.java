@@ -37,6 +37,7 @@ public class RecruitmentVO extends Recruitment implements Serializable {
     }
 
     public RecruitmentVO() {
+        super();
     }
 
     public String getCompanyName() {

@@ -76,10 +76,10 @@ public interface IResumeDeliveryDao {
     /**
      * 更新投递记录
      * @param resumeDelivery 简历投递的实例
-     * @return void
+     * @return int
      * @author Murphy
      * @date 2019/4/30 15:33
      */
-    void updateInstance(ResumeDelivery resumeDelivery);
+    int updateInstance(ResumeDelivery resumeDelivery);
 
 }
