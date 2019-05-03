@@ -2,9 +2,7 @@ package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
 import xz.fzu.dao.IResumeDao;
-import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
-import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.Resume;
 import xz.fzu.service.IResumeService;
 import xz.fzu.vo.PageData;
@@ -23,14 +21,14 @@ public class ResumeServiceImpl implements IResumeService {
     IResumeDao iResumeDao;
 
     @Override
-    public void insertResume(String userId, Resume resume) throws TokenExpiredException, EvilIntentions {
+    public void insertResume(String userId, Resume resume) {
 
         resume.setUserId(userId);
         iResumeDao.insertInstance(resume);
     }
 
     @Override
-    public void updateResume(String userId, Resume resume) throws EvilIntentions, TokenExpiredException {
+    public void updateResume(String userId, Resume resume) {
 
         resume.setUserId(userId);
         iResumeDao.updateInstance(resume);
@@ -61,7 +59,8 @@ public class ResumeServiceImpl implements IResumeService {
     @Override
     public Resume getResume(String userId, int resumeId) throws InstanceNotExistException {
 
-        Resume resume = iResumeDao.selectInstanceByResumeId(resumeId); //TODO 安全认证
+        //TODO 安全认证
+        Resume resume = iResumeDao.selectInstanceByResumeId(resumeId);
         if (resume == null) {
             throw new InstanceNotExistException();
         }
@@ -70,9 +69,8 @@ public class ResumeServiceImpl implements IResumeService {
     }
 
     @Override
-    public int copyResume(int resumeId) {
+    public void copyResume(int resumeId) {
 
-        int key = iResumeDao.copyInstance(resumeId);
-        return key;
+        iResumeDao.copyInstance(resumeId);
     }
 }

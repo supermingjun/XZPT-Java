@@ -26,8 +26,8 @@
     <select id="selectInstaceById" resultType="xz.fzu.model.Recruitment" resultMap="resultMapper" parameterType="long">
         SELECT * FROM recruitment WHERE recruitment_id = #{recruitmentId}
     </select>
-    <select id="selectListInstanceByCompanyId" resultType="xz.fzu.model.Recruitment" parameterType="java.lang.String">
-        SELECT * FROM recruitment WHERE company_id = #{arg0} LIMIT #{arg1},#{arg2}
+    <select id="selectListInstanceByCompanyId" resultType="xz.fzu.model.Recruitment" resultMap="resultMapper">
+        SELECT * FROM recruitment WHERE company_id = #{arg0} ORDER BY publish_time DESC LIMIT #{arg1},#{arg2}
     </select>
     <delete id="deleteInstace" parameterType="long">
          DELETE FROM recruitment WHERE recruitment_id = #{recruitmentId}
@@ -81,6 +81,6 @@
         WHERE recruitment_id=#{recruitmentId}
     </update>
     <select id="selectInstanceByKeyWord" resultType="xz.fzu.model.Recruitment" resultMap="resultMapper">
-        SELECT * FROM recruitment WHERE job_name LIKE #{arg0} OR description LIKE #{arg0} OR description LIKE #{arg0} LIMIT #{arg1},#{arg2}
+        SELECT * FROM recruitment WHERE job_name LIKE #{arg0} OR description LIKE #{arg0} OR description LIKE #{arg0} ORDER BY publish_time DESC LIMIT #{arg1},#{arg2}
     </select>
 </mapper>

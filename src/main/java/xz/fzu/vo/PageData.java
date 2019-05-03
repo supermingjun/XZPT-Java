@@ -1,6 +1,6 @@
 package xz.fzu.vo;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,18 +9,20 @@ import java.util.List;
  * @author Murphy
  * @date 2019/4/29 19:13
  */
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PageData<T> implements Serializable {
 
     private static final long serialVersionUID = 1;
 
-    // 当前请求的页数（1-n）
+    /**
+     * 当前请求的页数（1-n）
+     */
     private int currentPage;
-    // 总共有多少页
+    /** 总共有多少页 */
     private int numOfPage;
-    // 页大小
+    /** 页大小 */
     private int pageSize;
-    // 内容数组
+    /** 内容数组 */
     private List<T> contentList;
 
     public int getCurrentPage() {

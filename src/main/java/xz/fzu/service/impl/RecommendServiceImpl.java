@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2019/5/1 12:44
  */
 @Service
-public class RecomendServiceImpl implements IRecommendService {
+public class RecommendServiceImpl implements IRecommendService {
 
     @Resource
     IRecommendResultDao iRecommendResultDao;

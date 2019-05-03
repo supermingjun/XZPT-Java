@@ -15,6 +15,6 @@ public class EmailUtilTest {
     @Test
     public void testSendEmail() throws EmailException {
         EmailUtil emailUtil = EmailUtil.getInstance();
-//        System.out.println("当前验证码是："+emailUtil.sendEmail("625326143@qq.com"));
+//        System.out.println("当前验证码是：" + emailUtil.sendEmail("1732626355@qq.com"));
     }
 }

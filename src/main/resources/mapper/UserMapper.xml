@@ -26,6 +26,7 @@
         <result property="expectSalary" column="expect_salary"/>
         <result property="token" column="token"/>
         <result property="age" column="age"/>
+        <result property="highestEducation" column="highest_education"/>
     </resultMap>
 
     <!--插入一个用户-->
@@ -87,16 +88,16 @@
             <if test=" sex != 0 ">
                 sex = #{sex},
             </if>
-            <if test=" school != null and school != ''">
+            <if test=" school != null and school != '' ">
                 school = #{school},
             </if>
-            <if test=" specialty != null and specialty != ''">
+            <if test=" specialty != null and specialty != '' ">
                 specialty = #{specialty},
             </if>
-            <if test=" startTime != null and startTime != ''">
+            <if test=" startTime != null and startTime != '' ">
                 start_time = #{startTime},
             </if>
-            <if test=" endTime != null and endTime != ''">
+            <if test=" endTime != null and endTime != '' ">
                 end_time = #{endTime},
             </if>
             <if test=" workTime != 0 ">
@@ -105,10 +106,10 @@
             <if test=" jobType != 0 ">
                 job_type = #{jobType},
             </if>
-            <if test=" presentCity != null and presentCity != ''">
+            <if test=" presentCity != null and presentCity != '' ">
                 present_city = #{presentCity},
             </if>
-            <if test=" expectedCity != null and expectedCity != ''">
+            <if test=" expectedCity != null and expectedCity != '' ">
                 expected_city = #{expectedCity},
             </if>
             <if test=" industryLabel != 0 ">

@@ -1,10 +1,13 @@
 package xz.fzu.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * 该类用来保存招聘信息画像
  * @author LITM
  *
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RecruitmentProfile {
 	private int recruitmentId;
 	private int industryLabel;

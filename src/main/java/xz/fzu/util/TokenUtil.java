@@ -15,18 +15,20 @@ import java.util.Map;
  */
 public class TokenUtil {
 
-    // 公钥
-    private static final String TOKEN_SECRET = "123";//TODO  修改密钥
+    /**
+     * 公钥//TODO  修改密钥
+     */
+    private static final String TOKEN_SECRET = "123";
 
     private static final String USER_ID = "USER_ID";
     private static final String PASSWORD = "PASSWORD";
 
-    // 过期时间为7天
+    /** 过期时间为7天 */
     private static final long EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000;
 
     /**
-     * @param userId
-     * @param passwd
+     * @param userId 用户id
+     * @param passwd 密码
      * @return java.lang.String
      * @author Murphy
      * @date 2019/4/20 20:34
@@ -53,7 +55,7 @@ public class TokenUtil {
 
 
     /**
-     * @param token
+     * @param token token
      * @return boolean
      * @author Murphy
      * @date 2019/4/20 20:37

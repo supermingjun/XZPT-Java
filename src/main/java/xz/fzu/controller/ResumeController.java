@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * 历相关的控制器
  * @author Murphy
  * @date 2019/5/2 13:47
  */
@@ -28,8 +29,8 @@ public class ResumeController {
     // User
 
     /**
-     * @param token
-     * @param pageData
+     * @param token token
+     * @param pageData 页信息
      * @return xz.fzu.vo.ResponseData<xz.fzu.vo.PageData>
      * @author Murphy
      * @date 2019/4/30 1:10
@@ -49,8 +50,8 @@ public class ResumeController {
     }
 
     /**
-     * @param token
-     * @param resumeId
+     * @param token token
+     * @param resumeId 简历id
      * @return xz.fzu.vo.ResponseData<xz.fzu.model.Resume>
      * @author Murphy
      * @date 2019/4/30 14:27
@@ -69,8 +70,8 @@ public class ResumeController {
     }
 
     /**
-     * @param token
-     * @param resume
+     * @param token token
+     * @param resume 简历实例
      * @return xz.fzu.vo.ResponseData<xz.fzu.model.Resume>
      * @author Murphy
      * @date 2019/4/30 1:13
@@ -78,7 +79,7 @@ public class ResumeController {
      */
     @RequestMapping(value = "/user/updateresume", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<Resume> updateResume(@RequestParam String token, @RequestBody Resume resume) throws InstanceNotExistException, TokenExpiredException, EvilIntentions {
+    public ResponseData<Resume> updateResume(@RequestParam String token, @RequestBody Resume resume) throws TokenExpiredException, EvilIntentions {
 
         ResponseData<Resume> responseData = new ResponseData<>();
         String userId = iUserService.verifyToken(token);
@@ -88,8 +89,8 @@ public class ResumeController {
     }
 
     /**
-     * @param token
-     * @param resume
+     * @param token token
+     * @param resume 简历实例
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/30 14:31
@@ -97,7 +98,7 @@ public class ResumeController {
      */
     @RequestMapping(value = "/user/createresume", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData insertResume(@RequestParam String token, @RequestBody Resume resume) throws InstanceNotExistException, TokenExpiredException, EvilIntentions {
+    public ResponseData insertResume(@RequestParam String token, @RequestBody Resume resume) throws TokenExpiredException, EvilIntentions {
 
         ResponseData responseData = new ResponseData<>();
         String userId = iUserService.verifyToken(token);
@@ -107,8 +108,8 @@ public class ResumeController {
     }
 
     /**
-     * @param token
-     * @param resumeId
+     * @param token token
+     * @param resumeId 简历id
      * @return xz.fzu.vo.ResponseData<xz.fzu.model.Resume>
      * @author Murphy
      * @date 2019/4/30 1:14
@@ -116,10 +117,11 @@ public class ResumeController {
      */
     @RequestMapping(value = "/user/deleteresume", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<Resume> deleteResume(@RequestParam String token, @RequestParam int resumeId) throws InstanceNotExistException, TokenExpiredException, EvilIntentions {
+    public ResponseData<Resume> deleteResume(@RequestParam String token, @RequestParam int resumeId) throws InstanceNotExistException, TokenExpiredException {
 
         ResponseData<Resume> responseData = new ResponseData<>();
-        String userId = iUserService.verifyToken(token); // TODO 安全认证
+        // TODO 安全认证
+        String userId = iUserService.verifyToken(token);
         iResumeService.deleteResume(resumeId);
 
         return responseData;

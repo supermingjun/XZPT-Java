@@ -1,35 +1,40 @@
 package xz.fzu.dao;
 
+import org.springframework.stereotype.Repository;
 import xz.fzu.model.RecommendResult;
 
 import java.util.List;
 
+/**
+ * 推荐结果相关的dao
+ * @author Murphy
+ */
+@Repository
 public interface IRecommendResultDao {
 
     /**
-     * @param recommendResult
+     * 插入一条推荐记录
+     * @param recommendResult 推荐结果
      * @return void
      * @author Murphy
      * @date 2019/5/1 0:37
-     * @description 插入一条记录
      */
-    public void insertInstance(RecommendResult recommendResult);
+    void insertInstance(RecommendResult recommendResult);
 
     /**
-     * @param userId
+     * 获得许多条记录
+     * @param userId 用户的id
      * @return java.util.List<xz.fzu.model.RecommendResult>
      * @author Murphy
      * @date 2019/5/1 0:38
-     * @description 获得许多条记录
      */
-    public List<RecommendResult> getListResult(String userId);
+    List<RecommendResult> getListResult(String userId);
 
     /**
-     * @param
+     * 删除所有的记录
      * @return void
      * @author Murphy
      * @date 2019/5/1 12:41
-     * @description 删除所有的记录
      */
-    public void deleteAll();
+    void deleteAll();
 }

@@ -93,7 +93,12 @@ import java.util.Map;
  * 3   全职
  */
 
-public class RecomAlgorithm {
+/**
+ * 算法接口
+ *
+ * @author LITM
+ */
+public class RecommendAlgorithm {
 
     /**
      * 推荐算法
@@ -113,7 +118,7 @@ public class RecomAlgorithm {
         }
 	/*public static void main(String[] args) {
 		
-		RecomAlgorithm ra = new RecomAlgorithm();
+		RecommendAlgorithm ra = new RecommendAlgorithm();
 		UserProfile upf = new UserProfile("975835798",1,"北京",0,1,"",3,"");
 		List<RecruitmentProfile> rps = new ArrayList<RecruitmentProfile>();
 		RecruitmentProfile rp1 = new RecruitmentProfile(975835790,2," 北京 ",1,1,"","","");
