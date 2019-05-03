@@ -24,7 +24,7 @@
          SELECT * FROM resume_delivery WHERE resume_id = #{arg0} LIMIT #{arg1},#{arg2}
     </select>
     <select id="companyGetListInstance" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
-         SELECT * FROM resume_delivery WHERE recruitment_id = #{arg0} LIMIT #{arg1},#{arg2}
+         SELECT * FROM resume_delivery WHERE recruitment_id in (SELECT recruitment_id FROM recruitment WHERE company_id = #{arg0} )LIMIT #{arg1},#{arg2}
     </select>
     <delete id="deleteInstance" parameterType="java.lang.String">
         DELETE FROM resume_delivery WHERE resume_delivery_id = #{resumeDeliveryId}
