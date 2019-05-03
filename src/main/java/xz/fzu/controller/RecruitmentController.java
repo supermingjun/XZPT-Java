@@ -87,7 +87,9 @@ public class RecruitmentController {
         ResponseData<PageData> responseData = new ResponseData<>();
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
-        pageData.setContentList(iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId(), pageData));
+        List<RecruitmentVO> list = iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId(), pageData);
+        listSetCompanyName(list);
+        pageData.setContentList(list);
         responseData.setResultObject(pageData);
 
         return responseData;
@@ -220,7 +222,7 @@ public class RecruitmentController {
     /**
      * list设置招聘信息的公司名字
      *
-     * @param list
+     * @param list  招聘信息数组
      * @return java.util.List<xz.fzu.vo.RecruitmentVO>
      * @author Murphy
      * @date 2019/5/3 0:37
