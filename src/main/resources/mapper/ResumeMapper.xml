@@ -75,7 +75,7 @@
             <if test=" highestEducation != 0 ">
                 highest_education = #{highestEducation},
             </if>
-            <if test=" certificate != 0 ">
+            <if test=" certificate != null and certificate != '' ">
                 certificate = #{certificate},
             </if>
             <if test=" presentCity != null and presentCity != '' ">

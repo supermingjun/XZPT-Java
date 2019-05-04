@@ -16,6 +16,8 @@ public class RecruitmentVO extends Recruitment implements Serializable {
     private static final long serialVersionUID = 2;
 
     private String companyName;
+    private String station;
+    private String industry;
 
     public RecruitmentVO(Recruitment recruitment) {
 
@@ -46,5 +48,21 @@ public class RecruitmentVO extends Recruitment implements Serializable {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getStation() {
+        return station;
+    }
+
+    public void setStation(String station) {
+        this.station = station;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
     }
 }

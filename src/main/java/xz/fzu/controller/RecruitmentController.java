@@ -8,6 +8,7 @@ import xz.fzu.exception.UserNotFoundException;
 import xz.fzu.model.Company;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.ICompanyService;
+import xz.fzu.service.ILabelService;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IUserService;
 import xz.fzu.vo.PageData;
@@ -202,6 +203,9 @@ public class RecruitmentController {
 
     //Same
 
+    @Resource
+    ILabelService iLabelService;
+
     /**
      * @param recruitmentId 招聘信息id
      * @return xz.fzu.vo.ResponseData<xz.fzu.model.RecruitmentVO>
@@ -214,9 +218,39 @@ public class RecruitmentController {
         ResponseData<RecruitmentVO> responseData = new ResponseData<>();
         RecruitmentVO recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
         setCompanyName(recruitment);
+        setLabel(recruitment);
         responseData.setResultObject(recruitment);
 
         return responseData;
+    }
+
+    /**
+     * 为招聘信息设置标签
+     *
+     * @param recruitment 招聘信息
+     * @return void
+     * @author Murphy
+     * @date 2019/5/4 19:23
+     */
+    private void setLabel(RecruitmentVO recruitment) {
+        String stationLabel = recruitment.getStation();
+        StringBuilder stationBuilder = new StringBuilder();
+        String[] str = stationLabel.split(",");
+        for (String srt : str) {
+            try {
+                int integer = Integer.parseInt(srt);
+                stationBuilder.append(iLabelService.getStationLabel(integer));
+                stationBuilder.append(",");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        recruitment.setStation(stationBuilder.toString());
+        try {
+            recruitment.setIndustry(iLabelService.getIndustryLabel(Integer.parseInt(recruitment.getIndustry())));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
