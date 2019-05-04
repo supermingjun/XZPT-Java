@@ -248,7 +248,7 @@ public class RecruitmentController {
         String companyName = "公司不存在";
         try {
             companyName = iCompanyService.getInfoByCompanyId(recruitmentVO.getCompanyId()).getCompanyName();
-        } catch (UserNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         recruitmentVO.setCompanyName(companyName);

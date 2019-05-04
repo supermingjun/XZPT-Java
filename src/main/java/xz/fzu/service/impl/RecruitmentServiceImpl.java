@@ -69,7 +69,7 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
 
     @Override
     public List<RecruitmentVO> getListRecruitmentByKeyWord(String keyWord, PageData requestPage) throws InstanceNotExistException {
-        List<Recruitment> recruitmentList = iRecruitmentDao.selectInstanceByKeyWord("%" + keyWord + "%", (requestPage.getCurrentPage() - 1) * requestPage.getPageSize(), requestPage.getPageSize());
+        List<Recruitment> recruitmentList = iRecruitmentDao.selectInstanceByKeyWord('%' + keyWord + '%', (requestPage.getCurrentPage() - 1) * requestPage.getPageSize(), requestPage.getPageSize());
         if (recruitmentList == null) {
             throw new InstanceNotExistException();
         }

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import xz.fzu.algorithm.RecommendAlgorithm;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.TokenExpiredException;
-import xz.fzu.exception.UserNotFoundException;
 import xz.fzu.model.RecommendResult;
 import xz.fzu.model.RecruitmentProfile;
 import xz.fzu.service.*;
@@ -107,7 +106,7 @@ public class RecommendController {
         try {
 
             companyName = iCompanyService.getInfoByCompanyId(recruitmentVO.getCompanyId()).getCompanyName();
-        } catch (UserNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         recruitmentVO.setCompanyName(companyName);
