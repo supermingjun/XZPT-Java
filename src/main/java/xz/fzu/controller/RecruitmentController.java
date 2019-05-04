@@ -233,12 +233,13 @@ public class RecruitmentController {
      * @date 2019/5/4 19:23
      */
     private void setLabel(RecruitmentVO recruitment) {
-        String stationLabel = recruitment.getStation();
+        String stationLabel = recruitment.getStationLabel();
+
         StringBuilder stationBuilder = new StringBuilder();
-        String[] str = stationLabel.split(",");
-        for (String srt : str) {
+        String[] integers = stationLabel.split(",");
+        for (String string : integers) {
             try {
-                int integer = Integer.parseInt(srt);
+                int integer = Integer.parseInt(string);
                 stationBuilder.append(iLabelService.getStationLabel(integer));
                 stationBuilder.append(",");
             } catch (Exception e) {
@@ -247,7 +248,7 @@ public class RecruitmentController {
         }
         recruitment.setStation(stationBuilder.toString());
         try {
-            recruitment.setIndustry(iLabelService.getIndustryLabel(Integer.parseInt(recruitment.getIndustry())));
+            recruitment.setIndustry(iLabelService.getIndustryLabel((int) recruitment.getIndustryLabel()));
         } catch (Exception e) {
             e.printStackTrace();
         }

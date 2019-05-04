@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="xz.fzu.model.IndustryLabel">
+<mapper namespace="xz.fzu.dao.IIndustryLabelDao">
     <select id="getInstance" parameterType="int" resultType="java.lang.String">
         SELECT content FROM industry_label WHERE id = #{id}
     </select>
