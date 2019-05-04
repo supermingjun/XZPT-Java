@@ -30,6 +30,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
         resumeDelivery.setRecruitmentId(recruitmentId);
         resumeDelivery.setResumeId(resumeId);
         resumeDelivery.setUserId(userId);
+        resumeDelivery.setDeliveryStatus(1);
         iResumeDeliveryDao.insertInstance(resumeDelivery);
 
     }
