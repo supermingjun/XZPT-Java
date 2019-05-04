@@ -79,6 +79,4 @@ public interface IRecruitmentService {
      * @throws EvilIntentions 恶意操作异常
      */
     void updateRecruitment(Recruitment recruitment, String companyId) throws EvilIntentions;
-
-
 }

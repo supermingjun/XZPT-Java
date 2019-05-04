@@ -9,12 +9,9 @@ import xz.fzu.algorithm.RecommendAlgorithm;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.RecommendResult;
-import xz.fzu.model.Recruitment;
 import xz.fzu.model.RecruitmentProfile;
-import xz.fzu.service.IProfileService;
-import xz.fzu.service.IRecommendService;
-import xz.fzu.service.IRecruitmentService;
-import xz.fzu.service.IUserService;
+import xz.fzu.service.*;
+import xz.fzu.vo.RecruitmentVO;
 import xz.fzu.vo.ResponseData;
 
 import javax.annotation.Resource;
@@ -64,6 +61,9 @@ public class RecommendController {
 
     @Resource
     IRecommendService iRecommendService;
+    @Resource
+    ICompanyService iCompanyService;
+
     /**
      * @param token token
      * @return xz.fzu.vo.ResponseData
@@ -72,15 +72,16 @@ public class RecommendController {
      * @description 推荐接口
      */
     @RequestMapping(value = "/getrecommend", method = RequestMethod.POST)
-    public ResponseData<List<Recruitment>> getRecommend(@RequestParam String token) throws TokenExpiredException, InstanceNotExistException {
+    public ResponseData<List<RecruitmentVO>> getRecommend(@RequestParam String token) throws TokenExpiredException, InstanceNotExistException {
 
-        ResponseData<List<Recruitment>> responseData = new ResponseData<>();
+        ResponseData<List<RecruitmentVO>> responseData = new ResponseData<>();
         String userId = iUserService.verifyToken(token);
         List<RecommendResult> recruitmentProfiles = iRecommendService.getListResult(userId);
-        List<Recruitment> list = new ArrayList<>();
+        List<RecruitmentVO> list = new ArrayList<>();
         for (RecommendResult recommendResult : recruitmentProfiles) {
             int recruitmentId = recommendResult.getRecruitmentId();
-            Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
+            RecruitmentVO recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
+            setCompanyName(recruitment);
             list.add(recruitment);
         }
         if (list.size() == 0) {
@@ -89,5 +90,25 @@ public class RecommendController {
         responseData.setResultObject(list);
 
         return responseData;
+    }
+
+    /**
+     * 设置招聘信息公司名字
+     *
+     * @param recruitmentVO 招聘信息
+     * @return xz.fzu.vo.RecruitmentVO
+     * @author Murphy
+     * @date 2019/5/3 0:37
+     */
+    private void setCompanyName(RecruitmentVO recruitmentVO) {
+
+        String companyName = "公司不存在";
+        try {
+
+            companyName = iCompanyService.getInfoByCompanyId(recruitmentVO.getCompanyId()).getCompanyName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        recruitmentVO.setCompanyName(companyName);
     }
 }

@@ -85,4 +85,11 @@ public interface IResumeDeliveryService {
      */
     void updateResumeDeliveryRecord(ResumeDelivery resumeDelivery);
 
+    /**
+     * @param
+     * @return java.util.List<xz.fzu.model.ResumeDelivery>
+     * @author Murphy
+     * @date 2019/5/5 2:03
+     */
+    List<ResumeDelivery> getAllRecord();
 }

@@ -30,6 +30,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
         resumeDelivery.setRecruitmentId(recruitmentId);
         resumeDelivery.setResumeId(resumeId);
         resumeDelivery.setUserId(userId);
+        resumeDelivery.setDeliveryStatus(1);
         iResumeDeliveryDao.insertInstance(resumeDelivery);
 
     }
@@ -98,5 +99,11 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
         }
         ;
 
+    }
+
+    @Override
+    public List<ResumeDelivery> getAllRecord() {
+
+        return iResumeDeliveryDao.selectAll();
     }
 }

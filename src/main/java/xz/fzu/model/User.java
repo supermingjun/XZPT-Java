@@ -1,7 +1,9 @@
 package xz.fzu.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 
@@ -25,8 +27,12 @@ public class User implements Serializable {
   private String school;
   private String specialty;
   private long highestEducation;
-  private java.sql.Date startTime;
-  private java.sql.Date endTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private java.sql.Date startTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private java.sql.Date endTime;
   private long workTime;
   private long jobType;
   private String presentCity;

@@ -140,7 +140,8 @@ public class ResumeDeliveryController {
         return responseData;
     }
 
-    /**
+    /**-+*
+     * **
      * @param token token
      * @param resumeDelivery 简历投递记录
      * @return xz.fzu.vo.ResponseData

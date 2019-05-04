@@ -8,6 +8,7 @@ import xz.fzu.exception.UserNotFoundException;
 import xz.fzu.model.Company;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.ICompanyService;
+import xz.fzu.service.ILabelService;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IUserService;
 import xz.fzu.vo.PageData;
@@ -187,11 +188,12 @@ public class RecruitmentController {
      */
     @RequestMapping(value = "/user/searchrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<PageData> searchRecruitment(@RequestParam String token, @RequestParam String keyWord, @RequestBody PageData<RecruitmentVO> pageData) throws InstanceNotExistException, TokenExpiredException {
+    public ResponseData<PageData> searchRecruitment(@RequestParam String token, @RequestParam String keyWord, @RequestBody PageData<RecruitmentVO> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
 
         ResponseData<PageData> responseData = new ResponseData<>();
         iUserService.verifyToken(token);
         List<RecruitmentVO> recruitmentList = iRecruitmentService.getListRecruitmentByKeyWord(keyWord, pageData);
+        listSetCompanyName(recruitmentList);
         pageData.setContentList(recruitmentList);
         responseData.setResultObject(pageData);
 
@@ -201,6 +203,9 @@ public class RecruitmentController {
 
     //Same
 
+    @Resource
+    ILabelService iLabelService;
+
     /**
      * @param recruitmentId 招聘信息id
      * @return xz.fzu.vo.ResponseData<xz.fzu.model.RecruitmentVO>
@@ -208,14 +213,46 @@ public class RecruitmentController {
      * @date 2019/5/2 14:01
      * @description 根据招聘信息id获得招聘信息
      */
-    private ResponseData<RecruitmentVO> getRecruitmentById(long recruitmentId) throws InstanceNotExistException, UserNotFoundException {
+    private ResponseData<RecruitmentVO> getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
 
         ResponseData<RecruitmentVO> responseData = new ResponseData<>();
         RecruitmentVO recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
         setCompanyName(recruitment);
+        setLabel(recruitment);
         responseData.setResultObject(recruitment);
 
         return responseData;
+    }
+
+    /**
+     * 为招聘信息设置标签
+     *
+     * @param recruitment 招聘信息
+     * @return void
+     * @author Murphy
+     * @date 2019/5/4 19:23
+     */
+    private void setLabel(RecruitmentVO recruitment) {
+        String stationLabel = recruitment.getStationLabel();
+        StringBuilder stationBuilder = new StringBuilder();
+        try {
+            String[] integers = stationLabel.split(",");
+            for (String string : integers) {
+                int integer = Integer.parseInt(string);
+                stationBuilder.append(iLabelService.getStationLabel(integer));
+                stationBuilder.append(",");
+
+            }
+            recruitment.setStation(stationBuilder.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            recruitment.setStation(stationBuilder.toString());
+        }
+        try {
+            recruitment.setIndustry(iLabelService.getIndustryLabel((int) recruitment.getIndustryLabel()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -227,11 +264,10 @@ public class RecruitmentController {
      * @author Murphy
      * @date 2019/5/3 0:37
      */
-    private void listSetCompanyName(List<RecruitmentVO> list) throws UserNotFoundException {
+    private void listSetCompanyName(List<RecruitmentVO> list) {
 
         for (int i = 0; i < list.size(); i++) {
-            String companyName = iCompanyService.getInfoByCompanyId(list.get(i).getCompanyId()).getCompanyName();
-            list.get(i).setCompanyName(companyName);
+            setCompanyName(list.get(i));
         }
     }
 
@@ -243,9 +279,14 @@ public class RecruitmentController {
      * @author Murphy
      * @date 2019/5/3 0:37
      */
-    private void setCompanyName(RecruitmentVO recruitmentVO) throws UserNotFoundException {
+    private void setCompanyName(RecruitmentVO recruitmentVO) {
 
-        String companyName = iCompanyService.getInfoByCompanyId(recruitmentVO.getCompanyId()).getCompanyName();
+        String companyName = "公司不存在";
+        try {
+            companyName = iCompanyService.getInfoByCompanyId(recruitmentVO.getCompanyId()).getCompanyName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         recruitmentVO.setCompanyName(companyName);
     }
 }

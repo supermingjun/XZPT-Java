@@ -32,14 +32,15 @@
     <delete id="deleteInstace" parameterType="long">
          DELETE FROM recruitment WHERE recruitment_id = #{recruitmentId}
     </delete>
+
+    <!--<if test=" validate !=null and validate != '' ">-->
+    <!--validate = #{validate},-->
+    <!--</if>-->
     <update id="updateInstace" parameterType="xz.fzu.model.Recruitment">
         UPDATE recruitment
         <set>
             <if test=" publishTime !=null and publishTime != '' ">
                 publishTime = #{publishTime},
-            </if>
-            <if test=" validate !=null and validate != '' ">
-                validate = #{validate},
             </if>
             <if test=" companyId !=null and companyId != '' ">
                 company_id = #{companyId},
@@ -77,10 +78,15 @@
             <if test=" jobType  != 0 ">
                 job_type = #{jobType},
             </if>
+
+            <if test=" validate != -2 ">
+                validate = #{validate},
+            </if>
         </set>
         WHERE recruitment_id=#{recruitmentId}
     </update>
+    <!--&#45;&#45;         SELECT * FROM recruitment WHERE job_name LIKE #{arg0} OR description LIKE #{arg0} ORDER BY publish_time DESC LIMIT #{arg1},#{arg2}-->
     <select id="selectInstanceByKeyWord" resultType="xz.fzu.model.Recruitment" resultMap="resultMapper">
-        SELECT * FROM recruitment WHERE job_name LIKE #{arg0} OR description LIKE #{arg0} OR description LIKE #{arg0} ORDER BY publish_time DESC LIMIT #{arg1},#{arg2}
+        SELECT * FROM recruitment WHERE job_name LIKE #{arg0} OR description LIKE #{arg0} ORDER BY job_name LIKE  #{arg0} DESC LIMIT #{arg1},#{arg2}
     </select>
 </mapper>

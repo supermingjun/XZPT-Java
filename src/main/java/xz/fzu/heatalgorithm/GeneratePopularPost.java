@@ -1,21 +1,26 @@
 package xz.fzu.heatalgorithm;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import xz.fzu.model.HotPost;
+import xz.fzu.model.ResumeDelivery;
+import xz.fzu.service.ICompanyService;
+import xz.fzu.vo.RecruitmentVO;
+
+import javax.annotation.Resource;
+import java.util.*;
 /**
  * 生成热门岗位
  * @author LITM
  * @时间2019年5月3日 23:13:42
  */
 public class GeneratePopularPost {
-	 	public List<HotPost> generatePopularPostRank(List<ResumeDeliveryRecord> resumeDeliveryRecords) {
-	 		
+	@Resource
+	ICompanyService iCompanyService;
+
+	public List<HotPost> generatePopularPostRank(List<ResumeDelivery> resumeDeliveryRecords) {
+
 	 		Map<Integer,HotPost> hotPosts = new HashMap<Integer,HotPost>(400);
-	 		for(ResumeDeliveryRecord resumeDeliberyRecord : resumeDeliveryRecords) {
-	 			int recruitmentId = resumeDeliberyRecord.getRecruitmentId();
+		for (ResumeDelivery resumeDeliberyRecord : resumeDeliveryRecords) {
+			int recruitmentId = (int) resumeDeliberyRecord.getRecruitmentId();
 	 			if(hotPosts.get(recruitmentId)!=null) {
 	 				HotPost hotPost = hotPosts.get(recruitmentId);
 	 				hotPost.heatAdd();
@@ -32,4 +37,38 @@ public class GeneratePopularPost {
 	 		Collections.sort(hotPosts2);
 	 		return hotPosts2;
 	 	}
+
+	/**
+	 * list设置招聘信息的公司名字
+	 *
+	 * @param list 招聘信息数组
+	 * @return java.util.List<xz.fzu.vo.RecruitmentVO>
+	 * @author Murphy
+	 * @date 2019/5/3 0:37
+	 */
+	private void listSetCompanyName(List<RecruitmentVO> list) {
+
+		for (int i = 0; i < list.size(); i++) {
+			setCompanyName(list.get(i));
+		}
+	}
+
+	/**
+	 * 设置招聘信息公司名字
+	 *
+	 * @param recruitmentVO 招聘信息
+	 * @return xz.fzu.vo.RecruitmentVO
+	 * @author Murphy
+	 * @date 2019/5/3 0:37
+	 */
+	private void setCompanyName(RecruitmentVO recruitmentVO) {
+
+		String companyName = "公司不存在";
+		try {
+			companyName = iCompanyService.getInfoByCompanyId(recruitmentVO.getCompanyId()).getCompanyName();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		recruitmentVO.setCompanyName(companyName);
+	}
 }

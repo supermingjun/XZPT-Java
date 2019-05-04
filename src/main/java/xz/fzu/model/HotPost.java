@@ -1,9 +1,13 @@
-package xz.fzu.heatalgorithm;
+package xz.fzu.model;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * 热门岗位对象
  * @author LITM
  * @time:2019年5月3日 23:13:23
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class HotPost implements Comparable<HotPost>{
 	private int id;
 	private int recruitmentId;

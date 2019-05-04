@@ -33,7 +33,8 @@ public class Resume implements Serializable {
   private String projectExperience;
   private String practicalExperience;
   private long resumeStatus;
-    private long age;
+  private long age;
+  private String expectWork;
 
 
   public long getResumeId() {
@@ -206,4 +207,12 @@ public class Resume implements Serializable {
         this.age = age;
     }
 
+
+  public String getExpectWork() {
+    return expectWork;
+  }
+
+  public void setExpectWork(String expectWork) {
+    this.expectWork = expectWork;
+  }
 }
