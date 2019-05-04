@@ -17,6 +17,9 @@
     <select id="getInstance" parameterType="int" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
         SELECT * FROM resume_delivery WHERE resume_delivery_id = #{resumeDeliveryId}
     </select>
+    <select id="selectAll" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
+        SELECT * FROM resume_delivery
+    </select>
     <select id="userGetListInstance" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
          SELECT * FROM resume_delivery WHERE user_id = #{arg0} LIMIT #{arg1},#{arg2}
     </select>

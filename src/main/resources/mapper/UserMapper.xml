@@ -94,10 +94,10 @@
             <if test=" specialty != null and specialty != '' ">
                 specialty = #{specialty},
             </if>
-            <if test=" startTime != null and startTime != '' ">
+            <if test=" jobType != -1 ">
                 start_time = #{startTime},
             </if>
-            <if test=" endTime != null and endTime != '' ">
+            <if test=" jobType != -1 ">
                 end_time = #{endTime},
             </if>
             <if test=" workTime != 0 ">

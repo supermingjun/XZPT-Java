@@ -82,4 +82,12 @@ public interface IResumeDeliveryDao {
      */
     int updateInstance(ResumeDelivery resumeDelivery);
 
+    /**
+     * 获得所有的投递记录
+     *
+     * @return java.util.List<xz.fzu.model.ResumeDelivery>
+     * @author Murphy
+     * @date 2019/5/5 2:01
+     */
+    List<ResumeDelivery> selectAll();
 }

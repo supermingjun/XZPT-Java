@@ -234,19 +234,20 @@ public class RecruitmentController {
      */
     private void setLabel(RecruitmentVO recruitment) {
         String stationLabel = recruitment.getStationLabel();
-
         StringBuilder stationBuilder = new StringBuilder();
-        String[] integers = stationLabel.split(",");
-        for (String string : integers) {
-            try {
+        try {
+            String[] integers = stationLabel.split(",");
+            for (String string : integers) {
                 int integer = Integer.parseInt(string);
                 stationBuilder.append(iLabelService.getStationLabel(integer));
                 stationBuilder.append(",");
-            } catch (Exception e) {
-                e.printStackTrace();
+
             }
+            recruitment.setStation(stationBuilder.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            recruitment.setStation(stationBuilder.toString());
         }
-        recruitment.setStation(stationBuilder.toString());
         try {
             recruitment.setIndustry(iLabelService.getIndustryLabel((int) recruitment.getIndustryLabel()));
         } catch (Exception e) {

@@ -100,4 +100,10 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
         ;
 
     }
+
+    @Override
+    public List<ResumeDelivery> getAllRecord() {
+
+        return iResumeDeliveryDao.selectAll();
+    }
 }
