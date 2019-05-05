@@ -5,7 +5,7 @@
 <mapper namespace="xz.fzu.dao.IUserDao">
 
     <!--返回值的map-->
-    <resultMap id="selectMap" type="User">
+    <resultMap id="selectMap" type="xz.fzu.model.User">
         <result property="userId" column="user_id"/>
         <result property="telephone" column="telephone"/>
         <result property="passwd" column="passwd"/>
@@ -36,12 +36,12 @@
     </insert>
 
     <!--根据邮箱查找用户-->
-    <select id="selectByEmail" parameterType="java.lang.String" resultType="User" resultMap="selectMap">
+    <select id="selectByEmail" parameterType="java.lang.String" resultType="xz.fzu.model.User" resultMap="selectMap">
         SELECT * FROM user WHERE email = #{email}
     </select>
 
     <!--根据id查找用户 调用此方法前应先调用token得到userid的方法-->
-    <select id="selectByUserId" parameterType="java.lang.String" resultType="User" resultMap="selectMap">
+    <select id="selectByUserId" parameterType="java.lang.String" resultType="xz.fzu.model.User" resultMap="selectMap">
         SELECT *  FROM user WHERE user_id = #{userId}
     </select>
 
