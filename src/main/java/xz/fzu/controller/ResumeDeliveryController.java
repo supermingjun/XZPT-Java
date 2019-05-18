@@ -24,9 +24,6 @@ import java.util.List;
 @RestController
 public class ResumeDeliveryController {
 
-    //User
-
-
     @Resource
     IResumeDeliveryService iResumeDeliveryService;
     @Resource

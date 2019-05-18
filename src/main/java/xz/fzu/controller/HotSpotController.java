@@ -69,6 +69,7 @@ public class HotSpotController {
             }
             responseVO.setResultObject(list);
         }
+
         return responseVO;
     }
 }
