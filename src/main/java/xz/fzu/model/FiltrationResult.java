@@ -1,6 +1,7 @@
 package xz.fzu.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @author LITM
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
 public class FiltrationResult {
 
     private String userId;
@@ -19,23 +21,4 @@ public class FiltrationResult {
      */
     private List<RecommendResult> enterpriseSimilarityResults = new ArrayList<>();
 
-    public String getUserId() {
-
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-
-        this.userId = userId;
-    }
-
-    public List<RecommendResult> getEnterpriseSimilarityResults() {
-
-        return enterpriseSimilarityResults;
-    }
-
-    public void setEnterpriseSimilarityResults(List<RecommendResult> enterpriseSimilarityResults) {
-
-        this.enterpriseSimilarityResults = enterpriseSimilarityResults;
-    }
 }

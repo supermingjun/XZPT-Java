@@ -12,7 +12,7 @@ import xz.fzu.model.RecommendResult;
 import xz.fzu.model.Recruitment;
 import xz.fzu.model.RecruitmentProfile;
 import xz.fzu.service.*;
-import xz.fzu.vo.ResponseData;
+import xz.fzu.vo.ResponseVO;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -66,15 +66,15 @@ public class RecommendController {
 
     /**
      * @param token token
-     * @return xz.fzu.vo.ResponseData
+     * @return xz.fzu.vo.ResponseVO
      * @author Murphy
      * @date 2019/4/29 21:53
      * @description 推荐接口
      */
     @RequestMapping(value = "/getrecommend", method = RequestMethod.POST)
-    public ResponseData<List<Recruitment>> getRecommend(@RequestParam String token) throws TokenExpiredException, InstanceNotExistException {
+    public ResponseVO<List<Recruitment>> getRecommend(@RequestParam String token) throws TokenExpiredException, InstanceNotExistException {
 
-        ResponseData<List<Recruitment>> responseData = new ResponseData<>();
+        ResponseVO<List<Recruitment>> responseVO = new ResponseVO<>();
         String userId = iUserService.verifyToken(token);
         List<RecommendResult> recruitmentProfiles = iRecommendService.getListResult(userId);
         List<Recruitment> list = new ArrayList<>();
@@ -87,9 +87,9 @@ public class RecommendController {
         if (list.size() == 0) {
             throw new InstanceNotExistException();
         }
-        responseData.setResultObject(list);
+        responseVO.setResultObject(list);
 
-        return responseData;
+        return responseVO;
     }
 
     /**

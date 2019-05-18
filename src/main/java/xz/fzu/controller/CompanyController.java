@@ -7,7 +7,7 @@ import xz.fzu.model.Company;
 import xz.fzu.service.ICompanyService;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IVerificationCodeService;
-import xz.fzu.vo.ResponseData;
+import xz.fzu.vo.ResponseVO;
 
 import javax.annotation.Resource;
 
@@ -47,15 +47,15 @@ public class CompanyController {
      */
     @RequestMapping("/login")
     @ResponseBody
-    public ResponseData<String> login(@RequestBody Company company) throws PasswordErrorException {
+    public ResponseVO<String> login(@RequestBody Company company) throws PasswordErrorException {
 
         String email = company.getEmail();
         String passwd = company.getPasswd();
-        ResponseData<String> responseData = new ResponseData<>();
+        ResponseVO<String> responseVO = new ResponseVO<>();
         String token = iCompanyService.login(email, passwd);
-        responseData.setResultObject(token);
+        responseVO.setResultObject(token);
 
-        return responseData;
+        return responseVO;
     }
 
     /**
@@ -67,12 +67,12 @@ public class CompanyController {
      */
     @RequestMapping(value = "/vertifytoken", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData loginWithToken(@RequestParam String token) throws TokenExpiredException {
+    public ResponseVO loginWithToken(@RequestParam String token) throws TokenExpiredException {
 
-        ResponseData responseData = new ResponseData();
+        ResponseVO responseVO = new ResponseVO();
         iCompanyService.verifyToken(token);
 
-        return responseData;
+        return responseVO;
     }
 
     /**
@@ -85,12 +85,12 @@ public class CompanyController {
      */
     @RequestMapping("/register")
     @ResponseBody
-    public ResponseData register(@RequestBody Company company, @RequestParam int code) throws ValidationException, NoVerificationCodeException {
+    public ResponseVO register(@RequestBody Company company, @RequestParam int code) throws ValidationException, NoVerificationCodeException {
 
-        ResponseData responseData = new ResponseData();
+        ResponseVO responseVO = new ResponseVO();
         iCompanyService.register(company, code);
 
-        return responseData;
+        return responseVO;
     }
 
 
@@ -103,15 +103,15 @@ public class CompanyController {
      */
     @RequestMapping(value = "/getcompanybytoken", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<Company> getUser(@RequestParam String token) throws UserNotFoundException, TokenExpiredException {
+    public ResponseVO<Company> getUser(@RequestParam String token) throws UserNotFoundException, TokenExpiredException {
 
-        ResponseData<Company> responseData = new ResponseData<>();
+        ResponseVO<Company> responseVO = new ResponseVO<>();
         Company company = iCompanyService.getInfoByToken(token);
         company.setPasswd(null);
         company.setToken(null);
-        responseData.setResultObject(company);
+        responseVO.setResultObject(company);
 
-        return responseData;
+        return responseVO;
     }
 
     /**
@@ -125,13 +125,13 @@ public class CompanyController {
      */
     @RequestMapping(value = "/updatepasswd", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<String> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) throws TokenExpiredException, PasswordErrorException {
+    public ResponseVO<String> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) throws TokenExpiredException, PasswordErrorException {
 
-        ResponseData<String> responseData = new ResponseData<>();
+        ResponseVO<String> responseVO = new ResponseVO<>();
         String newToken = iCompanyService.updatePasswd(token, oldPasswd, newPasswd);
-        responseData.setResultObject(newToken);
+        responseVO.setResultObject(newToken);
 
-        return responseData;
+        return responseVO;
     }
 
 
@@ -145,12 +145,12 @@ public class CompanyController {
      */
     @RequestMapping(value = "/updateinfo", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData updateInfo(@RequestBody Company company, @RequestParam String token) throws TokenExpiredException {
+    public ResponseVO updateInfo(@RequestBody Company company, @RequestParam String token) throws TokenExpiredException {
 
-        ResponseData responseData = new ResponseData();
+        ResponseVO responseVO = new ResponseVO();
         iCompanyService.updateInfoByToken(company, token);
 
-        return responseData;
+        return responseVO;
     }
 
 
@@ -164,13 +164,13 @@ public class CompanyController {
      */
     @RequestMapping(value = "/resetpasswd", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationException, NoVerificationCodeException, TokenExpiredException {
+    public ResponseVO resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationException, NoVerificationCodeException, TokenExpiredException {
 
-        ResponseData responseData = new ResponseData();
+        ResponseVO responseVO = new ResponseVO();
         iVerificationCodeService.verifyCode(email, code);
         iCompanyService.resetPasswd(email, passwd);
 
-        return responseData;
+        return responseVO;
     }
 
 }

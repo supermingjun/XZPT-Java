@@ -1,6 +1,7 @@
 package xz.fzu.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 import xz.fzu.util.Constants;
 
 /**
@@ -8,37 +9,14 @@ import xz.fzu.util.Constants;
  * @date 2019/4/26 20:52
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseData<T> {
+@Data
+public class ResponseVO<T> {
     private Integer resultCode;
     private String resultMsg;
     private T resultObject;
 
-    public ResponseData() {
+    public ResponseVO() {
         this.resultCode = Constants.OK;
-    }
-
-    public Integer getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(Integer resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public String getResultMsg() {
-        return resultMsg;
-    }
-
-    public void setResultMsg(String resultMsg) {
-        this.resultMsg = resultMsg;
-    }
-
-    public T getResultObject() {
-        return resultObject;
-    }
-
-    public void setResultObject(T resultObject) {
-        this.resultObject = resultObject;
     }
 
     /**

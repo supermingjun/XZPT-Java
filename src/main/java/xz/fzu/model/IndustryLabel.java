@@ -2,6 +2,7 @@ package xz.fzu.model;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -14,29 +15,12 @@ import java.io.Serializable;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "industry_label")
+@Data
 public class IndustryLabel implements Serializable {
 
     private static final long serialVersionUID = 1;
     @Id
     private long id;
     private String content;
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 
 }

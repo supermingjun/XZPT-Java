@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import xz.fzu.model.User;
 import xz.fzu.service.IVerificationCodeService;
-import xz.fzu.vo.ResponseData;
+import xz.fzu.vo.ResponseVO;
 
 import javax.annotation.Resource;
 
@@ -39,12 +39,12 @@ public class VerificationCodeController {
      */
     @RequestMapping(value = "/*")
     @ResponseBody
-    public ResponseData getVerificationCode(@RequestBody User user) throws EmailException {
+    public ResponseVO getVerificationCode(@RequestBody User user) throws EmailException {
 
-        ResponseData responseData = new ResponseData();
+        ResponseVO responseVO = new ResponseVO();
         String email = user.getEmail();
         iValidateCodeService.sendValidateCode(email);
 
-        return responseData;
+        return responseVO;
     }
 }
