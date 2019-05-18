@@ -41,7 +41,7 @@ public class UserServiceImpl implements IUserService {
         user.setPasswd(Sha.encrypt(user.getPasswd()));
         String token = TokenUtil.createToken(user.getUserId(), user.getPasswd());
         user.setToken(token);
-        iUserDao.insertUser(user);
+        iUserDao.insert(user);
 
         return token;
     }
@@ -107,7 +107,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param token token
+     * @param token  token
      * @param userId 用户id
      * @author Murphy
      * @date 2019/4/24 14:04
@@ -137,7 +137,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param user 用户实例
+     * @param user  用户实例
      * @param token token
      * @return void
      * @author Murphy
@@ -155,7 +155,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param token token
+     * @param token     token
      * @param oldPasswd 旧密码
      * @param newPasswd 新密码
      * @return java.lang.String
@@ -184,7 +184,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param email 邮件地址
+     * @param email  邮件地址
      * @param passwd 密码
      * @return void
      * @author Murphy

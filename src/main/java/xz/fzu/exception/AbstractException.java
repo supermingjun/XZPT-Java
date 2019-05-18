@@ -8,15 +8,15 @@ public abstract class AbstractException extends Exception {
 
     private int errorCode;
 
+    public AbstractException(String value) {
+        super(value);
+    }
+
     public int getErrorCode() {
         return errorCode;
     }
 
     void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
-    }
-
-    public AbstractException(String value) {
-        super(value);
     }
 }

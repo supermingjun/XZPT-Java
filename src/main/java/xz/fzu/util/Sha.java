@@ -11,6 +11,10 @@ import java.security.MessageDigest;
 public class Sha {
     private static final String KEY_SHA = "Sha";
     //TODO 更换key
+
+    private Sha() {
+    }
+
     /**
      * @param passwd 密码
      * @return java.lang.String
@@ -31,8 +35,5 @@ public class Sha {
         }
         String str = sha.toString(32);
         return str.length() >= 32 ? str.substring(0, 32) : str;
-    }
-
-    private Sha() {
     }
 }

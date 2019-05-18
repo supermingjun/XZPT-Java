@@ -31,7 +31,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
         resumeDelivery.setResumeId(resumeId);
         resumeDelivery.setUserId(userId);
         resumeDelivery.setDeliveryStatus(1);
-        iResumeDeliveryDao.insertInstance(resumeDelivery);
+        iResumeDeliveryDao.insert(resumeDelivery);
 
     }
 
@@ -97,7 +97,6 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
         if (iResumeDeliveryDao.updateInstance(resumeDelivery) == 0) {
             throw new RuntimeException("数据没有更新" + resumeDelivery.getDeliveryStatus() + "，Id是" + resumeDelivery.getResumeDeliveryId() + "。");
         }
-        ;
 
     }
 

@@ -6,6 +6,7 @@ import xz.fzu.exception.ValidationException;
 
 /**
  * 发送验证码相关的Service接口
+ *
  * @author Murphy
  */
 public interface IVerificationCodeService {
@@ -25,9 +26,9 @@ public interface IVerificationCodeService {
      * 验证验证码
      *
      * @param email 邮件地址
-     * @param code 验证码
+     * @param code  验证码
      * @return boolean
-     * @throws ValidationException       验证错误
+     * @throws ValidationException         验证错误
      * @throws NoVerificationCodeException 没有获取验证码异常
      * @author Murphy
      * @date 2019/5/2 19:49

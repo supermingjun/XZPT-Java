@@ -9,10 +9,10 @@ import xz.fzu.algorithm.RecommendAlgorithm;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.RecommendResult;
+import xz.fzu.model.Recruitment;
 import xz.fzu.model.RecruitmentProfile;
 import xz.fzu.service.*;
-import xz.fzu.vo.RecruitmentVO;
-import xz.fzu.vo.ResponseData;
+import xz.fzu.vo.ResponseVO;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * 推荐算法相关的控制器
+ *
  * @author Murphy
  * @date 2019/4/30 19:29
  */
@@ -36,6 +37,10 @@ public class RecommendController {
 
     @Resource
     IRecruitmentService iRecruitmentService;
+    @Resource
+    IRecommendService iRecommendService;
+    @Resource
+    ICompanyService iCompanyService;
     @Autowired
     public RecommendController(RecommendAlgorithm recomAlgorithm, IProfileService iProfileService, IRecommendService iRecommendService) {
         this.iProfileService = iProfileService;
@@ -59,48 +64,43 @@ public class RecommendController {
         }).start();
     }
 
-    @Resource
-    IRecommendService iRecommendService;
-    @Resource
-    ICompanyService iCompanyService;
-
     /**
      * @param token token
-     * @return xz.fzu.vo.ResponseData
+     * @return xz.fzu.vo.ResponseVO
      * @author Murphy
      * @date 2019/4/29 21:53
      * @description 推荐接口
      */
     @RequestMapping(value = "/getrecommend", method = RequestMethod.POST)
-    public ResponseData<List<RecruitmentVO>> getRecommend(@RequestParam String token) throws TokenExpiredException, InstanceNotExistException {
+    public ResponseVO<List<Recruitment>> getRecommend(@RequestParam String token) throws TokenExpiredException, InstanceNotExistException {
 
-        ResponseData<List<RecruitmentVO>> responseData = new ResponseData<>();
+        ResponseVO<List<Recruitment>> responseVO = new ResponseVO<>();
         String userId = iUserService.verifyToken(token);
         List<RecommendResult> recruitmentProfiles = iRecommendService.getListResult(userId);
-        List<RecruitmentVO> list = new ArrayList<>();
+        List<Recruitment> list = new ArrayList<>();
         for (RecommendResult recommendResult : recruitmentProfiles) {
             int recruitmentId = recommendResult.getRecruitmentId();
-            RecruitmentVO recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
+            Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
             setCompanyName(recruitment);
             list.add(recruitment);
         }
         if (list.size() == 0) {
             throw new InstanceNotExistException();
         }
-        responseData.setResultObject(list);
+        responseVO.setResultObject(list);
 
-        return responseData;
+        return responseVO;
     }
 
     /**
      * 设置招聘信息公司名字
      *
      * @param recruitmentVO 招聘信息
-     * @return xz.fzu.vo.RecruitmentVO
+     * @return xz.fzu.vo.Recruitment
      * @author Murphy
      * @date 2019/5/3 0:37
      */
-    private void setCompanyName(RecruitmentVO recruitmentVO) {
+    private void setCompanyName(Recruitment recruitmentVO) {
 
         String companyName = "公司不存在";
         try {

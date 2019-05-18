@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * 推荐结果相关的dao
+ *
  * @author Murphy
  */
 @Repository
@@ -14,6 +15,7 @@ public interface IRecommendResultDao {
 
     /**
      * 插入一条推荐记录
+     *
      * @param recommendResult 推荐结果
      * @return void
      * @author Murphy
@@ -23,6 +25,7 @@ public interface IRecommendResultDao {
 
     /**
      * 获得许多条记录
+     *
      * @param userId 用户的id
      * @return java.util.List<xz.fzu.model.RecommendResult>
      * @author Murphy
@@ -32,6 +35,7 @@ public interface IRecommendResultDao {
 
     /**
      * 删除所有的记录
+     *
      * @return void
      * @author Murphy
      * @date 2019/5/1 12:41
