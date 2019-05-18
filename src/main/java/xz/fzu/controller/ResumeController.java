@@ -60,7 +60,7 @@ public class ResumeController {
      */
     @RequestMapping(value = "/user/getresume", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO<Resume> getResume(@RequestParam String token, @RequestParam int resumeId) throws InstanceNotExistException, TokenExpiredException {
+    public ResponseVO<Resume> getResume(@RequestParam String token, @RequestParam Long resumeId) throws InstanceNotExistException, TokenExpiredException {
 
         ResponseVO<Resume> responseVO = new ResponseVO<>();
         String userId = iUserService.verifyToken(token);

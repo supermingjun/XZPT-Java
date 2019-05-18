@@ -12,8 +12,8 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class HotPost implements Comparable<HotPost> {
-    private Integer id;
-    private Integer recruitmentId;
+    private Long id;
+    private Long recruitmentId;
     private Integer heat;
 
     public void heatAdd() {

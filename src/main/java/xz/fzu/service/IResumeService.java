@@ -75,7 +75,7 @@ public interface IResumeService {
      * @author Murphy
      * @date 2019/4/30 0:17
      */
-    Resume getResume(String userId, int resumeId) throws InstanceNotExistException;
+    Resume getResume(String userId, Long resumeId) throws InstanceNotExistException;
 
     /**
      * copy简历，并返回主键

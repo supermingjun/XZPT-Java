@@ -52,8 +52,8 @@ public class ResumeDeliveryController {
         String userId = iUserService.verifyToken(token);
         iResumeService.copyResume(resumeId);
         Resume resume = new Resume();
-        resume.setResumeId(resumeId);
-        resume.setResumeStatus(1);
+        resume.setResumeId((long) resumeId);
+        resume.setResumeStatus(1L);
         iResumeService.updateResume(userId, resume);
         iResumeDeliveryService.deliveryResume(userId, resumeId, recruitmentId);
 
@@ -73,7 +73,7 @@ public class ResumeDeliveryController {
 
         ResponseVO responseVO = new ResponseVO();
         iUserService.verifyToken(token);
-        resumeDelivery.setDeliveryStatus(0);
+        resumeDelivery.setDeliveryStatus(0L);
         iResumeDeliveryService.updateResumeDeliveryRecord(resumeDelivery);
 
         return responseVO;
@@ -152,8 +152,8 @@ public class ResumeDeliveryController {
         ResponseVO responseVO = new ResponseVO();
 
         // 更新简历投递中的记录
-        long resumeId = iResumeDeliveryService.getResumeDeliveryRecordById((int) resumeDelivery.getResumeDeliveryId()).getResumeId();
-        Resume resume = iResumeService.getResume(null, (int) resumeId);
+        long resumeId = iResumeDeliveryService.getResumeDeliveryRecordById(resumeDelivery.getResumeDeliveryId()).getResumeId();
+        Resume resume = iResumeService.getResume(null, resumeId);
         resume.setResumeStatus(resumeDelivery.getDeliveryStatus());
         iResumeService.updateResume(resume.getUserId(), resume);
 
@@ -210,7 +210,7 @@ public class ResumeDeliveryController {
     private ResponseVO<ResumeDelivery> getDeliveryRecordById(int resumeDeliveryId) throws InstanceNotExistException {
 
         ResponseVO<ResumeDelivery> responseVO = new ResponseVO<>();
-        ResumeDelivery resumeDelivery = iResumeDeliveryService.getResumeDeliveryRecordById(resumeDeliveryId);
+        ResumeDelivery resumeDelivery = iResumeDeliveryService.getResumeDeliveryRecordById((long) resumeDeliveryId);
         responseVO.setResultObject(castResumeDeliveryRecordVO(resumeDelivery));
 
         return responseVO;
@@ -230,7 +230,7 @@ public class ResumeDeliveryController {
 
         ResponseVO<Resume> responseVO = new ResponseVO<>();
         iCompanyService.verifyToken(token);
-        Resume resume = iResumeService.getResume(null, resumeId);
+        Resume resume = iResumeService.getResume(null, (long) resumeId);
         responseVO.setResultObject(resume);
 
         return responseVO;
@@ -267,8 +267,8 @@ public class ResumeDeliveryController {
         String userId = resumeDelivery.getUserId();
         resumeDelivery.setUserName(iUserService.selectByUserId(userId).getUserName());
         resumeDelivery.setRecruitmentName(iRecruitmentService.getRecruitmentById(resumeDelivery.getRecruitmentId()).getJobName());
-        resumeDelivery.setSchool(iResumeService.getResume(null, (int) resumeDelivery.getResumeId()).getSchool());
-        resumeDelivery.setSpeciality(iResumeService.getResume(null, (int) resumeDelivery.getResumeId()).getSpeciality());
+        resumeDelivery.setSchool(iResumeService.getResume(null, resumeDelivery.getResumeId()).getSchool());
+        resumeDelivery.setSpeciality(iResumeService.getResume(null, resumeDelivery.getResumeId()).getSpeciality());
 
         return resumeDelivery;
     }

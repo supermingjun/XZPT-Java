@@ -27,10 +27,10 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     public void deliveryResume(String userId, int resumeId, int recruitmentId) {
 
         ResumeDelivery resumeDelivery = new ResumeDelivery();
-        resumeDelivery.setRecruitmentId(recruitmentId);
-        resumeDelivery.setResumeId(resumeId);
+        resumeDelivery.setRecruitmentId((long) recruitmentId);
+        resumeDelivery.setResumeId((long) resumeId);
         resumeDelivery.setUserId(userId);
-        resumeDelivery.setDeliveryStatus(1);
+        resumeDelivery.setDeliveryStatus(1L);
         iResumeDeliveryDao.insert(resumeDelivery);
 
     }
@@ -71,7 +71,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     }
 
     @Override
-    public ResumeDelivery getResumeDeliveryRecordById(int resumeDeliveryId) throws InstanceNotExistException {
+    public ResumeDelivery getResumeDeliveryRecordById(Long resumeDeliveryId) throws InstanceNotExistException {
 
         ResumeDelivery resumeDelivery = iResumeDeliveryDao.getInstance(resumeDeliveryId);
         if (resumeDelivery == null) {
@@ -103,6 +103,6 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     @Override
     public List<ResumeDelivery> getAllRecord() {
 
-        return iResumeDeliveryDao.selectAll();
+        return iResumeDeliveryDao.mySelectAll();
     }
 }

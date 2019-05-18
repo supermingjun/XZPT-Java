@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2019/4/30 15:25
  */
 @Repository
-public interface IResumeDeliveryDao  extends Mapper<ResumeDelivery> {
+public interface IResumeDeliveryDao extends Mapper<ResumeDelivery> {
 
     /**
      * 插入一条记录
@@ -35,7 +35,7 @@ public interface IResumeDeliveryDao  extends Mapper<ResumeDelivery> {
      * @author Murphy
      * @date 2019/4/30 15:31
      */
-    ResumeDelivery getInstance(int resumeDeliveryId) throws InstanceNotExistException;
+    ResumeDelivery getInstance(Long resumeDeliveryId) throws InstanceNotExistException;
 
     /**
      * 用户获得投递记录
@@ -98,5 +98,5 @@ public interface IResumeDeliveryDao  extends Mapper<ResumeDelivery> {
      * @author Murphy
      * @date 2019/5/5 2:01
      */
-    List<ResumeDelivery> selectAll();
+    List<ResumeDelivery> mySelectAll();
 }
