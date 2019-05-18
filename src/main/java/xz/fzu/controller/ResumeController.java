@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * 历相关的控制器
+ *
  * @author Murphy
  * @date 2019/5/2 13:47
  */
@@ -29,7 +30,7 @@ public class ResumeController {
     // User
 
     /**
-     * @param token token
+     * @param token    token
      * @param pageData 页信息
      * @return xz.fzu.vo.ResponseData<xz.fzu.vo.PageData>
      * @author Murphy
@@ -50,7 +51,7 @@ public class ResumeController {
     }
 
     /**
-     * @param token token
+     * @param token    token
      * @param resumeId 简历id
      * @return xz.fzu.vo.ResponseData<xz.fzu.model.Resume>
      * @author Murphy
@@ -70,7 +71,7 @@ public class ResumeController {
     }
 
     /**
-     * @param token token
+     * @param token  token
      * @param resume 简历实例
      * @return xz.fzu.vo.ResponseData<xz.fzu.model.Resume>
      * @author Murphy
@@ -89,7 +90,7 @@ public class ResumeController {
     }
 
     /**
-     * @param token token
+     * @param token  token
      * @param resume 简历实例
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
@@ -108,7 +109,7 @@ public class ResumeController {
     }
 
     /**
-     * @param token token
+     * @param token    token
      * @param resumeId 简历id
      * @return xz.fzu.vo.ResponseData<xz.fzu.model.Resume>
      * @author Murphy

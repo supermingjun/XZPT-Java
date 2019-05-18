@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 
 /**
  * 企业相关的控制器
+ *
  * @author Murphy
  * @date 2019/4/25 20:13
  */
@@ -76,7 +77,7 @@ public class CompanyController {
 
     /**
      * @param company 企业实例
-     * @param code 验证码
+     * @param code    验证码
      * @return java.util.Map
      * @author Murphy
      * @date 2019/4/25 20:37
@@ -114,7 +115,7 @@ public class CompanyController {
     }
 
     /**
-     * @param token token
+     * @param token     token
      * @param oldPasswd 旧密码
      * @param newPasswd 新密码
      * @return java.util.Map<java.lang.Object, java.lang.Object>
@@ -136,7 +137,7 @@ public class CompanyController {
 
     /**
      * @param company 企业实例
-     * @param token token
+     * @param token   token
      * @return java.util.Map<java.lang.Object, java.lang.Object>
      * @author Murphy
      * @date 2019/4/25 17:18
@@ -154,7 +155,7 @@ public class CompanyController {
 
 
     /**
-     * @param code 验证码
+     * @param code   验证码
      * @param passwd 密码
      * @return java.util.Map<java.lang.Object, java.lang.Object>
      * @author Murphy

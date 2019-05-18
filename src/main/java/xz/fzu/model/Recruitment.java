@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  * Auto-generator
@@ -20,7 +21,7 @@ public class Recruitment implements Serializable {
 
     @Id
     private long recruitmentId;
-    private java.sql.Timestamp publishTime;
+    private Timestamp publishTime;
     private long validate;
     private String companyId;
     private String jobName;

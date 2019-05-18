@@ -5,6 +5,7 @@ import org.apache.commons.mail.HtmlEmail;
 
 /**
  * 发送邮件相关的工具
+ *
  * @author Murphy
  */
 public class EmailUtil {
@@ -13,6 +14,32 @@ public class EmailUtil {
      * EmailUtil的静态引用
      */
     private volatile static EmailUtil emailUtil;
+
+    /**
+     * @author Murphy
+     * @date 2019/4/19 0:01
+     * @description 匿名构造函数
+     */
+    private EmailUtil() {
+
+    }
+
+    /**
+     * @return xz.fzu.util.EmailUtil
+     * @author Murphy
+     * @date 2019/4/18 23:59
+     * @description 返回单例
+     */
+    public static EmailUtil getInstance() {
+        if (emailUtil == null) {
+            synchronized (EmailUtil.class) {
+                if (emailUtil == null) {
+                    emailUtil = new EmailUtil();
+                }
+            }
+        }
+        return emailUtil;
+    }
 
     /**
      * 向指定邮箱发送验证码
@@ -43,40 +70,13 @@ public class EmailUtil {
     }
 
     /**
-     * @author Murphy
-     * @date 2019/4/19 0:01
-     * @description 匿名构造函数
-     */
-    private EmailUtil() {
-
-    }
-
-
-    /**
-     * @return xz.fzu.util.EmailUtil
-     * @author Murphy
-     * @date 2019/4/18 23:59
-     * @description 返回单例
-     */
-    public static EmailUtil getInstance() {
-        if (emailUtil == null) {
-            synchronized (EmailUtil.class) {
-                if (emailUtil == null) {
-                    emailUtil = new EmailUtil();
-                }
-            }
-        }
-        return emailUtil;
-    }
-
-    /**
+     * @return int
      * @author Murphy
      * @date 2019/4/19 0:14
-     * @return int
      * @description 产生随机的6位数验证码
      */
-    private int getRandomCode(){
-        return (int)(Math.random()*100000*0.9+100000);
+    private int getRandomCode() {
+        return (int) (Math.random() * 100000 * 0.9 + 100000);
     }
 
 }

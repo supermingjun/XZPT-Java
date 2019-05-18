@@ -3,6 +3,8 @@ package xz.fzu.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -11,192 +13,194 @@ import java.io.Serializable;
  * @author Murphy
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Table(name = "resume")
 public class Resume implements Serializable {
 
-  private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
-  private long resumeId;
-  private String userId;
-  private String telephone;
-  private String userName;
-  private String headUrl;
-  private String email;
-  private long sex;
-  private String presentCity;
-  private String expectedCity;
-  private String school;
-  private String speciality;
-  private java.sql.Date startTime;
-  private java.sql.Date endTime;
-  private long highestEducation;
-  private String certificate;
-  private String projectExperience;
-  private String practicalExperience;
-  private long resumeStatus;
-  private long age;
-  private String expectWork;
-
-
-  public long getResumeId() {
-    return resumeId;
-  }
-
-  public void setResumeId(long resumeId) {
-    this.resumeId = resumeId;
-  }
+    @Id
+    private long resumeId;
+    private String userId;
+    private String telephone;
+    private String userName;
+    private String headUrl;
+    private String email;
+    private long sex;
+    private String presentCity;
+    private String expectedCity;
+    private String school;
+    private String speciality;
+    private java.sql.Date startTime;
+    private java.sql.Date endTime;
+    private long highestEducation;
+    private String certificate;
+    private String projectExperience;
+    private String practicalExperience;
+    private long resumeStatus;
+    private long age;
+    private String expectWork;
 
 
-  public String getUserId() {
-    return userId;
-  }
+    public long getResumeId() {
+        return resumeId;
+    }
 
-  public void setUserId(String userId) {
-    this.userId = userId;
-  }
-
-
-  public String getTelephone() {
-    return telephone;
-  }
-
-  public void setTelephone(String telephone) {
-    this.telephone = telephone;
-  }
+    public void setResumeId(long resumeId) {
+        this.resumeId = resumeId;
+    }
 
 
-  public String getUserName() {
-    return userName;
-  }
+    public String getUserId() {
+        return userId;
+    }
 
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
-
-
-  public String getHeadUrl() {
-    return headUrl;
-  }
-
-  public void setHeadUrl(String headUrl) {
-    this.headUrl = headUrl;
-  }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
 
-  public String getEmail() {
-    return email;
-  }
+    public String getTelephone() {
+        return telephone;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-
-  public long getSex() {
-    return sex;
-  }
-
-  public void setSex(long sex) {
-    this.sex = sex;
-  }
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
 
-  public String getPresentCity() {
-    return presentCity;
-  }
+    public String getUserName() {
+        return userName;
+    }
 
-  public void setPresentCity(String presentCity) {
-    this.presentCity = presentCity;
-  }
-
-
-  public String getExpectedCity() {
-    return expectedCity;
-  }
-
-  public void setExpectedCity(String expectedCity) {
-    this.expectedCity = expectedCity;
-  }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
 
-  public String getSchool() {
-    return school;
-  }
+    public String getHeadUrl() {
+        return headUrl;
+    }
 
-  public void setSchool(String school) {
-    this.school = school;
-  }
-
-
-  public String getSpeciality() {
-    return speciality;
-  }
-
-  public void setSpeciality(String speciality) {
-    this.speciality = speciality;
-  }
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
+    }
 
 
-  public java.sql.Date getStartTime() {
-    return startTime;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setStartTime(java.sql.Date startTime) {
-    this.startTime = startTime;
-  }
-
-
-  public java.sql.Date getEndTime() {
-    return endTime;
-  }
-
-  public void setEndTime(java.sql.Date endTime) {
-    this.endTime = endTime;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 
-  public long getHighestEducation() {
-    return highestEducation;
-  }
+    public long getSex() {
+        return sex;
+    }
 
-  public void setHighestEducation(long highestEducation) {
-    this.highestEducation = highestEducation;
-  }
-
-
-  public String getCertificate() {
-    return certificate;
-  }
-
-  public void setCertificate(String certificate) {
-    this.certificate = certificate;
-  }
+    public void setSex(long sex) {
+        this.sex = sex;
+    }
 
 
-  public String getProjectExperience() {
-    return projectExperience;
-  }
+    public String getPresentCity() {
+        return presentCity;
+    }
 
-  public void setProjectExperience(String projectExperience) {
-    this.projectExperience = projectExperience;
-  }
-
-
-  public String getPracticalExperience() {
-    return practicalExperience;
-  }
-
-  public void setPracticalExperience(String practicalExperience) {
-    this.practicalExperience = practicalExperience;
-  }
+    public void setPresentCity(String presentCity) {
+        this.presentCity = presentCity;
+    }
 
 
-  public long getResumeStatus() {
-    return resumeStatus;
-  }
+    public String getExpectedCity() {
+        return expectedCity;
+    }
 
-  public void setResumeStatus(long resumeStatus) {
-    this.resumeStatus = resumeStatus;
-  }
+    public void setExpectedCity(String expectedCity) {
+        this.expectedCity = expectedCity;
+    }
+
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+
+    public java.sql.Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(java.sql.Date startTime) {
+        this.startTime = startTime;
+    }
+
+
+    public java.sql.Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(java.sql.Date endTime) {
+        this.endTime = endTime;
+    }
+
+
+    public long getHighestEducation() {
+        return highestEducation;
+    }
+
+    public void setHighestEducation(long highestEducation) {
+        this.highestEducation = highestEducation;
+    }
+
+
+    public String getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(String certificate) {
+        this.certificate = certificate;
+    }
+
+
+    public String getProjectExperience() {
+        return projectExperience;
+    }
+
+    public void setProjectExperience(String projectExperience) {
+        this.projectExperience = projectExperience;
+    }
+
+
+    public String getPracticalExperience() {
+        return practicalExperience;
+    }
+
+    public void setPracticalExperience(String practicalExperience) {
+        this.practicalExperience = practicalExperience;
+    }
+
+
+    public long getResumeStatus() {
+        return resumeStatus;
+    }
+
+    public void setResumeStatus(long resumeStatus) {
+        this.resumeStatus = resumeStatus;
+    }
 
 
     public long getAge() {
@@ -208,11 +212,11 @@ public class Resume implements Serializable {
     }
 
 
-  public String getExpectWork() {
-    return expectWork;
-  }
+    public String getExpectWork() {
+        return expectWork;
+    }
 
-  public void setExpectWork(String expectWork) {
-    this.expectWork = expectWork;
-  }
+    public void setExpectWork(String expectWork) {
+        this.expectWork = expectWork;
+    }
 }

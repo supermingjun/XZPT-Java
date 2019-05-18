@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * 招聘信息相关的控制器
+ *
  * @author Murphy
  * @date 2019/5/2 13:56
  */
@@ -34,10 +35,12 @@ public class RecruitmentController {
     IRecruitmentService iRecruitmentService;
     @Resource
     IUserService iUserService;
+    @Resource
+    ILabelService iLabelService;
 
     /**
      * @param recruitment 招聘细腻实例
-     * @param token token
+     * @param token       token
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/27 11:06
@@ -45,19 +48,20 @@ public class RecruitmentController {
      */
     @RequestMapping(value = "/company/releaserecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData releaseRecruitment(@RequestBody xz.fzu.model.Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException {
+    public ResponseData releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException {
 
         ResponseData responseData = new ResponseData();
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
         recruitment.setCompanyId(company.getCompanyId());
+        recruitment.setValidate(0);
         iRecruitmentService.insertRecruitment(recruitment);
 
         return responseData;
     }
 
     /**
-     * @param token token
+     * @param token         token
      * @param recruitmentId 招聘信息的id
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
@@ -95,6 +99,9 @@ public class RecruitmentController {
         return responseData;
     }
 
+
+    //User
+
     /**
      * @param token token
      * @return xz.fzu.vo.ResponseData
@@ -113,9 +120,6 @@ public class RecruitmentController {
 
         return responseData;
     }
-
-
-    //User
 
     /**
      * @param token token
@@ -137,7 +141,7 @@ public class RecruitmentController {
     }
 
     /**
-     * @param token token
+     * @param token         token
      * @param recruitmentId 招聘信息的id
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
@@ -153,11 +157,10 @@ public class RecruitmentController {
         return getRecruitmentById(recruitmentId);
     }
 
-
     /**
-     * @param token token
+     * @param token     token
      * @param companyId 企业id
-     * @param pageData 页码信息相关
+     * @param pageData  页码信息相关
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
      * @date 2019/4/27 11:15
@@ -177,8 +180,11 @@ public class RecruitmentController {
         return responseData;
     }
 
+
+    //Same
+
     /**
-     * @param token token
+     * @param token   token
      * @param keyWord 关键词
      * @return xz.fzu.vo.ResponseData<java.util.List < xz.fzu.model.Recruitment>>
      * @author Murphy
@@ -198,12 +204,6 @@ public class RecruitmentController {
 
         return responseData;
     }
-
-
-    //Same
-
-    @Resource
-    ILabelService iLabelService;
 
     /**
      * @param recruitmentId 招聘信息id
@@ -258,7 +258,7 @@ public class RecruitmentController {
     /**
      * list设置招聘信息的公司名字
      *
-     * @param list  招聘信息数组
+     * @param list 招聘信息数组
      * @return java.util.List<xz.fzu.vo.Recruitment>
      * @author Murphy
      * @date 2019/5/3 0:37

@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 
 /**
  * 用户相关的控制器
+ *
  * @author Murphy
  * @date 2019/4/19 23:19
  */
@@ -102,7 +103,7 @@ public class UserController {
     }
 
     /**
-     * @param token token
+     * @param token     token
      * @param oldPasswd 旧密码
      * @param newPasswd 新密码
      * @return java.util.Map<java.lang.Object, java.lang.Object>
@@ -121,7 +122,7 @@ public class UserController {
     }
 
     /**
-     * @param user 用户实例
+     * @param user  用户实例
      * @param token token
      * @return java.util.Map<java.lang.Object, java.lang.Object>
      * @author Murphy
@@ -138,7 +139,7 @@ public class UserController {
     }
 
     /**
-     * @param code 验证码
+     * @param code   验证码
      * @param passwd 密码
      * @return java.util.Map<java.lang.Object, java.lang.Object>
      * @author Murphy

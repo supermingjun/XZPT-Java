@@ -32,7 +32,7 @@ public class CompanyServiceImpl implements ICompanyService {
         company.setCompanyId(uuid);
         //  加密密码
         company.setPasswd(Sha.encrypt(company.getPasswd()));
-        iCompanyDao.insertInstance(company);
+        iCompanyDao.insert(company);
     }
 
     @Override

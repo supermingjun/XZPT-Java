@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 
 /**
  * 验证码相关的控制器
+ *
  * @author Murphy
  * @date 2019/4/20 11:06
  */

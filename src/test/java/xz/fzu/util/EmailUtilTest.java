@@ -6,10 +6,10 @@ import org.junit.Test;
 public class EmailUtilTest {
 
     /**
-     * @author Murphy
-     * @date 2019/4/19 0:15
      * @param
      * @return void
+     * @author Murphy
+     * @date 2019/4/19 0:15
      * @description 测试验证码单元
      */
     @Test

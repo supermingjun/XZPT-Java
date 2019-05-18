@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * 推荐算法相关的控制器
+ *
  * @author Murphy
  * @date 2019/4/30 19:29
  */
@@ -36,6 +37,10 @@ public class RecommendController {
 
     @Resource
     IRecruitmentService iRecruitmentService;
+    @Resource
+    IRecommendService iRecommendService;
+    @Resource
+    ICompanyService iCompanyService;
     @Autowired
     public RecommendController(RecommendAlgorithm recomAlgorithm, IProfileService iProfileService, IRecommendService iRecommendService) {
         this.iProfileService = iProfileService;
@@ -58,11 +63,6 @@ public class RecommendController {
             }
         }).start();
     }
-
-    @Resource
-    IRecommendService iRecommendService;
-    @Resource
-    ICompanyService iCompanyService;
 
     /**
      * @param token token

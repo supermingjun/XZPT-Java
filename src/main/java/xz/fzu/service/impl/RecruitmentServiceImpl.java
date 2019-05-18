@@ -22,8 +22,9 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     IRecruitmentDao iRecruitmentDao;
 
     @Override
-    public void insertRecruitment(xz.fzu.model.Recruitment recruitment) {
-        iRecruitmentDao.insertInstance(recruitment);
+    public void insertRecruitment(Recruitment recruitment) {
+//        iRecruitmentDao.insertInstance(recruitment);
+        iRecruitmentDao.insert(recruitment);
     }
 
     @Override

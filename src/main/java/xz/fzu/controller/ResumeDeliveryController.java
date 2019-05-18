@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * 简历投递相关的控制器
+ *
  * @author Murphy
  * @date 2019/5/2 14:05
  */
@@ -33,6 +34,10 @@ public class ResumeDeliveryController {
     IUserService iUserService;
     @Resource
     IResumeService iResumeService;
+    @Resource
+    ICompanyService iCompanyService;
+    @Resource
+    IRecruitmentService iRecruitmentService;
 
     /**
      * 投递简历
@@ -59,14 +64,8 @@ public class ResumeDeliveryController {
         return responseData;
     }
 
-    @Resource
-    ICompanyService iCompanyService;
-
-    @Resource
-    IRecruitmentService iRecruitmentService;
-
     /**
-     * @param token token
+     * @param token          token
      * @param resumeDelivery 简历投递记录
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
@@ -85,7 +84,7 @@ public class ResumeDeliveryController {
     }
 
     /**
-     * @param token token
+     * @param token            token
      * @param resumeDeliveryId 简历投递记录的id
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
@@ -103,7 +102,7 @@ public class ResumeDeliveryController {
     // Company
 
     /**
-     * @param token token
+     * @param token    token
      * @param resumeId 简历id
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
@@ -122,7 +121,7 @@ public class ResumeDeliveryController {
     }
 
     /**
-     * @param token token
+     * @param token    token
      * @param pageData 页信息
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
@@ -140,9 +139,11 @@ public class ResumeDeliveryController {
         return responseData;
     }
 
-    /**-+*
+    /**
+     * -+*
      * **
-     * @param token token
+     *
+     * @param token          token
      * @param resumeDelivery 简历投递记录
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
@@ -168,7 +169,7 @@ public class ResumeDeliveryController {
 
 
     /**
-     * @param token token
+     * @param token            token
      * @param resumeDeliveryId 简历投递记录id
      * @return xz.fzu.vo.ResponseData
      * @author Murphy
@@ -221,11 +222,12 @@ public class ResumeDeliveryController {
 
     /**
      * 通过简历id 得到简历
-     * @author Murphy
-     * @date 2019/5/3 15:36
-     * @param token token
+     *
+     * @param token    token
      * @param resumeId 简历id
      * @return xz.fzu.vo.ResponseData
+     * @author Murphy
+     * @date 2019/5/3 15:36
      */
     @RequestMapping(value = "/company/getresumebyid", method = RequestMethod.POST)
     public ResponseData companyGetResumeByResumeId(@RequestParam String token, @RequestParam int resumeId) throws TokenExpiredException, InstanceNotExistException {

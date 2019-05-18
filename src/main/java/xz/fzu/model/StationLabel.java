@@ -3,6 +3,8 @@ package xz.fzu.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -11,9 +13,11 @@ import java.io.Serializable;
  * @author Murphy
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Table(name = "station_label")
 public class StationLabel implements Serializable {
 
     private static final long serialVersionUID = 1;
+    @Id
     private long stationId;
     private String content;
 

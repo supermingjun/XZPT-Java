@@ -18,11 +18,17 @@ public class PageData<T> implements Serializable {
      * 当前请求的页数（1-n）
      */
     private int currentPage;
-    /** 总共有多少页 */
+    /**
+     * 总共有多少页
+     */
     private int numOfPage;
-    /** 页大小 */
+    /**
+     * 页大小
+     */
     private int pageSize;
-    /** 内容数组 */
+    /**
+     * 内容数组
+     */
     private List<T> contentList;
 
     public int getCurrentPage() {

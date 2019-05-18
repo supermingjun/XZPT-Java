@@ -22,6 +22,7 @@ public class VerificationCodeServiceImpl implements IVerificationCodeService {
      * 存储验证码
      */
     private static Map<String, Integer> map = new HashMap<>();
+
     /***
      * @author Murphy
      * @date 2019/4/20 11:22

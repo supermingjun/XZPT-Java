@@ -13,6 +13,10 @@ public class ResponseData<T> {
     private String resultMsg;
     private T resultObject;
 
+    public ResponseData() {
+        this.resultCode = Constants.OK;
+    }
+
     public Integer getResultCode() {
         return resultCode;
     }
@@ -39,8 +43,8 @@ public class ResponseData<T> {
 
     /**
      * @param resultCode 返回错误码
-     * @param resultMsg 返回消息
-     * @param t 类型参数t
+     * @param resultMsg  返回消息
+     * @param t          类型参数t
      * @return void
      * @author Murphy
      * @date 2019/4/26 21:17
@@ -50,9 +54,5 @@ public class ResponseData<T> {
         this.resultCode = resultCode;
         this.resultMsg = resultMsg;
         this.resultObject = t;
-    }
-
-    public ResponseData() {
-        this.resultCode = Constants.OK;
     }
 }
