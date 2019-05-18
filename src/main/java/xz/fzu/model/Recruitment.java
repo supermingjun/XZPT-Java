@@ -22,9 +22,9 @@ public class Recruitment implements Serializable {
     private static final long serialVersionUID = 1;
 
     @Id
-    private long recruitmentId;
+    private Long recruitmentId;
     private Timestamp publishTime;
-    private long validate;
+    private Integer validate;
     private String companyId;
     private String jobName;
     private String description;
@@ -33,10 +33,10 @@ public class Recruitment implements Serializable {
     private String deliveryRequest;
     private String salary;
     private String degree;
-    private long workTime;
-    private long industryLabel;
+    private Integer workTime;
+    private Integer industryLabel;
     private String stationLabel;
-    private long jobType;
+    private Integer jobType;
     private Integer headCount;
 
     @Transient

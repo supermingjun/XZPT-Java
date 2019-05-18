@@ -11,11 +11,11 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class RecruitmentProfile {
-    private int recruitmentId;
-    private int industryLabel;
+    private Integer recruitmentId;
+    private Integer industryLabel;
     private String location;
-    private int workTime;
-    private int jobType;
+    private Integer workTime;
+    private Integer jobType;
     private String salary;
     private String degree;
     private String stationLabel;

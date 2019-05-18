@@ -19,11 +19,11 @@ public class ResumeDelivery {
     private static final long serialVersionUID = 1;
 
     @Id
-    private long resumeDeliveryId;
-    private long recruitmentId;
+    private Long resumeDeliveryId;
+    private Long recruitmentId;
     private String userId;
-    private long resumeId;
-    private long deliveryStatus;
+    private Long resumeId;
+    private Long deliveryStatus;
     private String remark;
 
     @Transient

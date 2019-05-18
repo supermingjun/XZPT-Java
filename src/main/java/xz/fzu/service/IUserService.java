@@ -5,6 +5,8 @@ import xz.fzu.exception.PasswordErrorException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.User;
 
+import java.util.List;
+
 /**
  * 用户相关的Service接口
  *
@@ -122,4 +124,14 @@ public interface IUserService {
      * @date 2019/5/2 21:02
      */
     void resetPasswd(String email, String passwd);
+
+    /**
+     * 根据用户的行业标签获得用户
+     *
+     * @param industryLabel 行业标签
+     * @return void
+     * @author Murphy
+     * @date 2019/5/18 21:41
+     */
+    List<String> selectUserByIndustryLabel(long industryLabel);
 }

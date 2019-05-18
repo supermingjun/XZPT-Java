@@ -6,6 +6,7 @@ import com.xiaomi.xmpush.server.Sender;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Murphy
@@ -41,7 +42,7 @@ public class PushUtil {
      * @author Murphy
      * @date 2019/5/18 10:48
      */
-    public void push(String alias, String title, String description, String payload) throws IOException, ParseException {
+    public void push(List<String> alias, String title, String description, String payload) throws IOException, ParseException {
         Constants.useOfficial();
         Sender sender = new Sender(APP_SECRET_KEY);
         Message message = new Message.Builder()

@@ -21,25 +21,25 @@ public class Resume implements Serializable {
     private static final long serialVersionUID = 1;
 
     @Id
-    private long resumeId;
+    private Long resumeId;
     private String userId;
     private String telephone;
     private String userName;
     private String headUrl;
     private String email;
-    private long sex;
+    private Long sex;
     private String presentCity;
     private String expectedCity;
     private String school;
     private String speciality;
     private java.sql.Date startTime;
     private java.sql.Date endTime;
-    private long highestEducation;
+    private Long highestEducation;
     private String certificate;
     private String projectExperience;
     private String practicalExperience;
-    private long resumeStatus;
-    private long age;
+    private Long resumeStatus;
+    private Long age;
     private String expectWork;
 
 }

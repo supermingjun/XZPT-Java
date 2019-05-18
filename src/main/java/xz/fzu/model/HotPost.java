@@ -12,9 +12,9 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class HotPost implements Comparable<HotPost> {
-    private int id;
-    private int recruitmentId;
-    private int heat;
+    private Integer id;
+    private Integer recruitmentId;
+    private Integer heat;
 
     public void heatAdd() {
         heat = heat + 1;
