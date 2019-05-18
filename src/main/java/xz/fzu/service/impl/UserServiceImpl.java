@@ -209,7 +209,7 @@ public class UserServiceImpl implements IUserService {
         List<User> userList = iUserDao.selectAll();
         List<String> res = new ArrayList<>(userList.size() / 2);
         for (User user : userList) {
-            if (user.getIndustryLabel() == industryLabel) {
+            if (user.getIndustryLabel() != null && user.getIndustryLabel() == industryLabel) {
                 res.add(user.getUserId());
             }
         }

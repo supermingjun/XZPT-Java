@@ -60,14 +60,14 @@ public class AlgorithImplement {
         while (iterator.hasNext()) {
 
             RecruitmentProfile rp = iterator.next();
-            if (upf.getIndustryLabel() != rp.getIndustryLabel()) {
+            if (upf.getIndustryLabel() != null && upf.getIndustryLabel().equals(rp.getIndustryLabel())) {
                 iterator.remove();
                 //去掉字符串首尾的空白后进行比较
             } else if (upf.getExpectedCity() != null) {
                 if (!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {
                     iterator.remove();
                 }
-            } else if (upf.getJobType() != rp.getJobType()) {
+            } else if (upf.getJobType() != null && upf.getIndustryLabel().equals(rp.getJobType())) {
                 iterator.remove();
             }
         }
