@@ -24,7 +24,6 @@ public class EmailUtil {
     public int sendEmail(String emailaddress) throws EmailException {
         int code = getRandomCode();
         HtmlEmail email = new HtmlEmail();
-        email.setHostName("smtp.yeah.net");
         email.setHostName("smtp.163.com");
         email.setCharset("UTF-8");
         // 收件地址
