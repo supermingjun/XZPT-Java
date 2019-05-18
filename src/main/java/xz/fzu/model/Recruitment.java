@@ -34,7 +34,7 @@ public class Recruitment implements Serializable {
     private String salary;
     private String degree;
     private Integer workTime;
-    private Integer industryLabel;
+    private Long industryLabel;
     private String stationLabel;
     private Integer jobType;
     private Integer headCount;

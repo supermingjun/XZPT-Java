@@ -17,5 +17,5 @@ public interface IIndustryLabelDao {
      * @author Murphy
      * @date 2019/5/4 19:08
      */
-    String getInstance(int id);
+    String getInstance(Long id);
 }

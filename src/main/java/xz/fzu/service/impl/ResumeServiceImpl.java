@@ -69,7 +69,7 @@ public class ResumeServiceImpl implements IResumeService {
     }
 
     @Override
-    public void copyResume(int resumeId) {
+    public void copyResume(Long resumeId) {
 
         iResumeDao.copyInstance(resumeId);
     }

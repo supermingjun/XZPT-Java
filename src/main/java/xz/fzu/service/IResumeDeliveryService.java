@@ -23,7 +23,7 @@ public interface IResumeDeliveryService {
      * @author Murphy
      * @date 2019/4/30 16:24
      */
-    void deliveryResume(String userId, int resumeId, int recruitmentId);
+    void deliveryResume(String userId, Long resumeId, Long recruitmentId);
 
     /**
      * 用户获得获得简历投递记录

@@ -85,5 +85,5 @@ public interface IResumeService {
      * @author Murphy
      * @date 2019/5/2 14:34
      */
-    void copyResume(int resumeId);
+    void copyResume(Long resumeId);
 }

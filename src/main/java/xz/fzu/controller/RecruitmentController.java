@@ -243,8 +243,8 @@ public class RecruitmentController {
         try {
             String[] integers = stationLabel.split(",");
             for (String string : integers) {
-                int integer = Integer.parseInt(string);
-                stationBuilder.append(iLabelService.getStationLabel(integer));
+                Long longValue = Long.parseLong(string);
+                stationBuilder.append(iLabelService.getStationLabel(longValue));
                 stationBuilder.append(",");
 
             }

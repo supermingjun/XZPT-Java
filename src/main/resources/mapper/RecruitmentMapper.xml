@@ -29,7 +29,7 @@
     <select id="selectListInstanceByCompanyId" resultType="xz.fzu.model.Recruitment" resultMap="resultMapper">
         SELECT * FROM recruitment WHERE company_id = #{arg0} ORDER BY publish_time DESC LIMIT #{arg1},#{arg2}
     </select>
-    <delete id="deleteInstace" parameterType="long">
+    <delete id="deleteInstance" parameterType="Long">
          DELETE FROM recruitment WHERE recruitment_id = #{recruitmentId}
     </delete>
 

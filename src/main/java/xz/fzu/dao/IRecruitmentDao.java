@@ -66,7 +66,7 @@ public interface IRecruitmentDao extends Mapper<Recruitment> {
      * @author Murphy
      * @date 2019/4/27 1:15
      */
-    void deleteInstace(long recruitmentId);
+    void deleteInstance(Long recruitmentId);
 
     /**
      * 更新招聘信息

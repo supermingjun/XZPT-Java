@@ -46,7 +46,7 @@ public class ResumeDeliveryController {
      * @date 2019/5/2 21:41
      */
     @RequestMapping(value = "/user/deliveryresume", method = RequestMethod.POST)
-    public ResponseVO deliveryResume(@RequestParam String token, @RequestParam int resumeId, @RequestParam int recruitmentId) throws TokenExpiredException, EvilIntentions {
+    public ResponseVO deliveryResume(@RequestParam String token, @RequestParam Long resumeId, @RequestParam Long recruitmentId) throws TokenExpiredException, EvilIntentions {
 
         ResponseVO responseVO = new ResponseVO();
         String userId = iUserService.verifyToken(token);

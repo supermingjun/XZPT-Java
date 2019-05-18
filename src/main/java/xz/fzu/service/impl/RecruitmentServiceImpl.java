@@ -53,7 +53,7 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
         if (tempRecruitment == null || !tempRecruitment.getCompanyId().equals(companyId)) {
             throw new EvilIntentions();
         }
-        iRecruitmentDao.deleteInstace(recruitmentId);
+        iRecruitmentDao.deleteInstance(recruitmentId);
     }
 
     @Override

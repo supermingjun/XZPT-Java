@@ -17,5 +17,5 @@ public interface IStationLabelDao {
      * @author Murphy
      * @date 2019/5/4 19:08
      */
-    String getInstance(int stationId);
+    String getInstance(Long stationId);
 }

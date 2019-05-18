@@ -74,5 +74,5 @@ public interface IResumeDao  extends Mapper<Resume> {
      * @author Murphy
      * @date 2019/5/2 14:30
      */
-    void copyInstance(int resumeId);
+    void copyInstance(Long resumeId);
 }

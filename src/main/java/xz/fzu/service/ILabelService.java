@@ -16,7 +16,7 @@ public interface ILabelService {
      * @author Murphy
      * @date 2019/5/4 19:15
      */
-    String getStationLabel(int id);
+    String getStationLabel(Long id);
 
     /**
      * 获得行业标签
@@ -26,5 +26,5 @@ public interface ILabelService {
      * @author Murphy
      * @date 2019/5/4 19:15
      */
-    String getIndustryLabel(int id);
+    String getIndustryLabel(Long id);
 }

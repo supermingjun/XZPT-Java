@@ -24,11 +24,11 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
      * TODO 安全认证，暂时没有
      */
     @Override
-    public void deliveryResume(String userId, int resumeId, int recruitmentId) {
+    public void deliveryResume(String userId, Long resumeId, Long recruitmentId) {
 
         ResumeDelivery resumeDelivery = new ResumeDelivery();
-        resumeDelivery.setRecruitmentId((long) recruitmentId);
-        resumeDelivery.setResumeId((long) resumeId);
+        resumeDelivery.setRecruitmentId(recruitmentId);
+        resumeDelivery.setResumeId(resumeId);
         resumeDelivery.setUserId(userId);
         resumeDelivery.setDeliveryStatus(1L);
         iResumeDeliveryDao.insert(resumeDelivery);
