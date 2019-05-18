@@ -2,6 +2,9 @@ package xz.fzu.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 /**
@@ -10,10 +13,12 @@ import java.io.Serializable;
  * @author Murphy
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Table(name = "recruitment")
 public class Recruitment implements Serializable {
 
     private static final long serialVersionUID = 1;
 
+    @Id
     private long recruitmentId;
     private java.sql.Timestamp publishTime;
     private long validate;
@@ -29,7 +34,17 @@ public class Recruitment implements Serializable {
     private long industryLabel;
     private String stationLabel;
     private long jobType;
+    private Integer headCount;
 
+    @Transient
+    /*
+     * 以下字段不对应表中的具体字段，所以全部使用@Transient
+     * */
+    private String companyName;
+    @Transient
+    private String station;
+    @Transient
+    private String industry;
 
     public long getRecruitmentId() {
         return recruitmentId;
@@ -165,4 +180,36 @@ public class Recruitment implements Serializable {
         this.jobType = jobType;
     }
 
+    public Integer getHeadCount() {
+        return headCount;
+    }
+
+    public void setHeadCount(Integer headCount) {
+        this.headCount = headCount;
+    }
+
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getStation() {
+        return station;
+    }
+
+    public void setStation(String station) {
+        this.station = station;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
+    }
 }

@@ -20,8 +20,8 @@
         <result property="jobType" column="job_type"/>
     </resultMap>
     <insert id="insertInstance">
-        INSERT INTO recruitment(publish_time,validate,company_id,job_name,description,contact,location,delivery_request,degree,work_time,industry_label,station_label,salary,job_type)
-        VALUES (#{publishTime},#{validate},#{companyId},#{jobName},#{description},#{contact},#{location},#{deliveryRequest},#{degree},#{workTime},#{industryLabel},#{stationLabel},#{salary},#{jobType})
+        INSERT INTO recruitment(publish_time,validate,company_id,job_name,description,contact,location,delivery_request,degree,work_time,industry_label,station_label,salary,job_type,head_count)
+        VALUES (#{publishTime},#{validate},#{companyId},#{jobName},#{description},#{contact},#{location},#{deliveryRequest},#{degree},#{workTime},#{industryLabel},#{stationLabel},#{salary},#{jobType},#{headCount})
     </insert>
     <select id="selectInstaceById" resultType="xz.fzu.model.Recruitment" resultMap="resultMapper" parameterType="long">
         SELECT * FROM recruitment WHERE recruitment_id = #{recruitmentId}
@@ -36,7 +36,7 @@
     <!--<if test=" validate !=null and validate != '' ">-->
     <!--validate = #{validate},-->
     <!--</if>-->
-    <update id="updateInstace" parameterType="xz.fzu.model.Recruitment">
+    <update id="updateInstance" parameterType="xz.fzu.model.Recruitment">
         UPDATE recruitment
         <set>
             <if test=" publishTime !=null and publishTime != '' ">
@@ -81,6 +81,9 @@
 
             <if test=" validate != -2 ">
                 validate = #{validate},
+            </if>
+            <if test=" headCount != null ">
+                head_count = #{headCount},
             </if>
         </set>
         WHERE recruitment_id=#{recruitmentId}

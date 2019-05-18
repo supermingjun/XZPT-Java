@@ -12,7 +12,6 @@ import xz.fzu.service.ILabelService;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IUserService;
 import xz.fzu.vo.PageData;
-import xz.fzu.vo.RecruitmentVO;
 import xz.fzu.vo.ResponseData;
 
 import javax.annotation.Resource;
@@ -46,7 +45,7 @@ public class RecruitmentController {
      */
     @RequestMapping(value = "/company/releaserecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException {
+    public ResponseData releaseRecruitment(@RequestBody xz.fzu.model.Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException {
 
         ResponseData responseData = new ResponseData();
         iCompanyService.verifyToken(token);
@@ -83,12 +82,12 @@ public class RecruitmentController {
      */
     @RequestMapping(value = "/company/getlistrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<PageData> getRecruitment(@RequestParam String token, @RequestBody PageData<RecruitmentVO> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+    public ResponseData<PageData> getRecruitment(@RequestParam String token, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
 
         ResponseData<PageData> responseData = new ResponseData<>();
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
-        List<RecruitmentVO> list = iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId(), pageData);
+        List<Recruitment> list = iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId(), pageData);
         listSetCompanyName(list);
         pageData.setContentList(list);
         responseData.setResultObject(pageData);
@@ -105,7 +104,7 @@ public class RecruitmentController {
      */
     @RequestMapping(value = "/company/updaterecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData updateRecruitment(@RequestParam String token, @RequestBody Recruitment recruitment) throws TokenExpiredException, UserNotFoundException, EvilIntentions {
+    public ResponseData updateRecruitment(@RequestParam String token, @RequestBody xz.fzu.model.Recruitment recruitment) throws TokenExpiredException, UserNotFoundException, EvilIntentions {
 
         ResponseData responseData = new ResponseData<>();
         iCompanyService.verifyToken(token);
@@ -166,11 +165,11 @@ public class RecruitmentController {
      */
     @RequestMapping(value = "/user/getlistrecruitmentbycompanyid", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<PageData> getRecruitmentById(@RequestParam String token, @RequestParam String companyId, @RequestBody PageData<RecruitmentVO> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+    public ResponseData<PageData> getRecruitmentById(@RequestParam String token, @RequestParam String companyId, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
 
         ResponseData<PageData> responseData = new ResponseData<>();
         iUserService.verifyToken(token);
-        List<RecruitmentVO> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(companyId, pageData);
+        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(companyId, pageData);
         listSetCompanyName(recruitmentList);
         pageData.setContentList(recruitmentList);
         responseData.setResultObject(pageData);
@@ -181,18 +180,18 @@ public class RecruitmentController {
     /**
      * @param token token
      * @param keyWord 关键词
-     * @return xz.fzu.vo.ResponseData<java.util.List < xz.fzu.model.RecruitmentVO>>
+     * @return xz.fzu.vo.ResponseData<java.util.List < xz.fzu.model.Recruitment>>
      * @author Murphy
      * @date 2019/4/29 21:34
      * @description 搜索招聘信息
      */
     @RequestMapping(value = "/user/searchrecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<PageData> searchRecruitment(@RequestParam String token, @RequestParam String keyWord, @RequestBody PageData<RecruitmentVO> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
+    public ResponseData<PageData> searchRecruitment(@RequestParam String token, @RequestParam String keyWord, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
 
         ResponseData<PageData> responseData = new ResponseData<>();
         iUserService.verifyToken(token);
-        List<RecruitmentVO> recruitmentList = iRecruitmentService.getListRecruitmentByKeyWord(keyWord, pageData);
+        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByKeyWord(keyWord, pageData);
         listSetCompanyName(recruitmentList);
         pageData.setContentList(recruitmentList);
         responseData.setResultObject(pageData);
@@ -208,15 +207,15 @@ public class RecruitmentController {
 
     /**
      * @param recruitmentId 招聘信息id
-     * @return xz.fzu.vo.ResponseData<xz.fzu.model.RecruitmentVO>
+     * @return xz.fzu.vo.ResponseData<xz.fzu.model.Recruitment>
      * @author Murphy
      * @date 2019/5/2 14:01
      * @description 根据招聘信息id获得招聘信息
      */
-    private ResponseData<RecruitmentVO> getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
+    private ResponseData<Recruitment> getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
 
-        ResponseData<RecruitmentVO> responseData = new ResponseData<>();
-        RecruitmentVO recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
+        ResponseData<Recruitment> responseData = new ResponseData<>();
+        Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
         setCompanyName(recruitment);
         setLabel(recruitment);
         responseData.setResultObject(recruitment);
@@ -232,7 +231,7 @@ public class RecruitmentController {
      * @author Murphy
      * @date 2019/5/4 19:23
      */
-    private void setLabel(RecruitmentVO recruitment) {
+    private void setLabel(Recruitment recruitment) {
         String stationLabel = recruitment.getStationLabel();
         StringBuilder stationBuilder = new StringBuilder();
         try {
@@ -260,11 +259,11 @@ public class RecruitmentController {
      * list设置招聘信息的公司名字
      *
      * @param list  招聘信息数组
-     * @return java.util.List<xz.fzu.vo.RecruitmentVO>
+     * @return java.util.List<xz.fzu.vo.Recruitment>
      * @author Murphy
      * @date 2019/5/3 0:37
      */
-    private void listSetCompanyName(List<RecruitmentVO> list) {
+    private void listSetCompanyName(List<Recruitment> list) {
 
         for (int i = 0; i < list.size(); i++) {
             setCompanyName(list.get(i));
@@ -274,19 +273,19 @@ public class RecruitmentController {
     /**
      * 设置招聘信息公司名字
      *
-     * @param recruitmentVO 招聘信息
-     * @return xz.fzu.vo.RecruitmentVO
+     * @param recruitment 招聘信息
+     * @return xz.fzu.vo.Recruitment
      * @author Murphy
      * @date 2019/5/3 0:37
      */
-    private void setCompanyName(RecruitmentVO recruitmentVO) {
+    private void setCompanyName(Recruitment recruitment) {
 
         String companyName = "公司不存在";
         try {
-            companyName = iCompanyService.getInfoByCompanyId(recruitmentVO.getCompanyId()).getCompanyName();
+            companyName = iCompanyService.getInfoByCompanyId(recruitment.getCompanyId()).getCompanyName();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        recruitmentVO.setCompanyName(companyName);
+        recruitment.setCompanyName(companyName);
     }
 }

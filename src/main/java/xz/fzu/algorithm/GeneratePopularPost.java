@@ -1,9 +1,9 @@
-package xz.fzu.heatalgorithm;
+package xz.fzu.algorithm;
 
 import xz.fzu.model.HotPost;
+import xz.fzu.model.Recruitment;
 import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.ICompanyService;
-import xz.fzu.vo.RecruitmentVO;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -42,11 +42,11 @@ public class GeneratePopularPost {
 	 * list设置招聘信息的公司名字
 	 *
 	 * @param list 招聘信息数组
-	 * @return java.util.List<xz.fzu.vo.RecruitmentVO>
+	 * @return java.util.List<xz.fzu.vo.Recruitment>
 	 * @author Murphy
 	 * @date 2019/5/3 0:37
 	 */
-	private void listSetCompanyName(List<RecruitmentVO> list) {
+	private void listSetCompanyName(List<Recruitment> list) {
 
 		for (int i = 0; i < list.size(); i++) {
 			setCompanyName(list.get(i));
@@ -57,11 +57,11 @@ public class GeneratePopularPost {
 	 * 设置招聘信息公司名字
 	 *
 	 * @param recruitmentVO 招聘信息
-	 * @return xz.fzu.vo.RecruitmentVO
+	 * @return xz.fzu.vo.Recruitment
 	 * @author Murphy
 	 * @date 2019/5/3 0:37
 	 */
-	private void setCompanyName(RecruitmentVO recruitmentVO) {
+	private void setCompanyName(Recruitment recruitmentVO) {
 
 		String companyName = "公司不存在";
 		try {

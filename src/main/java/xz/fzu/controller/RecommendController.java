@@ -9,9 +9,9 @@ import xz.fzu.algorithm.RecommendAlgorithm;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.RecommendResult;
+import xz.fzu.model.Recruitment;
 import xz.fzu.model.RecruitmentProfile;
 import xz.fzu.service.*;
-import xz.fzu.vo.RecruitmentVO;
 import xz.fzu.vo.ResponseData;
 
 import javax.annotation.Resource;
@@ -72,15 +72,15 @@ public class RecommendController {
      * @description 推荐接口
      */
     @RequestMapping(value = "/getrecommend", method = RequestMethod.POST)
-    public ResponseData<List<RecruitmentVO>> getRecommend(@RequestParam String token) throws TokenExpiredException, InstanceNotExistException {
+    public ResponseData<List<Recruitment>> getRecommend(@RequestParam String token) throws TokenExpiredException, InstanceNotExistException {
 
-        ResponseData<List<RecruitmentVO>> responseData = new ResponseData<>();
+        ResponseData<List<Recruitment>> responseData = new ResponseData<>();
         String userId = iUserService.verifyToken(token);
         List<RecommendResult> recruitmentProfiles = iRecommendService.getListResult(userId);
-        List<RecruitmentVO> list = new ArrayList<>();
+        List<Recruitment> list = new ArrayList<>();
         for (RecommendResult recommendResult : recruitmentProfiles) {
             int recruitmentId = recommendResult.getRecruitmentId();
-            RecruitmentVO recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
+            Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
             setCompanyName(recruitment);
             list.add(recruitment);
         }
@@ -96,11 +96,11 @@ public class RecommendController {
      * 设置招聘信息公司名字
      *
      * @param recruitmentVO 招聘信息
-     * @return xz.fzu.vo.RecruitmentVO
+     * @return xz.fzu.vo.Recruitment
      * @author Murphy
      * @date 2019/5/3 0:37
      */
-    private void setCompanyName(RecruitmentVO recruitmentVO) {
+    private void setCompanyName(Recruitment recruitmentVO) {
 
         String companyName = "公司不存在";
         try {

@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import xz.fzu.algorithm.GeneratePopularPost;
 import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.TokenExpiredException;
-import xz.fzu.heatalgorithm.GeneratePopularPost;
 import xz.fzu.model.HotPost;
+import xz.fzu.model.Recruitment;
 import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IResumeDeliveryService;
-import xz.fzu.vo.RecruitmentVO;
 import xz.fzu.vo.ResponseData;
 
 import javax.annotation.Resource;
@@ -52,16 +52,16 @@ public class HotSpotController {
      * 获取热度算法的接口
      *
      * @param token token
-     * @return xz.fzu.vo.ResponseData<java.util.List < xz.fzu.vo.RecruitmentVO>>
+     * @return xz.fzu.vo.ResponseData<java.util.List < xz.fzu.vo.Recruitment>>
      * @author Murphy
      * @date 2019/5/5 3:12
      */
     @RequestMapping(value = "/user/gethotspot", method = RequestMethod.POST)
-    public ResponseData<List<RecruitmentVO>> deliveryResume(@RequestParam String token) throws TokenExpiredException, EvilIntentions {
+    public ResponseData<List<Recruitment>> deliveryResume(@RequestParam String token) throws TokenExpiredException, EvilIntentions {
 
-        ResponseData<List<RecruitmentVO>> responseData = new ResponseData<>();
+        ResponseData<List<Recruitment>> responseData = new ResponseData<>();
         if (hotPosts != null) {
-            List<RecruitmentVO> list = new ArrayList<>();
+            List<Recruitment> list = new ArrayList<>();
             for (HotPost hotPost : hotPosts) {
                 try {
                     list.add(iRecruitmentService.getRecruitmentById(hotPost.getRecruitmentId()));
