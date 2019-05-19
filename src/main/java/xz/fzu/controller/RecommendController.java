@@ -79,7 +79,7 @@ public class RecommendController {
         List<RecommendResult> recruitmentProfiles = iRecommendService.getListResult(userId);
         List<Recruitment> list = new ArrayList<>();
         for (RecommendResult recommendResult : recruitmentProfiles) {
-            int recruitmentId = recommendResult.getRecruitmentId();
+            long recruitmentId = recommendResult.getRecruitmentId();
             Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
             setCompanyName(recruitment);
             list.add(recruitment);

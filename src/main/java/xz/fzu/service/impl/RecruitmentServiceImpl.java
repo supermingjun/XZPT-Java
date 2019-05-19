@@ -22,9 +22,10 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     IRecruitmentDao iRecruitmentDao;
 
     @Override
-    public void insertRecruitment(Recruitment recruitment) {
+    public Long insertRecruitment(Recruitment recruitment) {
 //        iRecruitmentDao.insertInstance(recruitment);
         iRecruitmentDao.insert(recruitment);
+        return recruitment.getRecruitmentId();
     }
 
     @Override

@@ -140,7 +140,7 @@ public class AlgorithImplement {
      */
     public double degreeQuan(UserProfile upf, RecruitmentProfile rp) {
 
-        int uDegree = upf.getHighestEducation();
+        long uDegree = upf.getHighestEducation();
         String rDegreeRequire = rp.getDegree();
         int rdegreeRequire = 1;
         try {
@@ -162,8 +162,8 @@ public class AlgorithImplement {
 
     public double workTimeQuan(UserProfile upf, RecruitmentProfile rp) {
 
-        int uWorkTime = upf.getWorkTime();
-        int rWorkTime = rp.getWorkTime();
+        long uWorkTime = upf.getWorkTime();
+        long rWorkTime = rp.getWorkTime();
         if (uWorkTime == 0) {
             return WORK_TIME_QUALITY_VALUE[3];
         } else if (uWorkTime == rWorkTime) {
@@ -185,12 +185,10 @@ public class AlgorithImplement {
      * @return
      */
 
-    public Map<Integer, double[]> quantization(UserProfile upf, List<RecruitmentProfile> preScreeningResults) {
+    public Map<Long, double[]> quantization(UserProfile upf, List<RecruitmentProfile> preScreeningResults) {
 
-        Map<Integer, double[]> weightResults = new HashMap<>(512);
-        Iterator<RecruitmentProfile> iterator = preScreeningResults.iterator();
-        while (iterator.hasNext()) {
-            RecruitmentProfile rp = iterator.next();
+        Map<Long, double[]> weightResults = new HashMap<>(512);
+        for (RecruitmentProfile rp : preScreeningResults) {
             double[] quanValue = new double[3];
             int[] sarlaryRange = regExSalary(rp.getSalary());
             //学历量化加权
@@ -210,17 +208,15 @@ public class AlgorithImplement {
      *
      * @param weightedResults
      */
-    public List<RecommendResult> computationalSimilarity(String userId, Map<Integer, double[]> weightedResults) {
+    public List<RecommendResult> computationalSimilarity(String userId, Map<Long, double[]> weightedResults) {
 
         List<RecommendResult> esrs = new ArrayList<RecommendResult>();
         double result = 0;
         double r1 = 0;
         double r2 = 0;
         double r3 = 0;
-        Iterator<Map.Entry<Integer, double[]>> iterator = weightedResults.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Integer, double[]> entry = iterator.next();
-            Integer str = entry.getKey();
+        for (Map.Entry<Long, double[]> entry : weightedResults.entrySet()) {
+            Long str = entry.getKey();
             double[] dou = entry.getValue();
             for (int i = 0; i < dou.length; i++) {
                 r1 += dou[i] * USER_WEIGHT[i];

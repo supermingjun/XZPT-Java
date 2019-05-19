@@ -18,6 +18,7 @@
         <result property="industryLabel" column="industry_label"/>
         <result property="stationLabel" column="station_label"/>
         <result property="jobType" column="job_type"/>
+        <result property="headCount" column="head_count"/>
     </resultMap>
     <insert id="insertInstance">
         INSERT INTO recruitment(publish_time,validate,company_id,job_name,description,contact,location,delivery_request,degree,work_time,industry_label,station_label,salary,job_type,head_count)

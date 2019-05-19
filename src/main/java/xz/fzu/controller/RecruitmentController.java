@@ -58,10 +58,10 @@ public class RecruitmentController {
         Company company = iCompanyService.getInfoByToken(token);
         recruitment.setCompanyId(company.getCompanyId());
         recruitment.setValidate(0);
-        iRecruitmentService.insertRecruitment(recruitment);
+        Long recruitmentId = iRecruitmentService.insertRecruitment(recruitment);
         List<String> userIdList = iUserService.selectUserByIndustryLabel(recruitment.getIndustryLabel());
         if (recruitment.getIndustryLabel() != null) {
-            PushUtil.getInstance().push(userIdList, recruitment.getJobName(), recruitment.getDescription(), recruitment.getRecruitmentId() + "");
+            PushUtil.getInstance().push(userIdList, recruitment.getJobName(), recruitment.getDescription(), recruitmentId + "");
         }
         return responseVO;
     }
