@@ -57,7 +57,6 @@ public class RecruitmentController {
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
         recruitment.setCompanyId(company.getCompanyId());
-        recruitment.setValidate(0);
         Long recruitmentId = iRecruitmentService.insertRecruitment(recruitment);
         List<String> userIdList = iUserService.selectUserByIndustryLabel(recruitment.getIndustryLabel());
         if (recruitment.getIndustryLabel() != null) {

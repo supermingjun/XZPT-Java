@@ -23,7 +23,8 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
 
     @Override
     public Long insertRecruitment(Recruitment recruitment) {
-//        iRecruitmentDao.insertInstance(recruitment);
+
+        recruitment.setValidate(0);
         iRecruitmentDao.insert(recruitment);
         return recruitment.getRecruitmentId();
     }

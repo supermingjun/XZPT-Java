@@ -43,7 +43,7 @@
     <!--如果开启了这个配置需要在Spring-MVC.xml中配置<mvc:default-servlet-handler/>处理静态资源被"/"所拦截的问题-->
     <servlet-mapping>
         <servlet-name>SpringMVC</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
 </web-app>
