@@ -1,6 +1,7 @@
 package xz.fzu.model;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
  *
  * @author Murphy
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "interview_skills")
 @Data
 public class InterviewSkill {
@@ -22,5 +24,7 @@ public class InterviewSkill {
     private Long id;
     private String title;
     private String content;
+    private java.sql.Timestamp time;
+    private String author;
 
 }

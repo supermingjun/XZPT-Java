@@ -38,6 +38,8 @@ public class ArticleController {
         InterviewSkill interviewSkill = iInterviewSkillService.getInstance(id);
         attribute.put("title", interviewSkill.getTitle());
         attribute.put("content", interviewSkill.getContent());
+        attribute.put("time", interviewSkill.getTime().toString());
+        attribute.put("author", interviewSkill.getAuthor());
 
         return "article";
     }

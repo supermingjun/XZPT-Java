@@ -318,25 +318,23 @@
             <div class="rich_media_area_primary_inner">
                 <div>
                     <h2 class="rich_media_title">
-                        Google I/O 2019
+                        ${title}
                     </h2>
                     <div class="rich_media_meta_list">
                         <span class="rich_media_meta rich_media_meta_text meta_tag_text">
                             发布者：
                         </span>
                         <span class="rich_media_meta rich_media_meta_text">
-                            Google
+                            ${author}
                         </span>
                         <span class="rich_media_meta rich_media_meta_text meta_tag_text">
                             发布时间：
                         </span>
                         <span class="rich_media_meta rich_media_meta_text">
-                            2019年9月9日
+                            ${time}
                         </span>
                     </div>
-                    <div class="rich_media_content ">
-                        ${content}
-                    </div>
+                    <div class="rich_media_content ">${content}</div>
                 </div>
             </div>
         </div>
