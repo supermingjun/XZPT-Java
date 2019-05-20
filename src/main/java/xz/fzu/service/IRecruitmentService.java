@@ -22,7 +22,7 @@ public interface IRecruitmentService {
      * @author Murphy
      * @date 2019/4/27 10:48
      */
-    void insertRecruitment(xz.fzu.model.Recruitment recruitment);
+    Long insertRecruitment(Recruitment recruitment);
 
     /**
      * 根据id获得招聘信息

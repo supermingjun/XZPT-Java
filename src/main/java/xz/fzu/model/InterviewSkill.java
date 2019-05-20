@@ -4,9 +4,10 @@ package xz.fzu.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * Auto-generator
@@ -14,13 +15,16 @@ import java.io.Serializable;
  * @author Murphy
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Table(name = "industry_label")
+@Table(name = "interview_skills")
 @Data
-public class IndustryLabel implements Serializable {
+public class InterviewSkill {
 
-    private static final long serialVersionUID = 1;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String title;
     private String content;
+    private java.sql.Timestamp time;
+    private String author;
 
 }

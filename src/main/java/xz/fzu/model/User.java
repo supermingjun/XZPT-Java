@@ -29,24 +29,24 @@ public class User implements Serializable {
     private String userName;
     private String headUrl;
     private String email;
-    private long sex;
+    private Long sex;
     private String school;
     private String specialty;
-    private long highestEducation;
+    private Long highestEducation;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private java.sql.Date startTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private java.sql.Date endTime;
-    private long workTime;
-    private long jobType;
+    private Long workTime;
+    private Long jobType;
     private String presentCity;
     private String expectedCity;
-    private long industryLabel;
+    private Long industryLabel;
     private String stationLabel;
     private String expectSalary;
     private String token;
-    private long age;
+    private Long age;
 
 }

@@ -57,7 +57,7 @@ public class ResumeServiceImpl implements IResumeService {
     }
 
     @Override
-    public Resume getResume(String userId, int resumeId) throws InstanceNotExistException {
+    public Resume getResume(String userId, Long resumeId) throws InstanceNotExistException {
 
         //TODO 安全认证
         Resume resume = iResumeDao.selectInstanceByResumeId(resumeId);
@@ -69,7 +69,7 @@ public class ResumeServiceImpl implements IResumeService {
     }
 
     @Override
-    public void copyResume(int resumeId) {
+    public void copyResume(Long resumeId) {
 
         iResumeDao.copyInstance(resumeId);
     }

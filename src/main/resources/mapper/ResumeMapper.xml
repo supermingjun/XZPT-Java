@@ -101,14 +101,14 @@
     </update>
 
 
-    <select id="selectInstanceByResumeId" parameterType="int" resultType="xz.fzu.model.Resume" resultMap="myResultMap">
+    <select id="selectInstanceByResumeId" parameterType="Long" resultType="xz.fzu.model.Resume" resultMap="myResultMap">
         SELECT * FROM resume WHERE resume_id = #{resumeId}
     </select>
 
     <select id="selectListByUserId" resultType="xz.fzu.model.Resume" resultMap="myResultMap">
         SELECT * FROM resume WHERE user_id = #{arg0} LIMIT #{arg1},#{arg2}
     </select>
-    <insert id="copyInstance" parameterType="int">
+    <insert id="copyInstance" parameterType="Long">
         INSERT INTO resume(user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age)
          (SELECT user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age
           FROM resume WHERE resume_id = #{resumeId})

@@ -20,9 +20,9 @@ public class GeneratePopularPost {
 
     public List<HotPost> generatePopularPostRank(List<ResumeDelivery> resumeDeliveryRecords) {
 
-        Map<Integer, HotPost> hotPosts = new HashMap<Integer, HotPost>(400);
+        Map<Long, HotPost> hotPosts = new HashMap<>(400);
         for (ResumeDelivery resumeDeliberyRecord : resumeDeliveryRecords) {
-            int recruitmentId = (int) resumeDeliberyRecord.getRecruitmentId();
+            long recruitmentId = resumeDeliberyRecord.getRecruitmentId();
             if (hotPosts.get(recruitmentId) != null) {
                 HotPost hotPost = hotPosts.get(recruitmentId);
                 hotPost.heatAdd();
@@ -34,7 +34,7 @@ public class GeneratePopularPost {
                 hotPosts.put(recruitmentId, hotPost);
             }
         }
-        List<HotPost> hotPosts2 = new ArrayList<HotPost>(hotPosts.values());
+        List<HotPost> hotPosts2 = new ArrayList<>(hotPosts.values());
         Collections.sort(hotPosts2);
         return hotPosts2;
     }
@@ -49,8 +49,8 @@ public class GeneratePopularPost {
      */
     private void listSetCompanyName(List<Recruitment> list) {
 
-        for (int i = 0; i < list.size(); i++) {
-            setCompanyName(list.get(i));
+        for (Recruitment recruitment : list) {
+            setCompanyName(recruitment);
         }
     }
 

@@ -1,5 +1,6 @@
 package xz.fzu.controller;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
@@ -11,10 +12,12 @@ import xz.fzu.service.ICompanyService;
 import xz.fzu.service.ILabelService;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IUserService;
+import xz.fzu.util.PushUtil;
 import xz.fzu.vo.PageData;
 import xz.fzu.vo.ResponseVO;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -48,15 +51,17 @@ public class RecruitmentController {
      */
     @RequestMapping(value = "/company/releaserecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException {
+    public ResponseVO releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException, IOException, ParseException {
 
         ResponseVO responseVO = new ResponseVO();
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
         recruitment.setCompanyId(company.getCompanyId());
-        recruitment.setValidate(0);
-        iRecruitmentService.insertRecruitment(recruitment);
-
+        Long recruitmentId = iRecruitmentService.insertRecruitment(recruitment);
+        List<String> userIdList = iUserService.selectUserByIndustryLabel(recruitment.getIndustryLabel());
+        if (recruitment.getIndustryLabel() != null) {
+            PushUtil.getInstance().push(userIdList, recruitment.getJobName(), recruitment.getDescription(), recruitmentId + "");
+        }
         return responseVO;
     }
 
@@ -237,8 +242,8 @@ public class RecruitmentController {
         try {
             String[] integers = stationLabel.split(",");
             for (String string : integers) {
-                int integer = Integer.parseInt(string);
-                stationBuilder.append(iLabelService.getStationLabel(integer));
+                Long longValue = Long.parseLong(string);
+                stationBuilder.append(iLabelService.getStationLabel(longValue));
                 stationBuilder.append(",");
 
             }
@@ -248,7 +253,7 @@ public class RecruitmentController {
             recruitment.setStation(stationBuilder.toString());
         }
         try {
-            recruitment.setIndustry(iLabelService.getIndustryLabel((int) recruitment.getIndustryLabel()));
+            recruitment.setIndustry(iLabelService.getIndustryLabel(recruitment.getIndustryLabel()));
         } catch (Exception e) {
             e.printStackTrace();
         }

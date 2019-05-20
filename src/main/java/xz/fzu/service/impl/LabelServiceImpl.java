@@ -20,12 +20,12 @@ public class LabelServiceImpl implements ILabelService {
     IIndustryLabelDao iIndustryLabelDao;
 
     @Override
-    public String getStationLabel(int id) {
+    public String getStationLabel(Long id) {
         return iStationLabelDao.getInstance(id);
     }
 
     @Override
-    public String getIndustryLabel(int id) {
+    public String getIndustryLabel(Long id) {
         return iIndustryLabelDao.getInstance(id);
     }
 }

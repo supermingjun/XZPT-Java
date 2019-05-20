@@ -10,7 +10,17 @@
     <packaging>war</packaging>
 
     <dependencies>
-<!--        mybatis 生成自动插入相关-->
+
+        <!--        JSTL-->
+        <!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <scope>runtime</scope>
+            <version>1.2</version>
+        </dependency>
+
+        <!--        mybatis 生成自动插入相关-->
         <!-- https://mvnrepository.com/artifact/tk.mybatis/mapper -->
         <dependency>
             <groupId>tk.mybatis</groupId>

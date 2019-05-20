@@ -152,7 +152,7 @@ public class RecommendAlgorithm {
 
         AlgorithImplement algorithImplement = new AlgorithImplement();
         List<RecruitmentProfile> preScreeningResults = algorithImplement.directFiltration(upf, rps);
-        Map<Integer, double[]> weightResults = algorithImplement.quantization(upf, preScreeningResults);
+        Map<Long, double[]> weightResults = algorithImplement.quantization(upf, preScreeningResults);
         List<RecommendResult> esrs = algorithImplement.computationalSimilarity(upf.getUserId(), weightResults);
         esrs = algorithImplement.getTopN(esrs, n);
 

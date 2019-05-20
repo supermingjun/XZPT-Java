@@ -12,12 +12,12 @@ import lombok.Data;
 @Data
 public class UserProfile {
     private String userId;
-    private int industryLabel;
+    private Long industryLabel;
     private String expectedCity;
-    private int workTime;
-    private int jobType;
+    private Long workTime;
+    private Long jobType;
     private String expectSalary;
-    private int highestEducation;
+    private Long highestEducation;
     private String stationLabel;
 
 }

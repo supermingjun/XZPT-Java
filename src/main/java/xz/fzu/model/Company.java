@@ -28,7 +28,7 @@ public class Company implements Serializable {
     private String headUrl;
     private String email;
     private String description;
-    private long status;
+    private Long status;
     private String token;
 
 }

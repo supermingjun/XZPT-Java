@@ -11,6 +11,8 @@ import xz.fzu.util.Sha;
 import xz.fzu.util.TokenUtil;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -200,5 +202,17 @@ public class UserServiceImpl implements IUserService {
         user.setPasswd(Sha.encrypt(passwd));
 
         iUserDao.updateInfo(user);
+    }
+
+    @Override
+    public List<String> selectUserByIndustryLabel(long industryLabel) {
+        List<User> userList = iUserDao.selectAll();
+        List<String> res = new ArrayList<>(userList.size() / 2);
+        for (User user : userList) {
+            if (user.getIndustryLabel() != null && user.getIndustryLabel() == industryLabel) {
+                res.add(user.getUserId());
+            }
+        }
+        return res;
     }
 }

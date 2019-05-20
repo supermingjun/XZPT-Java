@@ -52,7 +52,7 @@ public interface IResumeDao  extends Mapper<Resume> {
      * @author Murphy
      * @date 2019/4/27 22:52
      */
-    Resume selectInstanceByResumeId(int resumeId);
+    Resume selectInstanceByResumeId(Long resumeId);
 
     /**
      * 查看用户的所有实例
@@ -74,5 +74,5 @@ public interface IResumeDao  extends Mapper<Resume> {
      * @author Murphy
      * @date 2019/5/2 14:30
      */
-    void copyInstance(int resumeId);
+    void copyInstance(Long resumeId);
 }

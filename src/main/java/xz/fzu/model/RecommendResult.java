@@ -14,7 +14,7 @@ public class RecommendResult implements Comparable<RecommendResult> {
 
     private String resultId;
     private String userId;
-    private Integer recruitmentId;
+    private Long recruitmentId;
     private double similarityResult;
 
     @Override

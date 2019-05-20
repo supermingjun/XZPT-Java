@@ -23,7 +23,7 @@ public interface IResumeDeliveryService {
      * @author Murphy
      * @date 2019/4/30 16:24
      */
-    void deliveryResume(String userId, int resumeId, int recruitmentId);
+    void deliveryResume(String userId, Long resumeId, Long recruitmentId);
 
     /**
      * 用户获得获得简历投递记录
@@ -69,7 +69,7 @@ public interface IResumeDeliveryService {
      * @author Murphy
      * @date 2019/4/30 19:07
      */
-    ResumeDelivery getResumeDeliveryRecordById(int resumeDeliveryId) throws InstanceNotExistException;
+    ResumeDelivery getResumeDeliveryRecordById(Long resumeDeliveryId) throws InstanceNotExistException;
 
 
     /**
@@ -96,7 +96,6 @@ public interface IResumeDeliveryService {
     /**
      * 获得所有的投递记录
      *
-     * @param
      * @return java.util.List<xz.fzu.model.ResumeDelivery>
      * @author Murphy
      * @date 2019/5/5 2:03

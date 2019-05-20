@@ -20,7 +20,7 @@ public class StationLabel implements Serializable {
 
     private static final long serialVersionUID = 1;
     @Id
-    private long stationId;
+    private Long stationId;
     private String content;
 
 }

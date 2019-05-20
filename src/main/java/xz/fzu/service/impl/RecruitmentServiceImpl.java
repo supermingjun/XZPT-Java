@@ -22,9 +22,11 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     IRecruitmentDao iRecruitmentDao;
 
     @Override
-    public void insertRecruitment(Recruitment recruitment) {
-//        iRecruitmentDao.insertInstance(recruitment);
+    public Long insertRecruitment(Recruitment recruitment) {
+
+        recruitment.setValidate(0);
         iRecruitmentDao.insert(recruitment);
+        return recruitment.getRecruitmentId();
     }
 
     @Override
@@ -53,7 +55,7 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
         if (tempRecruitment == null || !tempRecruitment.getCompanyId().equals(companyId)) {
             throw new EvilIntentions();
         }
-        iRecruitmentDao.deleteInstace(recruitmentId);
+        iRecruitmentDao.deleteInstance(recruitmentId);
     }
 
     @Override
