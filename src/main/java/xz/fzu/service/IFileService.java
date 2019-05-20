@@ -10,26 +10,6 @@ import java.io.IOException;
  */
 public interface IFileService {
 
-    /**
-     * 问价家目录
-     */
-    String FILE_HOME = "/home/tomcat8/";
-    /**
-     * 文件上传目录
-     */
-    String UPLOAD = "/upload/";
-    /**
-     * 文件下载目录
-     */
-    String DOWNLOAD = "/download/";
-    /**
-     * csv格式
-     */
-    String CSV = "csv";
-    /**
-     * JPG格式
-     */
-    String JPG = "jpg";
 
     /**
      * 保存文件
@@ -51,6 +31,7 @@ public interface IFileService {
      * @return void
      * @author Murphy
      * @date 2019/5/20 21:17
+     * @throws IOException 抛出IO异常
      */
     byte[] readFile(String userId, String filePath) throws IOException;
 }

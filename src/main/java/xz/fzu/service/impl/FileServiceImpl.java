@@ -3,6 +3,8 @@ package xz.fzu.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import xz.fzu.service.IFileService;
+import xz.fzu.util.Constants;
+import xz.fzu.util.ImportDataUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,7 +25,7 @@ public class FileServiceImpl implements IFileService {
     public String saveFile(String userId, String format, CommonsMultipartFile commonsMultipartFile) throws IOException {
 
         String fileName = getFileName(commonsMultipartFile, format);
-        String path = getPath(userId, UPLOAD, fileName);
+        String path = ImportDataUtil.getPath(userId, Constants.UPLOAD, fileName);
         commonsMultipartFile.transferTo(new File(path));
 
         return fileName;
@@ -32,7 +34,7 @@ public class FileServiceImpl implements IFileService {
     @Override
     public byte[] readFile(String userId, String fileName) throws IOException {
 
-        String filePath = getPath(userId, DOWNLOAD, fileName);
+        String filePath = ImportDataUtil.getPath(userId, Constants.DOWNLOAD, fileName);
         //将该文件加入到输入流之中
         InputStream in = new FileInputStream(new File(filePath));
         // 返回下一次对此输入流调用的方法可以不受阻塞地从此输入流读取（或跳过）的估计剩余字节数
@@ -63,15 +65,4 @@ public class FileServiceImpl implements IFileService {
         return UUID.randomUUID() + "." + format;
     }
 
-    /**
-     * 根据token获得用户id
-     *
-     * @return java.lang.String
-     * @author Murphy
-     * @date 2019/5/19 13:47
-     */
-    private String getPath(String userId, String opType, String fileName) {
-
-        return FILE_HOME + userId + opType + fileName;
-    }
 }

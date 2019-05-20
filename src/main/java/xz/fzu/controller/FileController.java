@@ -12,6 +12,7 @@ import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.User;
 import xz.fzu.service.IFileService;
 import xz.fzu.service.IUserService;
+import xz.fzu.util.Constants;
 import xz.fzu.vo.ResponseVO;
 
 import javax.annotation.Resource;
@@ -53,7 +54,7 @@ public class FileController {
         ResponseVO<String> responseVO = new ResponseVO<>();
 
         User user = iUserService.selectUserByToken(token);
-        String fileName = iFileService.saveFile(user.getUserId(), IFileService.JPG, file);
+        String fileName = iFileService.saveFile(user.getUserId(), Constants.JPG, file);
         responseVO.setResultObject(fileName);
 
         return responseVO;
@@ -74,7 +75,7 @@ public class FileController {
         ResponseVO<String> responseVO = new ResponseVO<>();
 
         User user = iUserService.selectUserByToken(token);
-        String fileName = iFileService.saveFile(user.getUserId(), IFileService.CSV, file);
+        String fileName = iFileService.saveFile(user.getUserId(), Constants.CSV, file);
         responseVO.setResultObject(fileName);
 
         return responseVO;
