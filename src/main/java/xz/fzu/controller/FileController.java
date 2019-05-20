@@ -1,5 +1,8 @@
 package xz.fzu.controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,5 +80,39 @@ public class FileController {
         return responseVO;
     }
 
+    /**
+     * 下载文件
+     *
+     * @param fileName 文件名
+     * @param token    token
+     * @return org.springframework.http.ResponseEntity<byte [ ]>
+     * @author Murphy
+     * @date 2019/5/20 22:43
+     */
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> fileDownload(@RequestParam("file") String fileName, @RequestParam String token) throws IOException, TokenExpiredException {
+
+        String userId = iUserService.selectUserByToken(token).getUserId();
+        byte[] body = iFileService.readFile(userId, fileName);
+
+        //防止中文乱码
+        fileName = new String(fileName.getBytes("gbk"), "iso8859-1");
+        //设置响应头
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment;filename=" + fileName);
+        //设置响应吗
+        HttpStatus statusCode = HttpStatus.OK;
+
+        return new ResponseEntity<>(body, headers, statusCode);
+
+        //public ResponseEntity（T  body，
+        //                       MultiValueMap < String，String > headers，
+        //                       HttpStatus  statusCode）
+        //HttpEntity使用给定的正文，标题和状态代码创建一个新的。
+        //参数：
+        //body - 实体机构
+        //headers - 实体头
+        //statusCode - 状态码
+    }
 
 }

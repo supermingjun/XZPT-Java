@@ -45,10 +45,12 @@ public interface IFileService {
     String saveFile(String userId, String format, CommonsMultipartFile commonsMultipartFile) throws IOException;
 
     /**
+     * 读取文件
+     * @param userId 用户id
      * @param filePath 上传文件路径
      * @return void
      * @author Murphy
      * @date 2019/5/20 21:17
      */
-    void readFile(String filePath);
+    byte[] readFile(String userId, String filePath) throws IOException;
 }
