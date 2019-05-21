@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import xz.fzu.exception.TokenExpiredException;
+import xz.fzu.exception.UserNotFoundException;
 import xz.fzu.model.User;
+import xz.fzu.service.ICompanyService;
 import xz.fzu.service.IFileService;
 import xz.fzu.service.IUserService;
 import xz.fzu.util.Constants;
@@ -34,6 +36,8 @@ public class FileController {
     @Resource
     IUserService iUserService;
 
+    @Resource
+    ICompanyService iCompanyService;
     /**
      * 文件service，主要用来读写文件
      */
@@ -70,12 +74,17 @@ public class FileController {
      * @date 2019/5/20 21:35
      */
     @RequestMapping(value = "/upload/file", method = RequestMethod.POST)
-    public ResponseVO<String> fileUpload(@RequestParam("file") CommonsMultipartFile file, @RequestParam String token) throws IOException, TokenExpiredException {
+    public ResponseVO<String> fileUpload(@RequestParam("file") CommonsMultipartFile file, @RequestParam String token) throws IOException, UserNotFoundException, TokenExpiredException {
 
         ResponseVO<String> responseVO = new ResponseVO<>();
 
-        User user = iUserService.selectUserByToken(token);
-        String fileName = iFileService.saveFile(user.getUserId(), Constants.CSV, file);
+        String userId;
+        try {
+            userId = iUserService.selectUserByToken(token).getUserId();
+        } catch (TokenExpiredException e) {
+            userId = iCompanyService.getInfoByToken(token).getCompanyId();
+        }
+        String fileName = iFileService.saveFile(userId, Constants.CSV, file);
         responseVO.setResultObject(fileName);
 
         return responseVO;
@@ -91,9 +100,15 @@ public class FileController {
      * @date 2019/5/20 22:43
      */
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> fileDownload(@RequestParam("file") String fileName, @RequestParam String token) throws IOException, TokenExpiredException {
+    public ResponseEntity<byte[]> fileDownload(@RequestParam("file") String fileName, @RequestParam String token) throws IOException, TokenExpiredException, UserNotFoundException {
 
-        String userId = iUserService.selectUserByToken(token).getUserId();
+        String userId;
+        try {
+            userId = iUserService.selectUserByToken(token).getUserId();
+        } catch (TokenExpiredException e) {
+            userId = iCompanyService.getInfoByToken(token).getCompanyId();
+        }
+
         byte[] body = iFileService.readFile(userId, fileName);
 
         //防止中文乱码

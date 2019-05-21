@@ -153,6 +153,6 @@ public class ImportDataUtil {
      */
     public static String getPath(String userId, String opType, String fileName) {
 
-        return Constants.FILE_HOME + userId + opType + fileName;
+        return Constants.FILE_HOME + opType + userId + "/" + fileName;
     }
 }
