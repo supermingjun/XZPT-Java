@@ -61,7 +61,7 @@ public class Constants {
     /**
      * 找不到实例
      */
-    public static final int INTANCE_NOT_EXIST = 2018;
+    public static final int INSTANCE_NOT_EXIST = 2018;
     /**
      * 恶意操作
      */
@@ -80,11 +80,11 @@ public class Constants {
     /**
      * 文件上传目录
      */
-    public static String UPLOAD = "/upload/";
+    public static String UPLOAD = "/upload";
     /**
      * 文件下载目录
      */
-    public static String DOWNLOAD = "/download/";
+    public static String DOWNLOAD = "/download";
     /**
      * csv格式
      */
@@ -94,7 +94,7 @@ public class Constants {
      */
     public static String JPG = "jpg";
     /**
-     * 问价家目录
+     * 家目录
      */
     static String FILE_HOME = "/home/tomcat8";
 

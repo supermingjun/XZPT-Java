@@ -4,17 +4,14 @@ import xz.fzu.exception.CsvErrorException;
 import xz.fzu.model.Recruitment;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
  * @author Murphy
  * @date 2019/5/20 23:11
  */
-public class ImportDataUtil {
+public class FileUtil {
 
     private static final String JOB_NAME = "jobName(岗位名称)";
     private static final String DESCRIPTION = "description(岗位描述)";
@@ -50,12 +47,12 @@ public class ImportDataUtil {
      * @author Murphy
      * @date 2019/5/20 23:43
      */
-    public static List<Recruitment> readData(String fileName, String companyId) throws IOException, CsvErrorException {
+    public static List<Recruitment> readCsvData(String fileName, String companyId, boolean isPrivate) throws IOException, CsvErrorException {
 
         List<Recruitment> res = new ArrayList<>();
 
         Map<Integer, String> map = new HashMap<>(64);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(getPath(companyId, Constants.UPLOAD, fileName)))));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(getFilePath(companyId, Constants.UPLOAD, fileName, isPrivate)))));
         String line = bufferedReader.readLine();
         String[] labels = line.split(",");
         if (labels.length != SIZE) {
@@ -144,15 +141,50 @@ public class ImportDataUtil {
         }
     }
 
+
     /**
      * 根据名字和操作类型获得文件路径
      *
+     * @param userId    用户id
+     * @param opType    操作类型
+     * @param fileName  文件名
+     * @param isPrivate 是否为私密文件
      * @return java.lang.String
      * @author Murphy
-     * @date 2019/5/19 13:47
+     * @date 2019/5/22 20:06
      */
-    public static String getPath(String userId, String opType, String fileName) {
+    public static String getFilePath(String userId, String opType, String fileName, boolean isPrivate) {
 
-        return Constants.FILE_HOME + opType + userId + "/" + fileName;
+        if (isPrivate) {
+            String path = Constants.FILE_HOME + opType + "/" + userId + "/" + fileName;
+            System.out.println("文件保存到：" + path);
+            return path;
+        } else {
+            String path = Constants.FILE_HOME + opType + "/" + fileName;
+            ;
+            System.out.println("文件保存到：" + path);
+            return path;
+        }
+    }
+
+
+    /**
+     * 随机生成文件名
+     *
+     * @param fileName 文件名
+     * @param defaultFormat 默认文件格式
+     * @return java.lang.String
+     * @author Murphy
+     * @date 2019/5/19 13:44
+     */
+    public static String getFileName(String fileName, String defaultFormat) {
+        String[] names = fileName.split("\\.");
+        String format;
+        if (names.length - 1 >= 0) {
+            format = names[names.length - 1];
+        } else {
+            format = defaultFormat;
+        }
+        return UUID.randomUUID() + "." + format;
     }
 }

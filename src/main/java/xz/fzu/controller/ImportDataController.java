@@ -10,7 +10,7 @@ import xz.fzu.exception.UserNotFoundException;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.ICompanyService;
 import xz.fzu.service.IRecruitmentService;
-import xz.fzu.util.ImportDataUtil;
+import xz.fzu.util.FileUtil;
 import xz.fzu.vo.ResponseVO;
 
 import javax.annotation.Resource;
@@ -29,12 +29,22 @@ public class ImportDataController {
     @Resource
     IRecruitmentService iRecruitmentService;
 
+    /**
+     * 导入数据
+     *
+     * @param fileName  文件名
+     * @param token     token
+     * @param isPrivate 是否属于私密文件
+     * @return xz.fzu.vo.ResponseVO<java.lang.String>
+     * @author Murphy
+     * @date 2019/5/22 20:09
+     */
     @RequestMapping(value = "/company/importdata", method = RequestMethod.POST)
-    public ResponseVO<String> importDataFromFile(@RequestParam("file") String fileName, @RequestParam String token) throws UserNotFoundException, TokenExpiredException, IOException, CsvErrorException {
+    public ResponseVO<String> importDataFromFile(@RequestParam("file") String fileName, @RequestParam String token, @RequestParam("private") int isPrivate) throws UserNotFoundException, TokenExpiredException, IOException, CsvErrorException {
 
         ResponseVO<String> responseVO = new ResponseVO<>();
         String companyId = iCompanyService.getInfoByToken(token).getCompanyId();
-        List<Recruitment> recruitmentList = ImportDataUtil.readData(fileName, companyId);
+        List<Recruitment> recruitmentList = FileUtil.readCsvData(fileName, companyId, isPrivate==1);
         for (Recruitment recruitment : recruitmentList) {
             iRecruitmentService.insertRecruitment(recruitment);
         }
