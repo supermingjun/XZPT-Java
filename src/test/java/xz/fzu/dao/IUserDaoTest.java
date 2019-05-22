@@ -1,8 +1,9 @@
 package xz.fzu.dao;
 
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import xz.fzu.model.User;
+
+import javax.annotation.Resource;
 
 /**
  * @author Murphy
@@ -10,7 +11,7 @@ import xz.fzu.model.User;
  */
 public class IUserDaoTest {
 
-    @Autowired
+    @Resource
     private IUserDao userDao;
 
     @Test
@@ -19,7 +20,7 @@ public class IUserDaoTest {
         user.setPasswd("123456");
         user.setUserName("待就业");
         user.setEmail("djylrz@qq.com");
-        user.setSex(1);
+        user.setSex(1L);
         //System.out.println(userDao.findOnValidate(user).getMark());
         User find = userDao.selectByEmail("djylrz@qq.com");
         System.out.println(find.getUserId());

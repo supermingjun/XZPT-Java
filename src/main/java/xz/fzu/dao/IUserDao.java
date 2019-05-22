@@ -1,27 +1,32 @@
 package xz.fzu.dao;
 
 import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.common.Mapper;
+import xz.fzu.model.Recruitment;
 import xz.fzu.model.User;
 
 /**
  * 用户相关的dao
+ *
  * @author Murphy
  * @date 2019/4/19 22:59
  */
 @Repository
-public interface IUserDao {
+public interface IUserDao  extends Mapper<User> {
 
     /**
      * 插入用户
+     *
      * @param user 用户实例
      * @return void
      * @author Murphy
      * @date 2019/4/24 14:14
      */
-    void insertUser(User user);
+//    void insertUser(User user);
 
     /**
      * 从邮箱查找用户的实例
+     *
      * @param email 邮件地址
      * @return xz.fzu.model.User
      * @author Murphy
@@ -32,6 +37,7 @@ public interface IUserDao {
 
     /**
      * 根据id查找用户 调用此方法前应先调用token得到userid的方法
+     *
      * @param userId 用户id
      * @return xz.fzu.model.User
      * @author Murphy
@@ -41,6 +47,7 @@ public interface IUserDao {
 
     /**
      * 验证用户账号密码
+     *
      * @param user 用户实例
      * @return int
      * @author Murphy
@@ -50,6 +57,7 @@ public interface IUserDao {
 
     /**
      * 通过token查找用户
+     *
      * @param token token
      * @return java.lang.String
      * @author Murphy
@@ -59,7 +67,8 @@ public interface IUserDao {
 
     /**
      * 更新token
-     * @param token token
+     *
+     * @param token  token
      * @param userId 用户id
      * @return void
      * @author Murphy
@@ -69,6 +78,7 @@ public interface IUserDao {
 
     /**
      * 更新密码
+     *
      * @param userId 用户id
      * @param passwd 密码
      * @return void
@@ -80,6 +90,7 @@ public interface IUserDao {
 
     /**
      * 更新用户信息
+     *
      * @param user 用户实例
      * @return void
      * @author Murphy

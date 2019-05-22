@@ -21,11 +21,12 @@
         <result property="projectExperience" column="project_experience"/>
         <result property="practicalExperience" column="practical_experience"/>
         <result property="resumeStatus" column="resume_status"/>
+        <result property="expectWork" column="expect_work"/>
         <result property="age" column="age"/>
     </resultMap>
     <insert id="insertInstance" parameterType="xz.fzu.model.Resume">
-        INSERT INTO resume(user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age)
-        VALUES (#{userId},#{telephone},#{userName},#{headUrl},#{email},#{sex},#{presentCity},#{expectedCity},#{school},#{speciality},#{startTime},#{endTime},#{highestEducation},#{certificate},#{projectExperience},#{practicalExperience},#{resumeStatus},#{age})
+        INSERT INTO resume(user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age,expect_work)
+        VALUES (#{userId},#{telephone},#{userName},#{headUrl},#{email},#{sex},#{presentCity},#{expectedCity},#{school},#{speciality},#{startTime},#{endTime},#{highestEducation},#{certificate},#{projectExperience},#{practicalExperience},#{resumeStatus},#{age},#{expectWork})
     </insert>
     <delete id="deleteInstance" parameterType="int">
         DELETE  FROM resume WHERE resume_id=#{resumeId}
@@ -74,7 +75,7 @@
             <if test=" highestEducation != 0 ">
                 highest_education = #{highestEducation},
             </if>
-            <if test=" certificate != 0 ">
+            <if test=" certificate != null and certificate != '' ">
                 certificate = #{certificate},
             </if>
             <if test=" presentCity != null and presentCity != '' ">
@@ -85,6 +86,9 @@
             </if>
             <if test=" projectExperience != null and projectExperience != '' ">
                 project_experience = #{projectExperience},
+            </if>
+            <if test=" expectWork != null and expectWork != '' ">
+                expect_work = #{expectWork},
             </if>
             <if test=" resumeStatus != 0 ">
                 resume_status = #{resumeStatus},
@@ -97,14 +101,14 @@
     </update>
 
 
-    <select id="selectInstanceByResumeId" parameterType="int" resultType="xz.fzu.model.Resume" resultMap="myResultMap">
+    <select id="selectInstanceByResumeId" parameterType="Long" resultType="xz.fzu.model.Resume" resultMap="myResultMap">
         SELECT * FROM resume WHERE resume_id = #{resumeId}
     </select>
 
     <select id="selectListByUserId" resultType="xz.fzu.model.Resume" resultMap="myResultMap">
-        SELECT * FROM resume WHERE user_id = #{arg0} LIMIT #{arg1},#{arg2} AND resume_status != 1
+        SELECT * FROM resume WHERE user_id = #{arg0} LIMIT #{arg1},#{arg2}
     </select>
-    <insert id="copyInstance" parameterType="int">
+    <insert id="copyInstance" parameterType="Long">
         INSERT INTO resume(user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age)
          (SELECT user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age
           FROM resume WHERE resume_id = #{resumeId})

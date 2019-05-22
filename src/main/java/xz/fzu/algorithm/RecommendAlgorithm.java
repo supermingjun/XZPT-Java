@@ -45,6 +45,48 @@ import java.util.Map;
  * 1   实习
  * 2   兼职
  * 3   全职
+ * <p>
+ * 学历
+ * 1   学历不限
+ * 2   大专及以上
+ * 3   本科及以上
+ * 4   硕士及以上
+ * 5   博士及以上
+ * <p>
+ * 工作时间
+ * 1   955
+ * 2   965
+ * 3   956
+ * 4   996
+ * <p>
+ * 工作时间
+ * 1   955
+ * 2   965
+ * 3   956
+ * 4   996
+ * <p>
+ * 工作时间
+ * 1   955
+ * 2   965
+ * 3   956
+ * 4   996
+ * <p>
+ * 工作时间
+ * 1   955
+ * 2   965
+ * 3   956
+ * 4   996
+ * <p>
+ * 工作时间
+ * 1   955
+ * 2   965
+ * 3   956
+ * 4   996
+ * <p>
+ * 工作类型
+ * 1   实习
+ * 2   兼职
+ * 3   全职
  */
 /**
  * 学历
@@ -110,12 +152,12 @@ public class RecommendAlgorithm {
 
         AlgorithImplement algorithImplement = new AlgorithImplement();
         List<RecruitmentProfile> preScreeningResults = algorithImplement.directFiltration(upf, rps);
-        Map<Integer, double[]> weightResults = algorithImplement.quantization(upf, preScreeningResults);
+        Map<Long, double[]> weightResults = algorithImplement.quantization(upf, preScreeningResults);
         List<RecommendResult> esrs = algorithImplement.computationalSimilarity(upf.getUserId(), weightResults);
         esrs = algorithImplement.getTopN(esrs, n);
 
-            return esrs;
-        }
+        return esrs;
+    }
 	/*public static void main(String[] args) {
 		
 		RecommendAlgorithm ra = new RecommendAlgorithm();

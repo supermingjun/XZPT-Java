@@ -14,8 +14,11 @@
         INSERT  INTO resume_delivery(recruitment_id,user_id,resume_id,delivery_status,remark)
         VALUES( #{recruitmentId},#{userId},#{resumeId},#{deliveryStatus},#{remark})
     </insert>
-    <select id="getInstance" parameterType="int" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
+    <select id="getInstance" parameterType="Long" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
         SELECT * FROM resume_delivery WHERE resume_delivery_id = #{resumeDeliveryId}
+    </select>
+    <select id="mySelectAll" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
+        SELECT * FROM resume_delivery
     </select>
     <select id="userGetListInstance" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
          SELECT * FROM resume_delivery WHERE user_id = #{arg0} LIMIT #{arg1},#{arg2}

@@ -24,13 +24,14 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
      * TODO 安全认证，暂时没有
      */
     @Override
-    public void deliveryResume(String userId, int resumeId, int recruitmentId) {
+    public void deliveryResume(String userId, Long resumeId, Long recruitmentId) {
 
         ResumeDelivery resumeDelivery = new ResumeDelivery();
         resumeDelivery.setRecruitmentId(recruitmentId);
         resumeDelivery.setResumeId(resumeId);
         resumeDelivery.setUserId(userId);
-        iResumeDeliveryDao.insertInstance(resumeDelivery);
+        resumeDelivery.setDeliveryStatus(1L);
+        iResumeDeliveryDao.insert(resumeDelivery);
 
     }
 
@@ -70,7 +71,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     }
 
     @Override
-    public ResumeDelivery getResumeDeliveryRecordById(int resumeDeliveryId) throws InstanceNotExistException {
+    public ResumeDelivery getResumeDeliveryRecordById(Long resumeDeliveryId) throws InstanceNotExistException {
 
         ResumeDelivery resumeDelivery = iResumeDeliveryDao.getInstance(resumeDeliveryId);
         if (resumeDelivery == null) {
@@ -96,7 +97,12 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
         if (iResumeDeliveryDao.updateInstance(resumeDelivery) == 0) {
             throw new RuntimeException("数据没有更新" + resumeDelivery.getDeliveryStatus() + "，Id是" + resumeDelivery.getResumeDeliveryId() + "。");
         }
-        ;
 
+    }
+
+    @Override
+    public List<ResumeDelivery> getAllRecord() {
+
+        return iResumeDeliveryDao.mySelectAll();
     }
 }

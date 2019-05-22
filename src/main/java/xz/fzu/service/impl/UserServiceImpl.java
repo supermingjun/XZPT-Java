@@ -11,6 +11,8 @@ import xz.fzu.util.Sha;
 import xz.fzu.util.TokenUtil;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -41,7 +43,7 @@ public class UserServiceImpl implements IUserService {
         user.setPasswd(Sha.encrypt(user.getPasswd()));
         String token = TokenUtil.createToken(user.getUserId(), user.getPasswd());
         user.setToken(token);
-        iUserDao.insertUser(user);
+        iUserDao.insert(user);
 
         return token;
     }
@@ -107,7 +109,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param token token
+     * @param token  token
      * @param userId 用户id
      * @author Murphy
      * @date 2019/4/24 14:04
@@ -137,7 +139,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param user 用户实例
+     * @param user  用户实例
      * @param token token
      * @return void
      * @author Murphy
@@ -155,7 +157,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param token token
+     * @param token     token
      * @param oldPasswd 旧密码
      * @param newPasswd 新密码
      * @return java.lang.String
@@ -184,7 +186,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * @param email 邮件地址
+     * @param email  邮件地址
      * @param passwd 密码
      * @return void
      * @author Murphy
@@ -200,5 +202,17 @@ public class UserServiceImpl implements IUserService {
         user.setPasswd(Sha.encrypt(passwd));
 
         iUserDao.updateInfo(user);
+    }
+
+    @Override
+    public List<String> selectUserByIndustryLabel(long industryLabel) {
+        List<User> userList = iUserDao.selectAll();
+        List<String> res = new ArrayList<>(userList.size() / 2);
+        for (User user : userList) {
+            if (user.getIndustryLabel() != null && user.getIndustryLabel() == industryLabel) {
+                res.add(user.getUserId());
+            }
+        }
+        return res;
     }
 }

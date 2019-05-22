@@ -7,10 +7,8 @@ import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.vo.PageData;
-import xz.fzu.vo.RecruitmentVO;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,65 +22,58 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     IRecruitmentDao iRecruitmentDao;
 
     @Override
-    public void insertRecruitment(Recruitment recruitment) {
-        iRecruitmentDao.insertInstance(recruitment);
+    public Long insertRecruitment(Recruitment recruitment) {
+
+        recruitment.setValidate(0);
+        iRecruitmentDao.insert(recruitment);
+        return recruitment.getRecruitmentId();
     }
 
     @Override
-    public RecruitmentVO getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
-        Recruitment recruitment = iRecruitmentDao.selectInstaceById(recruitmentId);
+    public Recruitment getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
+        xz.fzu.model.Recruitment recruitment = iRecruitmentDao.selectInstaceById(recruitmentId);
         if (recruitment == null) {
             throw new InstanceNotExistException();
         }
-        RecruitmentVO recruitmentVO = new RecruitmentVO(recruitment);
-        return recruitmentVO;
+        return recruitment;
     }
 
     @Override
-    public List<RecruitmentVO> getListRecruitmentByCompanyId(String companyId, PageData pageData) throws InstanceNotExistException {
-        List<Recruitment> recruitmentList = iRecruitmentDao.selectListInstanceByCompanyId(companyId,
+    public List<Recruitment> getListRecruitmentByCompanyId(String companyId, PageData pageData) throws InstanceNotExistException {
+        List<xz.fzu.model.Recruitment> recruitmentList = iRecruitmentDao.selectListInstanceByCompanyId(companyId,
                 (pageData.getCurrentPage() - 1) * pageData.getPageSize(), pageData.getPageSize());
         if (recruitmentList.size() == 0) {
             throw new InstanceNotExistException();
         }
 
-        return listCast(recruitmentList);
+        return recruitmentList;
     }
 
     @Override
     public void deleteRecruitment(long recruitmentId, String companyId) throws EvilIntentions {
-        Recruitment tempRecruitment = iRecruitmentDao.selectInstaceById(recruitmentId);
+        xz.fzu.model.Recruitment tempRecruitment = iRecruitmentDao.selectInstaceById(recruitmentId);
         if (tempRecruitment == null || !tempRecruitment.getCompanyId().equals(companyId)) {
             throw new EvilIntentions();
         }
-        iRecruitmentDao.deleteInstace(recruitmentId);
+        iRecruitmentDao.deleteInstance(recruitmentId);
     }
 
     @Override
-    public void updateRecruitment(Recruitment recruitment, String companyId) throws EvilIntentions {
-        Recruitment tempRecruitment = iRecruitmentDao.selectInstaceById(recruitment.getRecruitmentId());
+    public void updateRecruitment(xz.fzu.model.Recruitment recruitment, String companyId) throws EvilIntentions {
+        xz.fzu.model.Recruitment tempRecruitment = iRecruitmentDao.selectInstaceById(recruitment.getRecruitmentId());
         if (!tempRecruitment.getCompanyId().equals(companyId)) {
             throw new EvilIntentions();
         }
-        iRecruitmentDao.updateInstace(recruitment);
+        iRecruitmentDao.updateInstance(recruitment);
     }
 
     @Override
-    public List<RecruitmentVO> getListRecruitmentByKeyWord(String keyWord, PageData requestPage) throws InstanceNotExistException {
-        List<Recruitment> recruitmentList = iRecruitmentDao.selectInstanceByKeyWord(keyWord, (requestPage.getCurrentPage() - 1) * requestPage.getPageSize(), requestPage.getPageSize());
+    public List<Recruitment> getListRecruitmentByKeyWord(String keyWord, PageData requestPage) throws InstanceNotExistException {
+        List<xz.fzu.model.Recruitment> recruitmentList = iRecruitmentDao.selectInstanceByKeyWord('%' + keyWord + '%', (requestPage.getCurrentPage() - 1) * requestPage.getPageSize(), requestPage.getPageSize());
         if (recruitmentList == null) {
             throw new InstanceNotExistException();
         }
 
-        return listCast(recruitmentList);
-    }
-
-    private List<RecruitmentVO> listCast(List<Recruitment> recruitments) {
-        List<RecruitmentVO> res = new ArrayList<>();
-        for (Recruitment recruitment : recruitments) {
-            res.add(new RecruitmentVO(recruitment));
-        }
-
-        return res;
+        return recruitmentList;
     }
 }
