@@ -11,8 +11,8 @@ import java.io.StringWriter;
 
 /**
  * freemarker 工具类
- * @author brandon
- * @since 2017-08-01
+ * @author LITM
+ * @since 2019年5月22日
  */
 public class FreemarkerUtil {
 
@@ -25,8 +25,6 @@ public class FreemarkerUtil {
      */
     static{
         config = new Configuration();
-        config.setClassForTemplateLoading(FreemarkerUtil.class, "/ftl/");
-        config.setTemplateUpdateDelay(0);
     }
 
     public static Configuration getConfiguration(){
@@ -39,20 +37,18 @@ public class FreemarkerUtil {
      * @return
      * @throws Exception
      */
-    public static String generate(String template, Object obj) throws IOException, TemplateException {
+    public static String generate(String ftlName, Object data,String ftlPath) throws IOException, TemplateException {
         Configuration config = getConfiguration();
         config.setDefaultEncoding("UTF-8");
-        config.setDirectoryForTemplateLoading(new File("E:\\java代码\\简历生成Word\\src"));
-        Template tp = config.getTemplate(template);
+        config.setDirectoryForTemplateLoading(new File(ftlPath));
+        Template tp = config.getTemplate(ftlName);
         StringWriter stringWriter = new StringWriter();
         BufferedWriter writer = new BufferedWriter(stringWriter);
         tp.setEncoding("UTF-8");
-        tp.process(obj, writer);
+        tp.process(data, writer);
         String htmlStr = stringWriter.toString();
         writer.flush();
         writer.close();
         return htmlStr;
     }
-
-
 }
