@@ -85,4 +85,15 @@ public interface IRecruitmentService {
      * @date 2019/4/27 10:51
      */
     void updateRecruitment(xz.fzu.model.Recruitment recruitment, String companyId) throws EvilIntentions;
+
+
+    /**
+     * 根据listid获得招聘信息
+     *
+     * @param longs ids
+     * @return java.util.List<xz.fzu.model.Recruitment>
+     * @author Murphy
+     * @date 2019/5/23 13:52
+     */
+    List<Recruitment> getRecruitmentByIds(List<Long> longs, PageData requestPage) throws InstanceNotExistException;
 }

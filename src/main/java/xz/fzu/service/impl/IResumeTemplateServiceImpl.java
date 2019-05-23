@@ -4,8 +4,10 @@ import org.springframework.stereotype.Service;
 import xz.fzu.dao.IResumeTemplateDao;
 import xz.fzu.model.ResumeTemplate;
 import xz.fzu.service.IResumeTemplateService;
+import xz.fzu.vo.PageData;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +31,16 @@ public class IResumeTemplateServiceImpl implements IResumeTemplateService {
     }
 
     @Override
-    public List<ResumeTemplate> getAll() {
-        return iResumeTemplateDao.selectAll();
+    public List<ResumeTemplate> getPageData(PageData requestPage) {
+        List<ResumeTemplate> list = iResumeTemplateDao.selectAll();
+        int start = (requestPage.getCurrentPage() - 1) * requestPage.getPageSize();
+        int end = requestPage.getPageSize() + start - 1;
+        List<ResumeTemplate> list1 = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (i >= start && i <= end) {
+                list1.add(list.get(i));
+            }
+        }
+        return list1;
     }
 }

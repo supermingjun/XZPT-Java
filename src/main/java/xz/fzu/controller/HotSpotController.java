@@ -1,16 +1,15 @@
 package xz.fzu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xz.fzu.algorithm.GeneratePopularPost;
+import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.HotPost;
 import xz.fzu.model.Recruitment;
 import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IResumeDeliveryService;
+import xz.fzu.vo.PageData;
 import xz.fzu.vo.ResponseVO;
 
 import javax.annotation.Resource;
@@ -55,18 +54,16 @@ public class HotSpotController {
      * @date 2019/5/5 3:12
      */
     @RequestMapping(value = "/user/gethotspot", method = RequestMethod.POST)
-    public ResponseVO<List<Recruitment>> deliveryResume(@RequestParam String token) {
+    public ResponseVO<List<Recruitment>> deliveryResume(@RequestParam String token, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException {
 
         ResponseVO<List<Recruitment>> responseVO = new ResponseVO<>();
         if (hotPosts != null) {
-            List<Recruitment> list = new ArrayList<>();
+            List<Recruitment> list;
+            List<Long> recruitmentIds = new ArrayList<>();
             for (HotPost hotPost : hotPosts) {
-                try {
-                    list.add(iRecruitmentService.getRecruitmentById(hotPost.getRecruitmentId()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                recruitmentIds.add(hotPost.getRecruitmentId());
             }
+            list = iRecruitmentService.getRecruitmentByIds(recruitmentIds, pageData);
             responseVO.setResultObject(list);
         }
 

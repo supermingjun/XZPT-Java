@@ -140,7 +140,7 @@ public class AlgorithImplement {
      */
     public double degreeQuan(UserProfile upf, RecruitmentProfile rp) {
 
-        long uDegree = upf.getHighestEducation();
+        long uDegree = upf.getHighestEducation() == null ? 0 : upf.getHighestEducation();
         String rDegreeRequire = rp.getDegree();
         int rdegreeRequire = 1;
         try {
@@ -162,8 +162,8 @@ public class AlgorithImplement {
 
     public double workTimeQuan(UserProfile upf, RecruitmentProfile rp) {
 
-        long uWorkTime = upf.getWorkTime();
-        long rWorkTime = rp.getWorkTime();
+        long uWorkTime = upf.getWorkTime() == null ? 0 : upf.getWorkTime();
+        long rWorkTime = rp.getWorkTime() == null ? 0 : rp.getWorkTime();
         if (uWorkTime == 0) {
             return WORK_TIME_QUALITY_VALUE[3];
         } else if (uWorkTime == rWorkTime) {

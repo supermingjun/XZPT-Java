@@ -9,6 +9,7 @@ import xz.fzu.service.IRecruitmentService;
 import xz.fzu.vo.PageData;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,5 +76,22 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
         }
 
         return recruitmentList;
+    }
+
+    @Override
+    public List<Recruitment> getRecruitmentByIds(List<Long> longs, PageData requestPage) throws InstanceNotExistException {
+
+        int start = (requestPage.getCurrentPage() - 1) * requestPage.getPageSize();
+        int end = requestPage.getPageSize() + start - 1;
+        List<Recruitment> list = new ArrayList<>();
+        for (int i = 0; i < longs.size(); i++) {
+            if (i >= start && i <= end) {
+                list.add(iRecruitmentDao.selectInstaceById(longs.get(i)));
+            }
+        }
+        if (list.size() == 0 || start >= longs.size()) {
+            throw new InstanceNotExistException();
+        }
+        return list;
     }
 }
