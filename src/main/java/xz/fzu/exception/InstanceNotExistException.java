@@ -9,6 +9,6 @@ import xz.fzu.util.Constants;
 public class InstanceNotExistException extends AbstractException {
     public InstanceNotExistException() {
         super("找不到实例！");
-        setErrorCode(Constants.INTANCE_NOT_EXIST);
+        setErrorCode(Constants.INSTANCE_NOT_EXIST);
     }
 }
