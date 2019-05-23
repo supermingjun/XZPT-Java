@@ -52,7 +52,7 @@ public class FileUtil {
         List<Recruitment> res = new ArrayList<>();
 
         Map<Integer, String> map = new HashMap<>(64);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(getFilePath(companyId, Constants.UPLOAD, fileName, isPrivate)))));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(Constants.FILE_HOME + "/" + fileName))));
         String line = bufferedReader.readLine();
         String[] labels = line.split(",");
         if (labels.length != SIZE) {
@@ -156,12 +156,13 @@ public class FileUtil {
     public static String getFilePath(String userId, String opType, String fileName, boolean isPrivate) {
 
         if (isPrivate) {
-            String path = Constants.FILE_HOME + opType + "/" + userId + "/" + fileName;
+//            String path = Constants.FILE_HOME + opType + "/" + userId + "/" + fileName;
+            String path = Constants.FILE_HOME + "/" + userId + "/" + fileName;
             System.out.println("文件保存到：" + path);
             return path;
         } else {
-            String path = Constants.FILE_HOME + opType + "/" + fileName;
-            ;
+//            String path = Constants.FILE_HOME + opType + "/" + "public" + "/" + fileName;
+            String path = Constants.FILE_HOME + "/public/" + fileName;
             System.out.println("文件保存到：" + path);
             return path;
         }

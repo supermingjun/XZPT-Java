@@ -1,7 +1,10 @@
 package xz.fzu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import xz.fzu.algorithm.GeneratePopularPost;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.HotPost;
@@ -48,13 +51,13 @@ public class HotSpotController {
     /**
      * 获取热度算法的接口
      *
-     * @param token token
+     * @param pageData 分页数据
      * @return xz.fzu.vo.ResponseVO<java.util.List < xz.fzu.vo.Recruitment>>
      * @author Murphy
      * @date 2019/5/5 3:12
      */
     @RequestMapping(value = "/user/gethotspot", method = RequestMethod.POST)
-    public ResponseVO<List<Recruitment>> deliveryResume(@RequestParam String token, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException {
+    public ResponseVO<List<Recruitment>> deliveryResume(@RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException {
 
         ResponseVO<List<Recruitment>> responseVO = new ResponseVO<>();
         if (hotPosts != null) {

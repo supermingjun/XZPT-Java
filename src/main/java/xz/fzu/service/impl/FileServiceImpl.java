@@ -31,8 +31,8 @@ public class FileServiceImpl implements IFileService {
             file.mkdirs();// 目录不存在的情况下，创建目录。
         }
         commonsMultipartFile.transferTo(file);
-
-        return fileName;
+        System.out.println("上传文件的返回结果为：" + absoluteFilePath.substring((Constants.FILE_HOME + "/").length()));
+        return absoluteFilePath.substring((Constants.FILE_HOME + "/").length());
     }
 
     @Override

@@ -96,7 +96,7 @@ public class Constants {
     /**
      * 家目录
      */
-    static String FILE_HOME = "/home/tomcat8";
+    public static String FILE_HOME = "/home/tomcat8";
 
     public static final String RESULT_MSG = "RESULT_MSG";
     public static final String RESULT_OBJECT = "RESULT_OBJECT";
