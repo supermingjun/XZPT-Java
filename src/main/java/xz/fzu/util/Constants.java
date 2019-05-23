@@ -61,12 +61,42 @@ public class Constants {
     /**
      * 找不到实例
      */
-    public static final int INTANCE_NOT_EXIST = 2018;
+    public static final int INSTANCE_NOT_EXIST = 2018;
     /**
      * 恶意操作
      */
     public static final int EVIL_INTENTIONS = 2019;
+    /**
+     * CSV长度错误
+     */
+    public static final int CSV_LENGTH_ERROR = 2020;
+    /**
+     * CSV错误
+     */
+    public static final int CSV_ERROR = 2021;
 
+
+    // 文件相关
+    /**
+     * 文件上传目录
+     */
+    public static String UPLOAD = "/upload";
+    /**
+     * 文件下载目录
+     */
+    public static String DOWNLOAD = "/download";
+    /**
+     * csv格式
+     */
+    public static String CSV = "csv";
+    /**
+     * JPG格式
+     */
+    public static String JPG = "jpg";
+    /**
+     * 家目录
+     */
+    public static String FILE_HOME = "/home/tomcat8";
 
     public static final String RESULT_MSG = "RESULT_MSG";
     public static final String RESULT_OBJECT = "RESULT_OBJECT";

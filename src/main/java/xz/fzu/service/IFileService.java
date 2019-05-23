@@ -10,26 +10,6 @@ import java.io.IOException;
  */
 public interface IFileService {
 
-    /**
-     * 问价家目录
-     */
-    String FILE_HOME = "/home/tomcat8/";
-    /**
-     * 文件上传目录
-     */
-    String UPLOAD = "/upload/";
-    /**
-     * 文件下载目录
-     */
-    String DOWNLOAD = "/download/";
-    /**
-     * csv格式
-     */
-    String CSV = "csv";
-    /**
-     * JPG格式
-     */
-    String JPG = "jpg";
 
     /**
      * 保存文件
@@ -37,18 +17,23 @@ public interface IFileService {
      * @param userId               用户id
      * @param format               格式
      * @param commonsMultipartFile 上传文件流
+     * @param isPrivate 私密与否
      * @return void
      * @throws IOException 抛出IO异常
      * @author Murphy
      * @date 2019/5/20 21:16
      */
-    String saveFile(String userId, String format, CommonsMultipartFile commonsMultipartFile) throws IOException;
+    String saveFile(String userId, String format, CommonsMultipartFile commonsMultipartFile, boolean isPrivate) throws IOException;
 
     /**
+     * 读取文件
+     * @param userId 用户id
      * @param filePath 上传文件路径
+     * @param isPrivate 私密与否
      * @return void
      * @author Murphy
      * @date 2019/5/20 21:17
+     * @throws IOException 抛出IO异常
      */
-    void readFile(String filePath);
+    byte[] readFile(String userId, String filePath, boolean isPrivate) throws IOException;
 }

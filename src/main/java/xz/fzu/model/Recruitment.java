@@ -39,9 +39,6 @@ public class Recruitment implements Serializable {
     private Integer headCount;
 
     @Transient
-    /*
-     * 以下字段不对应表中的具体字段，所以全部使用@Transient
-     * */
     private String companyName;
     @Transient
     private String station;
