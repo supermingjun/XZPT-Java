@@ -3,21 +3,19 @@ package xz.fzu.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.exception.*;
-import xz.fzu.model.Recruitment;
 import xz.fzu.model.User;
-import xz.fzu.service.IRecruitmentService;
 import xz.fzu.service.IUserService;
 import xz.fzu.service.IVerificationCodeService;
-import xz.fzu.vo.ResponseData;
+import xz.fzu.vo.ResponseVO;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
+ * 用户相关的控制器
+ *
  * @author Murphy
  * @date 2019/4/19 23:19
  */
-//    @RestController注解相当于@ResponseBody ＋ @Controller合在一起的作用。
 @RestController
 @RequestMapping(value = "/user", method = RequestMethod.POST)
 public class UserController {
@@ -25,8 +23,6 @@ public class UserController {
     private IUserService iUserService;
     @Resource
     private IVerificationCodeService iVerificationCodeService;
-    @Resource
-    private IRecruitmentService iRecruitmentService;
 
     @Autowired
     public UserController(IUserService iUserService, IVerificationCodeService iValidateCodeService) {
@@ -35,7 +31,7 @@ public class UserController {
     }
 
     /**
-     * @param user
+     * @param user 用户实例
      * @param code 验证码
      * @return java.util.Map
      * @author Murphy
@@ -44,18 +40,18 @@ public class UserController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData register(@RequestBody User user, @RequestParam int code) throws ValidationExceprion, NoVerfcationCodeException {
+    public ResponseVO register(@RequestBody User user, @RequestParam int code) throws ValidationException, NoVerificationCodeException, AccountUsedException {
 
-        ResponseData<String> responseData = new ResponseData<String>();
+        ResponseVO<String> responseVO = new ResponseVO<>();
         iVerificationCodeService.verifyCode(user.getEmail(), code);
         String token = iUserService.register(user);
-        responseData.setResultObject(token);
+        responseVO.setResultObject(token);
 
-        return responseData;
+        return responseVO;
     }
 
     /**
-     * @param token
+     * @param token token
      * @return java.util.Map
      * @author Murphy
      * @date 2019/4/20 20:53
@@ -63,16 +59,16 @@ public class UserController {
      */
     @RequestMapping(value = "/vertifytoken", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<String> loginWithToken(@RequestParam String token) throws TokenExpiredException {
+    public ResponseVO<String> loginWithToken(@RequestParam String token) throws TokenExpiredException {
 
-        ResponseData<String> responseData = new ResponseData<String>();
+        ResponseVO<String> responseVO = new ResponseVO<>();
         iUserService.verifyToken(token);
-        responseData.setResultObject(token);
-        return responseData;
+        responseVO.setResultObject(token);
+        return responseVO;
     }
 
     /**
-     * @param user
+     * @param user 用户实例
      * @return java.util.Map
      * @author Murphy
      * @date 2019/4/20 21:12
@@ -80,17 +76,17 @@ public class UserController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<String> login(@RequestBody User user) throws PasswordErrorException {
+    public ResponseVO<String> login(@RequestBody User user) throws PasswordErrorException {
 
-        ResponseData<String> responseData = new ResponseData<String>();
+        ResponseVO<String> responseVO = new ResponseVO<>();
         String token = iUserService.verifyUser(user);
-        responseData.setResultObject(token);
-        return responseData;
+        responseVO.setResultObject(token);
+        return responseVO;
     }
 
 
     /**
-     * @param token
+     * @param token token
      * @return xz.fzu.model.User
      * @author Murphy
      * @date 2019/4/24 2:06
@@ -98,18 +94,18 @@ public class UserController {
      */
     @RequestMapping(value = "/getuserbytoken", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<User> getUser(@RequestParam String token) throws TokenExpiredException {
+    public ResponseVO<User> getUser(@RequestParam String token) throws TokenExpiredException {
 
-        ResponseData<User> responseData = new ResponseData<User>();
+        ResponseVO<User> responseVO = new ResponseVO<>();
         User user = iUserService.selectUserByToken(token);
-        responseData.setResultObject(user);
-        return responseData;
+        responseVO.setResultObject(user);
+        return responseVO;
     }
 
     /**
-     * @param token
-     * @param oldPasswd
-     * @param newPasswd
+     * @param token     token
+     * @param oldPasswd 旧密码
+     * @param newPasswd 新密码
      * @return java.util.Map<java.lang.Object, java.lang.Object>
      * @author Murphy
      * @date 2019/4/25 17:34
@@ -117,17 +113,17 @@ public class UserController {
      */
     @RequestMapping(value = "/updatepasswd", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<String> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) throws PasswordErrorException, TokenExpiredException {
+    public ResponseVO<String> updatePasswd(@RequestParam String token, @RequestParam String oldPasswd, @RequestParam String newPasswd) throws PasswordErrorException, TokenExpiredException {
 
-        ResponseData<String> responseData = new ResponseData<String>();
+        ResponseVO<String> responseVO = new ResponseVO<>();
         String newToken = iUserService.updatePasswd(token, oldPasswd, newPasswd);
-        responseData.setResultObject(newToken);
-        return responseData;
+        responseVO.setResultObject(newToken);
+        return responseVO;
     }
 
     /**
-     * @param user
-     * @param token
+     * @param user  用户实例
+     * @param token token
      * @return java.util.Map<java.lang.Object, java.lang.Object>
      * @author Murphy
      * @date 2019/4/25 17:18
@@ -135,16 +131,16 @@ public class UserController {
      */
     @RequestMapping(value = "/updateinfo", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<String> updateInfo(@RequestBody User user, @RequestParam String token) throws TokenExpiredException {
+    public ResponseVO<String> updateInfo(@RequestBody User user, @RequestParam String token) throws TokenExpiredException {
 
-        ResponseData<String> responseData = new ResponseData<String>();
+        ResponseVO<String> responseVO = new ResponseVO<>();
         iUserService.updateInfo(user, token);
-        return responseData;
+        return responseVO;
     }
 
     /**
-     * @param code
-     * @param passwd
+     * @param code   验证码
+     * @param passwd 密码
      * @return java.util.Map<java.lang.Object, java.lang.Object>
      * @author Murphy
      * @date 2019/4/25 17:24
@@ -152,65 +148,12 @@ public class UserController {
      */
     @RequestMapping(value = "/resetpasswd", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseData<String> resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationExceprion, NoVerfcationCodeException {
+    public ResponseVO<String> resetPasswd(@RequestParam String email, @RequestParam int code, @RequestParam String passwd) throws ValidationException, NoVerificationCodeException {
 
-        ResponseData<String> responseData = new ResponseData<String>();
+        ResponseVO<String> responseVO = new ResponseVO<>();
         iVerificationCodeService.verifyCode(email, code);
         iUserService.resetPasswd(email, passwd);
-        return responseData;
+        return responseVO;
     }
 
-
-    /**
-     * @param token
-     * @param recruitmentId
-     * @return xz.fzu.vo.ResponseData
-     * @author Murphy
-     * @date 2019/4/27 11:15
-     * @description 按id获得指定的招聘信息
-     */
-    @RequestMapping(value = "/getrecruitment", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseData getListRecruitmentByCompanyId(@RequestParam String token, @RequestParam long recruitmentId) throws InstanceNotExistException, TokenExpiredException {
-
-        ResponseData<Recruitment> responseData = new ResponseData<Recruitment>();
-        iUserService.verifyToken(token);
-        Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
-        responseData.setResultObject(recruitment);
-
-        return responseData;
-    }
-
-
-    /**
-     * @param token
-     * @param token
-     * @return xz.fzu.vo.ResponseData
-     * @author Murphy
-     * @date 2019/4/27 11:15
-     * @description 按id获得指定公司所有招聘信息
-     */
-    @RequestMapping(value = "/getlistrecruitmentbycompanyid", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseData<List<Recruitment>> getListRecruitmentByCompanyId(@RequestParam String token, @RequestParam String companyId) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
-
-        ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
-        iUserService.verifyToken(token);
-        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(companyId);
-        responseData.setResultObject(recruitmentList);
-
-        return responseData;
-    }
-
-    @RequestMapping(value = "/searchrecruitment", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseData<List<Recruitment>> searchRecruitment(@RequestParam String token, @RequestParam String keyWord) throws InstanceNotExistException, TokenExpiredException, UserNotFoundException {
-
-        ResponseData<List<Recruitment>> responseData = new ResponseData<List<Recruitment>>();
-        iUserService.verifyToken(token);
-        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByKeyWord(keyWord);
-        responseData.setResultObject(recruitmentList);
-
-        return responseData;
-    }
 }

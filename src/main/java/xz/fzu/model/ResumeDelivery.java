@@ -1,74 +1,38 @@
 package xz.fzu.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import java.io.Serializable;
+/**
+ * @author Murphy
+ * @date 2019/5/315:26
+ */
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Table(name = "resume_delivery")
+@Data
+public class ResumeDelivery {
 
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-public class ResumeDelivery implements Serializable {
+    private static final long serialVersionUID = 1;
 
-  private static final long serialVersionUID = 1;
+    @Id
+    private Long resumeDeliveryId;
+    private Long recruitmentId;
+    private String userId;
+    private Long resumeId;
+    private Long deliveryStatus;
+    private String remark;
 
-  private long resumeDeliveryId;
-  private long recruitmentId;
-  private String userId;
-  private long resumeId;
-  private long deliveryStatus;
-  private String remark;
-
-
-  public long getResumeDeliveryId() {
-    return resumeDeliveryId;
-  }
-
-  public void setResumeDeliveryId(long resumeDeliveryId) {
-    this.resumeDeliveryId = resumeDeliveryId;
-  }
-
-
-  public long getRecruitmentId() {
-    return recruitmentId;
-  }
-
-  public void setRecruitmentId(long recruitmentId) {
-    this.recruitmentId = recruitmentId;
-  }
-
-
-  public String getUserId() {
-    return userId;
-  }
-
-  public void setUserId(String userId) {
-    this.userId = userId;
-  }
-
-
-  public long getResumeId() {
-    return resumeId;
-  }
-
-  public void setResumeId(long resumeId) {
-    this.resumeId = resumeId;
-  }
-
-
-  public long getDeliveryStatus() {
-    return deliveryStatus;
-  }
-
-  public void setDeliveryStatus(long deliveryStatus) {
-    this.deliveryStatus = deliveryStatus;
-  }
-
-
-  public String getRemark() {
-    return remark;
-  }
-
-  public void setRemark(String remark) {
-    this.remark = remark;
-  }
+    @Transient
+    private String userName;
+    @Transient
+    private String recruitmentName;
+    @Transient
+    private String school;
+    @Transient
+    private String speciality;
 
 }

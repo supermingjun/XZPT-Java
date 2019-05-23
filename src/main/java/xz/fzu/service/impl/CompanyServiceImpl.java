@@ -6,7 +6,7 @@ import xz.fzu.exception.*;
 import xz.fzu.model.Company;
 import xz.fzu.service.ICompanyService;
 import xz.fzu.service.IVerificationCodeService;
-import xz.fzu.util.SHA;
+import xz.fzu.util.Sha;
 import xz.fzu.util.TokenUtil;
 
 import javax.annotation.Resource;
@@ -24,15 +24,15 @@ public class CompanyServiceImpl implements ICompanyService {
     IVerificationCodeService iVerificationCodeService;
 
     @Override
-    public void register(Company company, int code) throws ValidationExceprion, NoVerfcationCodeException {
+    public void register(Company company, int code) throws ValidationException, NoVerificationCodeException {
 
         iVerificationCodeService.verifyCode(company.getEmail(), code);
         // 设置uuid
         String uuid = UUID.randomUUID().toString().replace("-", "");
         company.setCompanyId(uuid);
         //  加密密码
-        company.setPasswd(SHA.encrypt(company.getPasswd()));
-        iCompanyDao.insertInstance(company);
+        company.setPasswd(Sha.encrypt(company.getPasswd()));
+        iCompanyDao.insert(company);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public String login(String email, String passwd) throws PasswordErrorException {
-        passwd = SHA.encrypt(passwd);
+        passwd = Sha.encrypt(passwd);
         if (iCompanyDao.loginWithPasswd(email, passwd) == 0) {
             throw new PasswordErrorException();
         }
@@ -85,7 +85,7 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public void resetPasswd(String email, String passwd) throws TokenExpiredException {
-        passwd = SHA.encrypt(passwd);
+        passwd = Sha.encrypt(passwd);
         Company company = iCompanyDao.selectCompanyByEmail(email);
         company.setPasswd(passwd);
         updateInfoByToken(company, company.getToken());
@@ -113,8 +113,8 @@ public class CompanyServiceImpl implements ICompanyService {
         if (iCompanyDao.verifyToken(token) == 0) {
             throw new TokenExpiredException();
         }
-        oldPasswd = SHA.encrypt(oldPasswd);
-        newPasswd = SHA.encrypt(newPasswd);
+        oldPasswd = Sha.encrypt(oldPasswd);
+        newPasswd = Sha.encrypt(newPasswd);
         int affectRow = iCompanyDao.updatePasswd(token, oldPasswd, newPasswd);
         if (affectRow == 0) {
             throw new PasswordErrorException();

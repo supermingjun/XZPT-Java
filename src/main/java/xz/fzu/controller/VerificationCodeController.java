@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import xz.fzu.model.User;
 import xz.fzu.service.IVerificationCodeService;
-import xz.fzu.util.Constants;
+import xz.fzu.vo.ResponseVO;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
+ * 验证码相关的控制器
+ *
  * @author Murphy
  * @date 2019/4/20 11:06
  */
@@ -31,7 +31,7 @@ public class VerificationCodeController {
     }
 
     /**
-     * @param
+     * @param user 用户实例
      * @return void
      * @author Murphy
      * @date 2019/4/20 11:08
@@ -39,15 +39,12 @@ public class VerificationCodeController {
      */
     @RequestMapping(value = "/*")
     @ResponseBody
-    public Map getVerificationCode(@RequestBody User user) {
-        Map<Object, Object> returnMap = new HashMap<Object, Object>();
-        returnMap.put(Constants.resultCode, Constants.OK);
-        try {
-            String email = user.getEmail();
-            iValidateCodeService.sendValidateCode(email);
-        } catch (EmailException e) {
-            returnMap.put(Constants.resultCode, Constants.sendEmailError);
-        }
-        return returnMap;
+    public ResponseVO getVerificationCode(@RequestBody User user) throws EmailException {
+
+        ResponseVO responseVO = new ResponseVO();
+        String email = user.getEmail();
+        iValidateCodeService.sendValidateCode(email);
+
+        return responseVO;
     }
 }

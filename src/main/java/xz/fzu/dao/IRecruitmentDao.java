@@ -1,61 +1,80 @@
 package xz.fzu.dao;
 
+import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.common.Mapper;
 import xz.fzu.model.Recruitment;
 
 import java.util.List;
 
-public interface IRecruitmentDao {
+/**
+ * 招聘信息结果相关的dao
+ *
+ * @author Murphy
+ */
+@Repository
+public interface IRecruitmentDao extends Mapper<Recruitment> {
 
     /**
-     * @param recruitment
+     * 插入一个招聘信息
+     *
+     * @param recruitment 招聘信息的实例
      * @return void
      * @author Murphy
      * @date 2019/4/27 1:13
-     * @description 插入一个实例
      */
-    public void insertInstance(Recruitment recruitment);
+//    void insertInstance(Recruitment recruitment);
 
     /**
-     * @param recruitmentId
+     * 通过实例id查找招聘信息实例
+     *
+     * @param recruitmentId 招聘信息的id
      * @return xz.fzu.model.Recruitment
      * @author Murphy
      * @date 2019/4/27 1:13
-     * @description 通过实例id查找数据库实例
      */
-    public Recruitment selectInstaceById(long recruitmentId);
+    Recruitment selectInstaceById(long recruitmentId);
 
     /**
-     * @param companyId
+     * 根据公司id查找所有的招聘信息
+     *
+     * @param companyId   招聘信息的id
+     * @param requestPage 请求页
+     * @param pageSize    请求页大小
      * @return java.util.List<xz.fzu.model.Recruitment>
      * @author Murphy
      * @date 2019/4/27 1:13
-     * @description 根据公司id查找所有的招聘信息
      */
-    public List<Recruitment> selectListInstaceByCompanyId(String companyId);
+    List<Recruitment> selectListInstanceByCompanyId(String companyId, int requestPage, int pageSize);
 
     /**
-     * @param keyWord
+     * 通过keyWord查找招聘信息
+     *
+     * @param keyWord     关键词
+     * @param requestPage 页码
+     * @param pageSize    页大小
      * @return java.util.List<xz.fzu.model.Recruitment>
      * @author Murphy
      * @date 2019/4/28 23:54
-     * @description 通过keyWord查找招聘信息
      */
-    public List<Recruitment> selectInstanceByKeyWord(String keyWord);
-    /**
-     * @param recruitmentId
-     * @return void
-     * @author Murphy
-     * @date 2019/4/27 1:15
-     * @description 删除招聘信息
-     */
-    public void deleteInstace(long recruitmentId);
+    List<Recruitment> selectInstanceByKeyWord(String keyWord, int requestPage, int pageSize);
 
     /**
-     * @param recruitment
+     * 删除招聘信息
+     *
+     * @param recruitmentId 招聘信息id
      * @return void
      * @author Murphy
      * @date 2019/4/27 1:15
-     * @description 更新信息
      */
-    public void updateInstace(Recruitment recruitment);
+    void deleteInstance(Long recruitmentId);
+
+    /**
+     * 更新招聘信息
+     *
+     * @param recruitment 招聘信息的实例
+     * @return void
+     * @author Murphy
+     * @date 2019/4/27 1:15
+     */
+    void updateInstance(Recruitment recruitment);
 }
