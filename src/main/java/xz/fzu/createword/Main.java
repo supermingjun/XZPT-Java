@@ -31,13 +31,13 @@ public class Main {
 	     map.put("birthday","1998/09/11");
 	     map.put("school","福州大学");
 	     map.put("degree","本科");
-	     map.put("politicalOutlook","共青团");
+	     map.put("political_outlook","共青团");
 	     map.put("major","软件工程");
 	     map.put("phone","1121112112");
 	     map.put("address","南京市民巷186号");
 	     map.put("email", "litm.kf@126.com");
-	     String imageBase64 = LoadImage.loadImage("E:\\ps材料\\8.14\\沙沙-PS打造帅气纹身效果\\沙沙-PS打造帅气纹身效果\\ps打造帅气纹身效果素材\\35373.jpg");
-	     map.put("image",imageBase64);
-	     CreateWord.createWord(map);
+//	     String imageBase64 = LoadImage.loadImage("E:\\ps材料\\8.14\\沙沙-PS打造帅气纹身效果\\沙沙-PS打造帅气纹身效果\\ps打造帅气纹身效果素材\\35373.jpg");
+	   //map.put("head_sculpture",imageBase64);
+	     CreateWord.createWord(map,"E:\\java代码\\生成pdf\\src\\ceshi\\jianli2.docx","jianli.ftl","E:\\java代码\\简历生成Word\\src");
 	}
 }
