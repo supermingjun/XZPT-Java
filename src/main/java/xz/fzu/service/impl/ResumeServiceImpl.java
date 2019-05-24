@@ -73,4 +73,14 @@ public class ResumeServiceImpl implements IResumeService {
 
         iResumeDao.copyInstance(resumeId);
     }
+
+    @Override
+    public Resume getFirstResume(String userId) throws InstanceNotExistException {
+
+        List<Resume> list = iResumeDao.selectAll();
+        if (list.size() == 0) {
+            throw new InstanceNotExistException();
+        }
+        return list.get(0);
+    }
 }

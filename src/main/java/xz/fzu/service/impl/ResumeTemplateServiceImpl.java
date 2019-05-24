@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2019/5/23 12:56
  */
 @Service
-public class IResumeTemplateServiceImpl implements IResumeTemplateService {
+public class ResumeTemplateServiceImpl implements IResumeTemplateService {
 
     @Resource
     IResumeTemplateDao iResumeTemplateDao;
