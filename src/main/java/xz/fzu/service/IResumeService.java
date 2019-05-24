@@ -86,4 +86,14 @@ public interface IResumeService {
      * @date 2019/5/2 14:34
      */
     void copyResume(Long resumeId);
+
+    /**
+     * 获得第一个简历并返回
+     *
+     * @param userId 用户id
+     * @return xz.fzu.model.Resume
+     * @author Murphy
+     * @date 2019/5/23 20:39
+     */
+    Resume getFirstResume(String userId) throws InstanceNotExistException;
 }

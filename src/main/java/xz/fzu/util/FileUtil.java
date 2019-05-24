@@ -143,7 +143,7 @@ public class FileUtil {
 
 
     /**
-     * 根据名字和操作类型获得文件路径
+     * 根据名字和操作类型获得绝对文件路径
      *
      * @param userId    用户id
      * @param opType    操作类型
@@ -153,7 +153,7 @@ public class FileUtil {
      * @author Murphy
      * @date 2019/5/22 20:06
      */
-    public static String getFilePath(String userId, String opType, String fileName, boolean isPrivate) {
+    public static String getAbsoluteFilePath(String userId, String opType, String fileName, boolean isPrivate) {
 
         if (isPrivate) {
 //            String path = Constants.FILE_HOME + opType + "/" + userId + "/" + fileName;
@@ -168,6 +168,17 @@ public class FileUtil {
         }
     }
 
+    /**
+     * 根据绝对路径获得相对路径
+     *
+     * @param absoluteFilePath 绝对文件路径
+     * @return java.lang.String
+     * @author Murphy
+     * @date 2019/5/23 20:31
+     */
+    public static String getRelativeFilePath(String absoluteFilePath) {
+        return absoluteFilePath.substring((Constants.FILE_HOME + "/").length());
+    }
 
     /**
      * 随机生成文件名
