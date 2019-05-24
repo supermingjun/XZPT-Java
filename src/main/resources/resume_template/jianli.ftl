@@ -1797,7 +1797,9 @@
 														<w:sz w:val="20"/>
 														<w:szCs w:val="20"/>
 													</w:rPr>
-													<w:t>${self_assessment?if_exists}</w:t>
+													<w:t><#if self_assessment??>${self_assessment?if_exists}
+															<#else >
+														</#if></w:t>
 												</w:r>
 											</w:p>
 											<w:p w:rsidR="00EB545B" w:rsidRDefault="00EB545B">
