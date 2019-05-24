@@ -25,20 +25,20 @@ public class FileServiceImpl implements IFileService {
 
         String originFilName = Objects.requireNonNull(commonsMultipartFile.getOriginalFilename());
         String fileName = FileUtil.getFileName(originFilName, format);
-        String absoluteFilePath = FileUtil.getFilePath(userId, Constants.UPLOAD, fileName, isPrivate);
+        String absoluteFilePath = FileUtil.getAbsoluteFilePath(userId, Constants.UPLOAD, fileName, isPrivate);
         File file = new File(absoluteFilePath);
         if (!file.exists()) {
             file.mkdirs();// 目录不存在的情况下，创建目录。
         }
         commonsMultipartFile.transferTo(file);
-        System.out.println("上传文件的返回结果为：" + absoluteFilePath.substring((Constants.FILE_HOME + "/").length()));
-        return absoluteFilePath.substring((Constants.FILE_HOME + "/").length());
+        System.out.println("上传文件的返回结果为：" + FileUtil.getRelativeFilePath(absoluteFilePath));
+        return FileUtil.getRelativeFilePath(absoluteFilePath);
     }
 
     @Override
     public byte[] readFile(String userId, String fileName, boolean isPrivate) throws IOException {
 
-        String filePath = FileUtil.getFilePath(userId, Constants.DOWNLOAD, fileName, isPrivate);
+        String filePath = FileUtil.getAbsoluteFilePath(userId, Constants.DOWNLOAD, fileName, isPrivate);
         //将该文件加入到输入流之中
         InputStream in = new FileInputStream(new File(filePath));
         // 返回下一次对此输入流调用的方法可以不受阻塞地从此输入流读取（或跳过）的估计剩余字节数
