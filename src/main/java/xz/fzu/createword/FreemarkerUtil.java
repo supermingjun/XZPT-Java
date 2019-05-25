@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 /**
- * freemarker 工具类
+ * freemarker 工具类,将数据填充到模板中
  * @author LITM
  * @since 2019年5月22日
  */
@@ -24,7 +24,7 @@ public class FreemarkerUtil {
      * Initialize the configuration of Freemarker.
      */
     static{
-        config = new Configuration();
+        config = new Configuration(Configuration.getVersion());
     }
 
     public static Configuration getConfiguration(){
@@ -32,10 +32,13 @@ public class FreemarkerUtil {
     }
 
     /**
-     * @param template
-     * @param variables
+     *
+     * @param ftlName
+     * @param data
+     * @param ftlPath
      * @return
-     * @throws Exception
+     * @throws IOException
+     * @throws TemplateException
      */
     public static String generate(String ftlName, Object data,String ftlPath) throws IOException, TemplateException {
         Configuration config = getConfiguration();

@@ -15,13 +15,22 @@ import java.util.Map;
  * @since 2019年5月22日
  */
 public class CreateWord {
+    public static final Map<Long,String> DEGREE = new HashMap<Long,String>(){
+        {
+            put((long)1,"未知");
+            put((long)2,"大专");
+            put((long)3,"本科");
+            put((long)4,"硕士");
+            put((long)5,"博士");
+        }
+    };
     public static void createWord(Resume resume, String outputFilePath, String ftlName, String ftlPath) throws ExportException {
         Map<String, Object> map = new HashMap<>(10);
         map.put("name", resume.getUserName());
         map.put("work_experience", resume.getPracticalExperience());
         map.put("certificate", resume.getCertificate());
         map.put("school", resume.getSchool());
-        map.put("degree", resume.getHighestEducation());
+        map.put("degree", DEGREE.get(resume.getHighestEducation()));
         map.put("major", resume.getSpeciality());
         map.put("phone", resume.getTelephone());
         map.put("address", resume.getPresentCity());
@@ -37,7 +46,7 @@ public class CreateWord {
         FileOutputStream os;
         try {
             os = new FileOutputStream(outputFilePath);
-            Docx4JUtil.process(ftlName, map, os, ftlPath);
+            Docx4jUtil.process(ftlName, map, os, ftlPath);
         } catch (Exception e) {
             e.printStackTrace();
             throw new ExportException();
