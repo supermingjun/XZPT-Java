@@ -199,4 +199,8 @@ public class FileUtil {
         }
         return UUID.randomUUID() + "." + format;
     }
+
+    public static String getFileName(String defaultFormat) {
+        return UUID.randomUUID() + "." + defaultFormat;
+    }
 }
