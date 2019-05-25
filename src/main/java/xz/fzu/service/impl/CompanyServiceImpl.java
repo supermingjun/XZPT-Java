@@ -32,6 +32,9 @@ public class CompanyServiceImpl implements ICompanyService {
         company.setCompanyId(uuid);
         //  加密密码
         company.setPasswd(Sha.encrypt(company.getPasswd()));
+        if (company.getHeadUrl() == null) {
+            company.setHeadUrl("public/default_head_url.png");
+        }
         iCompanyDao.insert(company);
     }
 

@@ -43,6 +43,9 @@ public class UserServiceImpl implements IUserService {
         user.setPasswd(Sha.encrypt(user.getPasswd()));
         String token = TokenUtil.createToken(user.getUserId(), user.getPasswd());
         user.setToken(token);
+        if (user.getHeadUrl() == null) {
+            user.setHeadUrl("public/default_head_url.png");
+        }
         iUserDao.insert(user);
 
         return token;
