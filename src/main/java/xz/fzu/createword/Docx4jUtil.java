@@ -1,16 +1,20 @@
 package xz.fzu.createword;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.OutputStream;
-
 import org.docx4j.Docx4J;
 import org.docx4j.fonts.IdentityPlusMapper;
 import org.docx4j.fonts.Mapper;
 import org.docx4j.fonts.PhysicalFonts;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 
-public class Docx4JUtil {
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.OutputStream;
+
+/**
+ * 将xml转换为docx
+ * @author LITM
+ */
+public class Docx4jUtil {
 	public static WordprocessingMLPackage genaratePdfByFtlAndDocx4J(String ftlName, Object data,String ftlPath) throws Exception {
         String generate = FreemarkerUtil.generate(ftlName, data,ftlPath);
         ByteArrayInputStream in = new ByteArrayInputStream(generate.getBytes());
@@ -20,10 +24,11 @@ public class Docx4JUtil {
 
     /**
      * 生成word文档
-     * @param ftlName 模版文件
-     * @param obj 数据
-     * @param os 输出流
-     * @throws Exception 
+     * @param ftlName
+     * @param data
+     * @param os
+     * @param ftlPath
+     * @throws Exception
      */
     public static void process(String ftlName, Object data, OutputStream os,String ftlPath) throws Exception {
     	
