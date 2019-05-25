@@ -71,6 +71,10 @@ public class Constants {
      */
     public static final int CSV_LENGTH_ERROR = 2020;
     /**
+     * 导出失败
+     */
+    public static final int EXPORT_ERROR = 2021;
+    /**
      * CSV错误
      */
     public static final int CSV_ERROR = 2021;
