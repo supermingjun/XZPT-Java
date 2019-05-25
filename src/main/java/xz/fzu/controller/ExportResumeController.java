@@ -29,6 +29,15 @@ public class ExportResumeController {
     @Resource
     IResumeService iResumeService;
 
+    /**
+     * 导出简历Controller
+     *
+     * @param token        token
+     * @param templatePath 模板路径
+     * @return xz.fzu.vo.ResponseVO<java.lang.String>
+     * @author Murphy
+     * @date 2019/5/25 16:57
+     */
     @RequestMapping(value = "/user/exportresume", method = RequestMethod.POST)
     public ResponseVO<String> exportResume(@RequestParam String token, @RequestParam String templatePath) throws TokenExpiredException, InstanceNotExistException, ExportException {
 

@@ -91,9 +91,11 @@ public interface IRecruitmentService {
      * 根据listid获得招聘信息
      *
      * @param longs ids
+     * @param requestPage   分页信息
      * @return java.util.List<xz.fzu.model.Recruitment>
      * @author Murphy
      * @date 2019/5/23 13:52
+     * @throws InstanceNotExistException 找不到相应的id
      */
     List<Recruitment> getRecruitmentByIds(List<Long> longs, PageData requestPage) throws InstanceNotExistException;
 }

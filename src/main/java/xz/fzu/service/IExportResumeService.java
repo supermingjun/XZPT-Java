@@ -17,6 +17,7 @@ public interface IExportResumeService {
      * @return java.lang.String
      * @author Murphy
      * @date 2019/5/23 20:29
+     * @throws ExportException 导出简历错误异常
      */
     String exportResume(Resume resume, String filePath, String userId) throws ExportException;
 }

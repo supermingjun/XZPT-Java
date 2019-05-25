@@ -94,6 +94,7 @@ public interface IResumeService {
      * @return xz.fzu.model.Resume
      * @author Murphy
      * @date 2019/5/23 20:39
+     * @throws InstanceNotExistException 找不到相应实例
      */
     Resume getFirstResume(String userId) throws InstanceNotExistException;
 }
