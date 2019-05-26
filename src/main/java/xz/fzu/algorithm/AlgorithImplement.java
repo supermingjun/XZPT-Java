@@ -62,12 +62,12 @@ public class AlgorithImplement {
             RecruitmentProfile rp = iterator.next();
             if (upf.getIndustryLabel() != null && upf.getIndustryLabel().equals(rp.getIndustryLabel())) {
                 iterator.remove();
-                //去掉字符串首尾的空白后进行比较
             } else if (upf.getExpectedCity() != null) {
+                //去掉字符串首尾的空白后进行比较
                 if (!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {
                     iterator.remove();
                 }
-            } else if (upf.getJobType() != null && upf.getIndustryLabel().equals(rp.getJobType())) {
+            } else if (upf.getJobType() != null && upf.getJobType().equals(rp.getJobType())) {
                 iterator.remove();
             }
         }
@@ -160,6 +160,12 @@ public class AlgorithImplement {
 
     }
 
+    /**
+     * 对工作时间进行量化
+     * @param upf
+     * @param rp
+     * @return
+     */
     public double workTimeQuan(UserProfile upf, RecruitmentProfile rp) {
 
         long uWorkTime = upf.getWorkTime() == null ? 0 : upf.getWorkTime();
@@ -179,7 +185,7 @@ public class AlgorithImplement {
 
     /**
      * 对招聘信息关键字段进行量化加权
-     * 目前只用学历和薪水进行量化加权
+     * 目前只用学历、薪水和工作时间进行量化加权
      *
      * @param upf
      * @return
