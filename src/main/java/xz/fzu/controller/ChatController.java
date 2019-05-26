@@ -59,7 +59,7 @@ public class ChatController {
         }
         switch (wantType) {
             case ChatDTO.COMPANY:
-                Company company = iCompanyService.getInfoByToken(token);
+                Company company = iCompanyService.getInfoByCompanyId(userId);
                 chatDTO.setUserName(company.getCompanyName());
                 chatDTO.setHeadUrl(company.getHeadUrl());
                 break;
