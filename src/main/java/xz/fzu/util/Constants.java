@@ -105,6 +105,7 @@ public class Constants {
      * 家目录
      */
     public static String FILE_HOME = "/home/tomcat8";
+    public static String DEFAULT_PNG = "public/default_head_url.png";
 
     public static final String RESULT_MSG = "RESULT_MSG";
     public static final String RESULT_OBJECT = "RESULT_OBJECT";

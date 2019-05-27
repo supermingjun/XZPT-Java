@@ -81,6 +81,11 @@ public class ResumeServiceImpl implements IResumeService {
         if (list.size() == 0) {
             throw new InstanceNotExistException();
         }
+        for (Resume resume : list) {
+            if (resume.getUserId().equals(userId)) {
+                return resume;
+            }
+        }
         return list.get(0);
     }
 }
