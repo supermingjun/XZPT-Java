@@ -8,7 +8,9 @@ import xz.fzu.model.Resume;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 将投递的简历信息导出到excel
@@ -20,11 +22,33 @@ public class CreateExcel {
      * 定义Excel表头
      *
      */
-    public static final String[] COLUMN_NAME = {"resumeId","userId","userName","sex"
-        ,"age","telephone","email","school","speciality","highestEducation","certificate"
+    public static final String[] COLUMN_NAME = {"orderNumber","userName","sex","age","telephone"
+            , "email","school","speciality","highestEducation","certificate"
             ,"projectExperience","practicalExperience"
     };
+    /**
+     * 定义学历
+     */
+    public static final Map<Long,String> DEGREE = new HashMap<Long,String>(){
+        {
+            put((long)1,"未知");
+            put((long)2,"大专");
+            put((long)3,"本科");
+            put((long)4,"硕士");
+            put((long)5,"博士");
+        }
+    };
+    /**
+     * 定义性别
+     */
+    public static final Map<Long,String> SEX = new HashMap<Long,String>(){
+        {
+            put((long)0,"男");
+            put((long)1,"男");
+            put((long)2,"女");
+        }
 
+    };
     /**
      * 生成Excel表格
      * @param resumes
@@ -39,6 +63,8 @@ public class CreateExcel {
         //创建HSSFRow对象 （行）
         HSSFRow row = sheet.createRow(0);
         List<HSSFCell> cells = new ArrayList<HSSFCell>();
+        int orderNumber = 1;
+        //生成表头
         for(int i=0;i<COLUMN_NAME.length;i++){
             //创建HSSFCell对象  （单元格）
             HSSFCell cell = row.createCell(i);
@@ -50,19 +76,18 @@ public class CreateExcel {
             for(int k=0;k<COLUMN_NAME.length;k++) {
                 cells.add(row1.createCell(k));
             }
-            cells.get(0).setCellValue(resumes.get(j).getResumeId());
-            cells.get(1).setCellValue(resumes.get(j).getUserId());
-            cells.get(2).setCellValue(resumes.get(j).getUserName());
-            cells.get(3).setCellValue(resumes.get(j).getSex());
-            cells.get(4).setCellValue(resumes.get(j).getAge());
-            cells.get(5).setCellValue(resumes.get(j).getTelephone());
-            cells.get(6).setCellValue(resumes.get(j).getEmail());
-            cells.get(7).setCellValue(resumes.get(j).getSchool());
-            cells.get(8).setCellValue(resumes.get(j).getSpeciality());
-            cells.get(9).setCellValue(resumes.get(j).getHighestEducation());
-            cells.get(10).setCellValue(resumes.get(j).getCertificate());
-            cells.get(11).setCellValue(resumes.get(j).getProjectExperience());
-            cells.get(12).setCellValue(resumes.get(j).getPracticalExperience());
+            cells.get(0).setCellValue(orderNumber);
+            cells.get(1).setCellValue(resumes.get(j).getUserName());
+            cells.get(2).setCellValue(SEX.get(resumes.get(j).getSex()));
+            cells.get(3).setCellValue(resumes.get(j).getAge());
+            cells.get(4).setCellValue(resumes.get(j).getTelephone());
+            cells.get(5).setCellValue(resumes.get(j).getEmail());
+            cells.get(6).setCellValue(resumes.get(j).getSchool());
+            cells.get(7).setCellValue(resumes.get(j).getSpeciality());
+            cells.get(8).setCellValue(DEGREE.get(resumes.get(j).getHighestEducation()));
+            cells.get(9).setCellValue(resumes.get(j).getCertificate());
+            cells.get(10).setCellValue(resumes.get(j).getProjectExperience());
+            cells.get(11).setCellValue(resumes.get(j).getPracticalExperience());
         }
         FileOutputStream output;
         try {
@@ -75,10 +100,10 @@ public class CreateExcel {
         }
     }
 
-    /**
-     * 测试函数
-     * @param args
-     */
+//    /**
+//     * 测试函数
+//     * @param args
+//     */
 //    public static void main(String[] args) {
 //        Resume resume = new Resume();
 //        resume.setResumeId((long)455);
