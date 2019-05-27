@@ -22,7 +22,7 @@ public interface IResumeDao  extends Mapper<Resume> {
      * @author Murphy
      * @date 2019/4/27 22:33
      */
-//    void insertInstance(Resume resume);
+    void insertInstance(Resume resume);
 
     /**
      * 根据简历Id删除实例

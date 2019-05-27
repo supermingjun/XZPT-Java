@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import xz.fzu.createexcel.CreateExcel;
 import xz.fzu.exception.ExportException;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.TokenExpiredException;
+import xz.fzu.exception.UserNotFoundException;
 import xz.fzu.model.Resume;
 import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.*;
@@ -22,10 +22,10 @@ import java.util.List;
  * @date 2019/5/23 20:35
  */
 @RestController
-public class ExportResumeController {
+public class ExportController {
 
     @Resource
-    IExportResumeService iExportResumeService;
+    IExportService iExportResumeService;
     @Resource
     IUserService iUserService;
     @Resource
@@ -59,7 +59,7 @@ public class ExportResumeController {
     }
 
     @RequestMapping(value = "/company/export/excel/resume", method = RequestMethod.POST)
-    public ResponseVO<String> exportExcelOfResume(@RequestParam String token, @RequestParam Long recruitmentId) throws TokenExpiredException, InstanceNotExistException {
+    public ResponseVO<String> exportExcelOfResume(@RequestParam String token, @RequestParam Long recruitmentId) throws TokenExpiredException, InstanceNotExistException, UserNotFoundException {
 
         ResponseVO<String> responseVO = new ResponseVO<>();
         iCompanyService.verifyToken(token);
@@ -71,9 +71,8 @@ public class ExportResumeController {
                 res.add(resume);
             }
         }
-        String outputPath = "";
-        CreateExcel.createExcel(res, outputPath);
-        responseVO.setResultObject("");
+        String url = iExportResumeService.exportExcel(res, iCompanyService.getInfoByToken(token).getCompanyId());
+        responseVO.setResultObject(url);
 
         return responseVO;
     }

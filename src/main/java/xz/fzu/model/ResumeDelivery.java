@@ -34,5 +34,9 @@ public class ResumeDelivery {
     private String school;
     @Transient
     private String speciality;
+    @Transient
+    private String companyName;
+    @Transient
+    private String companyId;
 
 }

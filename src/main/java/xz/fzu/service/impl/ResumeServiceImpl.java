@@ -24,7 +24,7 @@ public class ResumeServiceImpl implements IResumeService {
     public void insertResume(String userId, Resume resume) {
 
         resume.setUserId(userId);
-        iResumeDao.insert(resume);
+        iResumeDao.insertInstance(resume);
     }
 
     @Override

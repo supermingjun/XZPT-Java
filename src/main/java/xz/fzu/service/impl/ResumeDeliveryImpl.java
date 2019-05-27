@@ -8,6 +8,7 @@ import xz.fzu.service.IResumeDeliveryService;
 import xz.fzu.vo.PageData;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -104,5 +105,28 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     public List<ResumeDelivery> getAllRecord() {
 
         return iResumeDeliveryDao.mySelectAll();
+    }
+
+    @Override
+    public List<ResumeDelivery> getRecordByUserId(String userId, PageData<ResumeDelivery> pageData) throws InstanceNotExistException {
+        List<ResumeDelivery> list = iResumeDeliveryDao.selectAll();
+        for (int i = 0; i < list.size(); i++) {
+            if (!list.get(i).getUserId().equals(userId)) {
+                list.remove(i);
+                i--;
+            }
+        }
+        if (list.size() == 0) {
+            throw new InstanceNotExistException();
+        }
+        int start = (pageData.getCurrentPage() - 1) * pageData.getPageSize();
+        int end = pageData.getPageSize() + start - 1;
+        List<ResumeDelivery> list1 = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (i >= start && i <= end) {
+                list1.add(list.get(i));
+            }
+        }
+        return list1;
     }
 }
