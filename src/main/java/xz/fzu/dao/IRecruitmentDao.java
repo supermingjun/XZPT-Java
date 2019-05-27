@@ -77,4 +77,14 @@ public interface IRecruitmentDao extends Mapper<Recruitment> {
      * @date 2019/4/27 1:15
      */
     void updateInstance(Recruitment recruitment);
+
+    /**
+     * 返回当前公司招聘信息数目
+     *
+     * @param companyId 公司id
+     * @return int
+     * @author Murphy
+     * @date 2019/5/27 14:09
+     */
+    int selectNumber(String companyId);
 }

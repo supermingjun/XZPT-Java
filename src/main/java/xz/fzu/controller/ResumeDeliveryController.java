@@ -80,6 +80,7 @@ public class ResumeDeliveryController {
     }
 
     /**
+     * 根据投递id查看投递记录
      * @param token            token
      * @param resumeDeliveryId 简历投递记录的id
      * @return xz.fzu.vo.ResponseVO
@@ -92,6 +93,29 @@ public class ResumeDeliveryController {
 
         iUserService.verifyToken(token);
         return getDeliveryRecordById(resumeDeliveryId);
+    }
+
+    /**
+     * 分页查看投递记录
+     *
+     * @param token    token
+     * @param pageData 分页信息
+     * @return xz.fzu.vo.ResponseVO
+     * @author Murphy
+     * @date 2019/5/2 18:28
+     * @description 用户根据投递id获得投递信息
+     */
+    @RequestMapping(value = "/user/getlistdeliveryrecordbyuserid", method = RequestMethod.POST)
+    public ResponseVO userGetListDeliveryRecordById(@RequestParam String token, @RequestBody PageData<ResumeDelivery> pageData) throws TokenExpiredException, InstanceNotExistException {
+
+        ResponseVO<PageData> responseVO = new ResponseVO<>();
+        iUserService.verifyToken(token);
+        String userId = iUserService.selectUserByToken(token).getUserId();
+        List<ResumeDelivery> list = iResumeDeliveryService.getRecordByUserId(userId, pageData);
+        pageData.setContentList(setTransients(list));
+        responseVO.setResultObject(pageData);
+
+        return responseVO;
     }
 
 
@@ -130,7 +154,7 @@ public class ResumeDeliveryController {
         ResponseVO responseVO = new ResponseVO();
         String userId = iUserService.verifyToken(token);
         List<ResumeDelivery> list = iResumeDeliveryService.userGetResumeDeliveryRecord(userId, pageData);
-        pageData.setContentList(listCastToResumeDeliveryRecordVO(list));
+        pageData.setContentList(setTransients(list));
 
         return responseVO;
     }
@@ -194,7 +218,7 @@ public class ResumeDeliveryController {
         iCompanyService.verifyToken(token);
         String companyId = iCompanyService.getInfoByToken(token).getCompanyId();
         List<ResumeDelivery> list = iResumeDeliveryService.companyGetResumeDeliveryRecord(companyId, pageData);
-        pageData.setContentList(listCastToResumeDeliveryRecordVO(list));
+        pageData.setContentList(setTransients(list));
         responseVO.setResultObject(pageData);
 
         return responseVO;
@@ -211,7 +235,7 @@ public class ResumeDeliveryController {
 
         ResponseVO<ResumeDelivery> responseVO = new ResponseVO<>();
         ResumeDelivery resumeDelivery = iResumeDeliveryService.getResumeDeliveryRecordById((long) resumeDeliveryId);
-        responseVO.setResultObject(castResumeDeliveryRecordVO(resumeDelivery));
+        responseVO.setResultObject(setTransient(resumeDelivery));
 
         return responseVO;
     }
@@ -244,11 +268,11 @@ public class ResumeDeliveryController {
      * @author Murphy
      * @date 2019/5/3 15:36
      */
-    private List<ResumeDelivery> listCastToResumeDeliveryRecordVO(List<ResumeDelivery> resumeDeliveries) throws InstanceNotExistException {
+    private List<ResumeDelivery> setTransients(List<ResumeDelivery> resumeDeliveries) throws InstanceNotExistException {
 
         List<ResumeDelivery> list = new ArrayList<>();
         for (ResumeDelivery resumeDelivery : resumeDeliveries) {
-            list.add(castResumeDeliveryRecordVO(resumeDelivery));
+            list.add(setTransient(resumeDelivery));
         }
 
         return list;
@@ -262,13 +286,20 @@ public class ResumeDeliveryController {
      * @author Murphy
      * @date 2019/5/3 15:38
      */
-    private ResumeDelivery castResumeDeliveryRecordVO(ResumeDelivery resumeDelivery) throws InstanceNotExistException {
+    private ResumeDelivery setTransient(ResumeDelivery resumeDelivery) throws InstanceNotExistException {
 
         String userId = resumeDelivery.getUserId();
         resumeDelivery.setUserName(iUserService.selectByUserId(userId).getUserName());
         resumeDelivery.setRecruitmentName(iRecruitmentService.getRecruitmentById(resumeDelivery.getRecruitmentId()).getJobName());
         resumeDelivery.setSchool(iResumeService.getResume(null, resumeDelivery.getResumeId()).getSchool());
         resumeDelivery.setSpeciality(iResumeService.getResume(null, resumeDelivery.getResumeId()).getSpeciality());
+        String companyId = iRecruitmentService.getRecruitmentById(resumeDelivery.getRecruitmentId()).getCompanyId();
+        try {
+            resumeDelivery.setCompanyName(iCompanyService.getInfoByCompanyId(companyId).getCompanyName());
+            resumeDelivery.setCompanyId(companyId);
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
 
         return resumeDelivery;
     }

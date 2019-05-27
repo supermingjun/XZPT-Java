@@ -7,6 +7,7 @@ import xz.fzu.exception.PasswordErrorException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.model.User;
 import xz.fzu.service.IUserService;
+import xz.fzu.util.Constants;
 import xz.fzu.util.Sha;
 import xz.fzu.util.TokenUtil;
 
@@ -44,7 +45,7 @@ public class UserServiceImpl implements IUserService {
         String token = TokenUtil.createToken(user.getUserId(), user.getPasswd());
         user.setToken(token);
         if (user.getHeadUrl() == null) {
-            user.setHeadUrl("public/default_head_url.png");
+            user.setHeadUrl(Constants.DEFAULT_PNG);
         }
         iUserDao.insert(user);
 

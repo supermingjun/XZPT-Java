@@ -24,14 +24,14 @@ public class ResumeServiceImpl implements IResumeService {
     public void insertResume(String userId, Resume resume) {
 
         resume.setUserId(userId);
-        iResumeDao.insert(resume);
+        iResumeDao.insertInstance(resume);
     }
 
     @Override
     public void updateResume(String userId, Resume resume) {
 
         resume.setUserId(userId);
-        iResumeDao.updateInstance(resume);
+        iResumeDao.updateByPrimaryKeySelective(resume);
     }
 
     @Override
@@ -80,6 +80,11 @@ public class ResumeServiceImpl implements IResumeService {
         List<Resume> list = iResumeDao.selectAll();
         if (list.size() == 0) {
             throw new InstanceNotExistException();
+        }
+        for (Resume resume : list) {
+            if (resume.getUserId().equals(userId)) {
+                return resume;
+            }
         }
         return list.get(0);
     }

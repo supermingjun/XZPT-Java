@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import xz.fzu.dao.IRecruitmentDao;
 import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
+import xz.fzu.exception.OverLimitException;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.vo.PageData;
@@ -93,5 +94,15 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
             throw new InstanceNotExistException();
         }
         return list;
+    }
+
+    private static final int LIMIT_SIZE = 10;
+
+    @Override
+    public void vertifyNumber(String companyId) throws OverLimitException {
+        if (iRecruitmentDao.selectNumber(companyId) > LIMIT_SIZE) {
+            throw new OverLimitException();
+        }
+        ;
     }
 }

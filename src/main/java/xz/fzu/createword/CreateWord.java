@@ -36,10 +36,10 @@ public class CreateWord {
         map.put("address", resume.getPresentCity());
         map.put("email", resume.getEmail());
         String imgFilePath;
-        if (resume.getHeadUrl() != null) {
-            imgFilePath = Constants.FILE_HOME + "/" + resume.getUserId() + "/" + resume.getHeadUrl();
+        if (resume.getHeadUrl() == null || Constants.DEFAULT_PNG.equals(resume.getHeadUrl())) {
+            imgFilePath = Constants.FILE_HOME + "/" + Constants.DEFAULT_PNG;
         } else {
-            imgFilePath = Constants.FILE_HOME + "/public/default_head_url.png";
+            imgFilePath = Constants.FILE_HOME + "/" + resume.getUserId() + "/" + resume.getHeadUrl();
         }
         String imageBase64 = LoadImage.loadImage(imgFilePath);
         map.put("head_sculpture", imageBase64);

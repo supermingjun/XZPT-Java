@@ -93,4 +93,7 @@
     <select id="selectInstanceByKeyWord" resultType="xz.fzu.model.Recruitment" resultMap="resultMapper">
         SELECT * FROM recruitment WHERE job_name LIKE #{arg0} OR description LIKE #{arg0} ORDER BY job_name LIKE  #{arg0} DESC LIMIT #{arg1},#{arg2}
     </select>
+    <select id="selectNumber" resultType="int">
+        SELECT COUNT(*) FROM recruitment WHERE company_id = #{companyId}
+    </select>
 </mapper>
