@@ -78,14 +78,11 @@ public class ResumeServiceImpl implements IResumeService {
     public Resume getFirstResume(String userId) throws InstanceNotExistException {
 
         List<Resume> list = iResumeDao.selectAll();
-        if (list.size() == 0) {
-            throw new InstanceNotExistException();
-        }
         for (Resume resume : list) {
-            if (resume.getUserId().equals(userId)) {
+            if (resume.getUserId().equals(userId) && resume.getResumeStatus() == 0) {
                 return resume;
             }
         }
-        return list.get(0);
+        throw new InstanceNotExistException();
     }
 }
