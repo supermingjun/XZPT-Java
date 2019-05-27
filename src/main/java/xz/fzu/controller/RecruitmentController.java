@@ -2,10 +2,7 @@ package xz.fzu.controller;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
-import xz.fzu.exception.EvilIntentions;
-import xz.fzu.exception.InstanceNotExistException;
-import xz.fzu.exception.TokenExpiredException;
-import xz.fzu.exception.UserNotFoundException;
+import xz.fzu.exception.*;
 import xz.fzu.model.Company;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.ICompanyService;
@@ -51,12 +48,13 @@ public class RecruitmentController {
      */
     @RequestMapping(value = "/company/releaserecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException, IOException, ParseException {
+    public ResponseVO releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException, IOException, ParseException, OverLimitException {
 
         ResponseVO responseVO = new ResponseVO();
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
         recruitment.setCompanyId(company.getCompanyId());
+        iRecruitmentService.vertifyNumber(company.getCompanyId());
         Long recruitmentId = iRecruitmentService.insertRecruitment(recruitment);
         List<String> userIdList = iUserService.selectUserByIndustryLabel(recruitment.getIndustryLabel());
         if (recruitment.getIndustryLabel() != null) {

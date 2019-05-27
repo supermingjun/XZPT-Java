@@ -2,6 +2,7 @@ package xz.fzu.service;
 
 import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
+import xz.fzu.exception.OverLimitException;
 import xz.fzu.model.Recruitment;
 import xz.fzu.vo.PageData;
 
@@ -98,4 +99,14 @@ public interface IRecruitmentService {
      * @throws InstanceNotExistException 找不到相应的id
      */
     List<Recruitment> getRecruitmentByIds(List<Long> longs, PageData requestPage) throws InstanceNotExistException;
+
+    /**
+     * 验证招聘信息数目是否超出限制
+     *
+     * @param companyId 公司id
+     * @return void
+     * @author Murphy
+     * @date 2019/5/27 14:07
+     */
+    void vertifyNumber(String companyId) throws OverLimitException;
 }

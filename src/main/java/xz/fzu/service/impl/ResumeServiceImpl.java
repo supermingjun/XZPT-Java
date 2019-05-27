@@ -31,7 +31,7 @@ public class ResumeServiceImpl implements IResumeService {
     public void updateResume(String userId, Resume resume) {
 
         resume.setUserId(userId);
-        iResumeDao.updateInstance(resume);
+        iResumeDao.updateByPrimaryKeySelective(resume);
     }
 
     @Override

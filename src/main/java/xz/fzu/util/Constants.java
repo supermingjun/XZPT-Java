@@ -78,6 +78,10 @@ public class Constants {
      * CSV错误
      */
     public static final int CSV_ERROR = 2021;
+    /**
+     * 超过发布岗位数量限制
+     */
+    public static final int OVER_LIMIT = 2022;
 
 
     // 文件相关
