@@ -111,7 +111,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     public List<ResumeDelivery> getRecordByUserId(String userId, PageData<ResumeDelivery> pageData) throws InstanceNotExistException {
         List<ResumeDelivery> list = iResumeDeliveryDao.selectAll();
         for (int i = 0; i < list.size(); i++) {
-            if (!list.get(i).getUserId().equals(userId)) {
+            if (!list.get(i).getUserId().equals(userId) || list.get(i).getDeliveryStatus() != 0) {
                 list.remove(i);
                 i--;
             }

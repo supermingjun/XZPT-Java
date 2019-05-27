@@ -10,6 +10,7 @@ import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.exception.UserNotFoundException;
 import xz.fzu.model.Resume;
 import xz.fzu.model.ResumeDelivery;
+import xz.fzu.model.ResumeRecord;
 import xz.fzu.service.*;
 import xz.fzu.vo.ResponseVO;
 
@@ -35,6 +36,8 @@ public class ExportController {
     ICompanyService iCompanyService;
     @Resource
     IResumeDeliveryService iResumeDeliveryService;
+    @Resource
+    IResumeRecordService iResumeRecordService;
 
     /**
      * 导出简历Controller
@@ -49,11 +52,20 @@ public class ExportController {
     public ResponseVO<String> exportResume(@RequestParam String token, @RequestParam String templatePath) throws TokenExpiredException, InstanceNotExistException, ExportException {
 
         ResponseVO<String> response = new ResponseVO<>();
+
+        ResumeRecord resumeRecord = new ResumeRecord();
         String userId = iUserService.selectUserByToken(token).getUserId();
         Resume resume = iResumeService.getFirstResume(userId);
         System.out.println("导出" + resume.getUserName() + "的简历。");
         String url = iExportResumeService.exportResume(resume, templatePath, userId);
         response.setResultObject(url);
+
+
+        resumeRecord.setResumeUrl(url);
+        resumeRecord.setUserId(userId);
+        int index = templatePath.lastIndexOf('.') + 1;
+        resumeRecord.setTemplateJpgUrl(templatePath.substring(0, index) + "jpg");
+        iResumeRecordService.insertResumeRecord(resumeRecord);
 
         return response;
     }
