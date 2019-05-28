@@ -45,9 +45,25 @@ public class AlgorithImplement {
         }
 
     };
+
+    /**
+     * 处理null的情况，如果某些字段为null，则把该字段设置为默认值
+     * @param rp
+     */
+    public static void handleNull(RecruitmentProfile rp){
+        if(rp.getIndustryLabel()==null){
+            rp.setIndustryLabel((long)0);
+        }
+        if(rp.getLocation()==null){
+            rp.setLocation("");
+        }
+        if(rp.getJobType()==null){
+            rp.setJobType((long)0);
+        }
+    }
     /**
      * 根据硬性指标对招聘信息进行初筛返回筛选结果
-     * 硬性指标 行业标签 int，工作时间int，工作地点String，工作性质int
+     * 硬性指标 行业标签 long，工作时间long，工作地点String
      *
      * @param upf
      * @param rps
@@ -59,6 +75,7 @@ public class AlgorithImplement {
         while (iterator.hasNext()) {
 
             RecruitmentProfile rp = iterator.next();
+            handleNull(rp);
             if (upf.getIndustryLabel() != null ) {
                 //如果industry为0表示默认值，则将值设置为1代表测试|开发|运维类
                 long industryLabel = upf.getIndustryLabel();

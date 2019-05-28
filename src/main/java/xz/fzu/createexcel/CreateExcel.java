@@ -49,6 +49,46 @@ public class CreateExcel {
         }
 
     };
+
+    /**
+     * 处理null的情况，如果某些字段为null，则把该字段设置为默认值
+     * @param resume
+     */
+    public static void handleNull(Resume resume){
+        if(resume.getUserName()==null){
+            resume.setUserName("");
+        }
+        if(resume.getSex()==null){
+            resume.setSex((long)0);
+        }
+        if(resume.getAge()==null){
+            resume.setAge((long)0);
+        }
+        if(resume.getTelephone()==null){
+            resume.setTelephone("");
+        }
+        if(resume.getEmail()==null){
+            resume.setEmail("");
+        }
+        if(resume.getSchool()==null){
+            resume.setSchool("");
+        }
+        if(resume.getSpeciality()==null){
+            resume.setSpeciality("");
+        }
+        if(resume.getHighestEducation()==null){
+            resume.setHighestEducation((long)0);
+        }
+        if(resume.getCertificate()==null){
+            resume.setCertificate("");
+        }
+        if(resume.getProjectExperience()==null){
+            resume.setProjectExperience("");
+        }
+        if(resume.getPracticalExperience()==null){
+            resume.setPracticalExperience("");
+        }
+    }
     /**
      * 生成Excel表格
      * @param resumes
@@ -76,7 +116,8 @@ public class CreateExcel {
             for(int k=0;k<COLUMN_NAME.length;k++) {
                 cells.add(row1.createCell(k));
             }
-            cells.get(0).setCellValue(orderNumber);
+            handleNull(resumes.get(j));
+            cells.get(0).setCellValue(j+1);
             cells.get(1).setCellValue(resumes.get(j).getUserName());
             cells.get(2).setCellValue(SEX.get(resumes.get(j).getSex()));
             cells.get(3).setCellValue(resumes.get(j).getAge());
@@ -106,13 +147,13 @@ public class CreateExcel {
 //     */
 //    public static void main(String[] args) {
 //        Resume resume = new Resume();
-//        resume.setResumeId((long)455);
+////        resume.setResumeId((long)455);
 //        resume.setUserId("");
-//        resume.setAge((long)2);
-//        resume.setSex((long)1);
+////        resume.setAge((long)2);
+////        resume.setSex((long)1);
 //        resume.setProjectExperience("sdfs");
 //        resume.setUserName("李烈");
-//        resume.setTelephone("12222222");
+////        resume.setTelephone("12222222");
 //        resume.setSpeciality("软工");
 //        resume.setSchool("福州大学");
 //        resume.setPracticalExperience("dsfsafsadfdsaf");
