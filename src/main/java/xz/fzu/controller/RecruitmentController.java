@@ -7,7 +7,6 @@ import xz.fzu.model.Company;
 import xz.fzu.model.Recruitment;
 import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.*;
-import xz.fzu.util.PushUtil;
 import xz.fzu.vo.PageData;
 import xz.fzu.vo.ResponseVO;
 
@@ -52,11 +51,8 @@ public class RecruitmentController {
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
         recruitment.setCompanyId(company.getCompanyId());
-        Long recruitmentId = iRecruitmentService.insertRecruitment(recruitment);
         List<String> userIdList = iUserService.selectUserByIndustryLabel(recruitment.getIndustryLabel());
-        if (recruitment.getIndustryLabel() != null) {
-            PushUtil.getInstance().push(userIdList, recruitment.getJobName(), recruitment.getDescription(), recruitmentId + "");
-        }
+        Long recruitmentId = iRecruitmentService.insertRecruitment(userIdList, recruitment);
         return responseVO;
     }
 

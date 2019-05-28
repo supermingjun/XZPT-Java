@@ -1,5 +1,6 @@
 package xz.fzu.controller;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +12,7 @@ import xz.fzu.exception.UserNotFoundException;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.ICompanyService;
 import xz.fzu.service.IRecruitmentService;
+import xz.fzu.service.IUserService;
 import xz.fzu.util.FileUtil;
 import xz.fzu.vo.ResponseVO;
 
@@ -29,6 +31,8 @@ public class ImportDataController {
     ICompanyService iCompanyService;
     @Resource
     IRecruitmentService iRecruitmentService;
+    @Resource
+    IUserService iUserService;
 
     /**
      * 导入数据
@@ -41,13 +45,14 @@ public class ImportDataController {
      * @date 2019/5/22 20:09
      */
     @RequestMapping(value = "/company/importdata", method = RequestMethod.POST)
-    public ResponseVO<String> importDataFromFile(@RequestParam("file") String fileName, @RequestParam String token, @RequestParam("private") int isPrivate) throws UserNotFoundException, TokenExpiredException, IOException, CsvErrorException, OverLimitException {
+    public ResponseVO<String> importDataFromFile(@RequestParam("file") String fileName, @RequestParam String token, @RequestParam("private") int isPrivate) throws UserNotFoundException, TokenExpiredException, IOException, CsvErrorException, OverLimitException, ParseException {
 
         ResponseVO<String> responseVO = new ResponseVO<>();
         String companyId = iCompanyService.getInfoByToken(token).getCompanyId();
         List<Recruitment> recruitmentList = FileUtil.readCsvData(fileName, companyId, isPrivate==1);
         for (Recruitment recruitment : recruitmentList) {
-            iRecruitmentService.insertRecruitment(recruitment);
+            List<String> userIdList = iUserService.selectUserByIndustryLabel(recruitment.getIndustryLabel());
+            iRecruitmentService.insertRecruitment(userIdList, recruitment);
         }
 
         return responseVO;
