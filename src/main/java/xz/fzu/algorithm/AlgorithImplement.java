@@ -45,7 +45,6 @@ public class AlgorithImplement {
         }
 
     };
-
     /**
      * 根据硬性指标对招聘信息进行初筛返回筛选结果
      * 硬性指标 行业标签 int，工作时间int，工作地点String，工作性质int
@@ -60,19 +59,32 @@ public class AlgorithImplement {
         while (iterator.hasNext()) {
 
             RecruitmentProfile rp = iterator.next();
-            if (upf.getIndustryLabel() != null && upf.getIndustryLabel().equals(rp.getIndustryLabel())) {
-                iterator.remove();
+            if (upf.getIndustryLabel() != null ) {
+                //如果industry为0表示默认值，则将值设置为1代表测试|开发|运维类
+                long industryLabel = upf.getIndustryLabel();
+                if(industryLabel == 0){
+                    industryLabel = 1;
+                }
+                if(!rp.getIndustryLabel().equals(industryLabel)){
+                    iterator.remove();
+                }
             } else if (upf.getExpectedCity() != null) {
                 //去掉字符串首尾的空白后进行比较
                 if (!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {
                     iterator.remove();
                 }
-            } else if (upf.getJobType() != null && upf.getJobType().equals(rp.getJobType())) {
-                iterator.remove();
+            } else if (upf.getJobType() != null ) {
+                //如果jobType为0表示默认值，则将值设置为1代表实习
+                long jobType = upf.getJobType();
+                if(jobType == 0){
+                    jobType = 1;
+                }
+                if(!rp.getJobType().equals(jobType)){
+                    iterator.remove();
+                }
             }
         }
         return rps;
-
     }
 
     /**
@@ -157,7 +169,6 @@ public class AlgorithImplement {
         } else {
             return DEGREE_QUALITY_VALUE[0];
         }
-
     }
 
     /**
