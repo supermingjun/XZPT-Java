@@ -66,10 +66,10 @@
             <if test=" speciality != null and speciality != '' ">
                 speciality = #{speciality},
             </if>
-            <if test=" startTime != null and startTime != '' ">
+            <if test=" startTime != null  ">
                 start_time = #{startTime},
             </if>
-            <if test=" endTime != null and endTime != '' ">
+            <if test=" endTime != null ">
                 end_time = #{endTime},
             </if>
             <if test=" highestEducation != 0 ">
@@ -86,6 +86,9 @@
             </if>
             <if test=" projectExperience != null and projectExperience != '' ">
                 project_experience = #{projectExperience},
+            </if>
+            <if test=" practicalExperience != null and practicalExperience != '' ">
+                practical_experience = #{practicalExperience},
             </if>
             <if test=" expectWork != null and expectWork != '' ">
                 expect_work = #{expectWork},
@@ -109,8 +112,8 @@
         SELECT * FROM resume WHERE user_id = #{arg0} LIMIT #{arg1},#{arg2}
     </select>
     <insert id="copyInstance" parameterType="Long">
-        INSERT INTO resume(user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age)
-         (SELECT user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age
+        INSERT INTO resume(user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age,expect_work)
+         (SELECT user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age,expect_work
           FROM resume WHERE resume_id = #{resumeId})
     </insert>
 </mapper>

@@ -101,4 +101,17 @@ public interface IResumeDeliveryService {
      * @date 2019/5/5 2:03
      */
     List<ResumeDelivery> getAllRecord();
+
+    /**
+     * 根据用户id获得所有记录
+     *
+     * @param
+     * @param userId 用户id
+     * @param pageData 分页信息
+     * @return void
+     * @author Murphy
+     * @date 2019/5/27 23:13
+     * @throws InstanceNotExistException 没有找到用户记录就报错
+     */
+    List<ResumeDelivery> getRecordByUserId(String userId, PageData<ResumeDelivery> pageData) throws InstanceNotExistException;
 }

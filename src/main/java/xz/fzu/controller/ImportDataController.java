@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import xz.fzu.exception.CsvErrorException;
+import xz.fzu.exception.OverLimitException;
 import xz.fzu.exception.TokenExpiredException;
 import xz.fzu.exception.UserNotFoundException;
 import xz.fzu.model.Recruitment;
@@ -40,7 +41,7 @@ public class ImportDataController {
      * @date 2019/5/22 20:09
      */
     @RequestMapping(value = "/company/importdata", method = RequestMethod.POST)
-    public ResponseVO<String> importDataFromFile(@RequestParam("file") String fileName, @RequestParam String token, @RequestParam("private") int isPrivate) throws UserNotFoundException, TokenExpiredException, IOException, CsvErrorException {
+    public ResponseVO<String> importDataFromFile(@RequestParam("file") String fileName, @RequestParam String token, @RequestParam("private") int isPrivate) throws UserNotFoundException, TokenExpiredException, IOException, CsvErrorException, OverLimitException {
 
         ResponseVO<String> responseVO = new ResponseVO<>();
         String companyId = iCompanyService.getInfoByToken(token).getCompanyId();

@@ -5,6 +5,7 @@ import xz.fzu.dao.IResumeDeliveryDao;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.IResumeDeliveryService;
+import xz.fzu.util.PageUtil;
 import xz.fzu.vo.PageData;
 
 import javax.annotation.Resource;
@@ -104,5 +105,18 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     public List<ResumeDelivery> getAllRecord() {
 
         return iResumeDeliveryDao.mySelectAll();
+    }
+
+    @Override
+    public List<ResumeDelivery> getRecordByUserId(String userId, PageData<ResumeDelivery> pageData) throws InstanceNotExistException {
+        List<ResumeDelivery> list = iResumeDeliveryDao.selectAll();
+        for (int i = 0; i < list.size(); i++) {
+            if (!list.get(i).getUserId().equals(userId)) {
+                list.remove(i);
+                i--;
+            }
+        }
+
+        return PageUtil.paging(list, pageData);
     }
 }

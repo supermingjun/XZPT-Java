@@ -200,7 +200,33 @@ public class FileUtil {
         return UUID.randomUUID() + "." + format;
     }
 
+    /**
+     * 由默认格式获得一个随机文件名
+     *
+     * @param defaultFormat 默认格式
+     * @return java.lang.String
+     * @author Murphy
+     * @date 2019/5/28 20:19
+     */
     public static String getFileName(String defaultFormat) {
         return UUID.randomUUID() + "." + defaultFormat;
+    }
+
+    /**
+     * 由文件路径生成不存在的文件夹
+     *
+     * @param absoluteFilePath 文件的绝对路径
+     * @return void
+     * @author Murphy
+     * @date 2019/5/28 20:20
+     */
+    public static void mkdirs(String absoluteFilePath) {
+
+        int lastIndex = absoluteFilePath.lastIndexOf('/') + 1;
+        File file = new File(absoluteFilePath.substring(0, lastIndex));
+        if (!file.exists()) {
+            file.mkdirs();
+            System.out.println("文件路径不存在，生成" + absoluteFilePath.substring(0, lastIndex));
+        }
     }
 }

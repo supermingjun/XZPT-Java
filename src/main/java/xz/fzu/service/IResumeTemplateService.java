@@ -1,5 +1,6 @@
 package xz.fzu.service;
 
+import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.ResumeTemplate;
 import xz.fzu.vo.PageData;
 
@@ -38,6 +39,7 @@ public interface IResumeTemplateService {
      * @return java.util.List<xz.fzu.model.ResumeTemplate>
      * @author Murphy
      * @date 2019/5/23 12:59
+     * @throws InstanceNotExistException 如果找不到简历模板就报这个错
      */
-    List<ResumeTemplate> getPageData(PageData pageData);
+    List<ResumeTemplate> getPageData(PageData<ResumeTemplate> pageData) throws InstanceNotExistException;
 }

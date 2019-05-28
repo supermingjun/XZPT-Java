@@ -6,6 +6,7 @@ import xz.fzu.exception.*;
 import xz.fzu.model.Company;
 import xz.fzu.service.ICompanyService;
 import xz.fzu.service.IVerificationCodeService;
+import xz.fzu.util.Constants;
 import xz.fzu.util.Sha;
 import xz.fzu.util.TokenUtil;
 
@@ -33,7 +34,7 @@ public class CompanyServiceImpl implements ICompanyService {
         //  加密密码
         company.setPasswd(Sha.encrypt(company.getPasswd()));
         if (company.getHeadUrl() == null) {
-            company.setHeadUrl("public/default_head_url.png");
+            company.setHeadUrl(Constants.DEFAULT_PNG);
         }
         iCompanyDao.insert(company);
     }
