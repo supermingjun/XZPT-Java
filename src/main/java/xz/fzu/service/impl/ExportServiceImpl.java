@@ -34,10 +34,9 @@ public class ExportServiceImpl implements IExportService {
 
     @Override
     public String exportExcel(List<Resume> res, String userId) {
+
         String absoluteFilePath = FileUtil.getAbsoluteFilePath(userId, null, FileUtil.getFileName("xls"), true);
-
         FileUtil.mkdirs(absoluteFilePath);
-
         CreateExcel.createExcel(res, absoluteFilePath);
 
         return FileUtil.getRelativeFilePath(absoluteFilePath);

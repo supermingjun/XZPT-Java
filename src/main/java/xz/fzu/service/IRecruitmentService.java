@@ -23,7 +23,7 @@ public interface IRecruitmentService {
      * @author Murphy
      * @date 2019/4/27 10:48
      */
-    Long insertRecruitment(Recruitment recruitment);
+    Long insertRecruitment(Recruitment recruitment) throws OverLimitException;
 
     /**
      * 根据id获得招聘信息
@@ -99,7 +99,7 @@ public interface IRecruitmentService {
      * @date 2019/5/23 13:52
      * @throws InstanceNotExistException 找不到相应的id
      */
-    List<Recruitment> getRecruitmentByIds(Long label, List<Long> longs, PageData requestPage) throws InstanceNotExistException;
+    List<Recruitment> getRecruitmentByIds(Long label, List<Long> longs, PageData<Recruitment> requestPage) throws InstanceNotExistException;
 
     /**
      * 验证招聘信息数目是否超出限制
@@ -108,6 +108,7 @@ public interface IRecruitmentService {
      * @return void
      * @author Murphy
      * @date 2019/5/27 14:07
+     * @throws OverLimitException 超出限制异常
      */
-    void vertifyNumber(String companyId) throws OverLimitException;
+    void verifyLimit(String companyId) throws OverLimitException;
 }

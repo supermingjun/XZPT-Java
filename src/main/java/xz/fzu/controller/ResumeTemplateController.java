@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import xz.fzu.model.Recruitment;
+import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.ResumeTemplate;
 import xz.fzu.service.IResumeTemplateService;
 import xz.fzu.vo.PageData;
@@ -31,7 +31,7 @@ public class ResumeTemplateController {
      * @date 2019/5/23 13:15
      */
     @RequestMapping(value = "/getlistresumetemplate", method = RequestMethod.POST)
-    public ResponseVO<List<ResumeTemplate>> getAll(@RequestBody PageData<Recruitment> pageData) {
+    public ResponseVO<List<ResumeTemplate>> getAll(@RequestBody PageData<ResumeTemplate> pageData) throws InstanceNotExistException {
 
         ResponseVO<List<ResumeTemplate>> responseVO = new ResponseVO<>();
         List<ResumeTemplate> resumeTemplateList = iResumeTemplateService.getPageData(pageData);
