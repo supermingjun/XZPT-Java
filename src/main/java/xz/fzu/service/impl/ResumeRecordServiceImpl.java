@@ -24,6 +24,12 @@ public class ResumeRecordServiceImpl implements IResumeRecordService {
     @Override
     public List<ResumeRecord> getListResumeRecordUserId(String userId, PageData<ResumeRecord> pageData) throws InstanceNotExistException {
         List<ResumeRecord> list = iResumeRecordDao.selectAll();
+        for (int i = 0; i < list.size(); i++) {
+            if (!list.get(i).getUserId().equals(userId)) {
+                list.remove(i);
+                i--;
+            }
+        }
         if (list.size() == 0) {
             throw new InstanceNotExistException();
         }

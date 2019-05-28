@@ -9,7 +9,6 @@ import xz.fzu.service.IExportService;
 import xz.fzu.util.Constants;
 import xz.fzu.util.FileUtil;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -24,16 +23,10 @@ public class ExportServiceImpl implements IExportService {
 
         String absoluteFilePath = FileUtil.getAbsoluteFilePath(userId, null, FileUtil.getFileName("docx"), true);
 
-        // 保存文件路径的文件夹下标
-        int lastIndex = absoluteFilePath.lastIndexOf('/') + 1;
-        File file = new File(absoluteFilePath.substring(0, lastIndex));
-        if (!file.exists()) {
-            file.mkdirs();
-            System.out.println("文件路径不存在，生成" + absoluteFilePath.substring(0, lastIndex));
-        }
+        FileUtil.mkdirs(absoluteFilePath);
 
         // 模板文件路径的文件夹下标
-        lastIndex = filePath.lastIndexOf('/') + 1;
+        int lastIndex = filePath.lastIndexOf('/') + 1;
         CreateWord.createWord(resume, absoluteFilePath, filePath.substring(lastIndex), Constants.FILE_HOME + "/" + filePath.substring(0, lastIndex));
 
         return FileUtil.getRelativeFilePath(absoluteFilePath);
@@ -42,6 +35,9 @@ public class ExportServiceImpl implements IExportService {
     @Override
     public String exportExcel(List<Resume> res, String userId) {
         String absoluteFilePath = FileUtil.getAbsoluteFilePath(userId, null, FileUtil.getFileName("xls"), true);
+
+        FileUtil.mkdirs(absoluteFilePath);
+
         CreateExcel.createExcel(res, absoluteFilePath);
 
         return FileUtil.getRelativeFilePath(absoluteFilePath);

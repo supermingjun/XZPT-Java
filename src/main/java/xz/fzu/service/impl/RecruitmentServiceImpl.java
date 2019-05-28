@@ -1,6 +1,7 @@
 package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
+import xz.fzu.algorithm.RecommendHotJobs;
 import xz.fzu.dao.IRecruitmentDao;
 import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
@@ -80,11 +81,12 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     }
 
     @Override
-    public List<Recruitment> getRecruitmentByIds(List<Long> longs, PageData requestPage) throws InstanceNotExistException {
+    public List<Recruitment> getRecruitmentByIds(Long label, List<Long> longs, PageData requestPage) throws InstanceNotExistException {
 
         int start = (requestPage.getCurrentPage() - 1) * requestPage.getPageSize();
         int end = requestPage.getPageSize() + start - 1;
         List<Recruitment> list = new ArrayList<>();
+        RecommendHotJobs.recommendHotJobs(label, list);
         for (int i = 0; i < longs.size(); i++) {
             if (i >= start && i <= end) {
                 list.add(iRecruitmentDao.selectInstaceById(longs.get(i)));
@@ -103,6 +105,5 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
         if (iRecruitmentDao.selectNumber(companyId) > LIMIT_SIZE) {
             throw new OverLimitException();
         }
-        ;
     }
 }

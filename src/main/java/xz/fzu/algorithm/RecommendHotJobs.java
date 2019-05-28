@@ -10,7 +10,7 @@ import java.util.List;
  * @author LITM
  */
 public class RecommendHotJobs {
-    public List<Recruitment> recommendHotJobs(Long userIndustryLabel, List<Recruitment> recruitments){
+    public static List<Recruitment> recommendHotJobs(Long userIndustryLabel, List<Recruitment> recruitments) {
 
         Iterator<Recruitment> iterator = recruitments.iterator();
         while(iterator.hasNext()){
