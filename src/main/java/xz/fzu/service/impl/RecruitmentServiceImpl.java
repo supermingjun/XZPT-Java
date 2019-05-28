@@ -1,12 +1,14 @@
 package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
+import xz.fzu.algorithm.RecommendHotJobs;
 import xz.fzu.dao.IRecruitmentDao;
 import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.OverLimitException;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.IRecruitmentService;
+import xz.fzu.util.PageUtil;
 import xz.fzu.vo.PageData;
 
 import javax.annotation.Resource;
@@ -24,8 +26,9 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     IRecruitmentDao iRecruitmentDao;
 
     @Override
-    public Long insertRecruitment(Recruitment recruitment) {
+    public Long insertRecruitment(Recruitment recruitment) throws OverLimitException {
 
+        verifyLimit(recruitment.getCompanyId());
         recruitment.setValidate(0);
         iRecruitmentDao.insert(recruitment);
         return recruitment.getRecruitmentId();
@@ -72,7 +75,7 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     @Override
     public List<Recruitment> getListRecruitmentByKeyWord(String keyWord, PageData requestPage) throws InstanceNotExistException {
         List<xz.fzu.model.Recruitment> recruitmentList = iRecruitmentDao.selectInstanceByKeyWord('%' + keyWord + '%', (requestPage.getCurrentPage() - 1) * requestPage.getPageSize(), requestPage.getPageSize());
-        if (recruitmentList == null) {
+        if (recruitmentList == null || recruitmentList.size() == 0) {
             throw new InstanceNotExistException();
         }
 
@@ -80,29 +83,24 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     }
 
     @Override
-    public List<Recruitment> getRecruitmentByIds(List<Long> longs, PageData requestPage) throws InstanceNotExistException {
+    public List<Recruitment> getRecruitmentByIds(Long label, List<Long> longs, PageData<Recruitment> requestPage) throws InstanceNotExistException {
 
-        int start = (requestPage.getCurrentPage() - 1) * requestPage.getPageSize();
-        int end = requestPage.getPageSize() + start - 1;
         List<Recruitment> list = new ArrayList<>();
-        for (int i = 0; i < longs.size(); i++) {
-            if (i >= start && i <= end) {
-                list.add(iRecruitmentDao.selectInstaceById(longs.get(i)));
-            }
+        for (Long aLong : longs) {
+            list.add(iRecruitmentDao.selectInstaceById(aLong));
         }
-        if (list.size() == 0 || start >= longs.size()) {
-            throw new InstanceNotExistException();
-        }
+        RecommendHotJobs.recommendHotJobs(label, list);
+        PageUtil.paging(list, requestPage);
+
         return list;
     }
 
     private static final int LIMIT_SIZE = 10;
 
     @Override
-    public void vertifyNumber(String companyId) throws OverLimitException {
+    public void verifyLimit(String companyId) throws OverLimitException {
         if (iRecruitmentDao.selectNumber(companyId) > LIMIT_SIZE) {
             throw new OverLimitException();
         }
-        ;
     }
 }

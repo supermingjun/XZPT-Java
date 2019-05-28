@@ -5,10 +5,10 @@ import xz.fzu.dao.IInterviewSkillDao;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.model.InterviewSkill;
 import xz.fzu.service.IInterviewSkillService;
+import xz.fzu.util.PageUtil;
 import xz.fzu.vo.PageData;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,23 +27,13 @@ public class InterviewSkillServiceImpl implements IInterviewSkillService {
     }
 
     @Override
-    public List<InterviewSkill> getListInstance(PageData pageData) throws InstanceNotExistException {
+    public List<InterviewSkill> getListInstance(PageData<InterviewSkill> pageData) throws InstanceNotExistException {
         List<InterviewSkill> list = iInterviewSkillDao.selectAll();
 
         if (list.size() == 0) {
             throw new InstanceNotExistException();
         }
 
-        int pageSize = pageData.getPageSize();
-        int startIndex = pageData.getCurrentPage() * pageSize;
-
-        List<InterviewSkill> res = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            if (i >= startIndex && i < startIndex + pageSize) {
-                res.add(list.get(i));
-            }
-        }
-
-        return res;
+        return PageUtil.paging(list, pageData);
     }
 }
