@@ -17,7 +17,7 @@ import java.util.Map;
 public class CreateWord {
     public static final Map<Long,String> DEGREE = new HashMap<Long,String>(){
         {
-            put((long)1,"未知");
+            put((long)1,"本科");
             put((long)2,"大专");
             put((long)3,"本科");
             put((long)4,"硕士");
@@ -35,6 +35,8 @@ public class CreateWord {
         map.put("phone", resume.getTelephone());
         map.put("address", resume.getPresentCity());
         map.put("email", resume.getEmail());
+        map.put("job_intention",resume.getExpectWork());
+        map.put("project_experience",resume.getProjectExperience());
         String imgFilePath;
         if (resume.getHeadUrl() == null || Constants.DEFAULT_PNG.equals(resume.getHeadUrl())) {
             imgFilePath = Constants.FILE_HOME + "/" + Constants.DEFAULT_PNG;
