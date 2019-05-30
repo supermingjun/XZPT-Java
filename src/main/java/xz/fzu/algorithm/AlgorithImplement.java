@@ -21,6 +21,7 @@ public class AlgorithImplement {
      * @param UserProfile,List<RecruimentProfile>
      * @return List<RecruimentProfile>
      */
+    private static final long DEFAULT = 0;
     private static final int[] SALARY_SEGMENTATION = {3, 5, 7, 10, 15, 20};
     private static final double[] DEGREE_QUALITY_VALUE = {0.3, 0.5, 0.8, 1.0};
     private static final double[] SALARY_QUALITY_VALUE = {0.1, 0.15, 0.25, 0.35, 0.5, 0.7, 1.0};
@@ -52,13 +53,13 @@ public class AlgorithImplement {
      */
     public static void handleNull(RecruitmentProfile rp){
         if(rp.getIndustryLabel()==null){
-            rp.setIndustryLabel((long)0);
+            rp.setIndustryLabel(DEFAULT);
         }
         if(rp.getLocation()==null){
-            rp.setLocation("");
+            rp.setLocation("福州");
         }
         if(rp.getJobType()==null){
-            rp.setJobType((long)0);
+            rp.setJobType(DEFAULT);
         }
     }
     /**
@@ -70,37 +71,71 @@ public class AlgorithImplement {
      * @return
      */
     public List<RecruitmentProfile> directFiltration(UserProfile upf, List<RecruitmentProfile> rps) {
+          //对行业进行筛选
+          Iterator<RecruitmentProfile> iterator = rps.iterator();
+          while(iterator.hasNext()){
 
-        Iterator<RecruitmentProfile> iterator = rps.iterator();
-        while (iterator.hasNext()) {
+              RecruitmentProfile rp = iterator.next();
+              handleNull(rp);
+              if(upf.getIndustryLabel()!=null){
+                  long industryLabel = upf.getIndustryLabel();
+                  if(industryLabel!=DEFAULT){
+                      if(!rp.getIndustryLabel().equals(industryLabel)){
+                          iterator.remove();
+                      }
+                  }
+              }
+          }
+          //对城市进行筛选
+          iterator = rps.iterator();
+          while(iterator.hasNext()){
 
-            RecruitmentProfile rp = iterator.next();
-            handleNull(rp);
-            if (upf.getIndustryLabel() != null ) {
-                //如果industry为0表示默认值，则将值设置为1代表测试|开发|运维类
-                long industryLabel = upf.getIndustryLabel();
-                if(industryLabel == 0){
-                    industryLabel = 1;
-                }
-                if(!rp.getIndustryLabel().equals(industryLabel)){
-                    iterator.remove();
-                }
-            } else if (upf.getExpectedCity() != null) {
-                //去掉字符串首尾的空白后进行比较
-                if (!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {
-                    iterator.remove();
-                }
-            } else if (upf.getJobType() != null ) {
-                //如果jobType为0表示默认值，则将值设置为1代表实习
-                long jobType = upf.getJobType();
-                if(jobType == 0){
-                    jobType = 1;
-                }
-                if(!rp.getJobType().equals(jobType)){
-                    iterator.remove();
-                }
-            }
-        }
+              RecruitmentProfile rp = iterator.next();
+              if(upf.getExpectedCity()!=null){
+                  if (!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {
+                      iterator.remove();
+                  }
+              }
+          }
+          //对工作类型进行筛选
+          iterator = rps.iterator();
+          while(iterator.hasNext()){
+
+              RecruitmentProfile rp = iterator.next();
+              if(upf.getJobType()!=null){
+                  long jobType = upf.getJobType();
+                  if(jobType!=DEFAULT){
+                      if(!rp.getJobType().equals(jobType)){
+                          iterator.remove();
+                      }
+                  }
+              }
+          }
+//        Iterator<RecruitmentProfile> iterator = rps.iterator();
+//        while (iterator.hasNext()) {
+//
+//            RecruitmentProfile rp = iterator.next();
+//            handleNull(rp);
+//            if (upf.getIndustryLabel() != null) {
+//                //如果industry为0表示默认值，则将值设置为1代表测试|开发|运维类
+//                long industryLabel = upf.getIndustryLabel();
+//                if(industryLabel!=DEFAULT){
+//                    if(!rp.getIndustryLabel().equals(industryLabel)){
+//                        iterator.remove();
+//                    }
+//                }
+//            } else if (upf.getExpectedCity() != null) {
+//                //去掉字符串首尾的空白后进行比较
+//                if (!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {
+//                    iterator.remove();
+//                }
+//            } else if (upf.getJobType() != null) {
+//                long jobType = upf.getJobType();
+//                if(!rp.getJobType().equals(jobType)){
+//                    iterator.remove();
+//                }
+//            }
+//        }
         return rps;
     }
 
