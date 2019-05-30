@@ -7,7 +7,6 @@ import xz.fzu.model.Company;
 import xz.fzu.model.Recruitment;
 import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.*;
-import xz.fzu.util.PushUtil;
 import xz.fzu.vo.PageData;
 import xz.fzu.vo.ResponseVO;
 
@@ -52,11 +51,8 @@ public class RecruitmentController {
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
         recruitment.setCompanyId(company.getCompanyId());
-        Long recruitmentId = iRecruitmentService.insertRecruitment(recruitment);
         List<String> userIdList = iUserService.selectUserByIndustryLabel(recruitment.getIndustryLabel());
-        if (recruitment.getIndustryLabel() != null) {
-            PushUtil.getInstance().push(userIdList, recruitment.getJobName(), recruitment.getDescription(), recruitmentId + "");
-        }
+        Long recruitmentId = iRecruitmentService.insertRecruitment(userIdList, recruitment);
         return responseVO;
     }
 
@@ -92,7 +88,7 @@ public class RecruitmentController {
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
         List<Recruitment> list = iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId(), pageData);
-        listSetCompanyName(list);
+        listSetProperty(list);
         pageData.setContentList(list);
         responseVO.setResultObject(pageData);
 
@@ -178,7 +174,7 @@ public class RecruitmentController {
         ResponseVO<PageData> responseVO = new ResponseVO<>();
         iUserService.verifyToken(token);
         List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByKeyWord(keyWord, pageData);
-        listSetCompanyName(recruitmentList);
+        listSetProperty(recruitmentList);
         pageData.setContentList(recruitmentList);
         responseVO.setResultObject(pageData);
 
@@ -201,8 +197,7 @@ public class RecruitmentController {
         ResponseVO<PageData> responseVO = new ResponseVO<>();
         iUserService.verifyToken(token);
         List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(companyId, pageData);
-        listSetCompanyName(recruitmentList);
-        lisetSetCount(recruitmentList);
+        listSetProperty(recruitmentList);
         pageData.setContentList(recruitmentList);
         responseVO.setResultObject(pageData);
 
@@ -249,10 +244,11 @@ public class RecruitmentController {
      * @author Murphy
      * @date 2019/5/3 0:37
      */
-    private void listSetCompanyName(List<Recruitment> list) {
+    private void listSetProperty(List<Recruitment> list) {
 
         for (Recruitment recruitment : list) {
             setCompanyName(recruitment);
+            setCount(recruitment);
         }
     }
 
@@ -292,20 +288,6 @@ public class RecruitmentController {
         responseVO.setResultObject(recruitment);
 
         return responseVO;
-    }
-
-    /**
-     * 招聘信息设置投递人数
-     *
-     * @param recruitmentList 招聘信息集合
-     * @return void
-     * @author Murphy
-     * @date 2019/5/27 21:34
-     */
-    private void lisetSetCount(List<Recruitment> recruitmentList) {
-        for (Recruitment recruitment : recruitmentList) {
-            setCount(recruitment);
-        }
     }
 
     /**

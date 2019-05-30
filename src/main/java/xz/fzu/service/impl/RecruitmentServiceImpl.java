@@ -1,5 +1,6 @@
 package xz.fzu.service.impl;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 import xz.fzu.algorithm.RecommendHotJobs;
 import xz.fzu.dao.IRecruitmentDao;
@@ -9,9 +10,11 @@ import xz.fzu.exception.OverLimitException;
 import xz.fzu.model.Recruitment;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.util.PageUtil;
+import xz.fzu.util.PushUtil;
 import xz.fzu.vo.PageData;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +29,15 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     IRecruitmentDao iRecruitmentDao;
 
     @Override
-    public Long insertRecruitment(Recruitment recruitment) throws OverLimitException {
+    public Long insertRecruitment(List<String> userIdList, Recruitment recruitment) throws OverLimitException, IOException, ParseException {
 
         verifyLimit(recruitment.getCompanyId());
         recruitment.setValidate(0);
         iRecruitmentDao.insert(recruitment);
+        if (recruitment.getIndustryLabel() != null && userIdList != null) {
+            PushUtil.getInstance().push(userIdList, recruitment.getJobName(), recruitment.getDescription(), recruitment.getRecruitmentId() + "");
+        }
+
         return recruitment.getRecruitmentId();
     }
 

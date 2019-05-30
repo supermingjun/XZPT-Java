@@ -109,7 +109,7 @@
     </select>
 
     <select id="selectListByUserId" resultType="xz.fzu.model.Resume" resultMap="myResultMap">
-        SELECT * FROM resume WHERE user_id = #{arg0} LIMIT #{arg1},#{arg2}
+        SELECT * FROM resume WHERE user_id = #{arg0} and resume_status = 0 LIMIT #{arg1},#{arg2}
     </select>
     <insert id="copyInstance" parameterType="Long">
         INSERT INTO resume(user_id,telephone,user_name,head_url,email,sex,present_city,expected_city,school,speciality,start_time,end_time,highest_education,certificate,project_experience,practical_experience,resume_status,age,expect_work)
