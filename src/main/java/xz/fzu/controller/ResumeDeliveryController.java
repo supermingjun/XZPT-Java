@@ -1,5 +1,6 @@
 package xz.fzu.controller;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
@@ -8,10 +9,12 @@ import xz.fzu.exception.UserNotFoundException;
 import xz.fzu.model.Resume;
 import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.*;
+import xz.fzu.util.PushUtil;
 import xz.fzu.vo.PageData;
 import xz.fzu.vo.ResponseVO;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -171,7 +174,7 @@ public class ResumeDeliveryController {
      * @description 公司更新简历投递记录
      */
     @RequestMapping(value = "/company/updatedeliveryrecord", method = RequestMethod.POST)
-    public ResponseVO comapnyUpdateDeliveryRecord(@RequestParam String token, @RequestBody ResumeDelivery resumeDelivery) throws TokenExpiredException, InstanceNotExistException, EvilIntentions {
+    public ResponseVO comapnyUpdateDeliveryRecord(@RequestParam String token, @RequestBody ResumeDelivery resumeDelivery) throws TokenExpiredException, InstanceNotExistException, EvilIntentions, IOException, ParseException {
 
         ResponseVO responseVO = new ResponseVO();
 
@@ -180,6 +183,9 @@ public class ResumeDeliveryController {
         Resume resume = iResumeService.getResume(null, resumeId);
         resume.setResumeStatus(resumeDelivery.getDeliveryStatus());
         iResumeService.updateResume(resume.getUserId(), resume);
+        List<String> list = new ArrayList<>();
+        list.add(resume.getUserId());
+        PushUtil.getInstance().push(list, "您的投递状态更新", "", resumeDelivery.getResumeDeliveryId() + "");
 
         iCompanyService.verifyToken(token);
         iResumeDeliveryService.updateResumeDeliveryRecord(resumeDelivery);
