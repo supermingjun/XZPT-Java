@@ -12,13 +12,18 @@ import java.util.List;
 public class RecommendHotJobs {
     public static List<Recruitment> recommendHotJobs(Long userIndustryLabel, List<Recruitment> recruitments) {
 
-        Iterator<Recruitment> iterator = recruitments.iterator();
-        while(iterator.hasNext()){
-            Recruitment recruitment = iterator.next();
-            if(recruitment.getIndustryLabel()!=null&&!recruitment.getIndustryLabel().equals(userIndustryLabel)){
-                iterator.remove();
-            }
+        if(userIndustryLabel.equals((long)0)){
+            return recruitments;
         }
-        return recruitments;
+        else {
+            Iterator<Recruitment> iterator = recruitments.iterator();
+            while(iterator.hasNext()){
+                Recruitment recruitment = iterator.next();
+                if(recruitment.getIndustryLabel()!=null&&!recruitment.getIndustryLabel().equals(userIndustryLabel)){
+                    iterator.remove();
+                }
+            }
+            return recruitments;
+        }
     }
 }
