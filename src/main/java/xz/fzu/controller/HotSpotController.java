@@ -59,7 +59,8 @@ public class HotSpotController {
             while (true) {
                 GeneratePopularPost generatePopularPost = new GeneratePopularPost();
                 List<ResumeDelivery> resumeDeliveries = iResumeDeliveryService.getAllRecord();
-                hotPosts = generatePopularPost.generatePopularPostRank(resumeDeliveries);
+                List<Recruitment> recruitments = iRecruitmentService.getRecruitmentByResumeDeliveries(resumeDeliveries);
+                hotPosts = generatePopularPost.generatePopularPostRank(resumeDeliveries,recruitments);
                 try {
                     Thread.sleep(1000 * 60 * 60 * 6);
                 } catch (InterruptedException e) {
