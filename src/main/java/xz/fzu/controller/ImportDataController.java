@@ -51,8 +51,7 @@ public class ImportDataController {
         String companyId = iCompanyService.getInfoByToken(token).getCompanyId();
         List<Recruitment> recruitmentList = FileUtil.readCsvData(fileName, companyId, isPrivate==1);
         for (Recruitment recruitment : recruitmentList) {
-            List<String> userIdList = iUserService.selectUserByIndustryLabel(recruitment.getIndustryLabel());
-            iRecruitmentService.insertRecruitment(userIdList, recruitment);
+            iRecruitmentService.insertRecruitment(null, recruitment);
         }
 
         return responseVO;

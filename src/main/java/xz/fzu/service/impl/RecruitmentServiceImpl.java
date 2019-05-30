@@ -34,7 +34,7 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
         verifyLimit(recruitment.getCompanyId());
         recruitment.setValidate(0);
         iRecruitmentDao.insert(recruitment);
-        if (recruitment.getIndustryLabel() != null) {
+        if (recruitment.getIndustryLabel() != null && userIdList != null) {
             PushUtil.getInstance().push(userIdList, recruitment.getJobName(), recruitment.getDescription(), recruitment.getRecruitmentId() + "");
         }
 
