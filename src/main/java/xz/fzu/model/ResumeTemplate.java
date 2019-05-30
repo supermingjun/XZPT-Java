@@ -26,5 +26,9 @@ public class ResumeTemplate {
      * 查看未填充数据的简历模板
      */
     private String tempFileName;
+    /**
+     * 模板名
+     */
+    private String templateName;
 
 }

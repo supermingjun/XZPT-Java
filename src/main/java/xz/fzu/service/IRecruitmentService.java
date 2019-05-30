@@ -1,11 +1,13 @@
 package xz.fzu.service;
 
+import org.json.simple.parser.ParseException;
 import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.OverLimitException;
 import xz.fzu.model.Recruitment;
 import xz.fzu.vo.PageData;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -22,8 +24,11 @@ public interface IRecruitmentService {
      * @return void
      * @author Murphy
      * @date 2019/4/27 10:48
+     * @throws OverLimitException 超出发布信息上限异常
+     * @throws IOException mipush异常
+     * @throws ParseException parse异常
      */
-    Long insertRecruitment(Recruitment recruitment) throws OverLimitException;
+    Long insertRecruitment(List<String> userIdList, Recruitment recruitment) throws OverLimitException, IOException, ParseException;
 
     /**
      * 根据id获得招聘信息

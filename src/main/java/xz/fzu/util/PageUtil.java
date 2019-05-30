@@ -34,6 +34,9 @@ public class PageUtil {
                 list.add(data.get(i));
             }
         }
+        if (list.size() == 0) {
+            throw new InstanceNotExistException();
+        }
         return list;
     }
 }

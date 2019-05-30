@@ -41,12 +41,29 @@ public class RecommendController {
     IRecommendService iRecommendService;
     @Resource
     ICompanyService iCompanyService;
+    private Thread thread = null;
+
+
     @Autowired
     public RecommendController(RecommendAlgorithm recomAlgorithm, IProfileService iProfileService, IRecommendService iRecommendService) {
         this.iProfileService = iProfileService;
         this.iRecommendService = iRecommendService;
         this.recomAlgorithm = recomAlgorithm;
-        new Thread(() -> {
+        runThread();
+    }
+
+    /***
+     * 推荐服务后台线程
+     * @author Murphy
+     * @date 2019/5/30 16:46
+     * @param
+     * @return void
+     */
+    public void runThread() {
+        if (thread != null) {
+            thread.interrupt();
+        }
+        thread = new Thread(() -> {
             while (true) {
                 iRecommendService.deleteAll();
                 for (String string : iProfileService.selectUserId()) {
@@ -61,7 +78,8 @@ public class RecommendController {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+        thread.start();
     }
 
     /**
