@@ -4,8 +4,10 @@ import xz.fzu.model.HotPost;
 import xz.fzu.model.Recruitment;
 import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.ICompanyService;
+import xz.fzu.service.IRecruitmentService;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -17,15 +19,65 @@ import java.util.*;
 public class GeneratePopularPost {
     @Resource
     ICompanyService iCompanyService;
+    @Resource
+    IRecruitmentService iRecruitmentService;
+    public static final int[] HOT_LEVEL = {0,1,3,5};
+    public static final int[] DAYS = {10,30,90};
 
+    /**
+     * 获得招聘信息相对于当前时间的天数
+     * @param recruitmentId
+     * @return
+     */
+    public long gainDays(long recruitmentId){
+        Timestamp beginDate = null;
+        Timestamp endDate = null;
+        endDate = new Timestamp(System.currentTimeMillis());
+        try{
+            beginDate = iRecruitmentService.getRecruitmentById(recruitmentId).getPublishTime();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        long day = (endDate.getTime() - beginDate.getTime())/(24*60*60*1000);
+        return day;
+    }
+
+    /**
+     * 获得招聘信息对应的热度
+     * @param day
+     * @return
+     */
+    public int judge(long day){
+        if(day<= DAYS[0]){
+            return HOT_LEVEL[3];
+        }
+        else if(day<=DAYS[1]&&day>DAYS[0]){
+            return HOT_LEVEL[2];
+        }
+        else if(day<=DAYS[2]&&day>DAYS[1]){
+            return HOT_LEVEL[1];
+        }
+        else{
+            return HOT_LEVEL[0];
+        }
+    }
+
+    /**
+     * 生成热门岗位列表
+     * @param resumeDeliveryRecords
+     * @return
+     */
     public List<HotPost> generatePopularPostRank(List<ResumeDelivery> resumeDeliveryRecords) {
 
         Map<Long, HotPost> hotPosts = new HashMap<>(400);
         for (ResumeDelivery resumeDeliberyRecord : resumeDeliveryRecords) {
             long recruitmentId = resumeDeliberyRecord.getRecruitmentId();
             if (hotPosts.get(recruitmentId) != null) {
+                long day = gainDays(recruitmentId);
+                int hotLevel = judge(day);
                 HotPost hotPost = hotPosts.get(recruitmentId);
-                hotPost.heatAdd();
+                hotPost.heatAdd(hotLevel);
             } else {
                 int heat = 1;
                 HotPost hotPost = new HotPost();
