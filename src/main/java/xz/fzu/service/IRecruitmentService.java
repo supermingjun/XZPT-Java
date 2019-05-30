@@ -5,6 +5,7 @@ import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.OverLimitException;
 import xz.fzu.model.Recruitment;
+import xz.fzu.model.ResumeDelivery;
 import xz.fzu.vo.PageData;
 
 import java.io.IOException;
@@ -106,6 +107,14 @@ public interface IRecruitmentService {
      */
     List<Recruitment> getRecruitmentByIds(Long label, List<Long> longs, PageData<Recruitment> requestPage) throws InstanceNotExistException;
 
+    /**
+     * 根据投递记录里的recruitmentId获得招聘信息
+     * @param resumeDeliveries
+     * @return java.util.List<xz.fzu.model.Recruitment>
+     * @author litm
+     * @date 2019/5/30 23:15:57
+     */
+    List<Recruitment> getRecruitmentByResumeDeliveries(List<ResumeDelivery> resumeDeliveries);
     /**
      * 验证招聘信息数目是否超出限制
      *

@@ -8,6 +8,7 @@ import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
 import xz.fzu.exception.OverLimitException;
 import xz.fzu.model.Recruitment;
+import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.IRecruitmentService;
 import xz.fzu.util.PageUtil;
 import xz.fzu.util.PushUtil;
@@ -101,7 +102,15 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
 
         return list;
     }
+    @Override
+    public List<Recruitment> getRecruitmentByResumeDeliveries(List<ResumeDelivery> resumeDeliveries) {
 
+        List<Recruitment> list = new ArrayList<>();
+        for(ResumeDelivery resumeDelivery : resumeDeliveries){
+            list.add(iRecruitmentDao.selectInstaceById(resumeDelivery.getRecruitmentId()));
+        }
+        return list;
+    }
     private static final int LIMIT_SIZE = 10;
 
     @Override
