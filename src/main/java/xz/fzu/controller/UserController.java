@@ -1,6 +1,7 @@
 package xz.fzu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 import xz.fzu.exception.*;
 import xz.fzu.model.User;
@@ -30,6 +31,8 @@ public class UserController {
         this.iVerificationCodeService = iValidateCodeService;
     }
 
+    @Resource
+    ApplicationContext applicationContext;
     /**
      * @param user 用户实例
      * @param code 验证码
@@ -46,6 +49,15 @@ public class UserController {
         iVerificationCodeService.verifyCode(user.getEmail(), code);
         String token = iUserService.register(user);
         responseVO.setResultObject(token);
+        // 初始化推荐和热度算法
+        try {
+            RecommendController recommendController = applicationContext.getBean(RecommendController.class);
+            HotSpotController hotSpotController = applicationContext.getBean(HotSpotController.class);
+            recommendController.runThread();
+            hotSpotController.runThread();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return responseVO;
     }
