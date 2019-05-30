@@ -16,8 +16,8 @@ public class HotPost implements Comparable<HotPost> {
     private Long recruitmentId;
     private Integer heat;
 
-    public void heatAdd() {
-        heat = heat + 1;
+    public void heatAdd(int hotLevel) {
+        heat = heat + hotLevel;
     }
 
     @Override
