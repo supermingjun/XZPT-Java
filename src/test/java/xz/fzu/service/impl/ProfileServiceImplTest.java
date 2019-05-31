@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import xz.fzu.model.UserProfile;
 import xz.fzu.service.IProfileService;
 
 /**
@@ -20,7 +21,8 @@ public class ProfileServiceImplTest {
     private IProfileService iProfileService;
     @Test
     public void getUserProfile() {
-        iProfileService.getUserProfile("黎焕明");
+        UserProfile user = iProfileService.getUserProfile("8fc64f665d504230934ed8e639f52930");
+        assert user != null;
     }
 
     @Test

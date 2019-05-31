@@ -1,13 +1,17 @@
 package xz.fzu.service.impl;
 
 import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Murphy
  * @date 2019/5/223:23
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({"/spring-mvc.xml", "/spring-mybatis.xml"})
+@Transactional
 public class UserServiceImplTest {
 
 //    @InjectMocks
