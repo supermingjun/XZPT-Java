@@ -13,7 +13,7 @@ public class UserServiceImplTest {
 //    @InjectMocks
 //    private UserServiceImpl iUserService;
 //    @Mock
-//    private IUserDao iUserDao;
+//    private UserMapper iUserDao;
 //    @Test
 //    public void register() throws AccountUsedException {
 //        User user = new User();

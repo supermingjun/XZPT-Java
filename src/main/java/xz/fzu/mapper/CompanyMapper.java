@@ -1,4 +1,4 @@
-package xz.fzu.dao;
+package xz.fzu.mapper;
 
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -11,7 +11,7 @@ import xz.fzu.model.Company;
  * @author Murphy
  */
 @Repository
-public interface ICompanyDao  extends Mapper<Company> {
+public interface CompanyMapper extends Mapper<Company> {
 
     /**
      * 通过email查找company的id

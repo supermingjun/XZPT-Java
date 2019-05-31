@@ -1,10 +1,10 @@
 package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
-import xz.fzu.dao.IUserDao;
 import xz.fzu.exception.AccountUsedException;
 import xz.fzu.exception.PasswordErrorException;
 import xz.fzu.exception.TokenExpiredException;
+import xz.fzu.mapper.UserMapper;
 import xz.fzu.model.User;
 import xz.fzu.service.IUserService;
 import xz.fzu.util.Constants;
@@ -24,7 +24,7 @@ import java.util.UUID;
 public class UserServiceImpl implements IUserService {
 
     @Resource
-    IUserDao iUserDao;
+    UserMapper iUserDao;
 
     /**
      * @param user 用户实例

@@ -1,4 +1,4 @@
-package xz.fzu.dao;
+package xz.fzu.mapper;
 
 import org.springframework.stereotype.Repository;
 import xz.fzu.model.RecommendResult;
@@ -11,7 +11,7 @@ import java.util.List;
  * @author Murphy
  */
 @Repository
-public interface IRecommendResultDao {
+public interface RecommendResultMapper {
 
     /**
      * 插入一条推荐记录

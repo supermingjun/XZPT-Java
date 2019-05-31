@@ -48,7 +48,7 @@
 
     <!-- 扫描dao -->
     <!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
-    <!--        <property name="basePackage" value="xz.fzu.dao"/>-->
+    <!--        <property name="basePackage" value="xz.fzu.mapperper"/>-->
     <!--        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
     <!--    </bean>-->
 
@@ -58,6 +58,6 @@
         <!-- 注入sqlSessionFactory -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 给出需要扫描Dao接口包 -->
-        <property name="basePackage" value="xz.fzu.dao"/>
+        <property name="basePackage" value="xz.fzu.mapper"/>
     </bean>
 </beans>

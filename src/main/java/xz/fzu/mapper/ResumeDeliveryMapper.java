@@ -1,4 +1,4 @@
-package xz.fzu.dao;
+package xz.fzu.mapper;
 
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2019/4/30 15:25
  */
 @Repository
-public interface IResumeDeliveryDao extends Mapper<ResumeDelivery> {
+public interface ResumeDeliveryMapper extends Mapper<ResumeDelivery> {
 
     /**
      * 插入一条记录

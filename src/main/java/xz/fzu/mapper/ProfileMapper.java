@@ -1,4 +1,4 @@
-package xz.fzu.dao;
+package xz.fzu.mapper;
 
 import org.springframework.stereotype.Repository;
 import xz.fzu.model.RecruitmentProfile;
@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2019/4/30 21:36
  */
 @Repository
-public interface IProfileDao {
+public interface ProfileMapper {
 
     /**
      * 根据userId获得UserProfile实例

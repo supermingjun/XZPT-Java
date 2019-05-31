@@ -1,8 +1,7 @@
-package xz.fzu.dao;
+package xz.fzu.mapper;
 
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
-import xz.fzu.model.Recruitment;
 import xz.fzu.model.User;
 
 /**
@@ -12,7 +11,7 @@ import xz.fzu.model.User;
  * @date 2019/4/19 22:59
  */
 @Repository
-public interface IUserDao  extends Mapper<User> {
+public interface UserMapper extends Mapper<User> {
 
     /**
      * 插入用户

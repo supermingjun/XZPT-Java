@@ -1,4 +1,4 @@
-package xz.fzu.dao;
+package xz.fzu.mapper;
 
 import org.junit.Test;
 import xz.fzu.model.User;
@@ -9,10 +9,10 @@ import javax.annotation.Resource;
  * @author Murphy
  * @date 2019/5/223:37
  */
-public class IUserDaoTest {
+public class UserMapperTest {
 
     @Resource
-    private IUserDao userDao;
+    private UserMapper userDao;
 
     @Test
     public void testUserDao() {

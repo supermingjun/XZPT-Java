@@ -1,8 +1,8 @@
 package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
-import xz.fzu.dao.IResumeDeliveryDao;
 import xz.fzu.exception.InstanceNotExistException;
+import xz.fzu.mapper.ResumeDeliveryMapper;
 import xz.fzu.model.ResumeDelivery;
 import xz.fzu.service.IResumeDeliveryService;
 import xz.fzu.util.PageUtil;
@@ -19,7 +19,7 @@ import java.util.List;
 public class ResumeDeliveryImpl implements IResumeDeliveryService {
 
     @Resource
-    IResumeDeliveryDao iResumeDeliveryDao;
+    ResumeDeliveryMapper resumeDeliveryMapper;
 
     /**
      * TODO 安全认证，暂时没有
@@ -32,14 +32,14 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
         resumeDelivery.setResumeId(resumeId);
         resumeDelivery.setUserId(userId);
         resumeDelivery.setDeliveryStatus(1L);
-        iResumeDeliveryDao.insert(resumeDelivery);
+        resumeDeliveryMapper.insert(resumeDelivery);
 
     }
 
     @Override
     public List<ResumeDelivery> userGetResumeDeliveryRecord(String userId, int status, PageData pageData) throws InstanceNotExistException {
 
-        List<ResumeDelivery> list = iResumeDeliveryDao.userGetListInstance(userId, status,
+        List<ResumeDelivery> list = resumeDeliveryMapper.userGetListInstance(userId, status,
                 (pageData.getCurrentPage() - 1) * pageData.getPageSize(), pageData.getPageSize());
         if (list == null || list.size() == 0) {
             throw new InstanceNotExistException();
@@ -51,7 +51,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     @Override
     public List<ResumeDelivery> companyGetResumeDeliveryRecord(String comapnyId, PageData pageData) throws InstanceNotExistException {
 
-        List<ResumeDelivery> list = iResumeDeliveryDao.companyGetListInstance(comapnyId,
+        List<ResumeDelivery> list = resumeDeliveryMapper.companyGetListInstance(comapnyId,
                 (pageData.getCurrentPage() - 1) * pageData.getPageSize(), pageData.getPageSize());
         if (list.size() == 0) {
             throw new InstanceNotExistException();
@@ -63,7 +63,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     @Override
     public ResumeDelivery getResumeDeliveryRecordByResume(int resumeId) throws InstanceNotExistException {
 
-        ResumeDelivery resumeDelivery = iResumeDeliveryDao.resumeGetListInstance(resumeId);
+        ResumeDelivery resumeDelivery = resumeDeliveryMapper.resumeGetListInstance(resumeId);
         if (resumeDelivery == null) {
             throw new InstanceNotExistException();
         }
@@ -74,7 +74,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     @Override
     public ResumeDelivery getResumeDeliveryRecordById(Long resumeDeliveryId) throws InstanceNotExistException {
 
-        ResumeDelivery resumeDelivery = iResumeDeliveryDao.getInstance(resumeDeliveryId);
+        ResumeDelivery resumeDelivery = resumeDeliveryMapper.getInstance(resumeDeliveryId);
         if (resumeDelivery == null) {
             throw new InstanceNotExistException();
         }
@@ -85,7 +85,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     @Override
     public void deleteResumeDeliveryRecord(int resumeDeliveryId) throws InstanceNotExistException {
 
-        int affectRow = iResumeDeliveryDao.deleteInstance(resumeDeliveryId);
+        int affectRow = resumeDeliveryMapper.deleteInstance(resumeDeliveryId);
         if (affectRow == 0) {
             throw new InstanceNotExistException();
         }
@@ -95,7 +95,7 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     @Override
     public void updateResumeDeliveryRecord(ResumeDelivery resumeDelivery) {
 
-        if (iResumeDeliveryDao.updateInstance(resumeDelivery) == 0) {
+        if (resumeDeliveryMapper.updateInstance(resumeDelivery) == 0) {
             throw new RuntimeException("数据没有更新" + resumeDelivery.getDeliveryStatus() + "，Id是" + resumeDelivery.getResumeDeliveryId() + "。");
         }
 
@@ -104,12 +104,12 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     @Override
     public List<ResumeDelivery> getAllRecord() {
 
-        return iResumeDeliveryDao.mySelectAll();
+        return resumeDeliveryMapper.mySelectAll();
     }
 
     @Override
     public List<ResumeDelivery> getRecordByUserId(String userId, PageData<ResumeDelivery> pageData) throws InstanceNotExistException {
-        List<ResumeDelivery> list = iResumeDeliveryDao.selectAll();
+        List<ResumeDelivery> list = resumeDeliveryMapper.selectAll();
         for (int i = 0; i < list.size(); i++) {
             if (!list.get(i).getUserId().equals(userId)) {
                 list.remove(i);
