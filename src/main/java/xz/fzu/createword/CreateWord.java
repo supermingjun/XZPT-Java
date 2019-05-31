@@ -7,7 +7,6 @@ import xz.fzu.util.Constants;
 import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-
 /**
  * Word生成简历接口
  *
@@ -24,8 +23,40 @@ public class CreateWord {
             put((long)5,"博士");
         }
     };
+
+    /**
+     * 将数据中的特殊字符替换为实体的形式
+     * @param map
+     */
+    public static void xmlSpecialCharacterReplace(Map<String,String> map){
+
+        for(String key : map.keySet()){
+            String value = map.get(key);
+            if(value!=null){
+                if(key.equals("head_sculpture")){
+                    continue;
+                }
+                value = value.replace("<","&lt;");
+                value = value.replace(">","&gt;");
+                value = value.replace("'","&apos");
+                value = value.replace("\"","&quot;");
+                value = value.replace("&","&amp;");
+                map.put(key,value);
+            }
+        }
+    }
+
+    /**
+     * 调用该方法生成Word版简历
+     * @param resume
+     * @param outputFilePath
+     * @param ftlName
+     * @param ftlPath
+     * @throws ExportException
+     */
     public static void createWord(Resume resume, String outputFilePath, String ftlName, String ftlPath) throws ExportException {
-        Map<String, Object> map = new HashMap<>(10);
+
+        Map<String, String> map = new HashMap<>(12);
         map.put("name", resume.getUserName());
         map.put("work_experience", resume.getPracticalExperience());
         map.put("certificate", resume.getCertificate());
@@ -45,6 +76,7 @@ public class CreateWord {
         }
         String imageBase64 = LoadImage.loadImage(imgFilePath);
         map.put("head_sculpture", imageBase64);
+        xmlSpecialCharacterReplace(map);
         FileOutputStream os;
         try {
             os = new FileOutputStream(outputFilePath);
