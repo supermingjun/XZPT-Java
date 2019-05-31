@@ -7,7 +7,6 @@ import org.docx4j.fonts.PhysicalFonts;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.OutputStream;
 
 /**
@@ -51,7 +50,6 @@ public class Docx4jUtil {
         fontMapper.put("幼圆",PhysicalFonts.get("YouYuan"));
         fontMapper.put("华文宋体",PhysicalFonts.get("STSong"));
         fontMapper.put("华文中宋",PhysicalFonts.get("STZhongsong"));
-        File file = new File("jianli.docx");
 	    wordMLPackage.save(os, Docx4J.FLAG_SAVE_ZIP_FILE);
     }
 }
