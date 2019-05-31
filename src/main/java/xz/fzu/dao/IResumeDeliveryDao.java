@@ -41,13 +41,14 @@ public interface IResumeDeliveryDao extends Mapper<ResumeDelivery> {
      * 用户获得投递记录
      *
      * @param userId    用户id
+     * @param status    简历状态
      * @param pageIndex 页码
      * @param pageSize  页大小
      * @return java.util.List<xz.fzu.model.ResumeDelivery>
      * @author Murphy
      * @date 2019/4/30 15:32
      */
-    List<ResumeDelivery> userGetListInstance(String userId, int pageIndex, int pageSize);
+    List<ResumeDelivery> userGetListInstance(String userId, int status, int pageIndex, int pageSize);
 
     /**
      * 根据简历获得投递记录

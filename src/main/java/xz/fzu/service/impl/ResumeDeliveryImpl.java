@@ -37,11 +37,11 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     }
 
     @Override
-    public List<ResumeDelivery> userGetResumeDeliveryRecord(String userId, PageData pageData) throws InstanceNotExistException {
+    public List<ResumeDelivery> userGetResumeDeliveryRecord(String userId, int status, PageData pageData) throws InstanceNotExistException {
 
-        List<ResumeDelivery> list = iResumeDeliveryDao.userGetListInstance(userId,
+        List<ResumeDelivery> list = iResumeDeliveryDao.userGetListInstance(userId, status,
                 (pageData.getCurrentPage() - 1) * pageData.getPageSize(), pageData.getPageSize());
-        if (list == null) {
+        if (list == null || list.size() == 0) {
             throw new InstanceNotExistException();
         }
 

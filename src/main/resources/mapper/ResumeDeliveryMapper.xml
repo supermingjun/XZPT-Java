@@ -21,7 +21,7 @@
         SELECT * FROM resume_delivery
     </select>
     <select id="userGetListInstance" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
-         SELECT * FROM resume_delivery WHERE user_id = #{arg0} LIMIT #{arg1},#{arg2}
+         SELECT * FROM resume_delivery WHERE user_id = #{arg0} and delivery_status = #{arg1} LIMIT #{arg2},#{arg3}
     </select>
     <select id="resumeGetListInstance" resultMap="myResultMap" resultType="xz.fzu.model.ResumeDelivery">
          SELECT * FROM resume_delivery WHERE resume_id = #{arg0} LIMIT #{arg1},#{arg2}

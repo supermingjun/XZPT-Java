@@ -35,7 +35,7 @@ public interface IResumeDeliveryService {
      * @author Murphy
      * @date 2019/4/30 19:02
      */
-    List<ResumeDelivery> userGetResumeDeliveryRecord(String userId, PageData pageData) throws InstanceNotExistException;
+    List<ResumeDelivery> userGetResumeDeliveryRecord(String userId, int status, PageData pageData) throws InstanceNotExistException;
 
     /**
      * 公司获得简历投递记录

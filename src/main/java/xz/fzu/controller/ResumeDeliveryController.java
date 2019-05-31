@@ -152,11 +152,11 @@ public class ResumeDeliveryController {
      * @description 获得自己的所有的投递记录
      */
     @RequestMapping(value = "/user/getlistdeliveryrecord", method = RequestMethod.POST)
-    public ResponseVO userGetDeliveryRecord(@RequestParam String token, @RequestBody PageData<ResumeDelivery> pageData) throws TokenExpiredException, InstanceNotExistException {
+    public ResponseVO userGetDeliveryRecord(@RequestParam String token, @RequestParam int status, @RequestBody PageData<ResumeDelivery> pageData) throws TokenExpiredException, InstanceNotExistException {
 
         ResponseVO responseVO = new ResponseVO();
         String userId = iUserService.verifyToken(token);
-        List<ResumeDelivery> list = iResumeDeliveryService.userGetResumeDeliveryRecord(userId, pageData);
+        List<ResumeDelivery> list = iResumeDeliveryService.userGetResumeDeliveryRecord(userId, status, pageData);
         pageData.setContentList(setTransients(list));
 
         return responseVO;
