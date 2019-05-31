@@ -49,13 +49,16 @@ public class ResumeDeliveryImpl implements IResumeDeliveryService {
     }
 
     @Override
-    public List<ResumeDelivery> companyGetResumeDeliveryRecord(String comapnyId, PageData pageData) throws InstanceNotExistException {
+    public List<ResumeDelivery> companyGetResumeDeliveryRecord(String companyId, int statusA, int statusB, PageData<ResumeDelivery> pageData) throws InstanceNotExistException {
 
-        List<ResumeDelivery> list = resumeDeliveryMapper.companyGetListInstance(comapnyId,
-                (pageData.getCurrentPage() - 1) * pageData.getPageSize(), pageData.getPageSize());
-        if (list.size() == 0) {
-            throw new InstanceNotExistException();
+        List<ResumeDelivery> list = resumeDeliveryMapper.selectAll();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getDeliveryStatus() > statusB || list.get(i).getDeliveryStatus() < statusA) {
+                list.remove(i);
+                i--;
+            }
         }
+        PageUtil.paging(list, pageData);
 
         return list;
     }
