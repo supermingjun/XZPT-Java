@@ -36,7 +36,6 @@ public class AlgorithImplement {
      */
     private Map<String, Integer> typeOfDegree = new HashMap<String, Integer>() {
         private static final long serialVersionUID = 1L;
-
         {
             put("学历不限", 1);
             put("大专及以上", 2);
@@ -44,11 +43,10 @@ public class AlgorithImplement {
             put("硕士及以上", 4);
             put("博士及以上", 5);
         }
-
     };
 
     /**
-     * 处理null的情况，如果某些字段为null，则把该字段设置为默认值
+     * 处理招聘信息某些为空的字段，如果某些字段为null，则把该字段设置为默认值
      * @param rp
      */
     public static void handleNull(RecruitmentProfile rp){
@@ -66,77 +64,57 @@ public class AlgorithImplement {
      * 根据硬性指标对招聘信息进行初筛返回筛选结果
      * 硬性指标 行业标签 long，工作时间long，工作地点String
      *
-     * @param upf
-     * @param rps
+     * @param userProfile
+     * @param recruitmentProfiles
      * @return
      */
-    public List<RecruitmentProfile> directFiltration(UserProfile upf, List<RecruitmentProfile> rps) {
-          //对行业进行筛选
-          Iterator<RecruitmentProfile> iterator = rps.iterator();
-          while(iterator.hasNext()){
+    public List<RecruitmentProfile> directFiltration(UserProfile userProfile, List<RecruitmentProfile> recruitmentProfiles) {
 
-              RecruitmentProfile rp = iterator.next();
-              handleNull(rp);
-              if(upf.getIndustryLabel()!=null){
-                  long industryLabel = upf.getIndustryLabel();
-                  if(industryLabel!=DEFAULT){
-                      if(!rp.getIndustryLabel().equals(industryLabel)){
+        List<RecruitmentProfile> tRecruitmentProfiles =new ArrayList<>(400);
+        //对行业进行筛选
+        Iterator<RecruitmentProfile> iterator = recruitmentProfiles.iterator();
+        while(iterator.hasNext()){
+            RecruitmentProfile rp = iterator.next();
+            handleNull(rp);
+            if(userProfile.getIndustryLabel()!=null){
+                long industryLabel = userProfile.getIndustryLabel();
+                if(industryLabel!=DEFAULT){
+                    if(!rp.getIndustryLabel().equals(industryLabel)){
                           iterator.remove();
-                      }
-                  }
-              }
-          }
-          //对城市进行筛选
-          iterator = rps.iterator();
-          while(iterator.hasNext()){
-
-              RecruitmentProfile rp = iterator.next();
-              if(upf.getExpectedCity()!=null){
-                  if (!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {
+                    }
+                }
+            }
+        }
+          //对工作类型进行筛选
+        iterator = recruitmentProfiles.iterator();
+        while(iterator.hasNext()){
+          RecruitmentProfile rp = iterator.next();
+          if(userProfile.getJobType()!=null){
+              long jobType = userProfile.getJobType();
+              if(jobType!=DEFAULT){
+                  if(!rp.getJobType().equals(jobType)){
                       iterator.remove();
                   }
               }
           }
-          //对工作类型进行筛选
-          iterator = rps.iterator();
-          while(iterator.hasNext()){
-
-              RecruitmentProfile rp = iterator.next();
-              if(upf.getJobType()!=null){
-                  long jobType = upf.getJobType();
-                  if(jobType!=DEFAULT){
-                      if(!rp.getJobType().equals(jobType)){
-                          iterator.remove();
-                      }
-                  }
-              }
-          }
-//        Iterator<RecruitmentProfile> iterator = rps.iterator();
-//        while (iterator.hasNext()) {
-//
-//            RecruitmentProfile rp = iterator.next();
-//            handleNull(rp);
-//            if (upf.getIndustryLabel() != null) {
-//                //如果industry为0表示默认值，则将值设置为1代表测试|开发|运维类
-//                long industryLabel = upf.getIndustryLabel();
-//                if(industryLabel!=DEFAULT){
-//                    if(!rp.getIndustryLabel().equals(industryLabel)){
-//                        iterator.remove();
-//                    }
-//                }
-//            } else if (upf.getExpectedCity() != null) {
-//                //去掉字符串首尾的空白后进行比较
-//                if (!upf.getExpectedCity().trim().equals(rp.getLocation().trim())) {
-//                    iterator.remove();
-//                }
-//            } else if (upf.getJobType() != null) {
-//                long jobType = upf.getJobType();
-//                if(!rp.getJobType().equals(jobType)){
-//                    iterator.remove();
-//                }
-//            }
-//        }
-        return rps;
+        }
+        //对城市进行筛选
+        iterator = recruitmentProfiles.iterator();
+        while(iterator.hasNext()){
+            RecruitmentProfile rp = iterator.next();
+            if(userProfile.getExpectedCity()!=null){
+                if (!userProfile.getExpectedCity().trim().equals(rp.getLocation().trim())) {
+                  tRecruitmentProfiles.add(rp);
+                  iterator.remove();
+                }
+            }
+        }
+        if(recruitmentProfiles.size()!=0){
+            return recruitmentProfiles;
+        }
+        else {
+            return tRecruitmentProfiles;
+        }
     }
 
     /**
@@ -146,6 +124,7 @@ public class AlgorithImplement {
      * @return
      */
     public int[] regExSalary(String salary) {
+
         if (salary == null) {
             return DEFAULT_SALARY_RANGE;
         }
@@ -165,7 +144,6 @@ public class AlgorithImplement {
 
         }
         return salaryRange;
-
     }
 
     /**
@@ -192,20 +170,19 @@ public class AlgorithImplement {
         } else {
             return SALARY_QUALITY_VALUE[0];
         }
-
     }
 
     /**
      * 对学历进行量化
      *
-     * @param upf
-     * @param rp
+     * @param userProfile
+     * @param recruitmentProfile
      * @return
      */
-    public double degreeQuan(UserProfile upf, RecruitmentProfile rp) {
+    public double degreeQuan(UserProfile userProfile, RecruitmentProfile recruitmentProfile) {
 
-        long uDegree = upf.getHighestEducation() == null ? 0 : upf.getHighestEducation();
-        String rDegreeRequire = rp.getDegree();
+        long uDegree = userProfile.getHighestEducation() == null ? 0 : userProfile.getHighestEducation();
+        String rDegreeRequire = recruitmentProfile.getDegree();
         int rdegreeRequire = 1;
         try {
             rdegreeRequire = typeOfDegree.get(rDegreeRequire);
@@ -225,14 +202,14 @@ public class AlgorithImplement {
 
     /**
      * 对工作时间进行量化
-     * @param upf
-     * @param rp
+     * @param userProfile
+     * @param recruitmentProfile
      * @return
      */
-    public double workTimeQuan(UserProfile upf, RecruitmentProfile rp) {
+    public double workTimeQuan(UserProfile userProfile, RecruitmentProfile recruitmentProfile) {
 
-        long uWorkTime = upf.getWorkTime() == null ? 0 : upf.getWorkTime();
-        long rWorkTime = rp.getWorkTime() == null ? 0 : rp.getWorkTime();
+        long uWorkTime = userProfile.getWorkTime() == null ? 0 : userProfile.getWorkTime();
+        long rWorkTime = recruitmentProfile.getWorkTime() == null ? 0 : recruitmentProfile.getWorkTime();
         if (uWorkTime == 0) {
             return WORK_TIME_QUALITY_VALUE[3];
         } else if (uWorkTime == rWorkTime) {
@@ -249,37 +226,37 @@ public class AlgorithImplement {
     /**
      * 对招聘信息关键字段进行量化加权
      * 目前只用学历、薪水和工作时间进行量化加权
-     *
-     * @param upf
+     * @param userProfile
+     * @param preScreeningResults
      * @return
      */
 
-    public Map<Long, double[]> quantization(UserProfile upf, List<RecruitmentProfile> preScreeningResults) {
+    public Map<Long, double[]> quantization(UserProfile userProfile, List<RecruitmentProfile> preScreeningResults) {
 
         Map<Long, double[]> weightResults = new HashMap<>(512);
-        for (RecruitmentProfile rp : preScreeningResults) {
+        for (RecruitmentProfile recruitmentProfile : preScreeningResults) {
             double[] quanValue = new double[3];
-            int[] sarlaryRange = regExSalary(rp.getSalary());
+            int[] sarlaryRange = regExSalary(recruitmentProfile.getSalary());
             //学历量化加权
-            quanValue[0] = degreeQuan(upf, rp) * USER_WEIGHT[0];
+            quanValue[0] = degreeQuan(userProfile, recruitmentProfile) * USER_WEIGHT[0];
             //薪水量化加权
             quanValue[1] = salaryQuan(sarlaryRange) * USER_WEIGHT[2];
             //工作时间量化
-            quanValue[2] = workTimeQuan(upf, rp) * USER_WEIGHT[1];
-            weightResults.put(rp.getRecruitmentId(), quanValue);
+            quanValue[2] = workTimeQuan(userProfile, recruitmentProfile) * USER_WEIGHT[1];
+            weightResults.put(recruitmentProfile.getRecruitmentId(), quanValue);
         }
-
         return weightResults;
     }
 
     /**
      * 对招聘信息进行相似度计算
-     *
+     * @param userId
      * @param weightedResults
+     * @return
      */
     public List<RecommendResult> computationalSimilarity(String userId, Map<Long, double[]> weightedResults) {
 
-        List<RecommendResult> esrs = new ArrayList<RecommendResult>();
+        List<RecommendResult> recommendResults = new ArrayList<RecommendResult>();
         double result = 0;
         double r1 = 0;
         double r2 = 0;
@@ -293,29 +270,28 @@ public class AlgorithImplement {
                 r3 += USER_WEIGHT[i] * USER_WEIGHT[i];
             }
             result = Double.parseDouble(String.format("%.6f", r1 / Math.sqrt(r2 * r3)));
-            RecommendResult esr = new RecommendResult();
-            esr.setUserId(userId);
-            esr.setRecruitmentId(str);
-            esr.setSimilarityResult(result);
-            esrs.add(esr);
+            RecommendResult recommendResult = new RecommendResult();
+            recommendResult.setUserId(userId);
+            recommendResult.setRecruitmentId(str);
+            recommendResult.setSimilarityResult(result);
+            recommendResults.add(recommendResult);
         }
-
-        return esrs;
+        return recommendResults;
     }
 
     /**
      * 获取相似度最高的Top-N
-     *
+     * @param recommendResults
      * @param n
+     * @return
      */
-    public List<RecommendResult> getTopN(List<RecommendResult> esrs, int n) {
+    public List<RecommendResult> getTopN(List<RecommendResult> recommendResults, int n) {
 
-        List<RecommendResult> tesrs = esrs;
-        Collections.sort(esrs);
-        if (n < esrs.size()) {
-            tesrs = esrs.subList(0, n);
+        List<RecommendResult> tRecommendResult = recommendResults;
+        Collections.sort(recommendResults);
+        if (n < recommendResults.size()) {
+            tRecommendResult = recommendResults.subList(0, n);
         }
-
-        return tesrs;
+        return tRecommendResult;
     }
 }
