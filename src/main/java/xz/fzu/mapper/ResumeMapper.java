@@ -1,4 +1,4 @@
-package xz.fzu.dao;
+package xz.fzu.mapper;
 
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -12,7 +12,7 @@ import java.util.List;
  * @author Murphy
  */
 @Repository
-public interface IResumeDao  extends Mapper<Resume> {
+public interface ResumeMapper extends Mapper<Resume> {
 
     /**
      * 插入一条实例

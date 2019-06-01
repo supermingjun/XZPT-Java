@@ -97,7 +97,16 @@ public class MyExceptionHandler {
 
         ResponseVO<String> responseObject = new ResponseVO<>();
         responseObject.putData(e.getErrorCode(), e.getMessage(), null);
-        printStack(e);
+//        printStack(e);
+        StackTraceElement stackTraceElement = e.getStackTrace()[0];
+
+        System.out.println("异常名：" + e.getClass());
+        System.out.println("\t文件名：" + stackTraceElement.getFileName());
+        ;
+        System.out.println("\t函数名：" + stackTraceElement.getMethodName());
+        ;
+        System.out.println("\t行数：" + stackTraceElement.getLineNumber());
+        ;
 
         return responseObject;
     }

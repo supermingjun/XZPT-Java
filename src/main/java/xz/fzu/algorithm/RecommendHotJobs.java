@@ -12,7 +12,7 @@ import java.util.List;
 public class RecommendHotJobs {
     public static List<Recruitment> recommendHotJobs(Long userIndustryLabel, List<Recruitment> recruitments) {
 
-        if(userIndustryLabel.equals((long)0)){
+        if (new Long(0).equals(userIndustryLabel)) {
             return recruitments;
         }
         else {

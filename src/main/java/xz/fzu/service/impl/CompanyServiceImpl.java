@@ -1,8 +1,8 @@
 package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
-import xz.fzu.dao.ICompanyDao;
 import xz.fzu.exception.*;
+import xz.fzu.mapper.CompanyMapper;
 import xz.fzu.model.Company;
 import xz.fzu.service.ICompanyService;
 import xz.fzu.service.IVerificationCodeService;
@@ -20,7 +20,7 @@ import java.util.UUID;
 @Service
 public class CompanyServiceImpl implements ICompanyService {
     @Resource
-    ICompanyDao iCompanyDao;
+    CompanyMapper companyMapper;
     @Resource
     IVerificationCodeService iVerificationCodeService;
 
@@ -36,13 +36,13 @@ public class CompanyServiceImpl implements ICompanyService {
         if (company.getHeadUrl() == null) {
             company.setHeadUrl(Constants.DEFAULT_PNG);
         }
-        iCompanyDao.insert(company);
+        companyMapper.insert(company);
     }
 
     @Override
     public Company getInfoByCompanyId(String companyId) throws UserNotFoundException {
 
-        Company company = iCompanyDao.selectCompanyById(companyId);
+        Company company = companyMapper.selectCompanyById(companyId);
         if (company.getCompanyId() == null) {
             throw new UserNotFoundException();
         }
@@ -55,19 +55,19 @@ public class CompanyServiceImpl implements ICompanyService {
     public void updateInfoByToken(Company company, String token) throws TokenExpiredException {
 
         TokenUtil.verify(token);
-        if (iCompanyDao.verifyToken(token) == 0) {
+        if (companyMapper.verifyToken(token) == 0) {
             throw new TokenExpiredException();
         }
-        iCompanyDao.updateInfo(company);
+        companyMapper.updateInfo(company);
     }
 
     @Override
     public String login(String email, String passwd) throws PasswordErrorException {
         passwd = Sha.encrypt(passwd);
-        if (iCompanyDao.loginWithPasswd(email, passwd) == 0) {
+        if (companyMapper.loginWithPasswd(email, passwd) == 0) {
             throw new PasswordErrorException();
         }
-        String companId = iCompanyDao.selectIdByEmail(email);
+        String companId = companyMapper.selectIdByEmail(email);
         String token = TokenUtil.createToken(companId, passwd);
         Company company = new Company();
         company.setCompanyId(companId);
@@ -80,7 +80,7 @@ public class CompanyServiceImpl implements ICompanyService {
     @Override
     public String verifyToken(String token) throws TokenExpiredException {
 
-        if (iCompanyDao.verifyToken(token) == 0) {
+        if (companyMapper.verifyToken(token) == 0) {
             throw new TokenExpiredException();
         }
 
@@ -90,20 +90,20 @@ public class CompanyServiceImpl implements ICompanyService {
     @Override
     public void resetPasswd(String email, String passwd) throws TokenExpiredException {
         passwd = Sha.encrypt(passwd);
-        Company company = iCompanyDao.selectCompanyByEmail(email);
+        Company company = companyMapper.selectCompanyByEmail(email);
         company.setPasswd(passwd);
         updateInfoByToken(company, company.getToken());
     }
 
     @Override
     public void updateToken(Company company) {
-        iCompanyDao.updateInfo(company);
+        companyMapper.updateInfo(company);
     }
 
     @Override
     public Company getInfoByToken(String token) throws TokenExpiredException, UserNotFoundException {
 
-        String companyId = iCompanyDao.selectIdByToken(token);
+        String companyId = companyMapper.selectIdByToken(token);
         if (companyId == null) {
             throw new TokenExpiredException();
         }
@@ -114,16 +114,16 @@ public class CompanyServiceImpl implements ICompanyService {
     @Override
     public String updatePasswd(String token, String oldPasswd, String newPasswd) throws TokenExpiredException, PasswordErrorException {
 
-        if (iCompanyDao.verifyToken(token) == 0) {
+        if (companyMapper.verifyToken(token) == 0) {
             throw new TokenExpiredException();
         }
         oldPasswd = Sha.encrypt(oldPasswd);
         newPasswd = Sha.encrypt(newPasswd);
-        int affectRow = iCompanyDao.updatePasswd(token, oldPasswd, newPasswd);
+        int affectRow = companyMapper.updatePasswd(token, oldPasswd, newPasswd);
         if (affectRow == 0) {
             throw new PasswordErrorException();
         }
-        String companyId = iCompanyDao.selectIdByToken(token);
+        String companyId = companyMapper.selectIdByToken(token);
 
         return TokenUtil.createToken(companyId, newPasswd);
     }

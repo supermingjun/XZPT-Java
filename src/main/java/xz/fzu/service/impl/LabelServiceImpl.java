@@ -1,8 +1,8 @@
 package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
-import xz.fzu.dao.IIndustryLabelDao;
-import xz.fzu.dao.IStationLabelDao;
+import xz.fzu.mapper.IndustryLabelMapper;
+import xz.fzu.mapper.StationLabelMapper;
 import xz.fzu.service.ILabelService;
 
 import javax.annotation.Resource;
@@ -15,17 +15,17 @@ import javax.annotation.Resource;
 public class LabelServiceImpl implements ILabelService {
 
     @Resource
-    IStationLabelDao iStationLabelDao;
+    StationLabelMapper stationLabelMapper;
     @Resource
-    IIndustryLabelDao iIndustryLabelDao;
+    IndustryLabelMapper industryLabelMapper;
 
     @Override
     public String getStationLabel(Long id) {
-        return iStationLabelDao.getInstance(id);
+        return stationLabelMapper.getInstance(id);
     }
 
     @Override
     public String getIndustryLabel(Long id) {
-        return iIndustryLabelDao.getInstance(id);
+        return industryLabelMapper.getInstance(id);
     }
 }
