@@ -21,6 +21,7 @@ public interface IRecruitmentService {
     /**
      * 插入一条招聘信息
      *
+     * @param userIdList 用户列表
      * @param recruitment 招聘信息的实例
      * @return void
      * @author Murphy
