@@ -1,8 +1,8 @@
 package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
-import xz.fzu.dao.IInterviewSkillDao;
 import xz.fzu.exception.InstanceNotExistException;
+import xz.fzu.mapper.InterviewSkillMapper;
 import xz.fzu.model.InterviewSkill;
 import xz.fzu.service.IInterviewSkillService;
 import xz.fzu.util.PageUtil;
@@ -19,16 +19,16 @@ import java.util.List;
 public class InterviewSkillServiceImpl implements IInterviewSkillService {
 
     @Resource
-    IInterviewSkillDao iInterviewSkillDao;
+    InterviewSkillMapper interviewSkillMapper;
 
     @Override
     public InterviewSkill getInstance(Long id) {
-        return iInterviewSkillDao.selectByPrimaryKey(id);
+        return interviewSkillMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public List<InterviewSkill> getListInstance(PageData<InterviewSkill> pageData) throws InstanceNotExistException {
-        List<InterviewSkill> list = iInterviewSkillDao.selectAll();
+        List<InterviewSkill> list = interviewSkillMapper.selectAll();
 
         if (list.size() == 0) {
             throw new InstanceNotExistException();

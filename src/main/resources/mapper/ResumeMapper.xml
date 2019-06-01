@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="xz.fzu.dao.IResumeDao">
+<mapper namespace="xz.fzu.mapper.ResumeMapper">
     <resultMap id="myResultMap" type="xz.fzu.model.Resume">
         <result property="resumeId" column="resume_id"/>
         <result property="userId" column="user_id"/>
@@ -51,7 +51,7 @@
             <if test=" email != null and email != '' ">
                 email = #{email},
             </if>
-            <if test=" sex != 0 ">
+            <if test=" sex != 0  and sex != null ">
                 sex = #{sex},
             </if>
             <if test=" presentCity != null and presentCity != '' ">
@@ -72,7 +72,7 @@
             <if test=" endTime != null ">
                 end_time = #{endTime},
             </if>
-            <if test=" highestEducation != 0 ">
+            <if test=" highestEducation != 0 and highestEducation != null ">
                 highest_education = #{highestEducation},
             </if>
             <if test=" certificate != null and certificate != '' ">
@@ -93,10 +93,10 @@
             <if test=" expectWork != null and expectWork != '' ">
                 expect_work = #{expectWork},
             </if>
-            <if test=" resumeStatus != 0 ">
+            <if test=" resumeStatus != 0  and resumeStatus != null ">
                 resume_status = #{resumeStatus},
             </if>
-            <if test=" age != 0 ">
+            <if test=" age != 0  and age != null ">
                 age = #{age},
             </if>
         </set>

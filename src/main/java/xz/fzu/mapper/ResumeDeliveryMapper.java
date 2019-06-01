@@ -1,4 +1,4 @@
-package xz.fzu.dao;
+package xz.fzu.mapper;
 
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2019/4/30 15:25
  */
 @Repository
-public interface IResumeDeliveryDao extends Mapper<ResumeDelivery> {
+public interface ResumeDeliveryMapper extends Mapper<ResumeDelivery> {
 
     /**
      * 插入一条记录
@@ -41,13 +41,14 @@ public interface IResumeDeliveryDao extends Mapper<ResumeDelivery> {
      * 用户获得投递记录
      *
      * @param userId    用户id
+     * @param status    简历状态
      * @param pageIndex 页码
      * @param pageSize  页大小
      * @return java.util.List<xz.fzu.model.ResumeDelivery>
      * @author Murphy
      * @date 2019/4/30 15:32
      */
-    List<ResumeDelivery> userGetListInstance(String userId, int pageIndex, int pageSize);
+    List<ResumeDelivery> userGetListInstance(String userId, int status, int pageIndex, int pageSize);
 
     /**
      * 根据简历获得投递记录
@@ -62,14 +63,12 @@ public interface IResumeDeliveryDao extends Mapper<ResumeDelivery> {
     /**
      * 企业获得投递记录
      *
-     * @param recruitmentId 招聘信息的id
-     * @param pageIndex     页码
-     * @param pageSize      页大小
+     * @param companyId 公司id
      * @return java.util.List<xz.fzu.model.ResumeDelivery>
      * @author Murphy
      * @date 2019/4/30 15:32
      */
-    List<ResumeDelivery> companyGetListInstance(String recruitmentId, int pageIndex, int pageSize);
+    List<ResumeDelivery> companyGetListInstance(String companyId);
 
     /**
      * 根据投递记录id删除记录

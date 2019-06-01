@@ -152,11 +152,11 @@ public class ResumeDeliveryController {
      * @description 获得自己的所有的投递记录
      */
     @RequestMapping(value = "/user/getlistdeliveryrecord", method = RequestMethod.POST)
-    public ResponseVO userGetDeliveryRecord(@RequestParam String token, @RequestBody PageData<ResumeDelivery> pageData) throws TokenExpiredException, InstanceNotExistException {
+    public ResponseVO userGetDeliveryRecord(@RequestParam String token, @RequestParam int status, @RequestBody PageData<ResumeDelivery> pageData) throws TokenExpiredException, InstanceNotExistException {
 
         ResponseVO responseVO = new ResponseVO();
         String userId = iUserService.verifyToken(token);
-        List<ResumeDelivery> list = iResumeDeliveryService.userGetResumeDeliveryRecord(userId, pageData);
+        List<ResumeDelivery> list = iResumeDeliveryService.userGetResumeDeliveryRecord(userId, status, pageData);
         pageData.setContentList(setTransients(list));
 
         return responseVO;
@@ -185,7 +185,7 @@ public class ResumeDeliveryController {
         iResumeService.updateResume(resume.getUserId(), resume);
         List<String> list = new ArrayList<>();
         list.add(resume.getUserId());
-        PushUtil.getInstance().push(list, "您的投递状态更新", "", resumeDelivery.getResumeDeliveryId() + "");
+        PushUtil.getInstance().push(list, "您的投递状态更新", "已更新", -1 + "");
 
         iCompanyService.verifyToken(token);
         iResumeDeliveryService.updateResumeDeliveryRecord(resumeDelivery);
@@ -218,12 +218,12 @@ public class ResumeDeliveryController {
      * @description 公司获得自己招聘信息所有的投递记录
      */
     @RequestMapping(value = "/company/getlistdeliveryrecord", method = RequestMethod.POST)
-    public ResponseVO companyGetDeliveryRecord(@RequestParam String token, @RequestBody PageData<ResumeDelivery> pageData) throws TokenExpiredException, InstanceNotExistException, UserNotFoundException {
+    public ResponseVO companyGetDeliveryRecord(@RequestParam String token, @RequestParam int statusA, @RequestParam int statusB, @RequestBody PageData<ResumeDelivery> pageData) throws TokenExpiredException, InstanceNotExistException, UserNotFoundException {
 
         ResponseVO<PageData> responseVO = new ResponseVO<>();
         iCompanyService.verifyToken(token);
         String companyId = iCompanyService.getInfoByToken(token).getCompanyId();
-        List<ResumeDelivery> list = iResumeDeliveryService.companyGetResumeDeliveryRecord(companyId, pageData);
+        List<ResumeDelivery> list = iResumeDeliveryService.companyGetResumeDeliveryRecord(companyId, statusA, statusB, pageData);
         pageData.setContentList(setTransients(list));
         responseVO.setResultObject(pageData);
 

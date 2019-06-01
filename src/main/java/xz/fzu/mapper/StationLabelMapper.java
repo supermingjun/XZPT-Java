@@ -1,4 +1,4 @@
-package xz.fzu.dao;
+package xz.fzu.mapper;
 
 import org.springframework.stereotype.Repository;
 
@@ -7,15 +7,15 @@ import org.springframework.stereotype.Repository;
  * @date 2019/5/419:06
  */
 @Repository
-public interface IIndustryLabelDao {
+public interface StationLabelMapper {
 
     /**
-     * 根据id查找行业标签
+     * 根据岗位id获得岗位标签
      *
-     * @param id id
+     * @param stationId 岗位id
      * @return java.lang.String
      * @author Murphy
      * @date 2019/5/4 19:08
      */
-    String getInstance(Long id);
+    String getInstance(Long stationId);
 }

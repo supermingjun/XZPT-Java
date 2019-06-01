@@ -1,8 +1,8 @@
 package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
-import xz.fzu.dao.IResumeTemplateDao;
 import xz.fzu.exception.InstanceNotExistException;
+import xz.fzu.mapper.ResumeTemplateMapper;
 import xz.fzu.model.ResumeTemplate;
 import xz.fzu.service.IResumeTemplateService;
 import xz.fzu.util.PageUtil;
@@ -19,21 +19,21 @@ import java.util.List;
 public class ResumeTemplateServiceImpl implements IResumeTemplateService {
 
     @Resource
-    IResumeTemplateDao iResumeTemplateDao;
+    ResumeTemplateMapper resumeTemplateMapper;
 
     @Override
     public void insertInstance(ResumeTemplate instance) {
-        iResumeTemplateDao.insert(instance);
+        resumeTemplateMapper.insert(instance);
     }
 
     @Override
     public ResumeTemplate getInstance(String fileName) {
-        return iResumeTemplateDao.selectByPrimaryKey(fileName);
+        return resumeTemplateMapper.selectByPrimaryKey(fileName);
     }
 
     @Override
     public List<ResumeTemplate> getPageData(PageData<ResumeTemplate> requestPage) throws InstanceNotExistException {
-        List<ResumeTemplate> list = iResumeTemplateDao.selectAll();
+        List<ResumeTemplate> list = resumeTemplateMapper.selectAll();
 
         return PageUtil.paging(list, requestPage);
     }

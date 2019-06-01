@@ -21,6 +21,7 @@ public interface IRecruitmentService {
     /**
      * 插入一条招聘信息
      *
+     * @param userIdList 用户列表
      * @param recruitment 招聘信息的实例
      * @return void
      * @author Murphy
@@ -105,7 +106,7 @@ public interface IRecruitmentService {
      * @date 2019/5/23 13:52
      * @throws InstanceNotExistException 找不到相应的id
      */
-    List<Recruitment> getRecruitmentByIds(Long label, List<Long> longs, PageData<Recruitment> requestPage) throws InstanceNotExistException;
+    List<Recruitment> getRecruitmentByHotpost(Long label, List<Long> longs, PageData<Recruitment> requestPage) throws InstanceNotExistException;
 
     /**
      * 根据投递记录里的recruitmentId获得招聘信息
