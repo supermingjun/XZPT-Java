@@ -29,6 +29,7 @@ public interface IResumeDeliveryService {
      * 用户获得获得简历投递记录
      *
      * @param userId   用户id
+     * @param status   投递记录的状态
      * @param pageData 页面数据
      * @return java.util.List<xz.fzu.model.ResumeDelivery>
      * @throws InstanceNotExistException 未找到实例
