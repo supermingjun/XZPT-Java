@@ -185,7 +185,7 @@ public class ResumeDeliveryController {
         iResumeService.updateResume(resume.getUserId(), resume);
         List<String> list = new ArrayList<>();
         list.add(resume.getUserId());
-        PushUtil.getInstance().push(list, "您的投递状态更新", "", resumeDelivery.getResumeDeliveryId() + "");
+        PushUtil.getInstance().push(list, "您的投递状态更新", "已更新", -1 + "");
 
         iCompanyService.verifyToken(token);
         iResumeDeliveryService.updateResumeDeliveryRecord(resumeDelivery);

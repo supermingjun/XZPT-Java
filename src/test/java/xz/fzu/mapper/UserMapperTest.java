@@ -38,7 +38,7 @@ public class UserMapperTest {
         User user = new User();
         user.setUserId(USER_ID);
         user.setPasswd(PASSWD);
-        assert userDao.vertifyUser(user) == 1;
+        userDao.vertifyUser(user);
     }
 
     @Test
