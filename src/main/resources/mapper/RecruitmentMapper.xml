@@ -64,10 +64,10 @@
             <if test=" degree !=null and degree != '' ">
                 degree = #{degree},
             </if>
-            <if test=" workTime != 0 ">
+            <if test=" workTime != 0  and workTime != null ">
                 work_time = #{workTime},
             </if>
-            <if test=" industryLabel != 0 ">
+            <if test=" industryLabel != 0  and industryLabel != null ">
                 industry_label = #{industryLabel},
             </if>
             <if test=" stationLabel !=null and stationLabel != '' ">
@@ -76,11 +76,11 @@
             <if test=" salary !=null and salary != '' ">
                 salary = #{salary},
             </if>
-            <if test=" jobType  != 0 ">
+            <if test=" jobType  != 0  and jobType != null ">
                 job_type = #{jobType},
             </if>
 
-            <if test=" validate != -2 ">
+            <if test=" validate != -2  and validate != null ">
                 validate = #{validate},
             </if>
             <if test=" headCount != null ">

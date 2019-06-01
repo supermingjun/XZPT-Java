@@ -91,7 +91,7 @@ public class RecruitmentServiceImpl implements IRecruitmentService {
     }
 
     @Override
-    public List<Recruitment> getRecruitmentByIds(Long label, List<Long> longs, PageData<Recruitment> requestPage) throws InstanceNotExistException {
+    public List<Recruitment> getRecruitmentByHotpost(Long label, List<Long> longs, PageData<Recruitment> requestPage) throws InstanceNotExistException {
 
         List<Recruitment> list = new ArrayList<>();
         for (Long aLong : longs) {

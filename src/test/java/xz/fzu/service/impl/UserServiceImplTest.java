@@ -17,7 +17,7 @@ public class UserServiceImplTest {
 //    @InjectMocks
 //    private UserServiceImpl iUserService;
 //    @Mock
-//    private UserMapper iUserDao;
+//    private UserMapper userMapper;
 //    @Test
 //    public void register() throws AccountUsedException {
 //        User user = new User();

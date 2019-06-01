@@ -90,7 +90,7 @@ public class HotSpotController {
                 recruitmentIds.add(hotPost.getRecruitmentId());
             }
             User user = iUserService.selectUserByToken(token);
-            list = iRecruitmentService.getRecruitmentByIds(user.getIndustryLabel(), recruitmentIds, pageData);
+            list = iRecruitmentService.getRecruitmentByHotpost(user.getIndustryLabel(), recruitmentIds, pageData);
 
             for (Recruitment recruitment : list) {
                 setCompanyName(recruitment);

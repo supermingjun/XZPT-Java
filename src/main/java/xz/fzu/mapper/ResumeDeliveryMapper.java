@@ -63,14 +63,12 @@ public interface ResumeDeliveryMapper extends Mapper<ResumeDelivery> {
     /**
      * 企业获得投递记录
      *
-     * @param recruitmentId 招聘信息的id
-     * @param pageIndex     页码
-     * @param pageSize      页大小
+     * @param companyId 公司id
      * @return java.util.List<xz.fzu.model.ResumeDelivery>
      * @author Murphy
      * @date 2019/4/30 15:32
      */
-    List<ResumeDelivery> companyGetListInstance(String recruitmentId, int pageIndex, int pageSize);
+    List<ResumeDelivery> companyGetListInstance(String companyId);
 
     /**
      * 根据投递记录id删除记录

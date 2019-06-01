@@ -40,7 +40,7 @@
                 company_name = #{companyName},
             </if>
             <if test=" headUrl !=null and headUrl != '' ">
-                head_url = #{head_url},
+                head_url = #{headUrl},
             </if>
             <if test=" email !=null and email != '' ">
                 email = #{email},
@@ -48,7 +48,7 @@
             <if test=" description != null and description != '' ">
                 description = #{description},
             </if>
-            <if test=" status != 0 ">
+            <if test=" status != 0 and status != null ">
                 status = #{status},
             </if>
             <if test=" token != null and token !='' ">
