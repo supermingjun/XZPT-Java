@@ -17,7 +17,18 @@ import javax.persistence.Table;
 public class ResumeTemplate {
 
     @Id
+    /**
+     * 用于导出带数据简历的doc
+     */
     private String templateFileName;
     private String imgFileName;
+    /**
+     * 查看未填充数据的简历模板
+     */
+    private String tempFileName;
+    /**
+     * 模板名
+     */
+    private String templateName;
 
 }

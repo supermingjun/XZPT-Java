@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="xz.fzu.dao.ICompanyDao">
+<mapper namespace="xz.fzu.mapper.CompanyMapper">
     <resultMap id="CompanyResultMap" type="xz.fzu.model.Company">
         <result property="companyId" column="company_id"/>
         <result property="telephone" column="telephone"/>
@@ -40,7 +40,7 @@
                 company_name = #{companyName},
             </if>
             <if test=" headUrl !=null and headUrl != '' ">
-                head_url = #{head_url},
+                head_url = #{headUrl},
             </if>
             <if test=" email !=null and email != '' ">
                 email = #{email},
@@ -48,7 +48,7 @@
             <if test=" description != null and description != '' ">
                 description = #{description},
             </if>
-            <if test=" status != 0 ">
+            <if test=" status != 0 and status != null ">
                 status = #{status},
             </if>
             <if test=" token != null and token !='' ">

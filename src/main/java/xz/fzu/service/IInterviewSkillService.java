@@ -32,5 +32,5 @@ public interface IInterviewSkillService {
      * @author Murphy
      * @date 2019/5/19 19:04
      */
-    List<InterviewSkill> getListInstance(PageData pageData) throws InstanceNotExistException;
+    List<InterviewSkill> getListInstance(PageData<InterviewSkill> pageData) throws InstanceNotExistException;
 }

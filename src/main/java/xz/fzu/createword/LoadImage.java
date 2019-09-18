@@ -1,15 +1,19 @@
 package xz.fzu.createword;
 
+import Decoder.BASE64Encoder;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import Decoder.BASE64Encoder;
-
+/**
+ * 	图片加载
+ * @author LITM
+ *@since 2019年5月22日
+ */
 public class LoadImage {
 	public static String loadImage(String imagePath) {
 		InputStream in = null;
-		byte data[] = null;
+		byte[] data = null;
 		try {
 			in = new FileInputStream(imagePath);
 			data = new byte[in.available()];

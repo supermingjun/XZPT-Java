@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="xz.fzu.dao.IUserDao">
+<mapper namespace="xz.fzu.mapper.UserMapper">
 
     <!--返回值的map-->
     <resultMap id="selectMap" type="xz.fzu.model.User">
@@ -85,7 +85,7 @@
             <if test=" email != null and email != '' ">
                 email = #{email},
             </if>
-            <if test=" sex != 0 ">
+            <if test=" sex != 0  and sex != null ">
                 sex = #{sex},
             </if>
             <if test=" school != null and school != '' ">
@@ -94,16 +94,16 @@
             <if test=" specialty != null and specialty != '' ">
                 specialty = #{specialty},
             </if>
-            <if test=" jobType != -1 ">
+            <if test=" startTime != null ">
                 start_time = #{startTime},
             </if>
-            <if test=" jobType != -1 ">
+            <if test=" endTime != null ">
                 end_time = #{endTime},
             </if>
-            <if test=" workTime != 0 ">
+            <if test=" workTime != 0  and workTime != null ">
                 work_time = #{workTime},
             </if>
-            <if test=" jobType != 0 ">
+            <if test=" jobType != 0  and jobType != null ">
                 job_type = #{jobType},
             </if>
             <if test=" presentCity != null and presentCity != '' ">
@@ -112,7 +112,7 @@
             <if test=" expectedCity != null and expectedCity != '' ">
                 expected_city = #{expectedCity},
             </if>
-            <if test=" industryLabel != 0 ">
+            <if test=" industryLabel != 0 and industryLabel != null ">
                 industry_label = #{industryLabel},
             </if>
             <if test=" stationLabel != null and stationLabel != '' ">
@@ -124,10 +124,10 @@
             <if test=" token != null and token != '' ">
                 token = #{token},
             </if>
-            <if test=" age != 0 ">
+            <if test=" age != 0  and age != null ">
                 age = #{age},
             </if>
-            <if test=" highestEducation != 0 ">
+            <if test=" highestEducation != 0  and highestEducation != null ">
                 highest_education = #{highestEducation},
             </if>
         </set>

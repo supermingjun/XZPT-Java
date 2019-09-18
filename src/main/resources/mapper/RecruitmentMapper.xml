@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="xz.fzu.dao.IRecruitmentDao">
+<mapper namespace="xz.fzu.mapper.RecruitmentMapper">
     <resultMap id="resultMapper" type="xz.fzu.model.Recruitment">
         <result property="recruitmentId" column="recruitment_id"/>
         <result property="publishTime" column="publish_time"/>
@@ -64,10 +64,10 @@
             <if test=" degree !=null and degree != '' ">
                 degree = #{degree},
             </if>
-            <if test=" workTime != 0 ">
+            <if test=" workTime != 0  and workTime != null ">
                 work_time = #{workTime},
             </if>
-            <if test=" industryLabel != 0 ">
+            <if test=" industryLabel != 0  and industryLabel != null ">
                 industry_label = #{industryLabel},
             </if>
             <if test=" stationLabel !=null and stationLabel != '' ">
@@ -76,11 +76,11 @@
             <if test=" salary !=null and salary != '' ">
                 salary = #{salary},
             </if>
-            <if test=" jobType  != 0 ">
+            <if test=" jobType  != 0  and jobType != null ">
                 job_type = #{jobType},
             </if>
 
-            <if test=" validate != -2 ">
+            <if test=" validate != -2  and validate != null ">
                 validate = #{validate},
             </if>
             <if test=" headCount != null ">
@@ -91,6 +91,9 @@
     </update>
     <!--&#45;&#45;         SELECT * FROM recruitment WHERE job_name LIKE #{arg0} OR description LIKE #{arg0} ORDER BY publish_time DESC LIMIT #{arg1},#{arg2}-->
     <select id="selectInstanceByKeyWord" resultType="xz.fzu.model.Recruitment" resultMap="resultMapper">
-        SELECT * FROM recruitment WHERE job_name LIKE #{arg0} OR description LIKE #{arg0} ORDER BY job_name LIKE  #{arg0} DESC LIMIT #{arg1},#{arg2}
+        SELECT * FROM recruitment WHERE validate = 0 and job_name LIKE #{arg0} OR description LIKE #{arg0} ORDER BY job_name LIKE  #{arg0} DESC LIMIT #{arg1},#{arg2}
+    </select>
+    <select id="selectNumber" resultType="int">
+        SELECT COUNT(*) FROM recruitment WHERE company_id = #{companyId}
     </select>
 </mapper>

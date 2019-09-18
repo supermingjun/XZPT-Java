@@ -1,10 +1,14 @@
 package xz.fzu.service;
 
+import org.json.simple.parser.ParseException;
 import xz.fzu.exception.EvilIntentions;
 import xz.fzu.exception.InstanceNotExistException;
+import xz.fzu.exception.OverLimitException;
 import xz.fzu.model.Recruitment;
+import xz.fzu.model.ResumeDelivery;
 import xz.fzu.vo.PageData;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -17,12 +21,16 @@ public interface IRecruitmentService {
     /**
      * 插入一条招聘信息
      *
+     * @param userIdList 用户列表
      * @param recruitment 招聘信息的实例
      * @return void
      * @author Murphy
      * @date 2019/4/27 10:48
+     * @throws OverLimitException 超出发布信息上限异常
+     * @throws IOException mipush异常
+     * @throws ParseException parse异常
      */
-    Long insertRecruitment(Recruitment recruitment);
+    Long insertRecruitment(List<String> userIdList, Recruitment recruitment) throws OverLimitException, IOException, ParseException;
 
     /**
      * 根据id获得招聘信息
@@ -90,10 +98,32 @@ public interface IRecruitmentService {
     /**
      * 根据listid获得招聘信息
      *
+     * @param label 岗位标签
      * @param longs ids
+     * @param requestPage   分页信息
      * @return java.util.List<xz.fzu.model.Recruitment>
      * @author Murphy
      * @date 2019/5/23 13:52
+     * @throws InstanceNotExistException 找不到相应的id
      */
-    List<Recruitment> getRecruitmentByIds(List<Long> longs, PageData requestPage) throws InstanceNotExistException;
+    List<Recruitment> getRecruitmentByHotpost(Long label, List<Long> longs, PageData<Recruitment> requestPage) throws InstanceNotExistException;
+
+    /**
+     * 根据投递记录里的recruitmentId获得招聘信息
+     * @param resumeDeliveries
+     * @return java.util.List<xz.fzu.model.Recruitment>
+     * @author litm
+     * @date 2019/5/30 23:15:57
+     */
+    List<Recruitment> getRecruitmentByResumeDeliveries(List<ResumeDelivery> resumeDeliveries);
+    /**
+     * 验证招聘信息数目是否超出限制
+     *
+     * @param companyId 公司id
+     * @return void
+     * @author Murphy
+     * @date 2019/5/27 14:07
+     * @throws OverLimitException 超出限制异常
+     */
+    void verifyLimit(String companyId) throws OverLimitException;
 }

@@ -1,12 +1,13 @@
 package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
-import xz.fzu.dao.IUserDao;
 import xz.fzu.exception.AccountUsedException;
 import xz.fzu.exception.PasswordErrorException;
 import xz.fzu.exception.TokenExpiredException;
+import xz.fzu.mapper.UserMapper;
 import xz.fzu.model.User;
 import xz.fzu.service.IUserService;
+import xz.fzu.util.Constants;
 import xz.fzu.util.Sha;
 import xz.fzu.util.TokenUtil;
 
@@ -23,7 +24,7 @@ import java.util.UUID;
 public class UserServiceImpl implements IUserService {
 
     @Resource
-    IUserDao iUserDao;
+    UserMapper userMapper;
 
     /**
      * @param user 用户实例
@@ -43,7 +44,10 @@ public class UserServiceImpl implements IUserService {
         user.setPasswd(Sha.encrypt(user.getPasswd()));
         String token = TokenUtil.createToken(user.getUserId(), user.getPasswd());
         user.setToken(token);
-        iUserDao.insert(user);
+        if (user.getHeadUrl() == null) {
+            user.setHeadUrl(Constants.DEFAULT_PNG);
+        }
+        userMapper.insert(user);
 
         return token;
     }
@@ -57,12 +61,12 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public User selectByEmail(String email) {
-        return iUserDao.selectByEmail(email);
+        return userMapper.selectByEmail(email);
     }
 
     @Override
     public User selectByUserId(String userId) {
-        return iUserDao.selectByUserId(userId);
+        return userMapper.selectByUserId(userId);
     }
 
     /**
@@ -77,7 +81,7 @@ public class UserServiceImpl implements IUserService {
 
         // 密码加密处理
         user.setPasswd(Sha.encrypt(user.getPasswd()));
-        if (iUserDao.vertifyUser(user) != 1) {
+        if (userMapper.vertifyUser(user) != 1) {
             throw new PasswordErrorException();
         }
         // 因为传入的user只有email和passwd
@@ -100,7 +104,7 @@ public class UserServiceImpl implements IUserService {
     public String verifyToken(String token) throws TokenExpiredException {
 
         TokenUtil.verify(token);
-        String userId = iUserDao.selectUserIdByToken(token);
+        String userId = userMapper.selectUserIdByToken(token);
         if (userId == null) {
             throw new TokenExpiredException();
         }
@@ -117,7 +121,7 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public void updateToken(String token, String userId) {
-        iUserDao.updateToken(token, userId);
+        userMapper.updateToken(token, userId);
     }
 
     /**
@@ -131,7 +135,7 @@ public class UserServiceImpl implements IUserService {
     public User selectUserByToken(String token) throws TokenExpiredException {
 
         String userId = verifyToken(token);
-        User user = iUserDao.selectByUserId(userId);
+        User user = userMapper.selectByUserId(userId);
         user.setPasswd(null);
         user.setToken(null);
 
@@ -153,7 +157,7 @@ public class UserServiceImpl implements IUserService {
         user.setUserId(userId);
         user.setPasswd(null);
 
-        iUserDao.updateInfo(user);
+        userMapper.updateInfo(user);
     }
 
     /**
@@ -174,13 +178,13 @@ public class UserServiceImpl implements IUserService {
 
         String userId = verifyToken(token);
 
-        User user = iUserDao.selectByUserId(userId);
+        User user = userMapper.selectByUserId(userId);
         if (!oldPasswd.equals(user.getPasswd())) {
             throw new PasswordErrorException();
         }
-        iUserDao.updatePasswd(userId, newPasswd);
+        userMapper.updatePasswd(userId, newPasswd);
         String newToken = TokenUtil.createToken(userId, newPasswd);
-        iUserDao.updateToken(newToken, userId);
+        userMapper.updateToken(newToken, userId);
 
         return newToken;
     }
@@ -196,17 +200,19 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void resetPasswd(String email, String passwd) {
 
-        String userId = iUserDao.selectByEmail(email).getUserId();
+        String userId = userMapper.selectByEmail(email).getUserId();
         User user = new User();
         user.setUserId(userId);
         user.setPasswd(Sha.encrypt(passwd));
+        String newToken = TokenUtil.createToken(userId, passwd);
+        user.setToken(newToken);
 
-        iUserDao.updateInfo(user);
+        userMapper.updateInfo(user);
     }
 
     @Override
     public List<String> selectUserByIndustryLabel(long industryLabel) {
-        List<User> userList = iUserDao.selectAll();
+        List<User> userList = userMapper.selectAll();
         List<String> res = new ArrayList<>(userList.size() / 2);
         for (User user : userList) {
             if (user.getIndustryLabel() != null && user.getIndustryLabel() == industryLabel) {

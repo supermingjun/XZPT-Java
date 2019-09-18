@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="xz.fzu.dao.IProfileDao">
+<mapper namespace="xz.fzu.mapper.ProfileMapper">
     <resultMap id="recruitmentProfileMap" type="xz.fzu.model.RecruitmentProfile">
         <result property="recruitmentId" column="recruitment_id"/>
         <result property="industryLabel" column="industry_label"/>
@@ -11,6 +11,7 @@
         <result property="salary" column="salary"/>
         <result property="degree" column="degree"/>
         <result property="stationLabel" column="station_label"/>
+        <result property="jobName" column="job_name"/>
     </resultMap>
 
     <resultMap id="userProfileMap" type="xz.fzu.model.UserProfile">

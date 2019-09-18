@@ -44,5 +44,7 @@ public class Recruitment implements Serializable {
     private String station;
     @Transient
     private String industry;
+    @Transient
+    private int count;
 
 }

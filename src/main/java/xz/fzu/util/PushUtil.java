@@ -53,6 +53,10 @@ public class PushUtil {
                 .notifyType(1)
                 .build();
         //根据useraccount, 发送消息到指定设备上
-        sender.sendToAlias(message, alias, 3);
+        if (alias.size() == 1) {
+            sender.sendToAlias(message, alias.get(0), 3);
+        } else {
+            sender.sendToAlias(message, alias, 3);
+        }
     }
 }

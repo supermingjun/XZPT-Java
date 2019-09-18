@@ -2,17 +2,11 @@ package xz.fzu.controller;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
-import xz.fzu.exception.EvilIntentions;
-import xz.fzu.exception.InstanceNotExistException;
-import xz.fzu.exception.TokenExpiredException;
-import xz.fzu.exception.UserNotFoundException;
+import xz.fzu.exception.*;
 import xz.fzu.model.Company;
 import xz.fzu.model.Recruitment;
-import xz.fzu.service.ICompanyService;
-import xz.fzu.service.ILabelService;
-import xz.fzu.service.IRecruitmentService;
-import xz.fzu.service.IUserService;
-import xz.fzu.util.PushUtil;
+import xz.fzu.model.ResumeDelivery;
+import xz.fzu.service.*;
 import xz.fzu.vo.PageData;
 import xz.fzu.vo.ResponseVO;
 
@@ -51,17 +45,14 @@ public class RecruitmentController {
      */
     @RequestMapping(value = "/company/releaserecruitment", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException, IOException, ParseException {
+    public ResponseVO releaseRecruitment(@RequestBody Recruitment recruitment, @RequestParam String token) throws TokenExpiredException, UserNotFoundException, IOException, ParseException, OverLimitException {
 
         ResponseVO responseVO = new ResponseVO();
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
         recruitment.setCompanyId(company.getCompanyId());
-        Long recruitmentId = iRecruitmentService.insertRecruitment(recruitment);
         List<String> userIdList = iUserService.selectUserByIndustryLabel(recruitment.getIndustryLabel());
-        if (recruitment.getIndustryLabel() != null) {
-            PushUtil.getInstance().push(userIdList, recruitment.getJobName(), recruitment.getDescription(), recruitmentId + "");
-        }
+        Long recruitmentId = iRecruitmentService.insertRecruitment(userIdList, recruitment);
         return responseVO;
     }
 
@@ -97,7 +88,7 @@ public class RecruitmentController {
         iCompanyService.verifyToken(token);
         Company company = iCompanyService.getInfoByToken(token);
         List<Recruitment> list = iRecruitmentService.getListRecruitmentByCompanyId(company.getCompanyId(), pageData);
-        listSetCompanyName(list);
+        listSetProperty(list);
         pageData.setContentList(list);
         responseVO.setResultObject(pageData);
 
@@ -162,28 +153,8 @@ public class RecruitmentController {
         return getRecruitmentById(recruitmentId);
     }
 
-    /**
-     * @param token     token
-     * @param companyId 企业id
-     * @param pageData  页码信息相关
-     * @return xz.fzu.vo.ResponseVO
-     * @author Murphy
-     * @date 2019/4/27 11:15
-     * @description 按id获得指定公司所有招聘信息
-     */
-    @RequestMapping(value = "/user/getlistrecruitmentbycompanyid", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseVO<PageData> getRecruitmentById(@RequestParam String token, @RequestParam String companyId, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException, TokenExpiredException {
-
-        ResponseVO<PageData> responseVO = new ResponseVO<>();
-        iUserService.verifyToken(token);
-        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(companyId, pageData);
-        listSetCompanyName(recruitmentList);
-        pageData.setContentList(recruitmentList);
-        responseVO.setResultObject(pageData);
-
-        return responseVO;
-    }
+    @Resource
+    IResumeDeliveryService iResumeDeliveryService;
 
 
     //Same
@@ -203,7 +174,7 @@ public class RecruitmentController {
         ResponseVO<PageData> responseVO = new ResponseVO<>();
         iUserService.verifyToken(token);
         List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByKeyWord(keyWord, pageData);
-        listSetCompanyName(recruitmentList);
+        listSetProperty(recruitmentList);
         pageData.setContentList(recruitmentList);
         responseVO.setResultObject(pageData);
 
@@ -211,19 +182,24 @@ public class RecruitmentController {
     }
 
     /**
-     * @param recruitmentId 招聘信息id
-     * @return xz.fzu.vo.ResponseVO<xz.fzu.model.Recruitment>
+     * @param token     token
+     * @param companyId 企业id
+     * @param pageData  页码信息相关
+     * @return xz.fzu.vo.ResponseVO
      * @author Murphy
-     * @date 2019/5/2 14:01
-     * @description 根据招聘信息id获得招聘信息
+     * @date 2019/4/27 11:15
+     * @description 按id获得指定公司所有招聘信息
      */
-    private ResponseVO<Recruitment> getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
+    @RequestMapping(value = "/user/getlistrecruitmentbycompanyid", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseVO<PageData> getRecruitmentById(@RequestParam String token, @RequestParam String companyId, @RequestBody PageData<Recruitment> pageData) throws InstanceNotExistException, TokenExpiredException {
 
-        ResponseVO<Recruitment> responseVO = new ResponseVO<>();
-        Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
-        setCompanyName(recruitment);
-        setLabel(recruitment);
-        responseVO.setResultObject(recruitment);
+        ResponseVO<PageData> responseVO = new ResponseVO<>();
+        iUserService.verifyToken(token);
+        List<Recruitment> recruitmentList = iRecruitmentService.getListRecruitmentByCompanyId(companyId, pageData);
+        listSetProperty(recruitmentList);
+        pageData.setContentList(recruitmentList);
+        responseVO.setResultObject(pageData);
 
         return responseVO;
     }
@@ -268,10 +244,11 @@ public class RecruitmentController {
      * @author Murphy
      * @date 2019/5/3 0:37
      */
-    private void listSetCompanyName(List<Recruitment> list) {
+    private void listSetProperty(List<Recruitment> list) {
 
         for (Recruitment recruitment : list) {
             setCompanyName(recruitment);
+            setCount(recruitment);
         }
     }
 
@@ -292,5 +269,45 @@ public class RecruitmentController {
             e.printStackTrace();
         }
         recruitment.setCompanyName(companyName);
+    }
+
+    /**
+     * @param recruitmentId 招聘信息id
+     * @return xz.fzu.vo.ResponseVO<xz.fzu.model.Recruitment>
+     * @author Murphy
+     * @date 2019/5/2 14:01
+     * @description 根据招聘信息id获得招聘信息
+     */
+    private ResponseVO<Recruitment> getRecruitmentById(long recruitmentId) throws InstanceNotExistException {
+
+        ResponseVO<Recruitment> responseVO = new ResponseVO<>();
+        Recruitment recruitment = iRecruitmentService.getRecruitmentById(recruitmentId);
+        setCompanyName(recruitment);
+        setLabel(recruitment);
+        setCount(recruitment);
+        responseVO.setResultObject(recruitment);
+
+        return responseVO;
+    }
+
+    /**
+     * 设置单个招聘信息的人数
+     *
+     * @param recruitment 招聘信息
+     * @return void
+     * @author Murphy
+     * @date 2019/5/27 21:37
+     */
+    private void setCount(Recruitment recruitment) {
+        Long id = recruitment.getRecruitmentId();
+
+        int count = 0;
+        List<ResumeDelivery> resumeDeliveries = iResumeDeliveryService.getAllRecord();
+        for (ResumeDelivery delivery : resumeDeliveries) {
+            if (delivery.getRecruitmentId().equals(id)) {
+                count++;
+            }
+        }
+        recruitment.setCount(count);
     }
 }

@@ -4,6 +4,7 @@ import xz.fzu.model.RecommendResult;
 import xz.fzu.model.RecruitmentProfile;
 import xz.fzu.model.UserProfile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -153,35 +154,32 @@ public class RecommendAlgorithm {
         AlgorithImplement algorithImplement = new AlgorithImplement();
         List<RecruitmentProfile> preScreeningResults = algorithImplement.directFiltration(upf, rps);
         Map<Long, double[]> weightResults = algorithImplement.quantization(upf, preScreeningResults);
-        List<RecommendResult> esrs = algorithImplement.computationalSimilarity(upf.getUserId(), weightResults);
-        esrs = algorithImplement.getTopN(esrs, n);
-
-        return esrs;
+        List<RecommendResult> esrs = algorithImplement.computationalSimilarity(upf, weightResults);
+        return algorithImplement.getTopN(esrs, n);
     }
-	/*public static void main(String[] args) {
-		
-		RecommendAlgorithm ra = new RecommendAlgorithm();
-		UserProfile upf = new UserProfile("975835798",1,"北京",0,1,"",3,"");
-		List<RecruitmentProfile> rps = new ArrayList<RecruitmentProfile>();
-		RecruitmentProfile rp1 = new RecruitmentProfile(975835790,2," 北京 ",1,1,"","","");
-		RecruitmentProfile rp2 = new RecruitmentProfile(975835791,1,"  北京 ",1,1,"","","");
-		RecruitmentProfile rp3 = new RecruitmentProfile(975835792,1," 北京 ",1,1,"","","");
-		RecruitmentProfile rp4 = new RecruitmentProfile(975835793,1," 北京 ",1,1,"","","");
-		RecruitmentProfile rp5 = new RecruitmentProfile(975835794,1,"北京 ",1,1,"","","");
-		RecruitmentProfile rp6 = new RecruitmentProfile(975835795,1,"北京 ",1,2,"","","");
-		RecruitmentProfile rp7 = new RecruitmentProfile(975835796,1,"北京 ",1,1,"","","");
-		RecruitmentProfile rp8 = new RecruitmentProfile(975835797,1,"北京 ",1,2,"","","");
-		rps.add(rp1);
-		rps.add(rp2);
-		rps.add(rp3);
-		rps.add(rp4);
-		rps.add(rp5);
-		rps.add(rp6);
-		rps.add(rp7);
-		rps.add(rp8);
-		List<RecommendResult> list = ra.recomAlgorithm(upf, rps, 5);
-		for(RecommendResult er : list) {
-			System.out.println(er.getUserId()+" "+er.getRecruitmentId()+" "+er.getSimilarityResult());
-		}
-	}*/
+//	public static void main(String[] args) {
+//		RecommendAlgorithm ra = new RecommendAlgorithm();
+//		UserProfile upf = new UserProfile("975835798",(long)1,"福州",(long)0,(long)1,"1k-1k",(long)4,"java");
+//		List<RecruitmentProfile> rps = new ArrayList<RecruitmentProfile>();
+//		RecruitmentProfile rp1 = new RecruitmentProfile((long)975835790,(long)1," 北京 ",(long)1,(long)1,"10k-20k","本科及以上","","视觉设计师");
+//		RecruitmentProfile rp2 = new RecruitmentProfile((long)975835791,(long)1," 北京 ",(long)1,(long)1,"22k-24k","","","c++工程师");
+//		RecruitmentProfile rp3 = new RecruitmentProfile((long)975835792,(long)1," 北京 ",(long)1,(long)1,"23k-24k","","","java开发工程师");
+//		RecruitmentProfile rp4 = new RecruitmentProfile((long)975835793,(long)1," 北京 ",(long)1,(long)1,"14k-24k","","","java测试工程师");
+//		RecruitmentProfile rp5 = new RecruitmentProfile((long)975835794,(long)1," 北京 ",(long)1,(long)1,"25k-24k","本科及以上","","python工程师");
+//		RecruitmentProfile rp6 = new RecruitmentProfile((long)975835795,(long)1," 北京 ",(long)1,(long)1,"26k-24k","本科及以上","","销售");
+//		RecruitmentProfile rp7 = new RecruitmentProfile((long)975835796,(long)1," 北京 ",(long)1,(long)1,"27k-24k","本科及以上","","java工程师");
+//		RecruitmentProfile rp8 = new RecruitmentProfile((long)975835797,(long)1," 北京 ",(long)1,(long)1,"28k-24k","本科及以上","","java工程师");
+//		rps.add(rp1);
+//		rps.add(rp2);
+//		rps.add(rp3);
+//		rps.add(rp4);
+//		rps.add(rp5);
+//		rps.add(rp6);
+//		rps.add(rp7);
+//		rps.add(rp8);
+//		List<RecommendResult> list = ra.recomAlgorithm(upf, rps, 10);
+//		for(RecommendResult er : list) {
+//			System.out.println(er.getUserId()+" "+er.getRecruitmentId()+" "+er.getSimilarityResult());
+//		}
+//	}
 }

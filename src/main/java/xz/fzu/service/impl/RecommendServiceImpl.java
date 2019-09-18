@@ -1,7 +1,7 @@
 package xz.fzu.service.impl;
 
 import org.springframework.stereotype.Service;
-import xz.fzu.dao.IRecommendResultDao;
+import xz.fzu.mapper.RecommendResultMapper;
 import xz.fzu.model.RecommendResult;
 import xz.fzu.service.IRecommendService;
 
@@ -16,22 +16,22 @@ import java.util.List;
 public class RecommendServiceImpl implements IRecommendService {
 
     @Resource
-    IRecommendResultDao iRecommendResultDao;
+    RecommendResultMapper recommendResultMapper;
 
     @Override
     public void insertInstance(List<RecommendResult> recommendResults) {
         for (RecommendResult recommendResult : recommendResults) {
-            iRecommendResultDao.insertInstance(recommendResult);
+            recommendResultMapper.insertInstance(recommendResult);
         }
     }
 
     @Override
     public List<RecommendResult> getListResult(String userId) {
-        return iRecommendResultDao.getListResult(userId);
+        return recommendResultMapper.getListResult(userId);
     }
 
     @Override
     public void deleteAll() {
-        iRecommendResultDao.deleteAll();
+        recommendResultMapper.deleteAll();
     }
 }

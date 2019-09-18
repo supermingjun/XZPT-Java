@@ -19,8 +19,7 @@ public class RecommendResult implements Comparable<RecommendResult> {
 
     @Override
     public int compareTo(RecommendResult o) {
-
-        return o.getSimilarityResult() > this.getSimilarityResult() ? 0 : -1;
+        return (int) ((o.getSimilarityResult() - this.getSimilarityResult() ) * 1000);
     }
 
 }

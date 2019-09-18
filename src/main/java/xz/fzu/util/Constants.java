@@ -71,9 +71,17 @@ public class Constants {
      */
     public static final int CSV_LENGTH_ERROR = 2020;
     /**
+     * 导出失败
+     */
+    public static final int EXPORT_ERROR = 2021;
+    /**
      * CSV错误
      */
     public static final int CSV_ERROR = 2021;
+    /**
+     * 超过发布岗位数量限制
+     */
+    public static final int OVER_LIMIT = 2022;
 
 
     // 文件相关
@@ -97,6 +105,7 @@ public class Constants {
      * 家目录
      */
     public static String FILE_HOME = "/home/tomcat8";
+    public static String DEFAULT_PNG = "public/default_head_url.png";
 
     public static final String RESULT_MSG = "RESULT_MSG";
     public static final String RESULT_OBJECT = "RESULT_OBJECT";

@@ -29,25 +29,28 @@ public interface IResumeDeliveryService {
      * 用户获得获得简历投递记录
      *
      * @param userId   用户id
+     * @param status   投递记录的状态
      * @param pageData 页面数据
      * @return java.util.List<xz.fzu.model.ResumeDelivery>
      * @throws InstanceNotExistException 未找到实例
      * @author Murphy
      * @date 2019/4/30 19:02
      */
-    List<ResumeDelivery> userGetResumeDeliveryRecord(String userId, PageData pageData) throws InstanceNotExistException;
+    List<ResumeDelivery> userGetResumeDeliveryRecord(String userId, int status, PageData pageData) throws InstanceNotExistException;
 
     /**
      * 公司获得简历投递记录
      *
      * @param comapnyId 企业id
+     * @param statusA
+     * @param statusB
      * @param pageData  页面数据
      * @return java.util.List<xz.fzu.model.ResumeDelivery>
      * @throws InstanceNotExistException 未找到实例
      * @author Murphy
      * @date 2019/4/30 19:04
      */
-    List<ResumeDelivery> companyGetResumeDeliveryRecord(String comapnyId, PageData pageData) throws InstanceNotExistException;
+    List<ResumeDelivery> companyGetResumeDeliveryRecord(String comapnyId, int statusA, int statusB, PageData<ResumeDelivery> pageData) throws InstanceNotExistException;
 
     /**
      * 根据简历获得投递记录
@@ -101,4 +104,17 @@ public interface IResumeDeliveryService {
      * @date 2019/5/5 2:03
      */
     List<ResumeDelivery> getAllRecord();
+
+    /**
+     * 根据用户id获得所有记录
+     *
+     * @param
+     * @param userId 用户id
+     * @param pageData 分页信息
+     * @return void
+     * @author Murphy
+     * @date 2019/5/27 23:13
+     * @throws InstanceNotExistException 没有找到用户记录就报错
+     */
+    List<ResumeDelivery> getRecordByUserId(String userId, PageData<ResumeDelivery> pageData) throws InstanceNotExistException;
 }
