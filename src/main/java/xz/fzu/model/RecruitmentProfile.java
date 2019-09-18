@@ -19,5 +19,19 @@ public class RecruitmentProfile {
     private String salary;
     private String degree;
     private String stationLabel;
-
+    private String jobName;
+//    public RecruitmentProfile(){
+//
+//    }
+//    public RecruitmentProfile(Long recruitmentId, Long industryLabel, String location, Long workTime, Long jobType, String salary, String degree, String stationLabel, String jobName) {
+//        this.recruitmentId = recruitmentId;
+//        this.industryLabel = industryLabel;
+//        this.location = location;
+//        this.workTime = workTime;
+//        this.jobType = jobType;
+//        this.salary = salary;
+//        this.degree = degree;
+//        this.stationLabel = stationLabel;
+//        this.jobName = jobName;
+//    }
 }

@@ -35,6 +35,12 @@ public interface ProfileMapper {
      */
     List<RecruitmentProfile> getRecruitmentProfile();
 
+    /**
+     * 获得userProfile
+     * @return
+     */
+    List<UserProfile> getUserProfile();
+
 
     /**
      * 查找所有用户id

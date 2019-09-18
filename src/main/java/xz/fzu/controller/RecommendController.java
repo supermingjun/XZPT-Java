@@ -1,5 +1,7 @@
 package xz.fzu.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +29,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/user", method = RequestMethod.POST)
 public class RecommendController {
-
     @Resource
     RecommendAlgorithm recomAlgorithm;
     @Resource
@@ -69,11 +70,11 @@ public class RecommendController {
                 for (String string : iProfileService.selectUserId()) {
 
                     List<RecruitmentProfile> recruitmentProfiles = iProfileService.getRecruitmentProfile();
-                    List<RecommendResult> recommendResults = recomAlgorithm.recomAlgorithm(iProfileService.getUserProfile(string), recruitmentProfiles, 10);
+                    List<RecommendResult> recommendResults = recomAlgorithm.recomAlgorithm(iProfileService.getUserProfile(string), recruitmentProfiles, 30);
                     iRecommendService.insertInstance(recommendResults);
                 }
                 try {
-                    Thread.sleep(1000 * 60 * 60 * 6);
+                    Thread.sleep(1000 * 60 * 1 * 1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

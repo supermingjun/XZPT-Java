@@ -62,7 +62,7 @@ public class HotSpotController {
                 List<Recruitment> recruitments = iRecruitmentService.getRecruitmentByResumeDeliveries(resumeDeliveries);
                 hotPosts = generatePopularPost.generatePopularPostRank(resumeDeliveries,recruitments);
                 try {
-                    Thread.sleep(1000 * 60 * 60 * 6);
+                    Thread.sleep(1000 * 60 * 5 * 1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

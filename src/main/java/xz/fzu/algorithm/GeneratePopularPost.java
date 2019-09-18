@@ -89,6 +89,7 @@ public class GeneratePopularPost {
                 hotPosts.put(recruitmentId, hotPost);
             }
         }
+
         List<HotPost> hotPosts2 = new ArrayList<>(hotPosts.values());
         Collections.sort(hotPosts2);
         return hotPosts2;

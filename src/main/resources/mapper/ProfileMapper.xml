@@ -11,6 +11,7 @@
         <result property="salary" column="salary"/>
         <result property="degree" column="degree"/>
         <result property="stationLabel" column="station_label"/>
+        <result property="jobName" column="job_name"/>
     </resultMap>
 
     <resultMap id="userProfileMap" type="xz.fzu.model.UserProfile">
